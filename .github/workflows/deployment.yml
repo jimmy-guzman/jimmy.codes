@@ -1,0 +1,32 @@
+name: deployment
+
+on: [deployment_status]
+jobs:
+  e2e:
+    if: github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: setup pnpm
+        uses: pnpm/action-setup@15569a497d6aff479ba1c47c859888e22a431052
+        with:
+          version: 6.21.1
+      # TODO: disabling because of https://github.com/actions/cache/issues/319, consider rolling custom cache
+      # - name: setup cache
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: 16
+      #     cache: 'pnpm'
+
+      - name: install
+        run: pnpm install --frozen-lockfile
+
+      - name: cypress
+        uses: cypress-io/github-action@v2
+        with:
+          install: false
+          record: true
+        env:
+          CYPRESS_BASE_URL: ${{ github.event.deployment_status.target_url }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

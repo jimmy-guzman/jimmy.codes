@@ -1,0 +1,9 @@
+extends:
+  [
+    'jimmy-guzman',
+    'jimmy-guzman/typescript',
+    'jimmy-guzman/react',
+    'plugin:@next/next/recommended',
+  ]
+parserOptions:
+  project: ['./tsconfig.json']
