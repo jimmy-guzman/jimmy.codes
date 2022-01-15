@@ -1,0 +1,10 @@
+extends:
+  - ../.eslintrc.yml
+globals:
+  cy: false
+  Cypress: false
+  expect: false
+  assert: false
+  chai: false
+rules:
+  jest/expect-expect: off
