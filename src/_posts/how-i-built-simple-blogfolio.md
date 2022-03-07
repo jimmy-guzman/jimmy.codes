@@ -113,7 +113,7 @@ const MarkdownContent = ({ content }: MarkdownContentProps) => {
 This allows replacing an image displayed with markdown, such as:
 
 ```md
-![Image](https://res.cloudinary.com/jimmycodes/image/upload/v1644287466/sample.jpg)
+![Image](sample.jpg)
 ```
 
 With `<Image />` from `next/image` for optimization.
