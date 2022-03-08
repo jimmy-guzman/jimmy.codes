@@ -4,7 +4,7 @@ publishDate: 6 March 2022
 name: Jimmy  Guzman Moreno
 description: I wrote jimmy.codes using the latest technologies, and I want to share what I did.
 keywords: react, nextjs, vercel, fathom, cypress, typescript, markdown
-imageUrl: https://res.cloudinary.com/jimmycodes/image/upload/c_scale,h_453,q_65,w_910/v1645403248/jimmy.codes/how-i-built-simple-blogfolio.webp
+imageUrl: https://res.cloudinary.com/jimmycodes/image/upload/c_scale,h_732,q_65,w_1472/v1645403248/jimmy.codes/how-i-built-simple-blogfolio.webp
 ---
 
 At the beginning of 2022, I decided I wanted to start blogging about coding. So in order to blog I needed a platform. I've also wanted to build a new portfolio under [jimmy.codes](/). This all led to building this blogfolio. The goal for this was simplicity, performance and markdown content.
