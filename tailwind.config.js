@@ -126,8 +126,7 @@ module.exports = {
               'textDecoration': 'none',
               'fontWeight': '500',
               '&:hover': {
-                // TODO: remove !important once https://github.com/tailwindlabs/tailwindcss-typography/issues/231 is resolved
-                textDecoration: 'underline !important',
+                textDecoration: 'underline',
               },
             },
           },
