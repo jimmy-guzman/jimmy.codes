@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: setup pnpm
-        uses: pnpm/action-setup@15569a497d6aff479ba1c47c859888e22a431052
+        uses: pnpm/action-setup@35ab4267a1a21c8e8cb1c087cf1642e891ff57bd
         with:
           version: 6.21.1
       # TODO: disabling because of https://github.com/actions/cache/issues/319, consider rolling custom cache
