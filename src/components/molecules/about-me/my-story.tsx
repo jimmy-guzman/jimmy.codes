@@ -1,4 +1,7 @@
+import { ExpressIcon, MongoDBIcon, NodeJsIcon, ReactIcon } from '../../../icons'
 import { Link } from '../../atoms'
+
+const ICON_CLASS_NAME = 'inline-block h-4 align-baseline'
 
 export const MyStory = (): JSX.Element => {
   return (
@@ -32,11 +35,16 @@ export const MyStory = (): JSX.Element => {
         <Link to='https://bootcamp.umn.edu/coding/' isExternal>
           University of Minnesota Coding Boot Camp
         </Link>{' '}
-        that focused on the MERN stack (ReactJS, NodeJS, MongoDB, and Express).
+        that focused on the MERN stack (MongoDB{' '}
+        <MongoDBIcon className={ICON_CLASS_NAME} />, Express{' '}
+        <ExpressIcon className={ICON_CLASS_NAME} />, ReactJS{' '}
+        <ReactIcon className={ICON_CLASS_NAME} /> and NodeJS{' '}
+        <NodeJsIcon className={ICON_CLASS_NAME} />
+        ).
       </p>
       <p>Finally, prior to that, I worked as a freelance web developer.</p>
       <p>
-        In my past life, I worked various jobs in diverse industries such as
+        In a past life, I worked various jobs in diverse industries such as
         education, warehouse, and customer service.
       </p>
     </>
