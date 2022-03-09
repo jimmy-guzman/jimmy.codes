@@ -30,8 +30,8 @@ export const BlogPost = ({
         className='rounded-lg'
         alt='Blog Post Cover'
         imageUrl={imageUrl}
-        width={1214}
-        height={604}
+        width={1472}
+        height={732}
       />
       <header>
         <p>{publishDate}</p>

@@ -190,7 +190,7 @@ We get performant and high quality images at every size!
 
 ## CI/CD Overview
 
-![CI CD Flow Diagram image](https://res.cloudinary.com/jimmycodes/image/upload/c_scale,h_645,q_65,w_945/v1646186077/jimmy.codes/jimmy-codes-cicd_fvqohl.webp)
+![CI CD Flow Diagram image](https://res.cloudinary.com/jimmycodes/image/upload/c_scale,h_645,q_65,w_945/v1646186077/jimmy.codes/jimmy-codes-cicd.webp)
 
 The entire CI/CD pipeline is powered by [GitHub Actions](https://github.com/features/actions) with [Vercel](https://vercel.com/) driving the deployment aspect.
 
