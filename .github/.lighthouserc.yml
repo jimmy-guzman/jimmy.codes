@@ -1,0 +1,22 @@
+ci:
+  collect:
+    psiStrategy: desktop
+    settings:
+      preset: desktop
+      onlyCategories: ['performance', 'seo', 'accessibility', 'best-practices']
+      # skipping is-crawlable since vercel will now prevent non prod urls
+      skipAudits: ['is-crawlable']
+  assert:
+    assertions:
+      categories:performance:
+        - warn
+        - minScore: 1
+      categories:seo:
+        - error
+        - minScore: 1
+      categories:accessibility:
+        - warn
+        - minScore: 1
+      categories:best-practices:
+        - error
+        - minScore: 1
