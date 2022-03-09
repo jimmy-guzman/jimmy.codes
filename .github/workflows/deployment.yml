@@ -30,3 +30,21 @@ jobs:
         env:
           CYPRESS_BASE_URL: ${{ github.event.deployment_status.target_url }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+  performance:
+    if: github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Lighthouse
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          urls: |
+            ${{ github.event.deployment_status.target_url }}
+            ${{ github.event.deployment_status.target_url }}/blog
+            ${{ github.event.deployment_status.target_url }}/about
+            ${{ github.event.deployment_status.target_url }}/blog/posts/how-i-built-simple-blogfolio
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          configPath: '.github/.lighthouserc.yml'
