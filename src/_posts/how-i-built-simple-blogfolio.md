@@ -2,12 +2,12 @@
 title: How I Built This Site
 publishDate: 6 March 2022
 name: Jimmy  Guzman Moreno
-description: I wrote jimmy.codes using the latest technologies, and I want to share what I did.
+description: An overview of how jimmy.codes was built with modern technologies and services.
 keywords: react, nextjs, vercel, fathom, cypress, typescript, markdown
 imageUrl: https://res.cloudinary.com/jimmycodes/image/upload/c_scale,h_732,q_65,w_1472/v1645403248/jimmy.codes/how-i-built-simple-blogfolio.webp
 ---
 
-At the beginning of 2022, I decided I wanted to start blogging about coding. So in order to blog I needed a platform. I've also wanted to build a new portfolio under [jimmy.codes](/). This all led to building this blogfolio. The goal for this was simplicity, performance and markdown content.
+At the beginning of 2022, I decided I wanted to start blogging about coding. So in order to blog I needed a platform. I've also wanted to build a new portfolio under [jimmy.codes](/). This all led to building this blogfolio. The goal for this was simplicity, performance and content powered by markdown. As a disclaimer, this is more of an overview rather than a how to guide.
 
 ## Table of Contents
 
@@ -38,9 +38,9 @@ Here are the main technologies:
 
 Here are the services:
 
-- [GitHub Actions](https://github.com/features/actions): Simple Github hosted CI/CD service
+- [GitHub Actions](https://github.com/features/actions): Github hosted CI/CD service
 - [Vercel](https://vercel.com/): Deployment with developer experience and performance in mind
-- [Cloudinary](https://cloudinary.com/): Image optimization service
+- [Cloudinary](https://cloudinary.com/): Image hosting and optimization service
 - [Fathom](https://usefathom.com/): Privacy focused analytics service
 - [Cypress Dashboard](https://www.cypress.io/dashboard): Record and view cypress tests service
 
@@ -57,13 +57,13 @@ With features such as:
 - the ability to leverage popular frameworks to build components
 - render pages from markdown
 
-All this meant that it was perfect to build a simple performant blogfolio while still using [React](https://reactjs.org/). But it's still in [beta](https://github.com/withastro/astro#project-status), so it's lacking features such as easy image optimization, bug-free developer experience tooling, build customization, and [others](https://github.com/withastro/astro/issues/1222). Still, I'm still very optimistic about Astro's future and who knows, I might refactor this site to use Astro in the future.
+This meant that it was perfect to build a simple performant blogfolio while still using [React](https://reactjs.org/). But it's still in [beta](https://github.com/withastro/astro#project-status), so it's lacking features such as easy image optimization, bug-free developer experience tooling, build customization, and [others](https://github.com/withastro/astro/issues/1222). Still, I'm very optimistic about Astro's future and who knows, I might refactor this site to use Astro in the future.
 
 Due to Astro lacking the features I mentioned, I went with the popular and proven framework, [NextJS](https://nextjs.org/).
 
 ### Markdown Content
 
-Since [NextJS](https://nextjs.org/) does not come with [out-the-box Markdown support like Astro](https://docs.astro.build/en/guides/markdown-content/) we have to roll our own. NextJS gives us a [great example](https://github.com/vercel/next.js/tree/canary/examples/blog-starter-typescript#a-statically-generated-blog-example-using-nextjs-markdown-and-typescript) powered by [remark](https://github.com/gnab/remark#remark)(like Astro) of how to do this but I wanted to leverage NextJS's [image component](https://nextjs.org/docs/basic-features/image-optimization).
+Since [NextJS](https://nextjs.org/) does not come with [out-the-box Markdown support like Astro](https://docs.astro.build/en/guides/markdown-content/) we have to roll our own. NextJS gives us a [great example](https://github.com/vercel/next.js/tree/canary/examples/blog-starter-typescript#a-statically-generated-blog-example-using-nextjs-markdown-and-typescript) powered by [remark](https://github.com/gnab/remark#remark)(like Astro) of how to do this but I wanted to leverage NextJS's [image component](https://nextjs.org/docs/basic-features/image-optimization) which gives features such as:
 
 - improved performance by serving the correct size with modern image formats
 - visual stability by preventing [Cumulative Layout Shift](https://nextjs.org/learn/seo/web-performance/cls)
@@ -124,7 +124,7 @@ In addition, since React Markdown still leverages [unified](https://unifiedjs.co
 - Autolinked Headings with [rehype-autolink-headings](https://github.com/rehypejs/rehype-autolink-headings#rehype-autolink-headings) and [rehype-slug](https://github.com/rehypejs/rehype-slug#rehype-slug)
 - Automatic External Links with [rehype-external-links](https://github.com/rehypejs/rehype-external-links#rehype-external-links)
 
-Which easily accomplished by using `<ReactMarkdown />`'s `remarkPlugins` and `rehypePlugins` props, i.e
+Which easily is accomplished by using `<ReactMarkdown />`'s `remarkPlugins` and `rehypePlugins` props, i.e
 
 ```tsx
 import ReactMarkdown from 'react-markdown'
@@ -196,7 +196,7 @@ The entire CI/CD pipeline is powered by [GitHub Actions](https://github.com/feat
 
 ### Pull Requests
 
-When a a pull request happens [Vercel](https://vercel.com/features/previews) immediately starts deploying the site under a preview url which allows for immediate visibility, automated tests and quick collaboration.
+When a pull request happens [Vercel](https://vercel.com/features/previews) immediately starts deploying the site under a preview url which allows for immediate visibility, automated tests and quick collaboration.
 
 While that is happening [GitHub Actions](https://github.com/features/actions) is doing a couple things:
 
@@ -205,14 +205,17 @@ While that is happening [GitHub Actions](https://github.com/features/actions) is
 - runs [typescript](https://www.typescriptlang.org/) to validate types
 - runs [prettier](https://prettier.io/) to validate code style
 - runs [cspell](http://cspell.org/) to check
+- runs [Jest](https://jestjs.io/) for unit tests
 
-These code quality checks need to pass in order for a pull request to be merged which are part of this project's [status checks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks).
+These code quality checks fall under this projects' [status checks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks) which prevents a pull requests from merging if they are not passing.
 
 ### Deployments
 
-Like mentioned previously, deployments happen during pull requests under a preview url, but they also happen with any **push** to **master** which deploys to production. **master** is [protected](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches) so any change needs to go through a pull request. In order words, a successful pull request must be made to release to production.
+Like I mentioned previously, deployments happen during pull requests under a preview url, but they also happen with any **push** to **master** which deploys to production. **master** is [protected](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches) so any change needs to go through a pull request. In order words, a successful pull request must be made to release to production.
 
-Any time there's a successful deployment, [Cypress](https://www.cypress.io/) tests are executed with the base url from [Vercel](https://vercel.com). Once those automated tests finish, they are uploaded to the [Cypress Dashboard](https://www.cypress.io/dashboard). This accomplished by using [cypress-io/github-action](https://github.com/cypress-io/github-action) for example:
+#### Automation Testing
+
+Any time there's a successful deployment, [Cypress](https://www.cypress.io/) tests are executed with the base url from [Vercel](https://vercel.com). Once those automated tests finish, they are uploaded to the [Cypress Dashboard](https://www.cypress.io/dashboard). This is accomplished by using the [cypress-io/github-action](https://github.com/cypress-io/github-action), i.e:
 
 ```yml
 on: [deployment_status]
@@ -235,6 +238,34 @@ jobs:
 
 On top of the successful code quality checks needed for a pull request to be merged, these Cypress tests are also needed. This gives us an extra layer of confidence before deploying to production. 👍 🚀
 
+#### Performance Testing
+
+Since one of the goals was performance, I've also added [Lighthouse](https://developers.google.com/web/tools/lighthouse/) as part of CI/CD pipeline to validate wether or not there's been any performance degradation. And as a bonus we also get SEO, Accessibility and Best Practices validations.
+
+In order to accomplish this, I used the [Lighthouse CI Action](https://github.com/treosh/lighthouse-ci-action#lighthouse-ci-action) which followed the same approach as the Cypress Action so it was a simple setup, i.e
+
+```yml
+performance:
+  if: github.event.deployment_status.state == 'success'
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2
+
+    - name: Lighthouse
+      uses: treosh/lighthouse-ci-action@v9
+      with:
+        urls: |
+          ${{ github.event.deployment_status.target_url }}
+          ${{ github.event.deployment_status.target_url }}/blog
+          ${{ github.event.deployment_status.target_url }}/about
+          ${{ github.event.deployment_status.target_url }}/blog/posts/how-i-built-simple-blogfolio
+        uploadArtifacts: true
+        temporaryPublicStorage: true
+        configPath: .github/.lighthouserc.yml
+```
+
+Since this Github Action is powered by the [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci#lighthouse-ci), it offers [extensive configuration](https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md).
+
 ## Analytics
 
 Using [Fathom](https://usefathom.com/) with NextJS is extremely simple, given you setup a custom domain first, all you need to do is use `<Script />` component, i.e
@@ -256,10 +287,11 @@ This will allow NextJS to take care of any optimizations and will give you all o
 - Fully GDPR, ePrivacy, PECR and CCPA compliant
 - Ability to see all visitors even those with ad blockers
 - Great SEO since the Fathom script loads fast
-- [Analytics that don't sell data](https://usefathom.com/data) which means no annoying cookie notices on this site!
-- Generous pricing plans
+- [Analytics that don't sell data](https://usefathom.com/data) which means no annoying cookie notices on this site
+- Optional uptime monitoring
+- Dashboard that can be private, password protected or public
 
-and [many more](https://usefathom.com/features)!
+For transparency's sake, I made [this site's dashboard](https://app.usefathom.com/share/wggacnlj/jimmy.codes#/?filters=%5B%5D&range=last_7_days&site=2251799824003368) public.
 
 ## Conclusion
 

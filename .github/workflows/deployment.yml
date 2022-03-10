@@ -47,4 +47,4 @@ jobs:
             ${{ github.event.deployment_status.target_url }}/blog/posts/how-i-built-simple-blogfolio
           uploadArtifacts: true
           temporaryPublicStorage: true
-          configPath: '.github/.lighthouserc.yml'
+          configPath: .github/.lighthouserc.yml

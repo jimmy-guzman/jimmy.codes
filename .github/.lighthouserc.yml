@@ -4,7 +4,7 @@ ci:
     settings:
       preset: desktop
       onlyCategories: ['performance', 'seo', 'accessibility', 'best-practices']
-      # skipping is-crawlable since vercel will now prevent non prod urls
+      # skipping is-crawlable since vercel will prevent indexing on non prod urls
       skipAudits: ['is-crawlable']
   assert:
     assertions:

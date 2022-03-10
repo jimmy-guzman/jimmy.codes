@@ -121,6 +121,9 @@ module.exports = {
             h3: {
               color: '#ff71ce',
             },
+            h4: {
+              color: '#ff71ce',
+            },
             a: {
               'color': '#01cdfe',
               'textDecoration': 'none',
