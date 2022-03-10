@@ -18,6 +18,14 @@ interface BlogPostProps {
   title: string
 }
 
+const autoLinkHeadingOpts = {
+  properties: {
+    before: '#',
+    className: `relative before:content-[attr(before)] before:absolute before:right-0.5 before:text-gray-600 hover:before:text-spring-green-250 before:font-light`,
+  },
+  behavior: 'prepend',
+}
+
 export const BlogPost = ({
   content,
   imageUrl,
@@ -46,7 +54,7 @@ export const BlogPost = ({
             rehypeExternalLinks,
             highlight,
             rehypeSlug,
-            rehypeAutolinkHeadings,
+            [rehypeAutolinkHeadings, autoLinkHeadingOpts],
           ]}
         >
           {content}
