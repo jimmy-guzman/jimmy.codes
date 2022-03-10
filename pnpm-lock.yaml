@@ -6,7 +6,7 @@ specifiers:
   '@tailwindcss/typography': 0.5.2
   '@testing-library/cypress': 8.0.2
   '@types/node': 17.0.21
-  '@types/react': 17.0.39
+  '@types/react': 17.0.40
   autoprefixer: 10.4.2
   clsx: 1.1.1
   commitlint: 16.2.1
@@ -44,7 +44,7 @@ dependencies:
   react: 17.0.2
   react-cool-dimensions: 2.0.7_react@17.0.2
   react-dom: 17.0.2_react@17.0.2
-  react-markdown: 8.0.0_a0c521d4794c7ad97f5f4c1c4a7d5818
+  react-markdown: 8.0.0_00d6772dea80510e818fd171caaa025a
   rehype-autolink-headings: 6.1.1
   rehype-external-links: 1.0.1
   rehype-highlight: 5.0.2
@@ -57,7 +57,7 @@ devDependencies:
   '@next/eslint-plugin-next': 12.1.0
   '@testing-library/cypress': 8.0.2_cypress@9.5.1
   '@types/node': 17.0.21
-  '@types/react': 17.0.39
+  '@types/react': 17.0.40
   autoprefixer: 10.4.2_postcss@8.4.8
   commitlint: 16.2.1
   cypress: 9.5.1
@@ -578,8 +578,8 @@ packages:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
     dev: true
 
-  /@types/react/17.0.39:
-    resolution: {integrity: sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==}
+  /@types/react/17.0.40:
+    resolution: {integrity: sha512-UrXhD/JyLH+W70nNSufXqMZNuUD2cXHu6UjCllC6pmOQgBX4SGXOH8fjRka0O0Ee0HrFxapDD8Bwn81Kmiz6jQ==}
     dependencies:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
@@ -3756,14 +3756,14 @@ packages:
   /react-is/17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
 
-  /react-markdown/8.0.0_a0c521d4794c7ad97f5f4c1c4a7d5818:
+  /react-markdown/8.0.0_00d6772dea80510e818fd171caaa025a:
     resolution: {integrity: sha512-qbrWpLny6Ef2xHqnYqtot948LXP+4FtC+MWIuaN1kvSnowM+r1qEeEHpSaU0TDBOisQuj+Qe6eFY15cNL3gLAw==}
     peerDependencies:
       '@types/react': '>=16'
       react: '>=16'
     dependencies:
       '@types/hast': 2.3.4
-      '@types/react': 17.0.39
+      '@types/react': 17.0.40
       '@types/unist': 2.0.6
       comma-separated-tokens: 2.0.2
       hast-util-whitespace: 2.0.0
