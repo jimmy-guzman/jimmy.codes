@@ -31,7 +31,7 @@ jobs:
           CYPRESS_BASE_URL: ${{ github.event.deployment_status.target_url }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
-  performance:
+  lighthouse:
     if: github.event.deployment_status.state == 'success'
     runs-on: ubuntu-latest
     steps:

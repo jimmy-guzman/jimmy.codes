@@ -245,7 +245,7 @@ Since one of the goals was performance, I've also added [Lighthouse](https://dev
 In order to accomplish this, I used the [Lighthouse CI Action](https://github.com/treosh/lighthouse-ci-action#lighthouse-ci-action) which followed the same approach as the Cypress Action so it was a simple setup, i.e
 
 ```yml
-performance:
+lighthouse:
   if: github.event.deployment_status.state == 'success'
   runs-on: ubuntu-latest
   steps:
