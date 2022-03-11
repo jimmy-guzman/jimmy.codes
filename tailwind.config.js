@@ -14,6 +14,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        'oxford-blue': '#061636',
         'material-gray': '#263238',
         'witch-haze': {
           50: '#fffb96', // primary
@@ -109,6 +110,7 @@ module.exports = {
         },
         DEFAULT: {
           css: {
+            color: '#E9EDF5',
             pre: {
               padding: '0 !important',
             },
