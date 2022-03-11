@@ -15,7 +15,7 @@ module.exports = {
     extend: {
       colors: {
         'oxford-blue': '#061636',
-        'material-gray': '#263238',
+        'material-gray': '#20304F',
         'witch-haze': {
           50: '#fffb96', // primary
           100: '#fff700',
