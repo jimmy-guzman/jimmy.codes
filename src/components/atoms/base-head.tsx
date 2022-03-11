@@ -25,16 +25,11 @@ export const BaseHead = ({
       <meta property='og:url' content={permalink} />
       <meta property='og:title' content={title} />
       <meta property='og:description' content={description} />
-      <meta property='og:image' content='https://astro.build/social.jpg?v=1' />
 
       <meta property='twitter:card' content='summary_large_image' />
       <meta property='twitter:url' content={permalink} />
       <meta property='twitter:title' content={title} />
       <meta property='twitter:description' content={description} />
-      <meta
-        property='twitter:image'
-        content='https://astro.build/social.jpg?v=1'
-      />
     </Head>
   )
 }

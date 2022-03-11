@@ -15,7 +15,7 @@ ci:
         - error
         - minScore: 1
       categories:accessibility:
-        - warn
+        - error
         - minScore: 1
       categories:best-practices:
         - error
