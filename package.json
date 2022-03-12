@@ -29,7 +29,7 @@
     "@tailwindcss/typography": "0.5.2",
     "clsx": "1.1.1",
     "gray-matter": "4.0.3",
-    "highlight.js": "11.4.0",
+    "highlight.js": "11.5.0",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-cool-dimensions": "2.0.7",
