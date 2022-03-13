@@ -3,6 +3,8 @@ extends:
     'jimmy-guzman',
     'jimmy-guzman/typescript',
     'jimmy-guzman/react',
+    'jimmy-guzman/jest',
+    'jimmy-guzman/testing-library',
     'plugin:@next/next/recommended',
   ]
 parserOptions:
