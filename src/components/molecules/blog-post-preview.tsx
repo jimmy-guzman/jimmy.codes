@@ -1,5 +1,5 @@
 import { truncate } from '../../utils'
-import { Badge, Image, Link } from '../atoms'
+import { Badge, Image, NextLink } from '../atoms'
 
 interface BlogPreviewProps {
   post: {
@@ -34,7 +34,12 @@ export const BlogPostPreview = ({ post }: BlogPreviewProps): JSX.Element => {
                   {post.title}
                 </span>
               </div>
-              <Link to={`blog/posts/${post.slug}`}>Read Post</Link>
+              <NextLink
+                className='font-medium text-bright-turquoise-350 no-underline hover:underline'
+                href={`/blog/posts/${post.slug}`}
+              >
+                Read Post
+              </NextLink>
             </div>
             <p className='mt-4 text-white'>{truncate(post.description, 100)}</p>
           </div>
