@@ -9,7 +9,7 @@ interface Params {
 }
 
 type Post = Record<
-  'content' | 'description' | 'imageUrl' | 'publishDate' | 'title',
+  'content' | 'description' | 'imageUrl' | 'publishDate' | 'repoUrl' | 'title',
   string
 >
 
@@ -41,6 +41,7 @@ export const getStaticProps = ({
     'publishDate',
     'content',
     'imageUrl',
+    'repoUrl',
   ] as const)
 
   return {

@@ -1,10 +1,11 @@
 ---
 title: How I Built This Site
-publishDate: 6 March 2022
+publishDate: 13 March 2022
 name: Jimmy  Guzman Moreno
 description: An overview of how jimmy.codes was built with modern technologies and services.
 keywords: react, nextjs, vercel, fathom, cypress, typescript, markdown
 imageUrl: https://res.cloudinary.com/jimmycodes/image/upload/c_scale,h_732,q_65,w_1472/v1645403248/jimmy.codes/how-i-built-simple-blogfolio.webp
+repoUrl: https://github.com/jimmy-guzman/jimmy.codes
 ---
 
 At the beginning of 2022, I decided I wanted to start blogging about coding. So in order to blog I needed a platform. I've also wanted to build a new portfolio under [jimmy.codes](/). This all led to building this blogfolio. The goal for this was simplicity, performance and content powered by markdown. As a disclaimer, this is more of an overview rather than a how to guide.
