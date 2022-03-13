@@ -24,3 +24,6 @@ cypress/reports
 
 # typescript
 tsconfig.tsbuildinfo
+
+# eslint
+.eslintcache
