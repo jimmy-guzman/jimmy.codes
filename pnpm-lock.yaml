@@ -22,6 +22,7 @@ specifiers:
   lint-staged: 12.3.5
   next: 12.1.0
   postcss: 8.4.8
+  preact: ^10.6.6
   prettier: 2.5.1
   prettier-plugin-tailwindcss: 0.1.8
   react: 17.0.2
@@ -42,6 +43,7 @@ dependencies:
   gray-matter: 4.0.3
   highlight.js: 11.5.0
   next: 12.1.0_react-dom@17.0.2+react@17.0.2
+  preact: 10.6.6
   react: 17.0.2
   react-cool-dimensions: 2.0.7_react@17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -5220,6 +5222,10 @@ packages:
       nanoid: 3.3.1
       picocolors: 1.0.0
       source-map-js: 1.0.2
+
+  /preact/10.6.6:
+    resolution: {integrity: sha512-dgxpTFV2vs4vizwKohYKkk7g7rmp1wOOcfd4Tz3IB3Wi+ivZzsn/SpeKJhRENSE+n8sUfsAl4S3HiCVT923ABw==}
+    dev: false
 
   /prelude-ls/1.1.2:
     resolution: {integrity: sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=}
