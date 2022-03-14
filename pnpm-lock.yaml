@@ -22,7 +22,7 @@ specifiers:
   lint-staged: 12.3.5
   next: 12.1.0
   postcss: 8.4.8
-  preact: ^10.6.6
+  preact: 10.6.6
   prettier: 2.5.1
   prettier-plugin-tailwindcss: 0.1.8
   react: 17.0.2
