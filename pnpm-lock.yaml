@@ -13,7 +13,7 @@ specifiers:
   cypress: 9.5.1
   eslint: 8.11.0
   eslint-config-jimmy-guzman: 4.0.0
-  gitzy: 3.1.0
+  gitzy: 3.2.0
   gray-matter: 4.0.3
   highlight.js: 11.5.0
   husky: 7.0.4
@@ -66,7 +66,7 @@ devDependencies:
   cypress: 9.5.1
   eslint: 8.11.0
   eslint-config-jimmy-guzman: 4.0.0_ab4c14e50f67191585b4dc37a3d39399
-  gitzy: 3.1.0
+  gitzy: 3.2.0
   husky: 7.0.4
   is-ci: 3.0.1
   jest: 27.5.1
@@ -1994,6 +1994,11 @@ packages:
     engines: {node: '>= 12'}
     dev: true
 
+  /commander/9.0.0:
+    resolution: {integrity: sha512-JJfP2saEKbQqvW+FI93OYUB4ByV5cizMpFMiiJI8xDbBvQvSkIk0VvQdn1CZ8mqAO8Loq2h0gYTYtDFUZUeERw==}
+    engines: {node: ^12.20.0 || >=14}
+    dev: true
+
   /commitlint/16.2.1:
     resolution: {integrity: sha512-TVNt2QxazI8peyGxDD4XMLcohsmnloFyirjsenfe50Y6HnO3pGMBh33dgHNMgrYW8djDsIfZ8SEZlJ20n4XzUQ==}
     engines: {node: '>=v12'}
@@ -3116,13 +3121,13 @@ packages:
     resolution: {integrity: sha512-w0dzqw/nt51xMVmlaV1+JRzN+oCa1KfcgGEWhxUG16wbdA+Xnt/yoFO8Z8x/V82ZcZ0wy6ln9QDup5avbhiDhQ==}
     dev: false
 
-  /gitzy/3.1.0:
-    resolution: {integrity: sha512-TDkpuPkZj4guRwnOAzLjZ7KpH5ziRWaKkV4sx89DpNpRSSedGfdFMy2Fn4KugChy4sn1XUfmB8HLHRKA3FNLiQ==}
+  /gitzy/3.2.0:
+    resolution: {integrity: sha512-5iDDHju2W38YNCcGYXY2IkbV19jk5rrqW47zPP8EpvvpgFz9udkwJN+Ctj3dSBmuJY0LXIXbXSnwANEuphr0aQ==}
     engines: {node: '>= 14'}
     hasBin: true
     dependencies:
       ansi-colors: 4.1.1
-      commander: 8.3.0
+      commander: 9.0.0
       enquirer: 2.3.6
       lilconfig: 2.0.4
       yaml: 1.10.2

@@ -54,7 +54,7 @@
     "cypress": "9.5.1",
     "eslint": "8.11.0",
     "eslint-config-jimmy-guzman": "4.0.0",
-    "gitzy": "3.1.0",
+    "gitzy": "3.2.0",
     "husky": "7.0.4",
     "is-ci": "3.0.1",
     "jest": "27.5.1",
