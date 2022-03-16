@@ -1,7 +1,60 @@
-import { ExpressIcon, MongoDBIcon, NodeJsIcon, ReactIcon } from '../../../icons'
+import {
+  DockerIcon,
+  ExpressIcon,
+  FastifyIcon,
+  KafkaIcon,
+  MongoDBIcon,
+  NodeJsIcon,
+  PostgresIcon,
+  ReactIcon,
+  RedisIcon,
+  TypescriptIcon,
+} from '../../../icons'
 import { Link } from '../../atoms'
 
-const ICON_CLASS_NAME = 'inline-block h-4 align-baseline'
+const ICON_CLASS_NAME =
+  'inline-block h-4 align-baseline md:h-6 md:align-text-bottom '
+
+const TargetDescription = () => {
+  return (
+    <>
+      I&apos;m currently a Lead Engineer at{' '}
+      <Link to='https://www.target.com/' isExternal>
+        Target
+      </Link>{' '}
+      where I drive full stack solutions for supply chain inventory management
+      applications. The main technologies that I interact with are:
+      <ul>
+        <li>
+          React <ReactIcon className={ICON_CLASS_NAME} />
+        </li>
+        <li>
+          Typescript <TypescriptIcon className={ICON_CLASS_NAME} />
+        </li>
+        <li>
+          Express <ExpressIcon className={ICON_CLASS_NAME} />
+        </li>
+        <li>
+          Fastify <FastifyIcon className={ICON_CLASS_NAME} />
+        </li>
+        <li>
+          Kafka <KafkaIcon className={ICON_CLASS_NAME} />
+        </li>
+        <li>
+          Docker <DockerIcon className={ICON_CLASS_NAME} />
+        </li>
+        <li>
+          Postgres <PostgresIcon className={ICON_CLASS_NAME} />
+        </li>
+        <li>
+          Redis <RedisIcon className={ICON_CLASS_NAME} />
+        </li>
+      </ul>
+      My day to day consists of mentoring, ensuring scalability and providing a
+      vision for the future.
+    </>
+  )
+}
 
 export const MyStory = (): JSX.Element => {
   return (
@@ -12,12 +65,7 @@ export const MyStory = (): JSX.Element => {
         possible.
       </p>
       <p>
-        I&apos;m currently a Lead Engineer at{' '}
-        <Link to='https://www.target.com/' isExternal>
-          Target
-        </Link>{' '}
-        where I drive technical solutions for supply chain inventory management
-        applications.
+        <TargetDescription />
       </p>
       <p>
         Before that, I worked at{' '}
