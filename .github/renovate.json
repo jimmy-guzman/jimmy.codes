@@ -8,8 +8,8 @@
   "commitMessageTopic": "`{{depName}}`",
   "packageRules": [
     {
-      "matchPackagePatterns": ["eslint"],
-      "groupName": "eslint"
+      "matchPackagePatterns": ["eslint", "prettier"],
+      "groupName": "eslint & prettier"
     },
     {
       "matchPackagePatterns": [
@@ -33,7 +33,11 @@
         "commitlint",
         "gitzy"
       ],
-      "groupName": "git hooks"
+      "groupName": "git hooks utils"
+    },
+    {
+      "matchPackagePatterns": ["cypress", "jest", "testing-library"],
+      "groupName": "testing"
     }
   ]
 }
