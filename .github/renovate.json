@@ -5,5 +5,35 @@
   "reviewers": ["@jimmy-guzman"],
   "commitMessageAction": "bump",
   "commitMessagePrefix": "chore: 🤖 ",
-  "commitMessageTopic": "`{{depName}}`"
+  "commitMessageTopic": "`{{depName}}`",
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["eslint"],
+      "groupName": "eslint"
+    },
+    {
+      "matchPackagePatterns": [
+        "remark",
+        "rehype",
+        "react-markdown",
+        "highlight.js",
+        "gray-matter"
+      ],
+      "groupName": "remark"
+    },
+    {
+      "matchPackagePatterns": ["tailwind", "autoprefixer", "postcss"],
+      "groupName": "tailwindcss"
+    },
+    {
+      "matchPackagePatterns": [
+        "husky",
+        "is-ci",
+        "lint-staged",
+        "commitlint",
+        "gitzy"
+      ],
+      "groupName": "git hooks"
+    }
+  ]
 }
