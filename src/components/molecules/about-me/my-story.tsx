@@ -64,9 +64,7 @@ export const MyStory = (): JSX.Element => {
         development. My passion is to help others deliver the best solutions
         possible.
       </p>
-      <p>
-        <TargetDescription />
-      </p>
+      <TargetDescription />
       <p>
         Before that, I worked at{' '}
         <Link to='https://www.ameriprise.com/' isExternal>
