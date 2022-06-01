@@ -7,7 +7,7 @@ export const jobs = [
       'Drive technical solutions for supply chain inventory management applications.',
       'Mentor engineers in varied technologies, system design, and development processes.',
       'Continuously improve performance in both client and server systems.',
-      'Improve development best practices, standards and experience',
+      'Improve development best practices, standards and experience.',
       'Continuously analyze systems and recommend changes to improve scalability.',
     ],
     title: 'Lead Software Engineer',
