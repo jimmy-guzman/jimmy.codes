@@ -12,7 +12,7 @@ specifiers:
   commitlint: 17.0.2
   cypress: 9.5.4
   eslint: 8.14.0
-  eslint-config-jimmy-guzman: 4.0.0
+  eslint-config-jimmy-guzman: 5.0.0
   gitzy: 3.2.0
   gray-matter: 4.0.3
   highlight.js: 11.5.1
@@ -62,7 +62,7 @@ devDependencies:
   commitlint: 17.0.2
   cypress: 9.5.4
   eslint: 8.14.0
-  eslint-config-jimmy-guzman: 4.0.0_r5cyoifphtzxnvdtdtttrf2oum
+  eslint-config-jimmy-guzman: 5.0.0_r5cyoifphtzxnvdtdtttrf2oum
   gitzy: 3.2.0
   husky: 8.0.1
   is-ci: 3.0.1
@@ -1160,7 +1160,7 @@ packages:
     dev: true
 
   /@types/json5/0.0.29:
-    resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=}
+    resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
   /@types/mdast/3.0.10:
@@ -1600,7 +1600,7 @@ packages:
     dev: true
 
   /ast-types-flow/0.0.7:
-    resolution: {integrity: sha1-9wtzXGvKGlycItmCw+Oef+ujva0=}
+    resolution: {integrity: sha512-eBvWn1lvIApYMhzQMsu9ciLfkBY499mFZlNqG+/9WR7PVlroQw0vG30cOQQbaKz3sCEc44TAOu2ykzqXSNnwag==}
     dev: true
 
   /astral-regex/2.0.0:
@@ -2572,11 +2572,11 @@ packages:
       source-map: 0.6.1
     dev: true
 
-  /eslint-config-jimmy-guzman/4.0.0_r5cyoifphtzxnvdtdtttrf2oum:
-    resolution: {integrity: sha512-odtPluuiuLbrGF8NKvUc2Im461vZ7adNSwFtchNlwghcdCwMJip5pKHj7B1rrQ95tw6RkHxxCUNDZr+NawFmiA==}
+  /eslint-config-jimmy-guzman/5.0.0_r5cyoifphtzxnvdtdtttrf2oum:
+    resolution: {integrity: sha512-KPmyoeO/pcsYUqFbUjHSLLmYwZU5SKqtBEkTOdIYhbQyXkHVqPwrXU9ao6492EX6YUt0I8TtgtIyIY5JNvqMng==}
     engines: {node: '>= 12'}
     peerDependencies:
-      eslint: ^8.5.0
+      eslint: ^8.14.0
       prettier: ^2.4.0
       typescript: ^4.5.0
     dependencies:
@@ -4447,7 +4447,7 @@ packages:
     dev: true
 
   /language-tags/1.0.5:
-    resolution: {integrity: sha1-0yHbxNowuovzAk4ED6XBRmH5GTo=}
+    resolution: {integrity: sha512-qJhlO9cGXi6hBGKoxEG/sKZDAHD5Hnu9Hs4WbOY3pCWXDhw0N8x1NenNzm2EnNLkLkk7J2SdxAkDSbb6ftT+UQ==}
     dependencies:
       language-subtag-registry: 0.3.21
     dev: true
@@ -5255,7 +5255,7 @@ packages:
     dev: true
 
   /p-try/1.0.0:
-    resolution: {integrity: sha1-y8ec26+P1CKOE/Yh8rGiN8GyB7M=}
+    resolution: {integrity: sha512-U1etNYuMJoIz3ZXSrrySFjsXQTWOx2/jdi86L+2pRvph/qMKL6sbcCYdH23fqsbm8TH2Gn0OybpT4eSFlCVHww==}
     engines: {node: '>=4'}
     dev: true
 
