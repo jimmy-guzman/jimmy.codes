@@ -228,7 +228,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: pnpm/action-setup@15569a497d6aff479ba1c47c859888e22a431052
       - run: pnpm install --frozen-lockfile
-      - uses: cypress-io/github-action@v2
+      - uses: cypress-io/github-action@v4
         with:
           install: false
           record: true
