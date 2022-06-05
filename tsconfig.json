@@ -20,7 +20,7 @@
     "useDefineForClassFields": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": ["cypress", "@testing-library/cypress"]
+    "types": ["@testing-library/cypress"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
