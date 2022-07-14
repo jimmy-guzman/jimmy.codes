@@ -11,7 +11,8 @@ jobs:
       - name: setup pnpm
         uses: pnpm/action-setup@v2.2.2
         with:
-          version: 7.0.0
+          version: 7.1.8
+          node-version: 16
       # TODO: disabling because of https://github.com/actions/cache/issues/319, consider rolling custom cache
       # - name: setup cache
       #   uses: actions/setup-node@v2

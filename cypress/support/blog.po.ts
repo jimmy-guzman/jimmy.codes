@@ -1,4 +1,4 @@
-import { Chainable } from './types'
+import type { Chainable } from './types'
 
 export const blogSelectors = {
   get latestBlogPostPreview(): Chainable {

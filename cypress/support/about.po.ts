@@ -1,4 +1,4 @@
-import { Chainable } from './types'
+import type { Chainable } from './types'
 
 export const aboutSelectors = {
   get greeting(): Chainable {

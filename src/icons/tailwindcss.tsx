@@ -1,4 +1,4 @@
-import { SVGIconProps } from './types'
+import type { SVGIconProps } from './types'
 
 export const TailwindcssIcon = ({ className }: SVGIconProps): JSX.Element => {
   return (

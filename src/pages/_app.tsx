@@ -1,4 +1,4 @@
-import { AppProps } from 'next/app'
+import type { AppProps } from 'next/app'
 
 import { Wrapper, Container, Footer } from '../components/atoms'
 import { Navigation } from '../components/molecules'
