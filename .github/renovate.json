@@ -6,6 +6,7 @@
   "commitMessageAction": "bump",
   "commitMessagePrefix": "chore: 🤖 ",
   "commitMessageTopic": "`{{depName}}`",
+  "schedule": ["every weekend"],
   "packageRules": [
     {
       "matchPackagePatterns": ["eslint", "prettier"],

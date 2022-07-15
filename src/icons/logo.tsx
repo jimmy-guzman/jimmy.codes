@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 
-import { SVGIconProps } from './types'
+import type { SVGIconProps } from './types'
 
 export const Logo = ({ className }: SVGIconProps): JSX.Element => {
   return (

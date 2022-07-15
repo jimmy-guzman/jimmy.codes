@@ -1,5 +1,7 @@
-import NextImage, { ImageProps as NextImageProps } from 'next/image'
+import NextImage from 'next/image'
 import useDimensions from 'react-cool-dimensions'
+
+import type { ImageProps as NextImageProps } from 'next/image'
 
 interface ImageProps
   extends Omit<

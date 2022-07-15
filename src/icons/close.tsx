@@ -1,4 +1,4 @@
-import { SVGIconProps } from './types'
+import type { SVGIconProps } from './types'
 
 export const CloseIcon = ({ className }: SVGIconProps): JSX.Element => {
   return (

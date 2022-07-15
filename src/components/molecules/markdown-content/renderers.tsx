@@ -1,6 +1,11 @@
 import NextImage from 'next/image'
-import { DetailedHTMLProps, ImgHTMLAttributes, PropsWithChildren } from 'react'
-import { CodeProps } from 'react-markdown/lib/ast-to-react'
+
+import type {
+  DetailedHTMLProps,
+  ImgHTMLAttributes,
+  PropsWithChildren,
+} from 'react'
+import type { CodeProps } from 'react-markdown/lib/ast-to-react'
 
 export const renderers = {
   code: ({
