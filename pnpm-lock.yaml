@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@comparto/prettier-config': 1.2.0
-  '@next/eslint-plugin-next': 12.2.2
+  '@next/eslint-plugin-next': 12.2.3
   '@tailwindcss/typography': 0.5.2
   '@testing-library/cypress': 8.0.3
   '@types/node': 16.11.45
@@ -53,7 +53,7 @@ dependencies:
 
 devDependencies:
   '@comparto/prettier-config': 1.2.0
-  '@next/eslint-plugin-next': 12.2.2
+  '@next/eslint-plugin-next': 12.2.3
   '@tailwindcss/typography': 0.5.2_tailwindcss@3.1.6
   '@testing-library/cypress': 8.0.3_cypress@10.3.1
   '@types/node': 16.11.45
@@ -929,8 +929,8 @@ packages:
     resolution: {integrity: sha512-BqDwE4gDl1F608TpnNxZqrCn6g48MBjvmWFEmeX5wEXDXh3IkAOw6ASKUgjT8H4OUePYFqghDFUss5ZhnbOUjw==}
     dev: false
 
-  /@next/eslint-plugin-next/12.2.2:
-    resolution: {integrity: sha512-XOi0WzJhGH3Lk51SkSu9eZxF+IY1ZZhWcJTIGBycAbWU877IQa6+6KxMATWCOs7c+bmp6Sd8KywXJaDRxzu0JA==}
+  /@next/eslint-plugin-next/12.2.3:
+    resolution: {integrity: sha512-B2e8Yg1MpuLsGxhCx4rU8/Tcnr5wFmCx1O2eyLXBPnaCcsFXfGCo067ujagtDLtWASL3GNgzg78U1SB0dbc38A==}
     dependencies:
       glob: 7.1.7
     dev: true
