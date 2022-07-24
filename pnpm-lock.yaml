@@ -13,7 +13,7 @@ specifiers:
   cypress: 10.3.1
   eslint: 8.20.0
   eslint-config-jimmy-guzman: 7.0.0
-  gitzy: 3.2.0
+  gitzy: 3.3.0
   gray-matter: 4.0.3
   highlight.js: 11.6.0
   husky: 8.0.1
@@ -63,7 +63,7 @@ devDependencies:
   cypress: 10.3.1
   eslint: 8.20.0
   eslint-config-jimmy-guzman: 7.0.0_oxdpf56ehczdmdrokatpiefkdu
-  gitzy: 3.2.0
+  gitzy: 3.3.0
   husky: 8.0.1
   is-ci: 3.0.1
   jest: 28.1.3_@types+node@16.11.45
@@ -3217,8 +3217,8 @@ packages:
     resolution: {integrity: sha512-w0dzqw/nt51xMVmlaV1+JRzN+oCa1KfcgGEWhxUG16wbdA+Xnt/yoFO8Z8x/V82ZcZ0wy6ln9QDup5avbhiDhQ==}
     dev: false
 
-  /gitzy/3.2.0:
-    resolution: {integrity: sha512-5iDDHju2W38YNCcGYXY2IkbV19jk5rrqW47zPP8EpvvpgFz9udkwJN+Ctj3dSBmuJY0LXIXbXSnwANEuphr0aQ==}
+  /gitzy/3.3.0:
+    resolution: {integrity: sha512-qC5BMqcZYapIBHRXbNNRmAoyqpVnecqRZ+0oX/fDsO3PkwGaLwT+uGKKS6XQ5hstOlbq2LEZtTOwokrITQ115w==}
     engines: {node: '>= 14'}
     hasBin: true
     dependencies:
@@ -3226,7 +3226,7 @@ packages:
       commander: 9.3.0
       enquirer: 2.3.6
       lilconfig: 2.0.6
-      yaml: 1.10.2
+      yaml: 2.1.1
     dev: true
 
   /glob-parent/5.1.2:
