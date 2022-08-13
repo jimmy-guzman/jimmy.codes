@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@comparto/prettier-config": "1.2.0",
-    "@next/eslint-plugin-next": "12.2.4",
+    "@next/eslint-plugin-next": "12.2.5",
     "@tailwindcss/typography": "0.5.2",
     "@testing-library/cypress": "8.0.3",
     "@types/node": "16.11.47",
