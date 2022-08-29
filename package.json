@@ -48,7 +48,7 @@
     "@types/node": "16.11.56",
     "@types/react": "18.0.17",
     "autoprefixer": "10.4.8",
-    "commitlint": "17.0.3",
+    "commitlint": "17.1.2",
     "cypress": "10.6.0",
     "eslint": "8.23.0",
     "eslint-config-jimmy-guzman": "7.0.0",
