@@ -1,12 +1,13 @@
 import { ICON_CLASS_NAME } from './constants'
 import {
   TypescriptIcon,
-  RxjsIcon,
   ReactIcon,
   TailwindcssIcon,
   FastifyIcon,
   TestingLibraryIcon,
   CypressIcon,
+  NextJsIcon,
+  PrismaIcon,
 } from '../../../icons'
 
 interface CommonTechnology {
@@ -22,9 +23,9 @@ export const commonTechnologies: CommonTechnology[] = [
     link: 'https://www.typescriptlang.org/',
   },
   {
-    name: 'RxJs',
-    icon: <RxjsIcon className={ICON_CLASS_NAME} />,
-    link: 'https://rxjs.dev/',
+    name: 'Next.js',
+    icon: <NextJsIcon className={ICON_CLASS_NAME} />,
+    link: 'https://nextjs.org/',
   },
   {
     name: 'React',
@@ -40,6 +41,11 @@ export const commonTechnologies: CommonTechnology[] = [
     name: 'Fastify',
     icon: <FastifyIcon className={ICON_CLASS_NAME} />,
     link: 'https://www.fastify.io/',
+  },
+  {
+    name: 'Prisma',
+    icon: <PrismaIcon className={ICON_CLASS_NAME} />,
+    link: 'https://www.prisma.io/',
   },
   {
     name: 'Testing Library',
