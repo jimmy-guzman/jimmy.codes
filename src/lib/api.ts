@@ -12,7 +12,7 @@ export const getPostSlugs = (): string[] => {
 export const getPostBySlug = <T extends readonly string[]>(
   slug: string,
   fields: T
-): Record<typeof fields[number], string> => {
+): Record<(typeof fields)[number], string> => {
   const realSlug = slug.replace(/\.md$/, '')
   const fullPath = join(postsDirectory, `${realSlug}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
@@ -25,12 +25,12 @@ export const getPostBySlug = <T extends readonly string[]>(
       ...(curr === 'content' && { [curr]: content }),
       ...(typeof data[curr] !== 'undefined' && { [curr]: data[curr] }),
     }
-  }, {}) as Record<typeof fields[number], string>
+  }, {}) as Record<(typeof fields)[number], string>
 }
 
 export const getAllPosts = <T extends readonly string[]>(
   fields: T
-): Record<typeof fields[number], string>[] => {
+): Record<(typeof fields)[number], string>[] => {
   const slugs = getPostSlugs()
 
   const posts = slugs.map((slug) => {
