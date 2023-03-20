@@ -1,66 +1,9 @@
-import {
-  DockerIcon,
-  ExpressIcon,
-  FastifyIcon,
-  KafkaIcon,
-  MongoDBIcon,
-  NodeJsIcon,
-  PostgresIcon,
-  ReactIcon,
-  RedisIcon,
-  TypescriptIcon,
-} from '../../../icons'
+import { CurrentTechnologies } from './current-tech'
+import { ExpressIcon, MongoDBIcon, NodeJsIcon, ReactIcon } from '../../../icons'
 import { Link } from '../../atoms'
 
 const ICON_CLASS_NAME =
   'inline-block h-4 align-baseline md:h-6 md:align-text-bottom '
-
-const CurrentTechnologies = () => {
-  return (
-    <ul>
-      <li>
-        <span>
-          React <ReactIcon className={ICON_CLASS_NAME} />
-        </span>
-      </li>
-      <li>
-        <span>
-          Typescript <TypescriptIcon className={ICON_CLASS_NAME} />
-        </span>
-      </li>
-      <li>
-        <span>
-          Express <ExpressIcon className={ICON_CLASS_NAME} />
-        </span>
-      </li>
-      <li>
-        <span>
-          Fastify <FastifyIcon className={ICON_CLASS_NAME} />
-        </span>
-      </li>
-      <li>
-        <span>
-          Kafka <KafkaIcon className={ICON_CLASS_NAME} />
-        </span>
-      </li>
-      <li>
-        <span>
-          Docker <DockerIcon className={ICON_CLASS_NAME} />
-        </span>
-      </li>
-      <li>
-        <span>
-          Postgres <PostgresIcon className={ICON_CLASS_NAME} />
-        </span>
-      </li>
-      <li>
-        <span>
-          Redis <RedisIcon className={ICON_CLASS_NAME} />
-        </span>
-      </li>
-    </ul>
-  )
-}
 
 const TargetDescription = () => {
   return (
@@ -73,7 +16,13 @@ const TargetDescription = () => {
       applications. The main technologies that I interact with are:
       <CurrentTechnologies />
       My day to day consists of mentoring, ensuring scalability and providing a
-      vision for the future.
+      vision for the future. At the moment, I&apos;m working on:
+      <ul>
+        <li>Building a micro services platform that focus on speed and DX.</li>
+        <li>
+          Paying down historical debt while incrementally modernizing our UI.
+        </li>
+      </ul>
     </>
   )
 }
@@ -82,7 +31,7 @@ export const MyStory = (): JSX.Element => {
   return (
     <>
       <p>
-        I&apos;m Jimmy Guzman Moreno, an engineer that specializes in front end
+        I&apos;m Jimmy Guzman Moreno, an engineer that specializes in full stack
         development. My passion is to help others deliver the best solutions
         possible.
       </p>

@@ -1,8 +1,9 @@
 import { commonTechnologies } from './config'
 import { ICON_CLASS_NAME } from './constants'
-import { AstroIcon, RustIcon, TauriIcon } from '../../../icons'
+import { AstroIcon, KotlinIcon, RustIcon, TRPCIcon } from '../../../icons'
 import { Link, Prose } from '../../atoms'
 
+// eslint-disable-next-line max-lines-per-function
 export const Introduction = (): JSX.Element => {
   return (
     <Prose>
@@ -13,7 +14,7 @@ export const Introduction = (): JSX.Element => {
         </span>
       </h1>
       <p>
-        I&apos;m a engineer with an expertise in front end development and a
+        I&apos;m a engineer with an expertise in full stack development and a
         passion for sharing my knowledge with others.
       </p>
       <p>
@@ -34,12 +35,16 @@ export const Introduction = (): JSX.Element => {
           Astro <AstroIcon className={ICON_CLASS_NAME} />
         </Link>
         ,{' '}
-        <Link to='https://tauri.studio/' isExternal>
-          Tauri <TauriIcon className={ICON_CLASS_NAME} />
-        </Link>{' '}
-        and{' '}
+        <Link to='https://trpc.io/' isExternal>
+          tRPC <TRPCIcon className={ICON_CLASS_NAME} />
+        </Link>
+        ,{' '}
         <Link to='https://www.rust-lang.org/' isExternal>
           Rust <RustIcon className={ICON_CLASS_NAME} />
+        </Link>{' '}
+        and{' '}
+        <Link to='https://kotlinlang.org/' isExternal>
+          Kotlin <KotlinIcon className={ICON_CLASS_NAME} />
         </Link>
         .
       </p>
