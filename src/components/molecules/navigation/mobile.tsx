@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { navLinks, EMAIL_LINK, GITHUB_LINK, LINKEDIN_LINK } from './constants'
 import {
   MailIcon,
   GithubIcon,
@@ -8,7 +9,6 @@ import {
   HamburgerIcon,
 } from '../../../icons'
 import { NavLink } from '../../atoms'
-import { navLinks, EMAIL_LINK, GITHUB_LINK, LINKEDIN_LINK } from './constants'
 
 const MobileMenu = () => {
   return (

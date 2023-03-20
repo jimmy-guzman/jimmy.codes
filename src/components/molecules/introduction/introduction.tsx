@@ -1,7 +1,7 @@
-import { AstroIcon, RustIcon, TauriIcon } from '../../../icons'
-import { Link, Prose } from '../../atoms'
 import { commonTechnologies } from './config'
 import { ICON_CLASS_NAME } from './constants'
+import { AstroIcon, RustIcon, TauriIcon } from '../../../icons'
+import { Link, Prose } from '../../atoms'
 
 export const Introduction = (): JSX.Element => {
   return (

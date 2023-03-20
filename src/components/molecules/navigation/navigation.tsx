@@ -1,7 +1,7 @@
-import { useMatchMedia } from '../../../hooks'
-import { Logo, NextLink } from '../../atoms'
 import { Mobile } from './mobile'
 import { Tablet } from './tablet'
+import { useMatchMedia } from '../../../hooks'
+import { Logo, NextLink } from '../../atoms'
 
 export const Navigation = (): JSX.Element => {
   const isTablet = useMatchMedia('(min-width: 768px)')
