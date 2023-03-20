@@ -1,7 +1,7 @@
-import NextImage from 'next/legacy/image'
+import NextImage from 'next/image'
 import useDimensions from 'react-cool-dimensions'
 
-import type { ImageProps as NextImageProps } from 'next/legacy/image'
+import type { ImageProps as NextImageProps } from 'next/image'
 
 interface ImageProps
   extends Omit<
@@ -20,10 +20,13 @@ export const Image = ({ imageUrl, ...rest }: ImageProps): JSX.Element => {
         {...rest}
         blurDataURL={imageUrl}
         src={imageUrl}
-        layout='responsive'
-        sizes={`${Math.round(width)}px`}
         placeholder='blur'
         quality={65}
+        sizes={`${Math.round(width)}px`}
+        style={{
+          width: '100%',
+          height: 'auto',
+        }}
       />
     </div>
   )
