@@ -33,7 +33,7 @@
     "react": "18.2.0",
     "react-cool-dimensions": "3.0.1",
     "react-dom": "18.2.0",
-    "react-markdown": "8.0.5",
+    "react-markdown": "8.0.6",
     "rehype-autolink-headings": "6.1.1",
     "rehype-external-links": "2.0.1",
     "rehype-highlight": "6.0.0",
