@@ -15,6 +15,53 @@ import { Link } from '../../atoms'
 const ICON_CLASS_NAME =
   'inline-block h-4 align-baseline md:h-6 md:align-text-bottom '
 
+const CurrentTechnologies = () => {
+  return (
+    <ul>
+      <li>
+        <span>
+          React <ReactIcon className={ICON_CLASS_NAME} />
+        </span>
+      </li>
+      <li>
+        <span>
+          Typescript <TypescriptIcon className={ICON_CLASS_NAME} />
+        </span>
+      </li>
+      <li>
+        <span>
+          Express <ExpressIcon className={ICON_CLASS_NAME} />
+        </span>
+      </li>
+      <li>
+        <span>
+          Fastify <FastifyIcon className={ICON_CLASS_NAME} />
+        </span>
+      </li>
+      <li>
+        <span>
+          Kafka <KafkaIcon className={ICON_CLASS_NAME} />
+        </span>
+      </li>
+      <li>
+        <span>
+          Docker <DockerIcon className={ICON_CLASS_NAME} />
+        </span>
+      </li>
+      <li>
+        <span>
+          Postgres <PostgresIcon className={ICON_CLASS_NAME} />
+        </span>
+      </li>
+      <li>
+        <span>
+          Redis <RedisIcon className={ICON_CLASS_NAME} />
+        </span>
+      </li>
+    </ul>
+  )
+}
+
 const TargetDescription = () => {
   return (
     <>
@@ -24,32 +71,7 @@ const TargetDescription = () => {
       </Link>{' '}
       where I drive full stack solutions for supply chain inventory management
       applications. The main technologies that I interact with are:
-      <ul>
-        <li>
-          React <ReactIcon className={ICON_CLASS_NAME} />
-        </li>
-        <li>
-          Typescript <TypescriptIcon className={ICON_CLASS_NAME} />
-        </li>
-        <li>
-          Express <ExpressIcon className={ICON_CLASS_NAME} />
-        </li>
-        <li>
-          Fastify <FastifyIcon className={ICON_CLASS_NAME} />
-        </li>
-        <li>
-          Kafka <KafkaIcon className={ICON_CLASS_NAME} />
-        </li>
-        <li>
-          Docker <DockerIcon className={ICON_CLASS_NAME} />
-        </li>
-        <li>
-          Postgres <PostgresIcon className={ICON_CLASS_NAME} />
-        </li>
-        <li>
-          Redis <RedisIcon className={ICON_CLASS_NAME} />
-        </li>
-      </ul>
+      <CurrentTechnologies />
       My day to day consists of mentoring, ensuring scalability and providing a
       vision for the future.
     </>
