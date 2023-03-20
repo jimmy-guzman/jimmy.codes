@@ -21,7 +21,7 @@ export const NextLink = ({
   ...rest
 }: NextLinkProps): JSX.Element => {
   return (
-    <Link href={href} {...rest}>
+    <Link href={href} {...rest} legacyBehavior>
       <a
         href={href}
         className={className}

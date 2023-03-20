@@ -1,6 +1,6 @@
+import { navLinks, EMAIL_LINK, GITHUB_LINK, LINKEDIN_LINK } from './constants'
 import { MailIcon, GithubIcon, LinkedInIcon } from '../../../icons'
 import { NavLink } from '../../atoms'
-import { navLinks, EMAIL_LINK, GITHUB_LINK, LINKEDIN_LINK } from './constants'
 
 export const Tablet = (): JSX.Element => {
   return (

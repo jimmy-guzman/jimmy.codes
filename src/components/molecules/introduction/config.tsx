@@ -1,3 +1,4 @@
+import { ICON_CLASS_NAME } from './constants'
 import {
   TypescriptIcon,
   RxjsIcon,
@@ -7,7 +8,6 @@ import {
   TestingLibraryIcon,
   CypressIcon,
 } from '../../../icons'
-import { ICON_CLASS_NAME } from './constants'
 
 interface CommonTechnology {
   icon?: React.ReactNode

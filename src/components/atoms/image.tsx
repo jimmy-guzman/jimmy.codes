@@ -20,10 +20,13 @@ export const Image = ({ imageUrl, ...rest }: ImageProps): JSX.Element => {
         {...rest}
         blurDataURL={imageUrl}
         src={imageUrl}
-        layout='responsive'
-        sizes={`${Math.round(width)}px`}
         placeholder='blur'
         quality={65}
+        sizes={`${Math.round(width)}px`}
+        style={{
+          width: '100%',
+          height: 'auto',
+        }}
       />
     </div>
   )
