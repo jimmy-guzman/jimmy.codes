@@ -1,5 +1,3 @@
-import Script from 'next/script'
-
 import type { BaseHeadProps } from '../components/atoms'
 
 import { BaseHead } from '../components/atoms'
@@ -17,14 +15,6 @@ export const PageLayout = ({
     <>
       <BaseHead {...metaData} />
       <main>{children}</main>
-
-      {process.env.NEXT_PUBLIC_FATHOM_KEY && (
-        <Script
-          src='https://wild-wind-innovate.jimmy.codes/script.js'
-          data-site={process.env.NEXT_PUBLIC_FATHOM_KEY}
-          strategy='afterInteractive'
-        />
-      )}
     </>
   )
 }
