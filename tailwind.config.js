@@ -1,8 +1,9 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+import typography from '@tailwindcss/typography'
+import defaultTheme from 'tailwindcss/defaultTheme'
 
 /* eslint-disable sort-keys, id-length */
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     './src/app/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
@@ -151,5 +152,5 @@ module.exports = {
       200: '50rem',
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [typography],
 }
