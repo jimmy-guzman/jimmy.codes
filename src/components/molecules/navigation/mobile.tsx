@@ -12,7 +12,7 @@ import { NavLink } from '../../atoms'
 
 const MobileMenu = () => {
   return (
-    <div className='absolute top-10 right-0 z-50 flex flex-col justify-end gap-4 bg-gray-800 p-4 text-center shadow-md'>
+    <div className='absolute right-0 top-10 z-50 flex flex-col justify-end gap-4 bg-gray-800 p-4 text-center shadow-md'>
       {navLinks.map(({ path, name }) => (
         <NavLink to={path} key={name} isBig>
           {name}

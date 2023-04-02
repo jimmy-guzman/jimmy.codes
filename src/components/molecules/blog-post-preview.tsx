@@ -43,7 +43,7 @@ export const BlogPostPreview = ({ post }: BlogPreviewProps): JSX.Element => {
             </div>
             <p className='mt-4 text-white'>{truncate(post.description, 100)}</p>
           </div>
-          <div className='flex flex-wrap justify-center gap-2 pr-4 pl-4 pb-2'>
+          <div className='flex flex-wrap justify-center gap-2 pb-2 pl-4 pr-4'>
             {post.keywords.split(',').map((keyword) => (
               <Badge key={keyword}>{keyword.trim()}</Badge>
             ))}
