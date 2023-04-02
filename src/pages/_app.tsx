@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app'
 
 import { Wrapper, Container, Footer } from '../components/atoms'
 import { Navigation } from '../components/molecules'
-import { useFathom } from '../hooks/use-fathom'
+import { useFathom } from '../hooks'
 
 import '../styles/global.css'
 
