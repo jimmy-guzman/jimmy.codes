@@ -8,20 +8,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: setup pnpm
-        uses: pnpm/action-setup@v2
+      - name: 📦 Install
+        uses: ./.github/actions/install
         with:
-          version: 7.29.0
-          node-version: 18
-      # TODO: disabling because of https://github.com/actions/cache/issues/319, consider rolling custom cache
-      # - name: setup cache
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: 18
-      #     cache: 'pnpm'
-
-      - name: install
-        run: pnpm install --frozen-lockfile
+          pnpm-version: 7.29.0
 
       - name: cypress
         uses: cypress-io/github-action@v5
