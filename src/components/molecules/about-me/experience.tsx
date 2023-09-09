@@ -29,11 +29,7 @@ export const Experience = ({
                   {location} ({from} - {to})
                 </p>
                 {description && <p>{description}</p>}
-                <ul>
-                  {tasks?.map((task) => (
-                    <li key={task}>{task}</li>
-                  ))}
-                </ul>
+                <ul>{tasks?.map((task) => <li key={task}>{task}</li>)}</ul>
               </div>
             </li>
           )
