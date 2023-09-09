@@ -50,7 +50,7 @@
     "@types/react": "18.2.21",
     "autoprefixer": "10.4.15",
     "commitlint": "17.7.1",
-    "cypress": "12.17.4",
+    "cypress": "13.1.0",
     "eslint": "8.49.0",
     "eslint-config-jimmy-guzman": "10.1.0",
     "gitzy": "3.5.1",
