@@ -11,20 +11,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: setup pnpm
-        uses: pnpm/action-setup@v2
+      - name: 📦 Install
+        uses: ./.github/actions/install
         with:
-          version: 7.29.0
-          node-version: 18
-
-      - name: setup cache
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'pnpm'
-
-      - name: install
-        run: pnpm install --frozen-lockfile
+          pnpm-version: 7.29.0
 
       - name: lint
         run: pnpm lint
