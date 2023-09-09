@@ -10,8 +10,6 @@ jobs:
 
       - name: 📦 Install
         uses: ./.github/actions/install
-        with:
-          pnpm-version: 7.29.0
 
       - name: cypress
         uses: cypress-io/github-action@v5

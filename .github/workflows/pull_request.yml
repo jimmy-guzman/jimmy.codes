@@ -13,8 +13,6 @@ jobs:
 
       - name: 📦 Install
         uses: ./.github/actions/install
-        with:
-          pnpm-version: 7.29.0
 
       - name: lint
         run: pnpm lint
