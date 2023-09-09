@@ -1,27 +1,23 @@
 {
+  "extends": "./tsconfig.strict.json",
   "compilerOptions": {
-    "allowJs": false,
-    "alwaysStrict": true,
-    "strict": true,
-    "allowSyntheticDefaultImports": true,
-    "declaration": false,
-    "declarationMap": false,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "noEmit": true,
     "module": "ESNext",
     "moduleResolution": "node",
-    "noEmit": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "target": "ESNext",
-    "useDefineForClassFields": true,
     "jsx": "preserve",
     "incremental": true,
+
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+
     "types": ["@testing-library/cypress"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
