@@ -13,7 +13,7 @@ interface NavLinkProps {
 export const NavLink = ({
   children,
   isBig,
-  isExternal,
+  isExternal = false,
   to,
 }: NavLinkProps): JSX.Element => {
   const router = useRouter()
