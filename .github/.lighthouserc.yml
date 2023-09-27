@@ -5,8 +5,7 @@ ci:
       preset: desktop
       onlyCategories: ['performance', 'seo', 'accessibility', 'best-practices']
       # skipping is-crawlable since vercel will prevent indexing on non prod urls
-      # skipping inspector-issues since vercel preview url add a login capability
-      skipAudits: ['is-crawlable', 'inspector-issues']
+      skipAudits: ['is-crawlable']
   assert:
     assertions:
       categories:performance:
