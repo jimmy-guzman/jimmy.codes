@@ -13,7 +13,7 @@ At the beginning of 2022, I decided I wanted to start blogging about coding. So 
 ## Table of Contents
 
 - [Technology Overview](#technology-overview)
-  - [NextJS vs Astro](#nextjs-vs-astro)
+  - [Next.js vs Astro](#nextjs-vs-astro)
   - [Markdown Content](#markdown-content)
   - [Image Optimization](#image-optimization)
 - [CI/CD Overview](#cicd-overview)
@@ -26,7 +26,7 @@ At the beginning of 2022, I decided I wanted to start blogging about coding. So 
 
 Here are the main technologies:
 
-- [NextJS](https://nextjs.org/): A React hybrid static & server rendering framework
+- [Next.js](https://nextjs.org/): A React hybrid static & server rendering framework
 - [React](https://reactjs.org/): Powers the UI
 - [TypeScript](https://www.typescriptlang.org/): Provides types syntax for JavaScript
 - [pnpm](https://pnpm.io/): A fast and efficient package manager
@@ -39,13 +39,13 @@ Here are the main technologies:
 
 Here are the services:
 
-- [GitHub Actions](https://github.com/features/actions): Github hosted CI/CD service
+- [GitHub Actions](https://github.com/features/actions): GitHub hosted CI/CD service
 - [Vercel](https://vercel.com/): Deployment with developer experience and performance in mind
 - [Cloudinary](https://cloudinary.com/): Image hosting and optimization service
 - [Fathom](https://usefathom.com/): Privacy focused analytics service
 - [Cypress Dashboard](https://www.cypress.io/dashboard): Record and view cypress tests service
 
-### NextJS vs Astro
+### Next.js vs Astro
 
 I first started with [astro](https://astro.build/) because for this use case it made perfect sense, so what is [astro](https://astro.build/)?
 
@@ -60,11 +60,11 @@ With features such as:
 
 This meant that it was perfect to build a simple performant blogfolio while still using [React](https://reactjs.org/). But it's still in [beta](https://github.com/withastro/astro#project-status), so it's lacking features such as easy image optimization, bug-free developer experience tooling, build customization, and [others](https://github.com/withastro/astro/issues/1222). Still, I'm very optimistic about Astro's future and who knows, I might refactor this site to use Astro in the future.
 
-Due to Astro lacking the features I mentioned, I went with the popular and proven framework, [NextJS](https://nextjs.org/).
+Due to Astro lacking the features I mentioned, I went with the popular and proven framework, [Next.js](https://nextjs.org/).
 
 ### Markdown Content
 
-Since [NextJS](https://nextjs.org/) does not come with [out-the-box Markdown support like Astro](https://docs.astro.build/en/guides/markdown-content/) we have to roll our own. NextJS gives us a [great example](https://github.com/vercel/next.js/tree/canary/examples/blog-starter-typescript#a-statically-generated-blog-example-using-nextjs-markdown-and-typescript) powered by [remark](https://github.com/gnab/remark#remark)(like Astro) of how to do this but I wanted to leverage NextJS's [image component](https://nextjs.org/docs/basic-features/image-optimization) which gives features such as:
+Since [Next.js](https://nextjs.org/) does not come with [out-the-box Markdown support like Astro](https://docs.astro.build/en/guides/markdown-content/) we have to roll our own. Next.js gives us a [great example](https://github.com/vercel/next.js/tree/canary/examples/blog-starter-typescript#a-statically-generated-blog-example-using-nextjs-markdown-and-typescript) powered by [remark](https://github.com/gnab/remark#remark)(like Astro) of how to do this but I wanted to leverage Next.js's [image component](https://nextjs.org/docs/basic-features/image-optimization) which gives features such as:
 
 - improved performance by serving the correct size with modern image formats
 - visual stability by preventing [Cumulative Layout Shift](https://nextjs.org/learn/seo/web-performance/cls)
@@ -161,7 +161,7 @@ const MarkdownContent = ({ content }: MarkdownContentProps) => {
 
 ### Image Optimization
 
-I already mentioned NextJS's [image component](https://nextjs.org/docs/basic-features/image-optimization) but alongside [Cloudinary](https://cloudinary.com/) features such as:
+I already mentioned Next.js's [image component](https://nextjs.org/docs/basic-features/image-optimization) but alongside [Cloudinary](https://cloudinary.com/) features such as:
 
 - performant hosting
 - transformations with no visual degradation
@@ -265,11 +265,11 @@ lighthouse:
         configPath: .github/.lighthouserc.yml
 ```
 
-Since this Github Action is powered by the [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci#lighthouse-ci), it offers [extensive configuration](https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md).
+Since this GitHub Action is powered by the [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci#lighthouse-ci), it offers [extensive configuration](https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md).
 
 ## Analytics
 
-Using [Fathom](https://usefathom.com/) with NextJS is extremely simple, given you setup a custom domain first, all you need to do is use `<Script />` component, i.e
+Using [Fathom](https://usefathom.com/) with Next.js is extremely simple, given you setup a custom domain first, all you need to do is use `<Script />` component, i.e
 
 ```tsx
 {
@@ -283,7 +283,7 @@ Using [Fathom](https://usefathom.com/) with NextJS is extremely simple, given yo
 }
 ```
 
-This will allow NextJS to take care of any optimizations and will give you all of Fathom's features such as:
+This will allow Next.js to take care of any optimizations and will give you all of Fathom's features such as:
 
 - Fully GDPR, ePrivacy, PECR and CCPA compliant
 - Ability to see all visitors even those with ad blockers
@@ -296,4 +296,4 @@ For transparency's sake, I made [this site's dashboard](https://app.usefathom.co
 
 ## Conclusion
 
-There's nothing game changing mentioned in this post and this is mostly a collection of cool things others have done. But it felt appropriate as my first post on my new personal site to be about how it came to be. With most of my personal projects, I will most likely refactor this with a new cool technology or service that comes along. For now NextJS, Typescript, the Unified System, Fathom, Cloudinary and Vercel is a perfect combination to build a highly performant blogfolio site.
+There's nothing game changing mentioned in this post and this is mostly a collection of cool things others have done. But it felt appropriate as my first post on my new personal site to be about how it came to be. With most of my personal projects, I will most likely refactor this with a new cool technology or service that comes along. For now Next.js, TypeScript, the Unified System, Fathom, Cloudinary and Vercel is a perfect combination to build a highly performant blogfolio site.

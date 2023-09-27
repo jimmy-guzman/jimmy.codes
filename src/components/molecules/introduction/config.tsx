@@ -18,7 +18,7 @@ interface CommonTechnology {
 
 export const commonTechnologies: CommonTechnology[] = [
   {
-    name: 'Typescript',
+    name: 'TypeScript',
     icon: <TypescriptIcon className={ICON_CLASS_NAME} />,
     link: 'https://www.typescriptlang.org/',
   },

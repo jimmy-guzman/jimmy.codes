@@ -13,7 +13,7 @@ import {
 
 const technologies = [
   { name: 'React', Icon: ReactIcon },
-  { name: 'NextJS', Icon: NextJsIcon },
+  { name: 'Next.js', Icon: NextJsIcon },
   { name: 'TypeScript', Icon: TypescriptIcon },
   { name: 'Turborepo', Icon: TurborepoIcon },
   { name: 'Express', Icon: ExpressIcon },
