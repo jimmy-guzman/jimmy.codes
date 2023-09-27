@@ -17,6 +17,6 @@
 - [fathom](https://usefathom.com/)
 - [Cloudinary](https://cloudinary.com/)
 - [Cloudflare](https://www.cloudflare.com/)
-- [Github Actions](https://github.com/features/actions)
+- [GitHub Actions](https://github.com/features/actions)
 
 For [more information of how this site was built](src/_posts/how-i-built-simple-blogfolio.md)

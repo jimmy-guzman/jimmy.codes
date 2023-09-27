@@ -52,18 +52,18 @@ export const PastLife = (): JSX.Element => {
         </li>
         <li>
           <Link isExternal to='https://eloquentjavascript.net/'>
-            Eloquent Javascript
+            Eloquent JavaScript
           </Link>{' '}
           by Marijn Haverbeke
         </li>
         <li>
           <Link isExternal to='http://domenlightenment.com/'>
-            Dom Enlightenment
+            DOM Enlightenment
           </Link>{' '}
           by Cody Lindley
         </li>
       </ul>
-      And building lots of projects with React, jquery, and vanilla Javascript.
+      And building lots of projects with React, jquery, and vanilla JavaScript.
       <p>
         After 9 months, I landed my first job as a Teaching Assistant at a
         coding boot camp.
