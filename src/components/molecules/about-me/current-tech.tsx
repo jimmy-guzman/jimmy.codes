@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react'
-
 import {
   DockerIcon,
   ExpressIcon,
@@ -10,49 +8,33 @@ import {
   RedisIcon,
   TypescriptIcon,
   TurborepoIcon,
+  NextJsIcon,
 } from '../../../icons'
 
-const Technology = ({ children }: { children: ReactNode }) => {
-  return (
-    <li>
-      <span>{children}</span>
-    </li>
-  )
-}
-
-const ICON_CLASS_NAME =
-  'inline-block h-4 align-baseline md:h-6 md:align-text-bottom '
+const technologies = [
+  { name: 'React', Icon: ReactIcon },
+  { name: 'NextJS', Icon: NextJsIcon },
+  { name: 'TypeScript', Icon: TypescriptIcon },
+  { name: 'Turborepo', Icon: TurborepoIcon },
+  { name: 'Express', Icon: ExpressIcon },
+  { name: 'Fastify', Icon: FastifyIcon },
+  { name: 'Kafka', Icon: KafkaIcon },
+  { name: 'Docker', Icon: DockerIcon },
+  { name: 'Postgres', Icon: PostgresIcon },
+  { name: 'Redis', Icon: RedisIcon },
+]
 
 export const CurrentTechnologies = (): JSX.Element => {
   return (
     <ul>
-      <Technology>
-        React <ReactIcon className={ICON_CLASS_NAME} />
-      </Technology>
-      <Technology>
-        Typescript <TypescriptIcon className={ICON_CLASS_NAME} />
-      </Technology>
-      <Technology>
-        Turborepo <TurborepoIcon className={ICON_CLASS_NAME} />
-      </Technology>
-      <Technology>
-        Express <ExpressIcon className={ICON_CLASS_NAME} />
-      </Technology>
-      <Technology>
-        Fastify <FastifyIcon className={ICON_CLASS_NAME} />
-      </Technology>
-      <Technology>
-        Kafka <KafkaIcon className={ICON_CLASS_NAME} />
-      </Technology>
-      <Technology>
-        Docker <DockerIcon className={ICON_CLASS_NAME} />
-      </Technology>
-      <Technology>
-        Postgres <PostgresIcon className={ICON_CLASS_NAME} />
-      </Technology>
-      <Technology>
-        Redis <RedisIcon className={ICON_CLASS_NAME} />
-      </Technology>
+      {technologies.map(({ name, Icon }) => (
+        <li key={name}>
+          <span>
+            {name}{' '}
+            <Icon className='inline-block h-4 align-baseline md:h-6 md:align-text-bottom' />
+          </span>
+        </li>
+      ))}
     </ul>
   )
 }

@@ -22,6 +22,10 @@ const TargetDescription = () => {
         <li>
           Paying down historical debt while incrementally modernizing our UI.
         </li>
+        <li>
+          Designing and planning the migration from a SPA to a NextJS
+          application.
+        </li>
       </ul>
     </>
   )

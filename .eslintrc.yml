@@ -11,3 +11,4 @@ parserOptions:
   project: ['./tsconfig.json', './cypress/tsconfig.json']
 rules:
   'dot-notation': off
+  '@typescript-eslint/naming-convention': off
