@@ -39,7 +39,8 @@
     "rehype-external-links": "3.0.0",
     "rehype-highlight": "6.0.0",
     "rehype-slug": "6.0.0",
-    "remark-unwrap-images": "3.0.1"
+    "remark-unwrap-images": "3.0.1",
+    "sharp": "0.32.6"
   },
   "devDependencies": {
     "@comparto/prettier-config": "1.2.0",

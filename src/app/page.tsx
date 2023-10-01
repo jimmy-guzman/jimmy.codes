@@ -1,13 +1,5 @@
 import { Introduction } from '../components/molecules'
 
-const Page = (): JSX.Element => {
-  return (
-    <main>
-      <section>
-        <Introduction />
-      </section>
-    </main>
-  )
+export default function Page(): JSX.Element {
+  return <Introduction />
 }
-
-export default Page

@@ -15,7 +15,6 @@ export const Navigation = (): JSX.Element => {
       >
         <Logo />
       </NextLink>
-
       {isTablet ? <Tablet /> : <Mobile />}
     </nav>
   )
