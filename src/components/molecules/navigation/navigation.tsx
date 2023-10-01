@@ -1,3 +1,4 @@
+'use client'
 import { Mobile } from './mobile'
 import { Tablet } from './tablet'
 import { useMatchMedia } from '../../../hooks'
