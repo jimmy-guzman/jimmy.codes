@@ -1,3 +1,4 @@
+'use client'
 import NextImage from 'next/image'
 import useDimensions from 'react-cool-dimensions'
 

@@ -1,3 +1,4 @@
+'use client'
 import { Mobile } from './mobile'
 import { Tablet } from './tablet'
 import { useMatchMedia } from '../../../hooks'
@@ -14,7 +15,6 @@ export const Navigation = (): JSX.Element => {
       >
         <Logo />
       </NextLink>
-
       {isTablet ? <Tablet /> : <Mobile />}
     </nav>
   )

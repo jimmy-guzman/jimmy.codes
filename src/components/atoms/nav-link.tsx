@@ -1,5 +1,6 @@
+'use client'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 
 import { NextLink } from './next-link'
 
@@ -16,14 +17,14 @@ export const NavLink = ({
   isExternal = false,
   to,
 }: NavLinkProps): JSX.Element => {
-  const router = useRouter()
+  const pathname = usePathname()
 
   return (
     <NextLink
       href={to}
       className={clsx('hover:text-spring-green-250', {
-        'text-slate-300': router.pathname !== to,
-        'text-spring-green-250': router.pathname === to,
+        'text-slate-300': pathname !== to,
+        'text-spring-green-250': pathname === to,
         'font-semi-bold text-xl md:text-xl lg:mt-0': isBig,
       })}
       isExternal={isExternal}

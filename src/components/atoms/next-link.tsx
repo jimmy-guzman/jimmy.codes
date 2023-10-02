@@ -21,14 +21,13 @@ export const NextLink = ({
   ...rest
 }: NextLinkProps): JSX.Element => {
   return (
-    <Link href={href} {...rest} legacyBehavior>
-      <a
-        href={href}
-        className={className}
-        {...(isExternal && { rel: 'noreferrer', target: '_blank' })}
-      >
-        {children}
-      </a>
+    <Link
+      href={href}
+      className={className}
+      {...rest}
+      {...(isExternal && { rel: 'noreferrer', target: '_blank' })}
+    >
+      {children}
     </Link>
   )
 }

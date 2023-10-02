@@ -5,8 +5,8 @@ export const blogSelectors = {
     return cy.findAllByRole('link', { name: 'Read Post' })
   },
   get greeting(): Chainable {
-    return cy.findByText(/Read articles written by me/, {
-      ignore: '#__next-route-announcer__,title',
+    return cy.findByRole('heading', {
+      name: /Read articles written by me/,
     })
   },
   get authorLink(): Chainable {

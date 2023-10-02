@@ -8,8 +8,8 @@ export const homeSelectors = {
     return cy.findByRole('link', { name: 'read my blog' })
   },
   get greeting(): Chainable {
-    return cy.findByText(/Hi, I'm Jimmy/, {
-      ignore: '#__next-route-announcer__,title',
+    return cy.findByRole('heading', {
+      name: /Hi, I'm Jimmy/,
     })
   },
 }
