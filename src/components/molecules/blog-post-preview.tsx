@@ -1,4 +1,3 @@
-'use client'
 import { truncate } from '../../utils'
 import { Badge, Image, NextLink } from '../atoms'
 
