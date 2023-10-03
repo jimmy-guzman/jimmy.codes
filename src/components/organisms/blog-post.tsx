@@ -1,5 +1,5 @@
 import { GithubIcon } from '../../icons'
-import { Prose, Image, NextLink } from '../atoms'
+import { Prose, Image, NextLink, BlogPostTimestamp } from '../atoms'
 import { MarkdownContent } from '../molecules'
 
 import 'highlight.js/styles/base16/material.css'
@@ -47,17 +47,8 @@ export const BlogPost = ({
       <main>
         <MarkdownContent content={content} />
         <p>Thank you for reading ❤️</p>
+        <BlogPostTimestamp timestamp={timestamp} />
       </main>
-      <div className='flex justify-end text-slate-400'>
-        <time dateTime={timestamp.toISOString()}>
-          Last updated on{' '}
-          {timestamp.toLocaleDateString('en', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-          })}
-        </time>
-      </div>
     </Prose>
   )
 }
