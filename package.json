@@ -26,6 +26,7 @@
     ]
   },
   "dependencies": {
+    "@napi-rs/simple-git": "0.1.9",
     "clsx": "2.0.0",
     "fathom-client": "3.5.0",
     "gray-matter": "4.0.3",
