@@ -2,6 +2,7 @@
   "name": "jimmy.codes",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "start": "next start",
@@ -18,10 +19,10 @@
     "useCommitlintConfig": true
   },
   "lint-staged": {
-    "*.{md,json,yml,js,mjs,ts,tsx}": [
+    "*.{md,json,yml,js,cjs,mjs,ts,tsx}": [
       "prettier -w"
     ],
-    "*.{js,mjs,ts,tsx}": [
+    "*.{js,cjs,mjs,ts,tsx}": [
       "eslint --cache"
     ]
   },

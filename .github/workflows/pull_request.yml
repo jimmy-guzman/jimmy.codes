@@ -31,10 +31,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      # TODO: remove once error TS6046: Argument for '--moduleResolution' option must be: 'node', 'classic', 'node16', 'nodenext'. is addressed
+      - run: rm tsconfig.json
+
       - name: commitlint
         uses: wagoid/commitlint-github-action@v5
         with:
-          configFile: .commitlintrc.yml
+          configFile: commitlint.config.cjs
 
   spell_check:
     runs-on: ubuntu-latest
