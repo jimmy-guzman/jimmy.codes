@@ -1,32 +1,34 @@
 import NextImage from 'next/image'
 
-import type { CodeProps } from 'react-markdown/lib/ast-to-react'
+import type {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  ImgHTMLAttributes,
+} from 'react'
+
+type CodeProps = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
+type ImgProps = DetailedHTMLProps<
+  ImgHTMLAttributes<HTMLImageElement>,
+  HTMLImageElement
+>
 
 export const renderers = {
-  code: ({
-    children,
-    className,
-  }: React.PropsWithChildren<CodeProps>): JSX.Element => (
+  code: ({ children, className }: CodeProps): JSX.Element => (
     <code
       className={`${className} xs:whitespace-pre-wrap xs:!p-1 xs:text-[11px]`}
     >
       {children}
     </code>
   ),
-  img: (
-    image: React.DetailedHTMLProps<
-      React.ImgHTMLAttributes<HTMLImageElement>,
-      HTMLImageElement
-    >
-  ): JSX.Element | null => {
-    if (!image.src) return null
+  img: ({ src, alt }: ImgProps): JSX.Element | null => {
+    if (!src) return null
 
     return (
       <NextImage
         className='rounded-lg'
-        blurDataURL={image.src}
-        src={image.src}
-        alt={image.alt ?? ''}
+        blurDataURL={src}
+        src={src}
+        alt={alt ?? ''}
         width={945}
         height={645}
         placeholder='blur'
