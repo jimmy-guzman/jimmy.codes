@@ -21,10 +21,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPostBySlug(params.slug, [
     'title',
     'description',
-    'publishDate',
     'content',
     'imageUrl',
     'repoUrl',
+    'publishDate',
   ])
 
   return {
@@ -47,10 +47,10 @@ export default async function Page({ params }: Props): Promise<JSX.Element> {
   const post = await getPostBySlug(params.slug, [
     'title',
     'description',
-    'publishDate',
     'content',
     'imageUrl',
     'repoUrl',
+    'publishDate',
   ])
 
   return <BlogPost {...post} />

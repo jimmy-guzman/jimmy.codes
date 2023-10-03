@@ -9,6 +9,7 @@ interface BlogPostProps {
   imageUrl: string
   publishDate: string
   repoUrl?: string
+  timestamp: Date
   title: string
 }
 
@@ -18,6 +19,7 @@ export const BlogPost = ({
   publishDate,
   repoUrl,
   title,
+  timestamp,
 }: BlogPostProps): JSX.Element => {
   return (
     <Prose>
@@ -29,26 +31,33 @@ export const BlogPost = ({
         height={732}
       />
       <header>
-        <div className='flex justify-between'>
-          <p>{publishDate}</p>
+        <div className='flex items-center justify-between'>
+          <time>{publishDate}</time>
           {repoUrl && (
-            <p>
-              <NextLink isExternal href={repoUrl}>
-                <GithubIcon className='h-4 w-4 fill-white hover:fill-spring-green-250 md:h-6 md:w-6' />
-              </NextLink>
-            </p>
+            <NextLink isExternal href={repoUrl}>
+              <GithubIcon className='h-4 w-4 fill-white hover:fill-spring-green-250 md:h-6 md:w-6' />
+            </NextLink>
           )}
         </div>
         <h1>{title}</h1>
         <p>
           <NextLink href='/'>Jimmy Guzman Moreno</NextLink>
         </p>
-        <p />
       </header>
       <main>
         <MarkdownContent content={content} />
         <p>Thank you for reading ❤️</p>
       </main>
+      <div className='flex justify-end text-slate-400'>
+        <time dateTime={timestamp.toISOString()}>
+          Last updated on{' '}
+          {timestamp.toLocaleDateString('en', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })}
+        </time>
+      </div>
     </Prose>
   )
 }
