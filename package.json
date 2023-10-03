@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@comparto/prettier-config": "1.2.0",
-    "@next/eslint-plugin-next": "13.4.19",
+    "@next/eslint-plugin-next": "13.5.4",
     "@tailwindcss/typography": "0.5.10",
     "@testing-library/cypress": "9.0.0",
     "@types/node": "18.18.3",
@@ -54,7 +54,7 @@
     "autoprefixer": "10.4.16",
     "commitlint": "17.7.1",
     "cypress": "13.1.0",
-    "eslint": "8.49.0",
+    "eslint": "8.50.0",
     "eslint-config-jimmy-guzman": "10.1.0",
     "gitzy": "4.0.0",
     "husky": "8.0.3",
