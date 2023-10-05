@@ -27,3 +27,4 @@ tsconfig.tsbuildinfo
 
 # eslint
 .eslintcache
+.vercel
