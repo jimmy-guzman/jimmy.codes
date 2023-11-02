@@ -1,6 +1,12 @@
+import {
+  SiAstro,
+  SiKotlin,
+  SiRust,
+  SiTrpc,
+} from '@icons-pack/react-simple-icons'
+
 import { commonTechnologies } from './config'
 import { ICON_CLASS_NAME } from './constants'
-import { AstroIcon, KotlinIcon, RustIcon, TRPCIcon } from '../../../icons'
 import { Link, Prose } from '../../atoms'
 
 // eslint-disable-next-line max-lines-per-function
@@ -32,19 +38,19 @@ export const Introduction = (): JSX.Element => {
       <p>
         And I&apos;m currently playing with{' '}
         <Link to='https://astro.build/' isExternal>
-          Astro <AstroIcon className={ICON_CLASS_NAME} />
+          Astro <SiAstro className={ICON_CLASS_NAME} />
         </Link>
         ,{' '}
         <Link to='https://trpc.io/' isExternal>
-          tRPC <TRPCIcon className={ICON_CLASS_NAME} />
+          tRPC <SiTrpc className={ICON_CLASS_NAME} />
         </Link>
         ,{' '}
         <Link to='https://www.rust-lang.org/' isExternal>
-          Rust <RustIcon className={ICON_CLASS_NAME} />
+          Rust <SiRust className={ICON_CLASS_NAME} />
         </Link>{' '}
         and{' '}
         <Link to='https://kotlinlang.org/' isExternal>
-          Kotlin <KotlinIcon className={ICON_CLASS_NAME} />
+          Kotlin <SiKotlin className={ICON_CLASS_NAME} />
         </Link>
         .
       </p>

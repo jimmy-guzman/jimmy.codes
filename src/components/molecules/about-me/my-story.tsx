@@ -1,5 +1,11 @@
+import {
+  SiExpress,
+  SiMongodb,
+  SiNodedotjs,
+  SiReact,
+} from '@icons-pack/react-simple-icons'
+
 import { CurrentTechnologies } from './current-tech'
-import { ExpressIcon, MongoDBIcon, NodeJsIcon, ReactIcon } from '../../../icons'
 import { Link } from '../../atoms'
 
 const ICON_CLASS_NAME =
@@ -57,10 +63,10 @@ export const MyStory = (): JSX.Element => {
           University of Minnesota Coding Boot Camp
         </Link>{' '}
         that focused on the MERN stack (MongoDB{' '}
-        <MongoDBIcon className={ICON_CLASS_NAME} />, Express{' '}
-        <ExpressIcon className={ICON_CLASS_NAME} />, ReactJS{' '}
-        <ReactIcon className={ICON_CLASS_NAME} /> and NodeJS{' '}
-        <NodeJsIcon className={ICON_CLASS_NAME} />
+        <SiMongodb className={ICON_CLASS_NAME} />, Express{' '}
+        <SiExpress className={ICON_CLASS_NAME} />, ReactJS{' '}
+        <SiReact className={ICON_CLASS_NAME} /> and NodeJS{' '}
+        <SiNodedotjs className={ICON_CLASS_NAME} />
         ).
       </p>
       <p>Finally, prior to that, I worked as a freelance web developer.</p>
