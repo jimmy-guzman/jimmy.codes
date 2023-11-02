@@ -7,14 +7,14 @@ import { NavLink } from '../../atoms'
 export const Tablet = (): JSX.Element => {
   return (
     <>
-      <div className='flex items-center gap-8 text-center'>
+      <div className='hidden items-center gap-8 text-center sm:flex'>
         {navLinks.map(({ path, name }) => (
           <NavLink to={path} key={name} isBig>
             {name}
           </NavLink>
         ))}
       </div>
-      <div className='flex flex-col items-center justify-around gap-2 md:flex-row md:gap-4'>
+      <div className='hidden flex-col items-center justify-around gap-2 sm:flex md:flex-row md:gap-4'>
         <NavLink to={EMAIL_LINK} isExternal>
           <EnvelopeIcon
             title='Mail'
