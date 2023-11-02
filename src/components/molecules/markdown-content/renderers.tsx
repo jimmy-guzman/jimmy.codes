@@ -1,24 +1,30 @@
 import NextImage from 'next/image'
 
-import type { CodeProps } from 'react-markdown/lib/ast-to-react'
+import type {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  ImgHTMLAttributes,
+} from 'react'
+
+type CodeElementProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLElement>,
+  HTMLElement
+>
+
+type ImageElementProps = DetailedHTMLProps<
+  ImgHTMLAttributes<HTMLImageElement>,
+  HTMLImageElement
+>
 
 export const renderers = {
-  code: ({
-    children,
-    className,
-  }: React.PropsWithChildren<CodeProps>): JSX.Element => (
+  code: ({ children, className }: CodeElementProps): JSX.Element => (
     <code
       className={`${className} xs:whitespace-pre-wrap xs:!p-1 xs:text-[11px]`}
     >
       {children}
     </code>
   ),
-  img: (
-    image: React.DetailedHTMLProps<
-      React.ImgHTMLAttributes<HTMLImageElement>,
-      HTMLImageElement
-    >
-  ): JSX.Element | null => {
+  img: (image: ImageElementProps): JSX.Element | null => {
     if (!image.src) return null
 
     return (
