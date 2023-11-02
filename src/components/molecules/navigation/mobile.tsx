@@ -8,7 +8,7 @@ export const Mobile = (): JSX.Element => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <>
+    <div className='sm:hidden'>
       {isMobileMenuOpen && <MobileMenu />}
       <MobileMenuButton
         isMobileMenuOpen={isMobileMenuOpen}
@@ -16,6 +16,6 @@ export const Mobile = (): JSX.Element => {
           setIsMobileMenuOpen((prevIsMobileMenuOpen) => !prevIsMobileMenuOpen)
         }}
       />
-    </>
+    </div>
   )
 }

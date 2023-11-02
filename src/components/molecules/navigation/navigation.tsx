@@ -1,12 +1,8 @@
-'use client'
 import { Mobile } from './mobile'
 import { Tablet } from './tablet'
-import { useMatchMedia } from '../../../hooks'
 import { Logo, NextLink } from '../../atoms'
 
 export const Navigation = (): JSX.Element => {
-  const isTablet = useMatchMedia('(min-width: 768px)')
-
   return (
     <nav className='relative flex flex-wrap items-center justify-between p-2 md:px-12 md:py-12'>
       <NextLink
@@ -15,7 +11,8 @@ export const Navigation = (): JSX.Element => {
       >
         <Logo />
       </NextLink>
-      {isTablet ? <Tablet /> : <Mobile />}
+      <Tablet />
+      <Mobile />
     </nav>
   )
 }
