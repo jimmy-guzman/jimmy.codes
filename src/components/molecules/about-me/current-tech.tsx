@@ -1,27 +1,27 @@
 import {
-  DockerIcon,
-  ExpressIcon,
-  FastifyIcon,
-  KafkaIcon,
-  PostgresIcon,
-  ReactIcon,
-  RedisIcon,
-  TypescriptIcon,
-  TurborepoIcon,
-  NextJsIcon,
-} from '../../../icons'
+  SiApachekafka,
+  SiDocker,
+  SiExpress,
+  SiFastify,
+  SiNextdotjs,
+  SiPostgresql,
+  SiReact,
+  SiRedis,
+  SiTurborepo,
+  SiTypescript,
+} from '@icons-pack/react-simple-icons'
 
 const technologies = [
-  { name: 'React', Icon: ReactIcon },
-  { name: 'Next.js', Icon: NextJsIcon },
-  { name: 'TypeScript', Icon: TypescriptIcon },
-  { name: 'Turborepo', Icon: TurborepoIcon },
-  { name: 'Express', Icon: ExpressIcon },
-  { name: 'Fastify', Icon: FastifyIcon },
-  { name: 'Kafka', Icon: KafkaIcon },
-  { name: 'Docker', Icon: DockerIcon },
-  { name: 'Postgres', Icon: PostgresIcon },
-  { name: 'Redis', Icon: RedisIcon },
+  { name: 'React', Icon: SiReact },
+  { name: 'Next.js', Icon: SiNextdotjs },
+  { name: 'TypeScript', Icon: SiTypescript },
+  { name: 'Turborepo', Icon: SiTurborepo },
+  { name: 'Express', Icon: SiExpress },
+  { name: 'Fastify', Icon: SiFastify },
+  { name: 'Kafka', Icon: SiApachekafka },
+  { name: 'Docker', Icon: SiDocker },
+  { name: 'Postgres', Icon: SiPostgresql },
+  { name: 'Redis', Icon: SiRedis },
 ]
 
 export const CurrentTechnologies = (): JSX.Element => {

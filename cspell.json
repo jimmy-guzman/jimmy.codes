@@ -1,6 +1,7 @@
 {
   "version": "0.2",
   "words": [
+    "Apachekafka",
     "architecting",
     "astro",
     "astrojs",
@@ -20,6 +21,7 @@
     "frontmatter",
     "gitzy",
     "Haverbeke",
+    "heroicons",
     "imagetools",
     "jquery",
     "lcov",
@@ -28,7 +30,9 @@
     "Marijn",
     "MERN",
     "napi",
+    "Nextdotjs",
     "nextjs",
+    "Nodedotjs",
     "nodenext",
     "noreferrer",
     "Pageview",
@@ -41,6 +45,7 @@
     "shellcheck",
     "tailwindcss",
     "tauri",
+    "Testinglibrary",
     "Treehouse",
     "treosh",
     "TRPC",

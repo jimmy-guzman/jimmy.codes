@@ -1,4 +1,4 @@
-import { CloseIcon, HamburgerIcon } from '../../icons'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
 
 export const MobileMenuButton = ({
   isMobileMenuOpen,
@@ -13,9 +13,9 @@ export const MobileMenuButton = ({
       onClick={onClick}
     >
       {isMobileMenuOpen ? (
-        <CloseIcon className='h-6 w-6 stroke-bright-turquoise-350' />
+        <XMarkIcon className='h-6 w-6 text-bright-turquoise-350' />
       ) : (
-        <HamburgerIcon className='h-6 w-6 stroke-bright-turquoise-350' />
+        <Bars3Icon className='h-6 w-6 text-bright-turquoise-350' />
       )}
     </button>
   )

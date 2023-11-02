@@ -1,4 +1,5 @@
-import { GithubIcon } from '../../icons'
+import { SiGithub } from '@icons-pack/react-simple-icons'
+
 import { Prose, Image, NextLink, BlogPostTimestamp } from '../atoms'
 import { MarkdownContent } from '../molecules'
 
@@ -35,7 +36,7 @@ export const BlogPost = ({
           <time>{publishDate}</time>
           {repoUrl && (
             <NextLink isExternal href={repoUrl}>
-              <GithubIcon className='h-4 w-4 fill-white hover:fill-spring-green-250 md:h-6 md:w-6' />
+              <SiGithub className='h-4 w-4 fill-white hover:fill-spring-green-250 md:h-6 md:w-6' />
             </NextLink>
           )}
         </div>

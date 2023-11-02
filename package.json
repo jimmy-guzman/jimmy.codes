@@ -28,6 +28,8 @@
     ]
   },
   "dependencies": {
+    "@heroicons/react": "2.0.18",
+    "@icons-pack/react-simple-icons": "9.1.0",
     "@napi-rs/simple-git": "0.1.9",
     "clsx": "2.0.0",
     "fathom-client": "3.6.0",

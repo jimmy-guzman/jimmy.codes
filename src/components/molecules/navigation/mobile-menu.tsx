@@ -1,5 +1,7 @@
+import { EnvelopeIcon } from '@heroicons/react/24/solid'
+import { SiGithub, SiLinkedin } from '@icons-pack/react-simple-icons'
+
 import { navLinks, EMAIL_LINK, GITHUB_LINK, LINKEDIN_LINK } from './constants'
-import { MailIcon, GithubIcon, LinkedInIcon } from '../../../icons'
 import { NavLink } from '../../atoms'
 
 export const MobileMenu = (): JSX.Element => {
@@ -14,13 +16,13 @@ export const MobileMenu = (): JSX.Element => {
       </div>
       <div className='flex items-center justify-center gap-8'>
         <NavLink to={EMAIL_LINK} isExternal>
-          <MailIcon className='h-6 w-6' />
+          <EnvelopeIcon title='Mail' aria-hidden={false} className='h-6 w-6' />
         </NavLink>
         <NavLink to={GITHUB_LINK} isExternal>
-          <GithubIcon className='h-6 w-6' />
+          <SiGithub className='h-6 w-6' />
         </NavLink>
         <NavLink to={LINKEDIN_LINK} isExternal>
-          <LinkedInIcon className='h-6 w-6' />
+          <SiLinkedin className='h-6 w-6' />
         </NavLink>
       </div>
     </div>

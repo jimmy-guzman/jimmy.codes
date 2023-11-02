@@ -1,14 +1,15 @@
-import { ICON_CLASS_NAME } from './constants'
 import {
-  TypescriptIcon,
-  ReactIcon,
-  TailwindcssIcon,
-  FastifyIcon,
-  TestingLibraryIcon,
-  CypressIcon,
-  NextJsIcon,
-  PrismaIcon,
-} from '../../../icons'
+  SiCypress,
+  SiFastify,
+  SiNextdotjs,
+  SiPrisma,
+  SiReact,
+  SiTailwindcss,
+  SiTestinglibrary,
+  SiTypescript,
+} from '@icons-pack/react-simple-icons'
+
+import { ICON_CLASS_NAME } from './constants'
 
 interface CommonTechnology {
   icon?: React.ReactNode
@@ -19,42 +20,42 @@ interface CommonTechnology {
 export const commonTechnologies: CommonTechnology[] = [
   {
     name: 'TypeScript',
-    icon: <TypescriptIcon className={ICON_CLASS_NAME} />,
+    icon: <SiTypescript className={ICON_CLASS_NAME} />,
     link: 'https://www.typescriptlang.org/',
   },
   {
     name: 'Next.js',
-    icon: <NextJsIcon className={ICON_CLASS_NAME} />,
+    icon: <SiNextdotjs className={ICON_CLASS_NAME} />,
     link: 'https://nextjs.org/',
   },
   {
     name: 'React',
-    icon: <ReactIcon className={ICON_CLASS_NAME} />,
+    icon: <SiReact className={ICON_CLASS_NAME} />,
     link: 'https://reactjs.org/',
   },
   {
     name: 'tailwindcss',
-    icon: <TailwindcssIcon className={ICON_CLASS_NAME} />,
+    icon: <SiTailwindcss className={ICON_CLASS_NAME} />,
     link: 'https://www.typescriptlang.org/',
   },
   {
     name: 'Fastify',
-    icon: <FastifyIcon className={ICON_CLASS_NAME} />,
+    icon: <SiFastify className={ICON_CLASS_NAME} />,
     link: 'https://www.fastify.io/',
   },
   {
     name: 'Prisma',
-    icon: <PrismaIcon className={ICON_CLASS_NAME} />,
+    icon: <SiPrisma className={ICON_CLASS_NAME} />,
     link: 'https://www.prisma.io/',
   },
   {
     name: 'Testing Library',
-    icon: <TestingLibraryIcon className={ICON_CLASS_NAME} />,
+    icon: <SiTestinglibrary className={ICON_CLASS_NAME} />,
     link: 'https://testing-library.com/',
   },
   {
     name: 'Cypress',
-    icon: <CypressIcon className={ICON_CLASS_NAME} />,
+    icon: <SiCypress className={ICON_CLASS_NAME} />,
     link: 'https://www.cypress.io/',
   },
 ]
