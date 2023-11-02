@@ -9,7 +9,7 @@ interface BlogPostProps {
   imageUrl: string
   publishDate: string
   repoUrl?: string
-  timestamp: Date
+  timestamp: Date | null
   title: string
 }
 
@@ -47,7 +47,7 @@ export const BlogPost = ({
       <main>
         <MarkdownContent content={content} />
         <p>Thank you for reading ❤️</p>
-        <BlogPostTimestamp timestamp={timestamp} />
+        {timestamp && <BlogPostTimestamp timestamp={timestamp} />}
       </main>
     </Prose>
   )

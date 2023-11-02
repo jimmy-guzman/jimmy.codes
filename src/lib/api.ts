@@ -10,12 +10,16 @@ const POSTS = 'src/_posts'
 export const getPostBySlug = async <const T extends readonly string[]>(
   slug: string,
   fields: T
-): Promise<Record<(typeof fields)[number], string> & { timestamp: Date }> => {
+): Promise<
+  Record<(typeof fields)[number], string> & { timestamp: Date | null }
+> => {
   const realSlug = slug.replace(/\.md$/, '')
   const postPath = `${POSTS}/${realSlug}.md`
 
-  const lastModifiedDate = await repo.getFileLatestModifiedDateAsync(postPath)
-  const timestamp = new Date(lastModifiedDate)
+  // this is disabled due to vercel not supporting deep clone
+  const timestamp = process.env['VERCEL']
+    ? null
+    : new Date(await repo.getFileLatestModifiedDateAsync(postPath))
 
   const fileContents = await readFile(postPath, 'utf8')
   const { data, content } = matter(fileContents)
@@ -28,7 +32,7 @@ export const getPostBySlug = async <const T extends readonly string[]>(
       ...(typeof data[curr] !== 'undefined' && { [curr]: data[curr] }),
       timestamp,
     }
-  }, {}) as Record<(typeof fields)[number], string> & { timestamp: Date }
+  }, {}) as Record<(typeof fields)[number], string> & { timestamp: Date | null }
 }
 
 export const getAllPosts = async <const T extends readonly string[]>(
