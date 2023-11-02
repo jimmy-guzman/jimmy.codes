@@ -16,4 +16,5 @@ module.exports = {
     'sort-keys': 'off',
     '@typescript-eslint/naming-convention': 'off',
   },
+  ignorePatterns: ['reports', 'dist', '.next'],
 }
