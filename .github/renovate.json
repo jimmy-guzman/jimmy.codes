@@ -11,7 +11,7 @@
   "semanticCommits": "enabled",
   "reviewers": ["@jimmy-guzman"],
   "commitMessageAction": "bump",
-  "commitMessagePrefix": " 🤖 ",
+  "commitMessagePrefix": "chore: 🤖 ",
   "commitMessageTopic": "`{{depName}}`",
   "schedule": ["every weekend"]
 }
