@@ -42,8 +42,8 @@ dependencies:
     specifier: 9.0.0
     version: 9.0.0(@types/react@18.2.34)(react@18.2.0)
   rehype-autolink-headings:
-    specifier: 7.0.0
-    version: 7.0.0
+    specifier: 7.1.0
+    version: 7.1.0
   rehype-external-links:
     specifier: 3.0.0
     version: 3.0.0
@@ -6404,8 +6404,8 @@ packages:
       functions-have-names: 1.2.3
     dev: true
 
-  /rehype-autolink-headings@7.0.0:
-    resolution: {integrity: sha512-DLskejGYHQP9v7vUW85BeYIclgfMQ1IwAMx+0lm8Sr3cME2NThgy2OdTfosmuBA68fqP5o4FK+dknpUMFvlxYQ==}
+  /rehype-autolink-headings@7.1.0:
+    resolution: {integrity: sha512-rItO/pSdvnvsP4QRB1pmPiNHUskikqtPojZKJPPPAVx9Hj8i8TwMBhofrrAYRhYOOBZH9tgmG5lPqDLuIWPWmw==}
     dependencies:
       '@types/hast': 3.0.0
       '@ungap/structured-clone': 1.2.0
