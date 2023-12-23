@@ -4,7 +4,7 @@ export const Prose = ({
   children?: React.ReactNode
 }): JSX.Element => {
   return (
-    <article className='prose dark:prose-invert md:prose-lg lg:prose-xl'>
+    <article className='prose md:prose-lg lg:prose-xl dark:prose-invert'>
       {children}
     </article>
   )
