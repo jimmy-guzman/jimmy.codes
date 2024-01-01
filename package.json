@@ -31,7 +31,7 @@
     "@heroicons/react": "2.1.1",
     "@icons-pack/react-simple-icons": "9.2.0",
     "@napi-rs/simple-git": "0.1.9",
-    "clsx": "2.0.0",
+    "clsx": "2.1.0",
     "fathom-client": "3.6.0",
     "gray-matter": "4.0.3",
     "highlight.js": "11.9.0",
