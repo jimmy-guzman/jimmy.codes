@@ -58,7 +58,7 @@
     "commitlint": "18.4.3",
     "cypress": "13.6.1",
     "eslint": "8.56.0",
-    "eslint-config-jimmy-guzman": "11.0.0",
+    "eslint-config-jimmy-guzman": "12.2.0",
     "gitzy": "4.0.0",
     "husky": "8.0.3",
     "is-ci": "3.0.1",
