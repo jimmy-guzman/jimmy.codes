@@ -12,9 +12,5 @@ module.exports = {
   },
   rules: {
     'import/no-anonymous-default-export': 'off',
-    'dot-notation': 'off',
-    'sort-keys': 'off',
-    '@typescript-eslint/naming-convention': 'off',
   },
-  ignorePatterns: ['reports', 'dist', '.next'],
 }

@@ -1,5 +1,4 @@
 import NextImage from 'next/image'
-
 import type {
   DetailedHTMLProps,
   HTMLAttributes,

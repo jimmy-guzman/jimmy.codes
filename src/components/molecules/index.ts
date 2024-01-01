@@ -1,5 +1,5 @@
+export { AboutMe } from './about-me'
 export { BlogPostPreview } from './blog-post-preview'
 export { Introduction } from './introduction'
-export { Navigation } from './navigation'
-export { AboutMe } from './about-me'
 export { MarkdownContent } from './markdown-content'
+export { Navigation } from './navigation'

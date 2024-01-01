@@ -1,6 +1,5 @@
-import Link from 'next/link'
-
 import type { LinkProps } from 'next/link'
+import Link from 'next/link'
 
 type NextLinkProps = LinkProps & {
   children: React.ReactNode

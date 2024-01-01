@@ -1,6 +1,6 @@
+import { Logo, NextLink } from '../../atoms'
 import { Mobile } from './mobile'
 import { Tablet } from './tablet'
-import { Logo, NextLink } from '../../atoms'
 
 export const Navigation = (): JSX.Element => {
   return (
