@@ -1,9 +1,9 @@
+import 'highlight.js/styles/base16/material.css'
+
 import { SiGithub } from '@icons-pack/react-simple-icons'
 
-import { Prose, Image, NextLink, BlogPostTimestamp } from '../atoms'
+import { BlogPostTimestamp, Image, NextLink, Prose } from '../atoms'
 import { MarkdownContent } from '../molecules'
-
-import 'highlight.js/styles/base16/material.css'
 
 interface BlogPostProps {
   content: string

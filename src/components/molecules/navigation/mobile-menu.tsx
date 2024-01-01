@@ -1,8 +1,8 @@
 import { EnvelopeIcon } from '@heroicons/react/24/solid'
 import { SiGithub, SiLinkedin } from '@icons-pack/react-simple-icons'
 
-import { navLinks, EMAIL_LINK, GITHUB_LINK, LINKEDIN_LINK } from './constants'
 import { NavLink } from '../../atoms'
+import { EMAIL_LINK, GITHUB_LINK, LINKEDIN_LINK, navLinks } from './constants'
 
 export const MobileMenu = (): JSX.Element => {
   return (

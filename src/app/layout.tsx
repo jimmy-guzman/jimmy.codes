@@ -1,9 +1,9 @@
+import '../styles/global.css'
+
 import type { Metadata } from 'next'
 
-import { Wrapper, Container, Footer, Fathom } from '../components/atoms'
+import { Container, Fathom, Footer, Wrapper } from '../components/atoms'
 import { Navigation } from '../components/molecules'
-
-import '../styles/global.css'
 
 export const metadata: Metadata = {
   title: 'jimmy.codes',

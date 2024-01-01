@@ -5,8 +5,8 @@ import {
   SiReact,
 } from '@icons-pack/react-simple-icons'
 
-import { CurrentTechnologies } from './current-tech'
 import { Link } from '../../atoms'
+import { CurrentTechnologies } from './current-tech'
 
 const ICON_CLASS_NAME =
   'inline-block h-4 align-baseline md:h-6 md:align-text-bottom '

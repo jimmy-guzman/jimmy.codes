@@ -58,7 +58,7 @@
     "commitlint": "18.4.3",
     "cypress": "13.6.1",
     "eslint": "8.56.0",
-    "eslint-config-jimmy-guzman": "11.0.0",
+    "eslint-config-jimmy-guzman": "12.2.0",
     "gitzy": "4.0.0",
     "husky": "8.0.3",
     "is-ci": "3.0.1",
@@ -69,13 +69,6 @@
     "prettier-plugin-tailwindcss": "0.5.9",
     "tailwindcss": "3.4.0",
     "typescript": "5.3.3"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "eslint-config-jimmy-guzman>typescript": "5.2.2"
-      }
-    }
   },
   "packageManager": "pnpm@8.12.1",
   "engines": {

@@ -1,4 +1,4 @@
-import { readFile, readdir } from 'fs/promises'
+import { readdir, readFile } from 'node:fs/promises'
 
 import { Repository } from '@napi-rs/simple-git'
 import matter from 'gray-matter'
