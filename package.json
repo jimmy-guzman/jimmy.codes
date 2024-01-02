@@ -56,7 +56,7 @@
     "@types/react": "18.2.45",
     "autoprefixer": "10.4.16",
     "commitlint": "18.4.3",
-    "cypress": "13.6.1",
+    "cypress": "13.6.2",
     "eslint": "8.56.0",
     "eslint-config-jimmy-guzman": "12.2.0",
     "gitzy": "4.0.0",
