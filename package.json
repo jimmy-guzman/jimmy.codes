@@ -52,7 +52,7 @@
     "@next/eslint-plugin-next": "14.0.4",
     "@tailwindcss/typography": "0.5.10",
     "@testing-library/cypress": "10.0.1",
-    "@types/node": "20.11.0",
+    "@types/node": "20.11.5",
     "@types/react": "18.2.47",
     "autoprefixer": "10.4.16",
     "commitlint": "18.4.4",
