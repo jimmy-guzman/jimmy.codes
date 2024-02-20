@@ -40,7 +40,7 @@ dependencies:
     version: 18.2.0(react@18.2.0)
   react-markdown:
     specifier: 9.0.1
-    version: 9.0.1(@types/react@18.2.56)(react@18.2.0)
+    version: 9.0.1(@types/react@18.2.57)(react@18.2.0)
   rehype-autolink-headings:
     specifier: 7.1.0
     version: 7.1.0
@@ -77,8 +77,8 @@ devDependencies:
     specifier: 20.11.19
     version: 20.11.19
   '@types/react':
-    specifier: 18.2.56
-    version: 18.2.56
+    specifier: 18.2.57
+    version: 18.2.57
   autoprefixer:
     specifier: 10.4.17
     version: 10.4.17(postcss@8.4.35)
@@ -1632,8 +1632,8 @@ packages:
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
 
-  /@types/react@18.2.56:
-    resolution: {integrity: sha512-NpwHDMkS/EFZF2dONFQHgkPRwhvgq/OAvIaGQzxGSBmaeR++kTg6njr15Vatz0/2VcCEwJQFi6Jf4Q0qBu0rLA==}
+  /@types/react@18.2.57:
+    resolution: {integrity: sha512-ZvQsktJgSYrQiMirAN60y4O/LRevIV8hUzSOSNB6gfR3/o3wCBFQx3sPwIYtuDMeiVgsSS3UzCV26tEzgnfvQw==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
@@ -6285,14 +6285,14 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: true
 
-  /react-markdown@9.0.1(@types/react@18.2.56)(react@18.2.0):
+  /react-markdown@9.0.1(@types/react@18.2.57)(react@18.2.0):
     resolution: {integrity: sha512-186Gw/vF1uRkydbsOIkcGXw7aHq0sZOCRFFjGrr7b9+nVZg4UfA4enXCaxm4fUzecU38sWfrNDitGhshuU7rdg==}
     peerDependencies:
       '@types/react': '>=18'
       react: '>=18'
     dependencies:
       '@types/hast': 3.0.0
-      '@types/react': 18.2.56
+      '@types/react': 18.2.57
       devlop: 1.1.0
       hast-util-to-jsx-runtime: 2.2.0
       html-url-attributes: 3.0.0
