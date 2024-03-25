@@ -10,7 +10,7 @@ import { commonTechnologies } from './config'
 import { ICON_CLASS_NAME } from './constants'
 
 // eslint-disable-next-line max-lines-per-function
-export const Introduction = (): JSX.Element => {
+export const Introduction = () => {
   return (
     <Prose>
       <h1>

@@ -1,6 +1,5 @@
 /** @type {import("prettier").Options} */
 export default {
-  $schema: 'http://json.schemastore.org/prettierrc',
   semi: false,
   singleQuote: true,
   printWidth: 80,

@@ -6,7 +6,7 @@ export const MobileMenuButton = ({
 }: {
   isMobileMenuOpen: boolean
   onClick: () => void
-}): JSX.Element => {
+}) => {
   return (
     <button
       className='transition delay-150 ease-in-out hover:scale-110'

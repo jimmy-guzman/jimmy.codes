@@ -4,7 +4,7 @@ import { SiGithub, SiLinkedin } from '@icons-pack/react-simple-icons'
 import { NavLink } from '../../atoms'
 import { EMAIL_LINK, GITHUB_LINK, LINKEDIN_LINK, navLinks } from './constants'
 
-export const MobileMenu = (): JSX.Element => {
+export const MobileMenu = () => {
   return (
     <div className='absolute right-0 top-10 z-50 flex h-screen w-full flex-col justify-start gap-4 bg-oxford-blue p-4 text-center shadow-md'>
       <div className='flex flex-col justify-center gap-2'>

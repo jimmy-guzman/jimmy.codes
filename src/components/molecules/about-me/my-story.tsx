@@ -37,7 +37,7 @@ const TargetDescription = () => {
   )
 }
 
-export const MyStory = (): JSX.Element => {
+export const MyStory = () => {
   return (
     <>
       <p>

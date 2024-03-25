@@ -1,4 +1,4 @@
-export const Logo = (): JSX.Element => {
+export const Logo = () => {
   return (
     <span className='text-center'>
       <span className='text-hot-pink-400'>j</span>

@@ -1,7 +1,3 @@
-export const Wrapper = ({
-  children,
-}: {
-  children?: React.ReactNode
-}): JSX.Element => {
+export const Wrapper = ({ children }: { children?: React.ReactNode }) => {
   return <div className='flex h-full min-h-screen flex-col '>{children}</div>
 }

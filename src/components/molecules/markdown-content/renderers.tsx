@@ -16,14 +16,14 @@ type ImageElementProps = DetailedHTMLProps<
 >
 
 export const renderers = {
-  code: ({ children, className }: CodeElementProps): JSX.Element => (
+  code: ({ children, className }: CodeElementProps) => (
     <code
       className={`${className} xs:whitespace-pre-wrap xs:!p-1 xs:text-[11px]`}
     >
       {children}
     </code>
   ),
-  img: (image: ImageElementProps): JSX.Element | null => {
+  img: (image: ImageElementProps) => {
     if (!image.src) return null
 
     return (

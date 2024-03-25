@@ -31,7 +31,7 @@ const TrackPageView = () => {
   return null
 }
 
-export const Fathom = (): JSX.Element => {
+export const Fathom = () => {
   return (
     <Suspense fallback={null}>
       <TrackPageView />

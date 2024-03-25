@@ -24,7 +24,7 @@ const technologies = [
   { name: 'Redis', Icon: SiRedis },
 ]
 
-export const CurrentTechnologies = (): JSX.Element => {
+export const CurrentTechnologies = () => {
   return (
     <ul>
       {technologies.map(({ name, Icon }) => (

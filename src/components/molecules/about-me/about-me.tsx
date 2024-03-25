@@ -2,7 +2,7 @@ import { Prose } from '../../atoms'
 import { Experience } from './experience'
 import { MyStory } from './my-story'
 
-export const AboutMe = ({ title }: { title: string }): JSX.Element => {
+export const AboutMe = ({ title }: { title: string }) => {
   return (
     <Prose>
       <h1>{title}</h1>
