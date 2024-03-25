@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
 import { Container, Fathom, Footer, Wrapper } from '../components/atoms'
 import { Navigation } from '../components/molecules'
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'jimmy.codes',
   description: 'I code things',
   metadataBase: new URL('https://jimmy.codes'),
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: 'jimmy.codes',
     description: 'I code things',
   },
-}
+} satisfies Metadata
 
 export default function RootLayout({
   children,
@@ -28,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className='bg-oxford-blue'>
+      <body>
         <Fathom />
         <Wrapper>
           <Navigation />

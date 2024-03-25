@@ -1,21 +1,20 @@
-import type { Chainable } from './types'
-
 export const blogSelectors = {
-  get latestBlogPostPreview(): Chainable {
+  get latestBlogPostPreview() {
     return cy.findAllByRole('link', { name: 'Read Post' })
   },
-  get greeting(): Chainable {
+  get greeting() {
     return cy.findByRole('heading', {
-      name: /Read articles written by me/,
+      name: /Blog/,
+      level: 1,
     })
   },
-  get authorLink(): Chainable {
+  get authorLink() {
     return cy.findByRole('link', { name: 'Jimmy Guzman Moreno' })
   },
 }
 
 export const blogActions = {
-  visitLatestBlogPost: (): void => {
+  visitLatestBlogPost: () => {
     blogSelectors.latestBlogPostPreview.first().click()
   },
 }

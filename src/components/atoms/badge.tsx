@@ -3,9 +3,5 @@ interface BadgeProps {
 }
 
 export const Badge = ({ children }: BadgeProps) => {
-  return (
-    <span className='rounded bg-white px-2 py-1 text-xs font-semibold leading-none text-material-gray'>
-      {children}
-    </span>
-  )
+  return <span className='dsy-badge dsy-badge-neutral'>{children}</span>
 }

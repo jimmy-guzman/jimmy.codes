@@ -1,5 +1,3 @@
-import type { Metadata } from 'next'
-
 import { BlogPost } from '../../../../components/organisms'
 import { getAllPosts, getPostBySlug } from '../../../../lib/api'
 
@@ -7,19 +5,13 @@ interface Props {
   params: { slug: string }
 }
 
-export const generateStaticParams = async (): Promise<
-  {
-    slug: string
-  }[]
-> => {
+export const generateStaticParams = async () => {
   const posts = await getAllPosts(['slug'])
 
   return posts.map((post) => ({ slug: post.slug }))
 }
 
-export const generateMetadata = async ({
-  params,
-}: Props): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: Props) => {
   const post = await getPostBySlug(params.slug, [
     'title',
     'description',

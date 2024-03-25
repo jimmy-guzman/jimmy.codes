@@ -18,7 +18,7 @@ type ImageElementProps = DetailedHTMLProps<
 export const renderers = {
   code: ({ children, className }: CodeElementProps) => (
     <code
-      className={`${className} xs:whitespace-pre-wrap xs:!p-1 xs:text-[11px]`}
+      className={`${className} xs:whitespace-pre-wrap xs:!p-1 xs:text-[11px] !bg-neutral`}
     >
       {children}
     </code>

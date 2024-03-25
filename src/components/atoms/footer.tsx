@@ -1,11 +1,9 @@
 export const Footer = () => {
   return (
-    <footer className='w-full px-4 font-light text-white'>
-      <div className='my-4 flex items-center justify-between'>
-        <div className='flex items-center' />
-        <p className='inline-flex text-slate-400'>©2024 Jimmy Guzman Moreno</p>
-        <div className='flex items-center' />
-      </div>
+    <footer className='dsy-footer dsy-footer-center bg-base-100 p-4 text-base-content'>
+      <aside>
+        <p>©2024 Jimmy Guzman Moreno</p>
+      </aside>
     </footer>
   )
 }

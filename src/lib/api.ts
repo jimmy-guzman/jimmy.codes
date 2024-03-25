@@ -10,9 +10,7 @@ const POSTS = 'src/_posts'
 export const getPostBySlug = async <const T extends readonly string[]>(
   slug: string,
   fields: T
-): Promise<
-  Record<(typeof fields)[number], string> & { timestamp: Date | null }
-> => {
+) => {
   const realSlug = slug.replace(/\.md$/, '')
   const postPath = `${POSTS}/${realSlug}.md`
 
@@ -37,7 +35,7 @@ export const getPostBySlug = async <const T extends readonly string[]>(
 
 export const getAllPosts = async <const T extends readonly string[]>(
   fields: T
-): Promise<Record<(typeof fields)[number], string>[]> => {
+) => {
   const slugs = await readdir(POSTS)
 
   return Promise.all(slugs.map((slug) => getPostBySlug(slug, fields)))

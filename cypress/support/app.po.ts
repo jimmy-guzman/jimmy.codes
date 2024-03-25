@@ -1,19 +1,17 @@
-import type { Chainable } from './types'
-
 export const appSelectors = {
-  get aboutLink(): Chainable {
+  get aboutLink() {
     return cy.findByRole('link', { name: 'about' })
   },
-  get blogLink(): Chainable {
+  get blogLink() {
     return cy.findByRole('link', { name: 'blog' })
   },
 }
 
 export const appActions = {
-  visitAboutPage: (): void => {
+  visitAboutPage: () => {
     appSelectors.aboutLink.click()
   },
-  visitBlogPage: (): void => {
+  visitBlogPage: () => {
     appSelectors.blogLink.click()
   },
 }

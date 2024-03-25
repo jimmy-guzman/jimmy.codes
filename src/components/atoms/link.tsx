@@ -8,7 +8,7 @@ export const Link = ({ children, isExternal, to }: LinkProps) => {
   return (
     <a
       href={to}
-      className='font-medium text-bright-turquoise-350 no-underline hover:underline'
+      className='dsy-link-hover dsy-link'
       {...(isExternal && { rel: 'noreferrer', target: '_blank' })}
     >
       {children}
