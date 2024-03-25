@@ -1,7 +1,7 @@
 import { Link } from '../../atoms'
 
 // eslint-disable-next-line max-lines-per-function
-export const PastLife = (): JSX.Element => {
+export const PastLife = () => {
   return (
     <>
       <p>

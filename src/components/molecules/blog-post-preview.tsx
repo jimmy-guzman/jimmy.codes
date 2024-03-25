@@ -12,7 +12,7 @@ interface BlogPreviewProps {
   }
 }
 
-export const BlogPostPreview = ({ post }: BlogPreviewProps): JSX.Element => {
+export const BlogPostPreview = ({ post }: BlogPreviewProps) => {
   return (
     <article>
       <div className='w-full'>

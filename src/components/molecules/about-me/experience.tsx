@@ -12,9 +12,7 @@ interface ExperienceProps {
   }>
 }
 
-export const Experience = ({
-  projects = jobs,
-}: ExperienceProps): JSX.Element => {
+export const Experience = ({ projects = jobs }: ExperienceProps) => {
   return (
     <ul className='m-0 list-none p-0'>
       {projects.map(

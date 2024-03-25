@@ -45,7 +45,7 @@ export const generateMetadata = async ({
   }
 }
 
-export default async ({ params }: Props): Promise<JSX.Element> => {
+export default async function Page({ params }: Props) {
   const post = await getPostBySlug(params.slug, [
     'title',
     'description',

@@ -21,9 +21,7 @@ const autoLinkHeadingOpts = {
   behavior: 'prepend',
 }
 
-export const MarkdownContent = ({
-  content,
-}: MarkdownContentProps): JSX.Element => {
+export const MarkdownContent = ({ content }: MarkdownContentProps) => {
   return (
     <ReactMarkdown
       components={renderers}

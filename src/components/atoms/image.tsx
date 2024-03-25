@@ -11,7 +11,7 @@ interface ImageProps
   imageUrl: string
 }
 
-export const Image = ({ imageUrl, ...rest }: ImageProps): JSX.Element => {
+export const Image = ({ imageUrl, ...rest }: ImageProps) => {
   const { observe, width } = useDimensions<HTMLDivElement | null>()
 
   return (

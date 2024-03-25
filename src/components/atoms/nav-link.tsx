@@ -16,7 +16,7 @@ export const NavLink = ({
   isBig,
   isExternal = false,
   to,
-}: NavLinkProps): JSX.Element => {
+}: NavLinkProps) => {
   const pathname = usePathname()
 
   return (

@@ -4,7 +4,7 @@ interface LinkProps {
   to: string
 }
 
-export const Link = ({ children, isExternal, to }: LinkProps): JSX.Element => {
+export const Link = ({ children, isExternal, to }: LinkProps) => {
   return (
     <a
       href={to}

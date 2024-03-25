@@ -4,7 +4,7 @@ import { SiGithub, SiLinkedin } from '@icons-pack/react-simple-icons'
 import { NavLink } from '../../atoms'
 import { EMAIL_LINK, GITHUB_LINK, LINKEDIN_LINK, navLinks } from './constants'
 
-export const Tablet = (): JSX.Element => {
+export const Tablet = () => {
   return (
     <>
       <div className='hidden items-center gap-8 text-center sm:flex'>

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { MobileMenuButton } from '../../atoms'
 import { MobileMenu } from './mobile-menu'
 
-export const Mobile = (): JSX.Element => {
+export const Mobile = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (

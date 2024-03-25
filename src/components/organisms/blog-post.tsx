@@ -21,7 +21,7 @@ export const BlogPost = ({
   repoUrl,
   title,
   timestamp,
-}: BlogPostProps): JSX.Element => {
+}: BlogPostProps) => {
   return (
     <Prose>
       <Image

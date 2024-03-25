@@ -18,7 +18,7 @@ export const NextLink = ({
   children,
   isExternal,
   ...rest
-}: NextLinkProps): JSX.Element => {
+}: NextLinkProps) => {
   return (
     <Link
       href={href}
