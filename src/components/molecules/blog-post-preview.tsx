@@ -1,5 +1,5 @@
 import { truncate } from '../../utils'
-import { Badge, Image, NextLink } from '../atoms'
+import { Image, NextLink } from '../atoms'
 
 interface BlogPreviewProps {
   post: {
@@ -27,7 +27,9 @@ export const BlogPostPreview = ({ post }: BlogPreviewProps) => {
         <p>{truncate(post.description, 100)}</p>
         <div className='dsy-card-actions'>
           {post.keywords.split(',').map((keyword) => (
-            <Badge key={keyword}>{keyword.trim()}</Badge>
+            <span className='dsy-badge dsy-badge-neutral' key={keyword}>
+              {keyword.trim()}
+            </span>
           ))}
         </div>
         <div className='dsy-card-actions justify-end'>
