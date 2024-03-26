@@ -12,10 +12,10 @@ interface ImageProps
 }
 
 export const Image = ({ imageUrl, ...rest }: ImageProps) => {
-  const { observe, width } = useDimensions<HTMLDivElement | null>()
+  const { observe, width } = useDimensions<HTMLElement | null>()
 
   return (
-    <div ref={observe}>
+    <figure ref={observe}>
       <NextImage
         {...rest}
         blurDataURL={imageUrl}
@@ -28,6 +28,6 @@ export const Image = ({ imageUrl, ...rest }: ImageProps) => {
           height: 'auto',
         }}
       />
-    </div>
+    </figure>
   )
 }

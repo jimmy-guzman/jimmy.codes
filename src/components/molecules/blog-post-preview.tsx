@@ -16,7 +16,6 @@ export const BlogPostPreview = ({ post }: BlogPreviewProps) => {
   return (
     <article className='dsy-card shadow-xl'>
       <Image
-        className='rounded-t-xl'
         alt='Blog Post Cover'
         imageUrl={post.imageUrl}
         width={607}
