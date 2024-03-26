@@ -15,7 +15,7 @@ export const Introduction = () => {
     <Prose>
       <h1>
         Hi, I&apos;m Jimmy{' '}
-        <span className='bg-primary bg-clip-text text-transparent'>👋</span>
+        <span className='bg-accent bg-clip-text text-transparent'>👋</span>
       </h1>
       <p>
         I&apos;m a engineer with an expertise in full stack development and a
