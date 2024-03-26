@@ -35,8 +35,12 @@ export const BlogPost = ({
         <div className='flex items-center justify-between'>
           <time>{publishDate}</time>
           {repoUrl && (
-            <NextLink isExternal href={repoUrl}>
-              <SiGithub className='h-4 w-4 fill-white hover:fill-spring-green-250 md:h-6 md:w-6' />
+            <NextLink
+              isExternal
+              href={repoUrl}
+              className='dsy-btn dsy-btn-circle'
+            >
+              <SiGithub />
             </NextLink>
           )}
         </div>

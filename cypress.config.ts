@@ -12,4 +12,6 @@ export default defineConfig({
   screenshotsFolder: './cypress/reports/screenshots',
   video: true,
   videosFolder: './cypress/reports/videos',
+  viewportHeight: 720,
+  viewportWidth: 1068,
 })

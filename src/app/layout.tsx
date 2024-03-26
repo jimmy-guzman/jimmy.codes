@@ -2,10 +2,10 @@ import '../styles/global.css'
 
 import type { Metadata } from 'next'
 
-import { Container, Fathom, Footer, Wrapper } from '../components/atoms'
+import { Fathom } from '../components/atoms'
 import { Navigation } from '../components/molecules'
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'jimmy.codes',
   description: 'I code things',
   metadataBase: new URL('https://jimmy.codes'),
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: 'jimmy.codes',
     description: 'I code things',
   },
-}
+} satisfies Metadata
 
 export default function RootLayout({
   children,
@@ -28,15 +28,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className='bg-oxford-blue'>
+      <body>
         <Fathom />
-        <Wrapper>
+        <div className='flex h-full min-h-screen flex-col'>
           <Navigation />
-          <Container>
+          <div className='mx-auto mb-auto mt-8 w-full max-w-7xl px-4 py-6 sm:w-auto md:px-6 lg:px-8'>
             <main>{children}</main>
-          </Container>
-          <Footer />
-        </Wrapper>
+          </div>
+          <footer className='dsy-footer dsy-footer-center bg-base-100 p-4 text-base-content'>
+            <aside>
+              <p>©2024 Jimmy Guzman Moreno</p>
+            </aside>
+          </footer>
+        </div>
       </body>
     </html>
   )

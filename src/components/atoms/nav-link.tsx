@@ -6,26 +6,24 @@ import { NextLink } from './next-link'
 
 interface NavLinkProps {
   children: React.ReactNode
-  isBig?: boolean
   isExternal?: boolean
   to: string
+  className?: string
 }
 
 export const NavLink = ({
   children,
-  isBig,
   isExternal = false,
   to,
+  className,
 }: NavLinkProps) => {
   const pathname = usePathname()
 
   return (
     <NextLink
       href={to}
-      className={clsx('hover:text-spring-green-250', {
-        'text-slate-300': pathname !== to,
-        'text-spring-green-250': pathname === to,
-        'font-semi-bold text-xl md:text-xl lg:mt-0': isBig,
+      className={clsx(className, {
+        'dsy-btn-active': pathname === to,
       })}
       isExternal={isExternal}
     >

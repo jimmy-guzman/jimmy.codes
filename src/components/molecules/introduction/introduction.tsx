@@ -15,9 +15,7 @@ export const Introduction = () => {
     <Prose>
       <h1>
         Hi, I&apos;m Jimmy{' '}
-        <span className='bg-witch-haze-50 bg-clip-text text-transparent'>
-          👋
-        </span>
+        <span className='bg-accent bg-clip-text text-transparent'>👋</span>
       </h1>
       <p>
         I&apos;m a engineer with an expertise in full stack development and a
@@ -57,9 +55,7 @@ export const Introduction = () => {
       <p>
         To find out <Link to='/about'>more about me</Link> or to{' '}
         <Link to='/blog'>read my blog</Link>.{' '}
-        <span className='bg-hot-pink-400 bg-clip-text text-transparent'>
-          ❤️
-        </span>
+        <span className='bg-accent bg-clip-text text-transparent'>❤️</span>
       </p>
     </Prose>
   )

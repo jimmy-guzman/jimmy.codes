@@ -16,7 +16,7 @@ const autoLinkHeadingOpts = {
     'aria-hidden': 'true',
     'tabindex': '-1',
     'before': '#',
-    'className': `relative before:content-[attr(before)] before:absolute before:right-0.5 before:text-gray-600 hover:before:text-spring-green-250 before:font-light`,
+    'className': `relative before:content-[attr(before)] before:absolute before:right-0.5 before:text-gray-600 hover:before:text-accent before:font-light`,
   },
   behavior: 'prepend',
 }

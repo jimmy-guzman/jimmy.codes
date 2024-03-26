@@ -1,13 +1,11 @@
-import type { Chainable } from './types'
-
 export const homeSelectors = {
-  get aboutLink(): Chainable {
+  get aboutLink() {
     return cy.findByRole('link', { name: 'more about me' })
   },
-  get blogLink(): Chainable {
+  get blogLink() {
     return cy.findByRole('link', { name: 'read my blog' })
   },
-  get greeting(): Chainable {
+  get greeting() {
     return cy.findByRole('heading', {
       name: /Hi, I'm Jimmy/,
     })
@@ -15,10 +13,10 @@ export const homeSelectors = {
 }
 
 export const homeActions = {
-  visitBlogPage: (): void => {
+  visitBlogPage: () => {
     homeSelectors.blogLink.first().click()
   },
-  visitAboutPage: (): void => {
+  visitAboutPage: () => {
     homeSelectors.aboutLink.first().click()
   },
 }
