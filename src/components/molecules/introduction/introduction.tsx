@@ -4,8 +4,9 @@ import {
   SiRust,
   SiTrpc,
 } from '@icons-pack/react-simple-icons'
+import Link from 'next/link'
 
-import { Link, Prose } from '../../atoms'
+import { ExtLink, Prose } from '../../atoms'
 import { commonTechnologies } from './config'
 import { ICON_CLASS_NAME } from './constants'
 
@@ -27,35 +28,41 @@ export const Introduction = () => {
       <ul>
         {commonTechnologies.map(({ name, icon, link }) => (
           <li key={name}>
-            <Link to={link} isExternal>
+            <ExtLink to={link}>
               {name} {icon}
-            </Link>
+            </ExtLink>
           </li>
         ))}
       </ul>
       <p>
         And I&apos;m currently playing with{' '}
-        <Link to='https://astro.build/' isExternal>
+        <ExtLink to='https://astro.build'>
           Astro <SiAstro className={ICON_CLASS_NAME} />
-        </Link>
+        </ExtLink>
         ,{' '}
-        <Link to='https://trpc.io/' isExternal>
+        <ExtLink to='https://trpc.io'>
           tRPC <SiTrpc className={ICON_CLASS_NAME} />
-        </Link>
+        </ExtLink>
         ,{' '}
-        <Link to='https://www.rust-lang.org/' isExternal>
+        <ExtLink to='https://www.rust-lang.org'>
           Rust <SiRust className={ICON_CLASS_NAME} />
-        </Link>{' '}
+        </ExtLink>{' '}
         and{' '}
-        <Link to='https://kotlinlang.org/' isExternal>
+        <ExtLink to='https://kotlinlang.org'>
           Kotlin <SiKotlin className={ICON_CLASS_NAME} />
-        </Link>
+        </ExtLink>
         .
       </p>
       <p>
-        To find out <Link to='/about'>more about me</Link> or to{' '}
-        <Link to='/blog'>read my blog</Link>.{' '}
-        <span className='bg-accent bg-clip-text text-transparent'>❤️</span>
+        To find out{' '}
+        <Link href='/about' className='dsy-link-hover dsy-link'>
+          more about me
+        </Link>{' '}
+        or to{' '}
+        <Link href='/blog' className='dsy-link-hover dsy-link'>
+          read my blog
+        </Link>
+        . <span className='bg-accent bg-clip-text text-transparent'>❤️</span>
       </p>
     </Prose>
   )

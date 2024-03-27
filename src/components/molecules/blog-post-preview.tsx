@@ -1,5 +1,7 @@
+import Link from 'next/link'
+
 import { truncate } from '../../utils'
-import { Image, NextLink } from '../atoms'
+import { Image } from '../atoms'
 
 interface BlogPreviewProps {
   post: {
@@ -33,12 +35,12 @@ export const BlogPostPreview = ({ post }: BlogPreviewProps) => {
           ))}
         </div>
         <div className='dsy-card-actions justify-end'>
-          <NextLink
+          <Link
             className='dsy-btn dsy-btn-primary dsy-btn-sm'
             href={`/blog/posts/${post.slug}`}
           >
             Read Post
-          </NextLink>
+          </Link>
         </div>
       </div>
     </article>

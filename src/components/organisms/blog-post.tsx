@@ -1,8 +1,9 @@
 import 'highlight.js/styles/base16/material.css'
 
 import { SiGithub } from '@icons-pack/react-simple-icons'
+import Link from 'next/link'
 
-import { BlogPostTimestamp, Image, NextLink, Prose } from '../atoms'
+import { BlogPostTimestamp, ExtLink, Image, Prose } from '../atoms'
 import { MarkdownContent } from '../molecules'
 
 interface BlogPostProps {
@@ -35,18 +36,14 @@ export const BlogPost = ({
         <div className='flex items-center justify-between'>
           <time>{publishDate}</time>
           {repoUrl && (
-            <NextLink
-              isExternal
-              href={repoUrl}
-              className='dsy-btn dsy-btn-circle'
-            >
+            <ExtLink to={repoUrl as `https://${string}.${string}`} isIcon>
               <SiGithub />
-            </NextLink>
+            </ExtLink>
           )}
         </div>
         <h1>{title}</h1>
         <p>
-          <NextLink href='/'>Jimmy Guzman Moreno</NextLink>
+          <Link href='/'>Jimmy Guzman Moreno</Link>
         </p>
       </header>
       <main>

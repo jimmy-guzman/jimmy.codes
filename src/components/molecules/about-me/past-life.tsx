@@ -1,4 +1,4 @@
-import { Link } from '../../atoms'
+import { ExtLink } from '../../atoms'
 
 // eslint-disable-next-line max-lines-per-function
 export const PastLife = () => {
@@ -10,56 +10,44 @@ export const PastLife = () => {
       </p>
       <ul>
         <li>
-          <Link isExternal to='https://teamtreehouse.com/'>
-            Team Treehouse
-          </Link>
+          <ExtLink to='https://teamtreehouse.com'>Team Treehouse</ExtLink>
         </li>
         <li>
-          <Link isExternal to='https://www.freecodecamp.org/'>
-            freeCodeCamp
-          </Link>
+          <ExtLink to='https://www.freecodecamp.org'>freeCodeCamp</ExtLink>
         </li>
         <li>
-          <Link isExternal to='https://watchandcode.com/'>
-            Watch and Code
-          </Link>
+          <ExtLink to='https://watchandcode.com'>Watch and Code</ExtLink>
         </li>
         <li>
-          <Link isExternal to='https://platform.ui.dev/'>
-            tylermcginnis.com
-          </Link>{' '}
-          (now ui.dev)
+          <ExtLink to='https://platform.ui.dev'>tylermcginnis.com</ExtLink> (now
+          ui.dev)
         </li>
         <li>
-          <Link isExternal to='https://wesbos.com/'>
-            Wes Bos
-          </Link>
+          <ExtLink to='https://wesbos.com'>Wes Bos</ExtLink>
         </li>
       </ul>
       And read books like:
       <ul>
         <li>
-          <Link to='https://www.oreilly.com/library/view/clean-code-a/9780136083238/'>
+          <ExtLink to='https://www.oreilly.com/library/view/clean-code-a/9780136083238'>
             Clean Code
-          </Link>{' '}
+          </ExtLink>{' '}
           by Robert C. Martin
         </li>
         <li>
-          <Link isExternal to='https://github.com/getify/You-Dont-Know-JS'>
+          <ExtLink to='https://github.com/getify/You-Dont-Know-JS'>
             You Don&apos;t Know JS Yet
-          </Link>{' '}
+          </ExtLink>{' '}
           by Kyle Simpson
         </li>
         <li>
-          <Link isExternal to='https://eloquentjavascript.net/'>
+          <ExtLink to='https://eloquentjavascript.net'>
             Eloquent JavaScript
-          </Link>{' '}
+          </ExtLink>{' '}
           by Marijn Haverbeke
         </li>
         <li>
-          <Link isExternal to='http://domenlightenment.com/'>
-            DOM Enlightenment
-          </Link>{' '}
+          <ExtLink to='https://domenlightenment.com'>DOM Enlightenment</ExtLink>{' '}
           by Cody Lindley
         </li>
       </ul>
