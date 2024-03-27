@@ -8,16 +8,17 @@ import {
   SiTestinglibrary,
   SiTypescript,
 } from '@icons-pack/react-simple-icons'
+import type { ReactNode } from 'react'
 
 import { ICON_CLASS_NAME } from './constants'
 
-interface CommonTechnology {
-  icon?: React.ReactNode
-  link: string
+interface Technology {
+  icon: ReactNode
+  link: `https://${string}.${string}`
   name: string
 }
 
-export const commonTechnologies: CommonTechnology[] = [
+export const commonTechnologies = [
   {
     name: 'TypeScript',
     icon: <SiTypescript className={ICON_CLASS_NAME} />,
@@ -58,4 +59,4 @@ export const commonTechnologies: CommonTechnology[] = [
     icon: <SiCypress className={ICON_CLASS_NAME} />,
     link: 'https://www.cypress.io/',
   },
-]
+] satisfies Technology[]

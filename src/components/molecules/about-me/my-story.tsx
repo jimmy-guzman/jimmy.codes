@@ -5,7 +5,7 @@ import {
   SiReact,
 } from '@icons-pack/react-simple-icons'
 
-import { Link } from '../../atoms'
+import { ExtLink } from '../../atoms'
 import { CurrentTechnologies } from './current-tech'
 
 const ICON_CLASS_NAME =
@@ -15,11 +15,9 @@ const TargetDescription = () => {
   return (
     <>
       I&apos;m currently a Lead Engineer at{' '}
-      <Link to='https://www.target.com/' isExternal>
-        Target
-      </Link>{' '}
-      where I drive full stack solutions for supply chain inventory management
-      applications. The main technologies that I interact with are:
+      <ExtLink to='https://www.target.com'>Target</ExtLink> where I drive full
+      stack solutions for supply chain inventory management applications. The
+      main technologies that I interact with are:
       <CurrentTechnologies />
       My day to day consists of mentoring, ensuring scalability and providing a
       vision for the future. At the moment, I&apos;m working on:
@@ -48,9 +46,7 @@ export const MyStory = () => {
       <TargetDescription />
       <p>
         Before that, I worked at{' '}
-        <Link to='https://www.ameriprise.com/' isExternal>
-          Ameriprise Financial
-        </Link>{' '}
+        <ExtLink to='https://www.ameriprise.com'>Ameriprise Financial</ExtLink>{' '}
         where I began as an engineer and by the end of my tenure I was serving
         as a Senior Lead Engineer. At Ameriprise, I have put on multiple hats
         such as leading the full stack guest experience platform, leading a core
@@ -59,9 +55,9 @@ export const MyStory = () => {
       </p>
       <p>
         Briefly before Ameriprise, I worked as a teaching assistant at the{' '}
-        <Link to='https://bootcamp.umn.edu/coding/' isExternal>
+        <ExtLink to='https://bootcamp.umn.edu/coding'>
           University of Minnesota Coding Boot Camp
-        </Link>{' '}
+        </ExtLink>{' '}
         that focused on the MERN stack (MongoDB{' '}
         <SiMongodb className={ICON_CLASS_NAME} />, Express{' '}
         <SiExpress className={ICON_CLASS_NAME} />, ReactJS{' '}
