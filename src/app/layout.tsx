@@ -2,8 +2,8 @@ import '../styles/global.css'
 
 import type { Metadata } from 'next'
 
-import { Fathom } from '../components/atoms'
-import { Navigation } from '../components/molecules'
+import { Fathom } from '../components/atoms/fathom'
+import { Navigation } from '../components/organisms/navigation'
 
 export const metadata = {
   title: 'jimmy.codes',

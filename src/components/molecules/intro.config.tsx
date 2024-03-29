@@ -10,7 +10,7 @@ import {
 } from '@icons-pack/react-simple-icons'
 import type { ReactNode } from 'react'
 
-import { ICON_CLASS_NAME } from './constants'
+import { ICON_CLASS_NAME } from './intro.constants'
 
 interface Technology {
   icon: ReactNode

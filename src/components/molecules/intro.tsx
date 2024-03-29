@@ -6,12 +6,13 @@ import {
 } from '@icons-pack/react-simple-icons'
 import Link from 'next/link'
 
-import { ExtLink, Prose } from '../../atoms'
-import { commonTechnologies } from './config'
-import { ICON_CLASS_NAME } from './constants'
+import { ExtLink } from '../atoms/ext-link'
+import { Prose } from '../atoms/prose'
+import { commonTechnologies } from './intro.config'
+import { ICON_CLASS_NAME } from './intro.constants'
 
 // eslint-disable-next-line max-lines-per-function
-export const Introduction = () => {
+export const Intro = () => {
   return (
     <Prose>
       <h1>

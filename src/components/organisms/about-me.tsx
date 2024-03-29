@@ -1,6 +1,6 @@
-import { Prose } from '../../atoms'
-import { Experience } from './experience'
-import { MyStory } from './my-story'
+import { Prose } from '../atoms/prose'
+import { Experience } from '../molecules/experience'
+import { MyStory } from '../molecules/my-story'
 
 export const AboutMe = ({ title }: { title: string }) => {
   return (

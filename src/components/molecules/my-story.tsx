@@ -5,7 +5,7 @@ import {
   SiReact,
 } from '@icons-pack/react-simple-icons'
 
-import { ExtLink } from '../../atoms'
+import { ExtLink } from '../atoms/ext-link'
 import { CurrentTechnologies } from './current-tech'
 
 const ICON_CLASS_NAME =

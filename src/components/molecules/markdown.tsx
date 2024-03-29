@@ -5,9 +5,9 @@ import highlight from 'rehype-highlight'
 import rehypeSlug from 'rehype-slug'
 import remarkUnwrapImages from 'remark-unwrap-images'
 
-import { renderers } from './renderers'
+import { renderers } from './markdown.renderers'
 
-interface MarkdownContentProps {
+interface MarkdownProps {
   content: string
 }
 
@@ -21,7 +21,7 @@ const autoLinkHeadingOpts = {
   behavior: 'prepend',
 }
 
-export const MarkdownContent = ({ content }: MarkdownContentProps) => {
+export const Markdown = ({ content }: MarkdownProps) => {
   return (
     <ReactMarkdown
       components={renderers}

@@ -1,4 +1,4 @@
-import { BlogPost } from '../../../../components/organisms'
+import { BlogPost } from '../../../../components/organisms/blog-post'
 import { getAllPosts, getPostBySlug } from '../../../../lib/api'
 
 interface Props {
