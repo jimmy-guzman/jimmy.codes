@@ -1,7 +1,7 @@
 import { Bars3Icon } from '@heroicons/react/24/solid'
 
-import { NavLink } from '../../atoms'
-import { navLinks } from './constants'
+import { NavLink } from '../atoms/nav-link'
+import { navLinks } from '../constants'
 
 export const Mobile = () => {
   return (

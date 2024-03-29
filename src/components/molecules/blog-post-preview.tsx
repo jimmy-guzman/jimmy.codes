@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
-import { truncate } from '../../utils'
-import { Image } from '../atoms'
+import { truncate } from '../../utils/text-utils'
+import { Image } from '../atoms/image'
 
 interface BlogPreviewProps {
   post: {

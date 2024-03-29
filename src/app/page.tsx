@@ -1,5 +1,5 @@
-import { Introduction } from '../components/molecules'
+import { Intro } from '../components/molecules/intro'
 
 export default function Page() {
-  return <Introduction />
+  return <Intro />
 }

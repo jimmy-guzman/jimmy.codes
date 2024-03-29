@@ -1,5 +1,5 @@
-import { NavLink } from '../../atoms'
-import { navLinks } from './constants'
+import { NavLink } from '../atoms/nav-link'
+import { navLinks } from '../constants'
 
 export const Tablet = () => {
   return (

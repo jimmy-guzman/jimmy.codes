@@ -1,4 +1,4 @@
-import { jobs } from './constants'
+import { jobs } from './experience.constants'
 
 interface ExperienceProps {
   projects?: Array<{

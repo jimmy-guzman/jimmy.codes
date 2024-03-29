@@ -3,8 +3,11 @@ import 'highlight.js/styles/base16/material.css'
 import { SiGithub } from '@icons-pack/react-simple-icons'
 import Link from 'next/link'
 
-import { BlogPostTimestamp, ExtLink, Image, Prose } from '../atoms'
-import { MarkdownContent } from '../molecules'
+import { BlogPostTimestamp } from '../atoms/blog-post-timestamp'
+import { ExtLink } from '../atoms/ext-link'
+import { Image } from '../atoms/image'
+import { Prose } from '../atoms/prose'
+import { Markdown } from '../molecules/markdown'
 
 interface BlogPostProps {
   content: string
@@ -47,7 +50,7 @@ export const BlogPost = ({
         </p>
       </header>
       <main>
-        <MarkdownContent content={content} />
+        <Markdown content={content} />
         <p>Thank you for reading ❤️</p>
         {timestamp && <BlogPostTimestamp timestamp={timestamp} />}
       </main>

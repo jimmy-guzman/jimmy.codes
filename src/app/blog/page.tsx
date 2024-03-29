@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
-import { Prose } from '../../components/atoms'
-import { BlogPostPreview } from '../../components/molecules'
+import { Prose } from '../../components/atoms/prose'
+import { BlogPostPreview } from '../../components/molecules/blog-post-preview'
 import { getAllPosts } from '../../lib/api'
 
 export const metadata = {

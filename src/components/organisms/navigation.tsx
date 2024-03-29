@@ -2,10 +2,11 @@ import { EnvelopeIcon } from '@heroicons/react/24/solid'
 import { SiGithub, SiLinkedin } from '@icons-pack/react-simple-icons'
 import Link from 'next/link'
 
-import { ExtLink, Logo } from '../../atoms'
-import { EMAIL_LINK, GITHUB_LINK, LINKEDIN_LINK } from './constants'
-import { Mobile } from './mobile'
-import { Tablet } from './tablet'
+import { ExtLink } from '../atoms/ext-link'
+import { Logo } from '../atoms/logo'
+import { EMAIL_LINK, GITHUB_LINK, LINKEDIN_LINK } from '../constants'
+import { Mobile } from '../molecules/mobile'
+import { Tablet } from '../molecules/tablet'
 
 export const Navigation = () => {
   return (
