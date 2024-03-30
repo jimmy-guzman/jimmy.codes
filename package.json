@@ -4,20 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "start": "next start",
     "build": "next build",
-    "lint": "eslint . --cache",
-    "lint:fix": "eslint . --cache --fix",
-    "format": "prettier --check --cache .",
-    "format:fix": "prettier --write --cache .",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "deps:update": "pnpm dlx npm-check-updates -ui",
-    "prepare": "is-ci || husky install"
-  },
-  "gitzy": {
-    "useCommitlintConfig": true
+    "dev": "next dev",
+    "format": "prettier --check --cache .",
+    "format:fix": "prettier --write --cache .",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "prepare": "is-ci || husky install",
+    "preview": "next start"
   },
   "lint-staged": {
     "*.{md,json,yml,js,cjs,mjs,ts,tsx}": [
@@ -49,7 +46,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "14.1.4",
-    "@tailwindcss/typography": "0.5.11",
+    "@tailwindcss/typography": "0.5.12",
     "@testing-library/cypress": "10.0.1",
     "@types/node": "20.11.30",
     "@types/react": "18.2.62",
@@ -67,11 +64,14 @@
     "postcss": "8.4.38",
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "0.5.13",
-    "tailwindcss": "3.4.1",
+    "tailwindcss": "3.4.3",
     "typescript": "5.4.3"
   },
   "packageManager": "pnpm@8.15.5",
   "engines": {
     "node": "20"
+  },
+  "gitzy": {
+    "useCommitlintConfig": true
   }
 }

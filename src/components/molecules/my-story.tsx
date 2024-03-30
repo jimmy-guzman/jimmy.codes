@@ -16,13 +16,17 @@ const TargetDescription = () => {
     <>
       I&apos;m currently a Lead Engineer at{' '}
       <ExtLink to='https://www.target.com'>Target</ExtLink> where I drive full
-      stack solutions for supply chain inventory management applications. The
-      main technologies that I interact with are:
+      stack solutions for <strong>supply chain</strong> inventory management
+      applications. The main technologies that I interact with are:
       <CurrentTechnologies />
       My day to day consists of mentoring, ensuring scalability and providing a
       vision for the future. At the moment, I&apos;m working on:
       <ul>
-        <li>Building a micro services platform that focus on speed and DX.</li>
+        <li>
+          Building and designing <strong>micro services</strong> platform that
+          focus on <strong>performance</strong> and{' '}
+          <strong>developer experience</strong>.
+        </li>
         <li>
           Paying down historical debt while incrementally modernizing our UI.
         </li>
@@ -35,13 +39,15 @@ const TargetDescription = () => {
   )
 }
 
+// eslint-disable-next-line max-lines-per-function
 export const MyStory = () => {
   return (
     <>
       <p>
-        I&apos;m Jimmy Guzman Moreno, an engineer that specializes in full stack
-        development. My passion is to help others deliver the best solutions
-        possible.
+        I&apos;m Jimmy Guzman Moreno, an engineer that specializes in{' '}
+        <strong>full stack</strong> development. I have primarily worked in{' '}
+        <strong>leadership</strong> roles, successfully delivering scalable
+        solutions and mentoring teams.
       </p>
       <TargetDescription />
       <p>
@@ -49,22 +55,42 @@ export const MyStory = () => {
         <ExtLink to='https://www.ameriprise.com'>Ameriprise Financial</ExtLink>{' '}
         where I began as an engineer and by the end of my tenure I was serving
         as a Senior Lead Engineer. At Ameriprise, I have put on multiple hats
-        such as leading the full stack guest experience platform, leading a core
-        component library, leading the core and standards team, and paving the
-        way for the next gen platform focused on developer experience.
+        such as <strong>leading</strong> the full stack guest experience
+        platform, <strong>leading</strong> a core component library,{' '}
+        <strong>leading</strong> the core and standards team, and paving the way
+        for the next gen platform focused on{' '}
+        <strong>developer experience</strong>.
       </p>
       <p>
-        Briefly before Ameriprise, I worked as a teaching assistant at the{' '}
+        Briefly before Ameriprise, I worked as a <strong>teaching</strong>{' '}
+        assistant at the{' '}
         <ExtLink to='https://bootcamp.umn.edu/coding'>
           University of Minnesota Coding Boot Camp
         </ExtLink>{' '}
-        that focused on the MERN stack (MongoDB{' '}
-        <SiMongodb className={ICON_CLASS_NAME} />, Express{' '}
-        <SiExpress className={ICON_CLASS_NAME} />, ReactJS{' '}
-        <SiReact className={ICON_CLASS_NAME} /> and NodeJS{' '}
-        <SiNodedotjs className={ICON_CLASS_NAME} />
-        ).
+        that focused on the MERN stack:
       </p>
+      <ul>
+        <li>
+          <span>
+            <strong>M</strong>ongoDB <SiMongodb className={ICON_CLASS_NAME} />
+          </span>
+        </li>
+        <li>
+          <span>
+            <strong>E</strong>xpress <SiExpress className={ICON_CLASS_NAME} />
+          </span>
+        </li>
+        <li>
+          <span>
+            <strong>R</strong>eactJS <SiReact className={ICON_CLASS_NAME} />
+          </span>
+        </li>
+        <li>
+          <span>
+            <strong>N</strong>odeJS <SiNodedotjs className={ICON_CLASS_NAME} />
+          </span>
+        </li>
+      </ul>
       <p>Finally, prior to that, I worked as a freelance web developer.</p>
       <p>
         In a past life, I worked various jobs in diverse industries such as

@@ -5,7 +5,8 @@ export const jobs = [
     name: 'Target',
     tasks: [
       'Drive technical solutions for supply chain inventory management applications.',
-      'Mentor engineers in varied technologies, system design, and development processes.',
+      'Collaborate with both engineering and product partners to deliver timely solutions.',
+      'Mentor engineers in diverse technologies, system design, and development processes.',
       'Continuously improve performance in both client and server systems.',
       'Improve development best practices, standards and experience.',
       'Continuously analyze systems and recommend changes to improve scalability.',
@@ -18,6 +19,7 @@ export const jobs = [
     location: 'Minneapolis, MN',
     name: 'Ameriprise',
     tasks: [
+      'Lead the guest experience platform team which consists of React and Java.',
       'Continuously designed and built systems to improve the developer experience.',
       'Guide peers in best practices, unit testing, and overall application architecture.',
       'Collaborate with partners to deliver full-stack solutions for finance service-based applications.',
@@ -35,7 +37,7 @@ export const jobs = [
     location: 'St. Paul, MN',
     name: 'Trilogy Education',
     tasks: [
-      'Support students in their projects and challenges through a Full Stack Web Development Curriculum',
+      'Support students in their projects and challenges through a Full Stack Web Development Curriculum.',
       'Provided assistance and feedback on various technologies of the Full Stack ecosystem like ReactJS, NodeJS, MongoDB, and Express.',
     ],
     title: 'Teaching Assistant',
@@ -53,4 +55,11 @@ export const jobs = [
     title: 'Freelance Web Developer ',
     to: 'May 2018',
   },
-]
+] satisfies {
+  from: `${string} ${string}`
+  location: `${string}, ${string}`
+  name: string
+  tasks: `${Uppercase<string>}${string}.`[]
+  title: string
+  to: string
+}[]

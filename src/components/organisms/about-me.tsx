@@ -7,7 +7,7 @@ export const AboutMe = ({ title }: { title: string }) => {
     <Prose>
       <h1>{title}</h1>
       <MyStory />
-      <h2>Work Experience</h2>
+      <h2>Experience</h2>
       <Experience />
     </Prose>
   )

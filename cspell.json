@@ -18,6 +18,7 @@
     "crawlable",
     "daisyui",
     "Dass",
+    "eact",
     "Fastify",
     "frontmatter",
     "gitzy",
@@ -37,6 +38,7 @@
     "nodenext",
     "noninteractive",
     "noreferrer",
+    "ongo",
     "Pageview",
     "PECR",
     "pnpm",
@@ -55,7 +57,8 @@
     "tylermcginnis",
     "vercel",
     "vite",
-    "wagoid"
+    "wagoid",
+    "xpress"
   ],
   "ignorePaths": ["pnpm-lock.yaml", ".gitignore", ".vscode"]
 }
