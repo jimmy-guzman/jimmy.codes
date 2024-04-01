@@ -1,6 +1,6 @@
 export const homeSelectors = {
   get aboutLink() {
-    return cy.findByRole('link', { name: 'more about me' })
+    return cy.findByRole('link', { name: 'more information about me' })
   },
   get blogLink() {
     return cy.findByRole('link', { name: 'read my blog' })
