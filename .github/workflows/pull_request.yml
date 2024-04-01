@@ -35,7 +35,7 @@ jobs:
       - run: rm tsconfig.json
 
       - name: commitlint
-        uses: wagoid/commitlint-github-action@v5
+        uses: wagoid/commitlint-github-action@v6
         with:
           configFile: commitlint.config.cjs
 
