@@ -1,11 +1,15 @@
 import type { IconType } from '@icons-pack/react-simple-icons'
 import {
+  SiDocker,
+  SiNextdotjs,
   SiNodedotjs,
   SiPlaywright,
+  SiPostgresql,
   SiReact,
   SiTailwindcss,
   SiTestinglibrary,
   SiTypescript,
+  SiVitest,
 } from '@icons-pack/react-simple-icons'
 
 interface Technology {
@@ -26,6 +30,11 @@ export const commonTechnologies = [
     link: 'https://reactjs.org',
   },
   {
+    name: 'Next.js',
+    Icon: SiNextdotjs,
+    link: 'https://nextjs.org',
+  },
+  {
     name: 'Node.js',
     Icon: SiNodedotjs,
     link: 'https://nodejs.org',
@@ -36,6 +45,11 @@ export const commonTechnologies = [
     link: 'https://www.typescriptlang.org',
   },
   {
+    name: 'Vitest',
+    Icon: SiVitest,
+    link: 'https://vitest.dev',
+  },
+  {
     name: 'Testing Library',
     Icon: SiTestinglibrary,
     link: 'https://testing-library.com',
@@ -44,5 +58,15 @@ export const commonTechnologies = [
     name: 'Playwright',
     Icon: SiPlaywright,
     link: 'https://playwright.dev',
+  },
+  {
+    name: 'PostgreSQL',
+    Icon: SiPostgresql,
+    link: 'https://www.postgresql.org',
+  },
+  {
+    name: 'Docker',
+    Icon: SiDocker,
+    link: 'https://www.docker.com',
   },
 ] satisfies Technology[]
