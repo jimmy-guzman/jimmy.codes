@@ -3,19 +3,19 @@ import {
   SiMongodb,
   SiNodedotjs,
   SiReact,
-} from '@icons-pack/react-simple-icons'
+} from "@icons-pack/react-simple-icons";
 
-import { ExtLink } from '../atoms/ext-link'
-import { CurrentTechnologies } from './current-tech'
+import { ExtLink } from "../atoms/ext-link";
+import { CurrentTechnologies } from "./current-tech";
 
 const ICON_CLASS_NAME =
-  'inline-block h-4 align-baseline md:h-6 md:align-text-bottom '
+  "inline-block h-4 align-baseline md:h-6 md:align-text-bottom ";
 
 const TargetDescription = () => {
   return (
     <>
-      I&apos;m currently a Lead Engineer at{' '}
-      <ExtLink to='https://www.target.com'>Target</ExtLink> where I drive full
+      I&apos;m currently a Lead Engineer at{" "}
+      <ExtLink to="https://www.target.com">Target</ExtLink> where I drive full
       stack solutions for <strong>supply chain</strong> inventory management
       applications. The main technologies that I interact with are:
       <CurrentTechnologies />
@@ -24,7 +24,7 @@ const TargetDescription = () => {
       <ul>
         <li>
           Building and designing <strong>micro services</strong> platform that
-          focus on <strong>performance</strong> and{' '}
+          focus on <strong>performance</strong> and{" "}
           <strong>developer experience</strong>.
         </li>
         <li>
@@ -36,37 +36,37 @@ const TargetDescription = () => {
         </li>
       </ul>
     </>
-  )
-}
+  );
+};
 
 // eslint-disable-next-line max-lines-per-function
 export const MyStory = () => {
   return (
     <>
       <p>
-        I&apos;m Jimmy Guzman Moreno, an engineer that specializes in{' '}
-        <strong>full stack</strong> development. I have primarily worked in{' '}
+        I&apos;m Jimmy Guzman Moreno, an engineer that specializes in{" "}
+        <strong>full stack</strong> development. I have primarily worked in{" "}
         <strong>leadership</strong> roles, successfully delivering scalable
         solutions and mentoring teams.
       </p>
       <TargetDescription />
       <p>
-        Before that, I worked at{' '}
-        <ExtLink to='https://www.ameriprise.com'>Ameriprise Financial</ExtLink>{' '}
+        Before that, I worked at{" "}
+        <ExtLink to="https://www.ameriprise.com">Ameriprise Financial</ExtLink>{" "}
         where I began as an engineer and by the end of my tenure I was serving
         as a Senior Lead Engineer. At Ameriprise, I have put on multiple hats
         such as <strong>leading</strong> the full stack guest experience
-        platform, <strong>leading</strong> a core component library,{' '}
+        platform, <strong>leading</strong> a core component library,{" "}
         <strong>leading</strong> the core and standards team, and paving the way
-        for the next gen platform focused on{' '}
+        for the next gen platform focused on{" "}
         <strong>developer experience</strong>.
       </p>
       <p>
-        Briefly before Ameriprise, I worked as a <strong>teaching</strong>{' '}
-        assistant at the{' '}
-        <ExtLink to='https://bootcamp.umn.edu/coding'>
+        Briefly before Ameriprise, I worked as a <strong>teaching</strong>{" "}
+        assistant at the{" "}
+        <ExtLink to="https://bootcamp.umn.edu/coding">
           University of Minnesota Coding Boot Camp
-        </ExtLink>{' '}
+        </ExtLink>{" "}
         that focused on the MERN stack:
       </p>
       <ul>
@@ -97,5 +97,5 @@ export const MyStory = () => {
         education, warehouse, and customer service.
       </p>
     </>
-  )
-}
+  );
+};

@@ -1,22 +1,22 @@
 export const homeSelectors = {
   get aboutLink() {
-    return cy.findByRole('link', { name: 'more information about me' })
+    return cy.findByRole("link", { name: "more information about me" });
   },
   get blogLink() {
-    return cy.findByRole('link', { name: 'read my blog' })
+    return cy.findByRole("link", { name: "read my blog" });
   },
   get greeting() {
-    return cy.findByRole('heading', {
+    return cy.findByRole("heading", {
       name: /Hi, I'm Jimmy/,
-    })
+    });
   },
-}
+};
 
 export const homeActions = {
   visitBlogPage: () => {
-    homeSelectors.blogLink.first().click()
+    homeSelectors.blogLink.first().click();
   },
   visitAboutPage: () => {
-    homeSelectors.aboutLink.first().click()
+    homeSelectors.aboutLink.first().click();
   },
-}
+};

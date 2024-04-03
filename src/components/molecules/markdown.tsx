@@ -1,25 +1,25 @@
-import ReactMarkdown from 'react-markdown'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypeExternalLinks from 'rehype-external-links'
-import highlight from 'rehype-highlight'
-import rehypeSlug from 'rehype-slug'
-import remarkUnwrapImages from 'remark-unwrap-images'
+import ReactMarkdown from "react-markdown";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeExternalLinks from "rehype-external-links";
+import highlight from "rehype-highlight";
+import rehypeSlug from "rehype-slug";
+import remarkUnwrapImages from "remark-unwrap-images";
 
-import { renderers } from './markdown.renderers'
+import { renderers } from "./markdown.renderers";
 
 interface MarkdownProps {
-  content: string
+  content: string;
 }
 
 const autoLinkHeadingOpts = {
   properties: {
-    'aria-hidden': 'true',
-    'tabindex': '-1',
-    'before': '#',
-    'className': `relative before:content-[attr(before)] before:absolute before:right-0.5 before:text-gray-600 hover:before:text-accent before:font-light`,
+    "aria-hidden": "true",
+    "tabindex": "-1",
+    "before": "#",
+    "className": `relative before:content-[attr(before)] before:absolute before:right-0.5 before:text-gray-600 hover:before:text-accent before:font-light`,
   },
-  behavior: 'prepend',
-}
+  behavior: "prepend",
+};
 
 export const Markdown = ({ content }: MarkdownProps) => {
   return (
@@ -35,5 +35,5 @@ export const Markdown = ({ content }: MarkdownProps) => {
     >
       {content}
     </ReactMarkdown>
-  )
-}
+  );
+};

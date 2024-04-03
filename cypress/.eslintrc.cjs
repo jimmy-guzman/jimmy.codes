@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['../.eslintrc.cjs'],
+  extends: ["../.eslintrc.cjs"],
   globals: {
     cy: false,
     Cypress: false,
@@ -8,6 +8,6 @@ module.exports = {
     chai: false,
   },
   rules: {
-    'jest/expect-expect': 'off',
+    "jest/expect-expect": "off",
   },
-}
+};

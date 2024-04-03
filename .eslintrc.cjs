@@ -1,17 +1,17 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
   extends: [
-    'jimmy-guzman',
-    'jimmy-guzman/typescript',
-    'jimmy-guzman/react',
-    'jimmy-guzman/jest',
-    'jimmy-guzman/testing-library',
-    'plugin:@next/next/recommended',
+    "jimmy-guzman",
+    "jimmy-guzman/typescript",
+    "jimmy-guzman/react",
+    "jimmy-guzman/jest",
+    "jimmy-guzman/testing-library",
+    "plugin:@next/next/recommended",
   ],
   parserOptions: {
-    project: ['./tsconfig.json'],
+    project: ["./tsconfig.json"],
   },
   rules: {
-    'import/no-anonymous-default-export': 'off',
+    "import/no-anonymous-default-export": "off",
   },
-}
+};

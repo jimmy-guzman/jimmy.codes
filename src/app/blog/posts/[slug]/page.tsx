@@ -1,31 +1,31 @@
-import { BlogPost } from '../../../../components/organisms/blog-post'
-import { getAllPosts, getPostBySlug } from '../../../../lib/api'
+import { BlogPost } from "../../../../components/organisms/blog-post";
+import { getAllPosts, getPostBySlug } from "../../../../lib/api";
 
 interface Props {
-  params: { slug: string }
+  params: { slug: string };
 }
 
 export const generateStaticParams = async () => {
-  const posts = await getAllPosts(['slug'])
+  const posts = await getAllPosts(["slug"]);
 
-  return posts.map((post) => ({ slug: post.slug }))
-}
+  return posts.map((post) => ({ slug: post.slug }));
+};
 
 export const generateMetadata = async ({ params }: Props) => {
   const post = await getPostBySlug(params.slug, [
-    'title',
-    'description',
-    'content',
-    'imageUrl',
-    'repoUrl',
-    'publishDate',
-  ])
+    "title",
+    "description",
+    "content",
+    "imageUrl",
+    "repoUrl",
+    "publishDate",
+  ]);
 
   return {
     title: post.title,
     description: post.description,
     openGraph: {
-      type: 'website',
+      type: "website",
       title: post.title,
       description: post.description,
       url: `https://jimmy.codes/${params.slug}`,
@@ -34,18 +34,18 @@ export const generateMetadata = async ({ params }: Props) => {
       title: post.title,
       description: post.description,
     },
-  }
-}
+  };
+};
 
 export default async function Page({ params }: Props) {
   const post = await getPostBySlug(params.slug, [
-    'title',
-    'description',
-    'content',
-    'imageUrl',
-    'repoUrl',
-    'publishDate',
-  ])
+    "title",
+    "description",
+    "content",
+    "imageUrl",
+    "repoUrl",
+    "publishDate",
+  ]);
 
-  return <BlogPost {...post} />
+  return <BlogPost {...post} />;
 }

@@ -1,17 +1,17 @@
 export const appSelectors = {
   get aboutLink() {
-    return cy.findByRole('link', { name: 'about' })
+    return cy.findByRole("link", { name: "about" });
   },
   get blogLink() {
-    return cy.findByRole('link', { name: 'blog' })
+    return cy.findByRole("link", { name: "blog" });
   },
-}
+};
 
 export const appActions = {
   visitAboutPage: () => {
-    appSelectors.aboutLink.click()
+    appSelectors.aboutLink.click();
   },
   visitBlogPage: () => {
-    appSelectors.blogLink.click()
+    appSelectors.blogLink.click();
   },
-}
+};

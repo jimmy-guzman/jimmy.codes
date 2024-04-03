@@ -1,6 +1,6 @@
-import { Prose } from '../atoms/prose'
-import { Experience } from '../molecules/experience'
-import { MyStory } from '../molecules/my-story'
+import { Prose } from "../atoms/prose";
+import { Experience } from "../molecules/experience";
+import { MyStory } from "../molecules/my-story";
 
 export const AboutMe = ({ title }: { title: string }) => {
   return (
@@ -10,5 +10,5 @@ export const AboutMe = ({ title }: { title: string }) => {
       <h2>Experience</h2>
       <Experience />
     </Prose>
-  )
-}
+  );
+};
