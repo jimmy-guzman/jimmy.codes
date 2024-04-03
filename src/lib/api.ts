@@ -1,42 +1,44 @@
-import { readdir, readFile } from 'node:fs/promises'
+import { readdir, readFile } from "node:fs/promises";
 
-import { Repository } from '@napi-rs/simple-git'
-import matter from 'gray-matter'
+import { Repository } from "@napi-rs/simple-git";
+import matter from "gray-matter";
 
-const repo = Repository.discover('.')
+const repo = Repository.discover(".");
 
-const POSTS = 'src/_posts'
+const POSTS = "src/_posts";
 
 export const getPostBySlug = async <const T extends readonly string[]>(
   slug: string,
-  fields: T
+  fields: T,
 ) => {
-  const realSlug = slug.replace(/\.md$/, '')
-  const postPath = `${POSTS}/${realSlug}.md`
+  const realSlug = slug.replace(/\.md$/, "");
+  const postPath = `${POSTS}/${realSlug}.md`;
 
   // this is disabled due to vercel not supporting deep clone
-  const timestamp = process.env['VERCEL']
+  const timestamp = process.env["VERCEL"]
     ? null
-    : new Date(await repo.getFileLatestModifiedDateAsync(postPath))
+    : new Date(await repo.getFileLatestModifiedDateAsync(postPath));
 
-  const fileContents = await readFile(postPath, 'utf8')
-  const { data, content } = matter(fileContents)
+  const fileContents = await readFile(postPath, "utf8");
+  const { data, content } = matter(fileContents);
 
   return fields.reduce((acc, curr) => {
     return {
       ...acc,
-      ...(curr === 'slug' && { [curr]: realSlug }),
-      ...(curr === 'content' && { [curr]: content }),
-      ...(typeof data[curr] !== 'undefined' && { [curr]: data[curr] }),
+      ...(curr === "slug" && { [curr]: realSlug }),
+      ...(curr === "content" && { [curr]: content }),
+      ...(typeof data[curr] !== "undefined" && { [curr]: data[curr] }),
       timestamp,
-    }
-  }, {}) as Record<(typeof fields)[number], string> & { timestamp: Date | null }
-}
+    };
+  }, {}) as Record<(typeof fields)[number], string> & {
+    timestamp: Date | null;
+  };
+};
 
 export const getAllPosts = async <const T extends readonly string[]>(
-  fields: T
+  fields: T,
 ) => {
-  const slugs = await readdir(POSTS)
+  const slugs = await readdir(POSTS);
 
-  return Promise.all(slugs.map((slug) => getPostBySlug(slug, fields)))
-}
+  return Promise.all(slugs.map((slug) => getPostBySlug(slug, fields)));
+};

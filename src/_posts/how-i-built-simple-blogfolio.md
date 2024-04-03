@@ -74,41 +74,41 @@ Since [Next.js](https://nextjs.org/) does not come with [out-the-box Markdown su
 To accomplish this I went with [react-markdown](https://remarkjs.github.io/react-markdown/) due to it's [components feature](https://remarkjs.github.io/react-markdown/#components), i.e
 
 ```tsx
-import Image from 'next/image'
-import ReactMarkdown from 'react-markdown'
+import Image from "next/image";
+import ReactMarkdown from "react-markdown";
 
 const renderers = {
   img: (
     image: DetailedHTMLProps<
       ImgHTMLAttributes<HTMLImageElement>,
       HTMLImageElement
-    >
+    >,
   ) => {
-    if (!image.src) return null
+    if (!image.src) return null;
 
     return (
       <Image
-        className='rounded-lg'
+        className="rounded-lg"
         blurDataURL={image.src}
         src={image.src}
         alt={image.alt}
-        layout='responsive'
+        layout="responsive"
         width={945}
         height={645}
-        placeholder='blur'
+        placeholder="blur"
         quality={65}
       />
-    )
+    );
   },
-}
+};
 
 interface MarkdownContentProps {
-  content: string
+  content: string;
 }
 
 const MarkdownContent = ({ content }: MarkdownContentProps) => {
-  return <ReactMarkdown components={renderers}>{content}</ReactMarkdown>
-}
+  return <ReactMarkdown components={renderers}>{content}</ReactMarkdown>;
+};
 ```
 
 This allows replacing an image displayed with markdown, such as:
@@ -128,17 +128,17 @@ In addition, since React Markdown still leverages [unified](https://unifiedjs.co
 Which easily is accomplished by using `<ReactMarkdown />`'s `remarkPlugins` and `rehypePlugins` props, i.e
 
 ```tsx
-import ReactMarkdown from 'react-markdown'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypeExternalLinks from 'rehype-external-links'
-import rehypeHighlight from 'rehype-highlight'
-import rehypeSlug from 'rehype-slug'
-import remarkUnwrapImages from 'remark-unwrap-images'
+import ReactMarkdown from "react-markdown";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeExternalLinks from "rehype-external-links";
+import rehypeHighlight from "rehype-highlight";
+import rehypeSlug from "rehype-slug";
+import remarkUnwrapImages from "remark-unwrap-images";
 
-import 'highlight.js/styles/base16/material.css'
+import "highlight.js/styles/base16/material.css";
 
 interface MarkdownContentProps {
-  content: string
+  content: string;
 }
 
 const MarkdownContent = ({ content }: MarkdownContentProps) => {
@@ -155,8 +155,8 @@ const MarkdownContent = ({ content }: MarkdownContentProps) => {
     >
       {content}
     </ReactMarkdown>
-  )
-}
+  );
+};
 ```
 
 ### Image Optimization
@@ -170,21 +170,21 @@ I already mentioned Next.js's [image component](https://nextjs.org/docs/basic-fe
 And [react-cool-dimensions](https://react-cool-dimensions.netlify.app/) to dynamically change `sizes`, i.e
 
 ```tsx
-import Image, { ImageProps } from 'next/image'
-import useDimensions from 'react-cool-dimensions'
+import Image, { ImageProps } from "next/image";
+import useDimensions from "react-cool-dimensions";
 
 const ResponsiveImage = ({
   src,
   ...rest
-}: Omit<ImageProps, 'layout' | 'sizes'>) => {
-  const { observe, width } = useDimensions<HTMLDivElement | null>()
+}: Omit<ImageProps, "layout" | "sizes">) => {
+  const { observe, width } = useDimensions<HTMLDivElement | null>();
 
   return (
     <div ref={observe}>
-      <Image {...rest} layout='responsive' sizes={`${Math.round(width)}px`} />
+      <Image {...rest} layout="responsive" sizes={`${Math.round(width)}px`} />
     </div>
-  )
-}
+  );
+};
 ```
 
 We get performant and high quality images at every size!
@@ -275,11 +275,11 @@ Using [Fathom](https://usefathom.com/) with Next.js is extremely simple, given y
 {
   process.env.NEXT_PUBLIC_FATHOM_KEY && (
     <Script
-      src='https://wild-wind-innovate.jimmy.codes/script.js'
+      src="https://wild-wind-innovate.jimmy.codes/script.js"
       data-site={process.env.NEXT_PUBLIC_FATHOM_KEY}
-      strategy='afterInteractive'
+      strategy="afterInteractive"
     />
-  )
+  );
 }
 ```
 

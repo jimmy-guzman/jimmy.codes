@@ -1,19 +1,19 @@
-import NextImage from 'next/image'
+import NextImage from "next/image";
 import type {
   DetailedHTMLProps,
   HTMLAttributes,
   ImgHTMLAttributes,
-} from 'react'
+} from "react";
 
 type CodeElementProps = DetailedHTMLProps<
   HTMLAttributes<HTMLElement>,
   HTMLElement
->
+>;
 
 type ImageElementProps = DetailedHTMLProps<
   ImgHTMLAttributes<HTMLImageElement>,
   HTMLImageElement
->
+>;
 
 export const renderers = {
   code: ({ children, className }: CodeElementProps) => (
@@ -24,24 +24,24 @@ export const renderers = {
     </code>
   ),
   img: (image: ImageElementProps) => {
-    if (!image.src) return null
+    if (!image.src) return null;
 
     return (
       <NextImage
-        className='rounded-lg'
+        className="rounded-lg"
         blurDataURL={image.src}
         src={image.src}
-        alt={image.alt ?? ''}
+        alt={image.alt ?? ""}
         width={945}
         height={645}
-        placeholder='blur'
+        placeholder="blur"
         quality={65}
-        sizes='100vw'
+        sizes="100vw"
         style={{
-          width: '100%',
-          height: 'auto',
+          width: "100%",
+          height: "auto",
         }}
       />
-    )
+    );
   },
-}
+};

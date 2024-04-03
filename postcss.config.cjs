@@ -4,6 +4,6 @@ const config = {
     tailwindcss: {},
     autoprefixer: {},
   },
-}
+};
 
-module.exports = config
+module.exports = config;

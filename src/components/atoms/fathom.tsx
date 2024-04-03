@@ -1,40 +1,40 @@
-'use client'
+"use client";
 
-import { load, trackPageview } from 'fathom-client'
-import { usePathname, useSearchParams } from 'next/navigation'
-import { Suspense, useEffect } from 'react'
+import { load, trackPageview } from "fathom-client";
+import { usePathname, useSearchParams } from "next/navigation";
+import { Suspense, useEffect } from "react";
 
 const TrackPageView = () => {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (
-      process.env.NODE_ENV === 'production' &&
-      process.env['NEXT_PUBLIC_FATHOM_KEY']
+      process.env.NODE_ENV === "production" &&
+      process.env["NEXT_PUBLIC_FATHOM_KEY"]
     ) {
-      load(process.env['NEXT_PUBLIC_FATHOM_KEY'], {
-        includedDomains: ['www.jimmy.codes', 'jimmy.codes'],
-      })
+      load(process.env["NEXT_PUBLIC_FATHOM_KEY"], {
+        includedDomains: ["www.jimmy.codes", "jimmy.codes"],
+      });
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    if (!pathname) return
+    if (!pathname) return;
 
     trackPageview({
       url: pathname + searchParams.toString(),
       referrer: document.referrer,
-    })
-  }, [pathname, searchParams])
+    });
+  }, [pathname, searchParams]);
 
-  return null
-}
+  return null;
+};
 
 export const Fathom = () => {
   return (
     <Suspense fallback={null}>
       <TrackPageView />
     </Suspense>
-  )
-}
+  );
+};

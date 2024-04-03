@@ -3,9 +3,9 @@ ci:
     psiStrategy: desktop
     settings:
       preset: desktop
-      onlyCategories: ['performance', 'seo', 'accessibility', 'best-practices']
+      onlyCategories: ["performance", "seo", "accessibility", "best-practices"]
       # skipping is-crawlable since vercel will prevent indexing on non prod urls
-      skipAudits: ['is-crawlable']
+      skipAudits: ["is-crawlable"]
   assert:
     assertions:
       categories:performance:

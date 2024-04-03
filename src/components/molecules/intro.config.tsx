@@ -1,4 +1,4 @@
-import type { IconType } from '@icons-pack/react-simple-icons'
+import type { IconType } from "@icons-pack/react-simple-icons";
 import {
   SiDocker,
   SiNextdotjs,
@@ -10,63 +10,63 @@ import {
   SiTestinglibrary,
   SiTypescript,
   SiVitest,
-} from '@icons-pack/react-simple-icons'
+} from "@icons-pack/react-simple-icons";
 
 interface Technology {
-  Icon: IconType
-  link: `https://${string}.${string}`
-  name: string
+  Icon: IconType;
+  link: `https://${string}.${string}`;
+  name: string;
 }
 
 export const commonTechnologies = [
   {
-    name: 'TypeScript',
+    name: "TypeScript",
     Icon: SiTypescript,
-    link: 'https://www.typescriptlang.org',
+    link: "https://www.typescriptlang.org",
   },
   {
-    name: 'React',
+    name: "React",
     Icon: SiReact,
-    link: 'https://reactjs.org',
+    link: "https://reactjs.org",
   },
   {
-    name: 'Next.js',
+    name: "Next.js",
     Icon: SiNextdotjs,
-    link: 'https://nextjs.org',
+    link: "https://nextjs.org",
   },
   {
-    name: 'Node.js',
+    name: "Node.js",
     Icon: SiNodedotjs,
-    link: 'https://nodejs.org',
+    link: "https://nodejs.org",
   },
   {
-    name: 'tailwindcss',
+    name: "tailwindcss",
     Icon: SiTailwindcss,
-    link: 'https://www.typescriptlang.org',
+    link: "https://www.typescriptlang.org",
   },
   {
-    name: 'Vitest',
+    name: "Vitest",
     Icon: SiVitest,
-    link: 'https://vitest.dev',
+    link: "https://vitest.dev",
   },
   {
-    name: 'Testing Library',
+    name: "Testing Library",
     Icon: SiTestinglibrary,
-    link: 'https://testing-library.com',
+    link: "https://testing-library.com",
   },
   {
-    name: 'Playwright',
+    name: "Playwright",
     Icon: SiPlaywright,
-    link: 'https://playwright.dev',
+    link: "https://playwright.dev",
   },
   {
-    name: 'PostgreSQL',
+    name: "PostgreSQL",
     Icon: SiPostgresql,
-    link: 'https://www.postgresql.org',
+    link: "https://www.postgresql.org",
   },
   {
-    name: 'Docker',
+    name: "Docker",
     Icon: SiDocker,
-    link: 'https://www.docker.com',
+    link: "https://www.docker.com",
   },
-] satisfies Technology[]
+] satisfies Technology[];

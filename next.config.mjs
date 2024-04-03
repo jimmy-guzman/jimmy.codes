@@ -2,11 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [{ hostname: 'res.cloudinary.com' }],
+    remotePatterns: [{ hostname: "res.cloudinary.com" }],
   },
   experimental: {
-    serverComponentsExternalPackages: ['@napi-rs/simple-git'],
+    serverComponentsExternalPackages: ["@napi-rs/simple-git"],
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

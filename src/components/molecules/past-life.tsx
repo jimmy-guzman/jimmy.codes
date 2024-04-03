@@ -1,4 +1,4 @@
-import { ExtLink } from '../atoms/ext-link'
+import { ExtLink } from "../atoms/ext-link";
 
 // eslint-disable-next-line max-lines-per-function
 export const PastLife = () => {
@@ -10,44 +10,44 @@ export const PastLife = () => {
       </p>
       <ul>
         <li>
-          <ExtLink to='https://teamtreehouse.com'>Team Treehouse</ExtLink>
+          <ExtLink to="https://teamtreehouse.com">Team Treehouse</ExtLink>
         </li>
         <li>
-          <ExtLink to='https://www.freecodecamp.org'>freeCodeCamp</ExtLink>
+          <ExtLink to="https://www.freecodecamp.org">freeCodeCamp</ExtLink>
         </li>
         <li>
-          <ExtLink to='https://watchandcode.com'>Watch and Code</ExtLink>
+          <ExtLink to="https://watchandcode.com">Watch and Code</ExtLink>
         </li>
         <li>
-          <ExtLink to='https://platform.ui.dev'>tylermcginnis.com</ExtLink> (now
+          <ExtLink to="https://platform.ui.dev">tylermcginnis.com</ExtLink> (now
           ui.dev)
         </li>
         <li>
-          <ExtLink to='https://wesbos.com'>Wes Bos</ExtLink>
+          <ExtLink to="https://wesbos.com">Wes Bos</ExtLink>
         </li>
       </ul>
       And read books like:
       <ul>
         <li>
-          <ExtLink to='https://www.oreilly.com/library/view/clean-code-a/9780136083238'>
+          <ExtLink to="https://www.oreilly.com/library/view/clean-code-a/9780136083238">
             Clean Code
-          </ExtLink>{' '}
+          </ExtLink>{" "}
           by Robert C. Martin
         </li>
         <li>
-          <ExtLink to='https://github.com/getify/You-Dont-Know-JS'>
+          <ExtLink to="https://github.com/getify/You-Dont-Know-JS">
             You Don&apos;t Know JS Yet
-          </ExtLink>{' '}
+          </ExtLink>{" "}
           by Kyle Simpson
         </li>
         <li>
-          <ExtLink to='https://eloquentjavascript.net'>
+          <ExtLink to="https://eloquentjavascript.net">
             Eloquent JavaScript
-          </ExtLink>{' '}
+          </ExtLink>{" "}
           by Marijn Haverbeke
         </li>
         <li>
-          <ExtLink to='https://domenlightenment.com'>DOM Enlightenment</ExtLink>{' '}
+          <ExtLink to="https://domenlightenment.com">DOM Enlightenment</ExtLink>{" "}
           by Cody Lindley
         </li>
       </ul>
@@ -57,5 +57,5 @@ export const PastLife = () => {
         coding boot camp.
       </p>
     </>
-  )
-}
+  );
+};

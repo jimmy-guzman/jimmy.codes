@@ -1,10 +1,10 @@
-import clsx from 'clsx'
-import type { ReactNode } from 'react'
+import clsx from "clsx";
+import type { ReactNode } from "react";
 
 interface ExtLinkProps {
-  children?: ReactNode
-  to: `https://${string}.${string}` | `mailto:${string}@${string}.${string}`
-  isIcon?: boolean
+  children?: ReactNode;
+  to: `https://${string}.${string}` | `mailto:${string}@${string}.${string}`;
+  isIcon?: boolean;
 }
 
 export const ExtLink = ({ children, to, isIcon = false }: ExtLinkProps) => {
@@ -12,12 +12,12 @@ export const ExtLink = ({ children, to, isIcon = false }: ExtLinkProps) => {
     <a
       href={to}
       className={clsx(
-        isIcon ? 'dsy-btn dsy-btn-circle' : 'dsy-link-hover dsy-link'
+        isIcon ? "dsy-btn dsy-btn-circle" : "dsy-link-hover dsy-link",
       )}
-      rel='noreferrer'
-      target='_blank'
+      rel="noreferrer"
+      target="_blank"
     >
       {children}
     </a>
-  )
-}
+  );
+};
