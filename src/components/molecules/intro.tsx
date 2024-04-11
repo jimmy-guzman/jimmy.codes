@@ -25,13 +25,15 @@ export const Intro = () => {
         most frequently:
       </p>
       <ul>
-        {commonTechnologies.map(({ name, Icon, link }) => (
-          <li key={name}>
-            <ExtLink to={link}>
-              {name} <Icon className={ICON_CLASS_NAME} />
-            </ExtLink>
-          </li>
-        ))}
+        {commonTechnologies.map(({ name, Icon, link }) => {
+          return (
+            <li key={name}>
+              <ExtLink to={link}>
+                {name} <Icon className={ICON_CLASS_NAME} />
+              </ExtLink>
+            </li>
+          );
+        })}
       </ul>
       <p>
         For{" "}

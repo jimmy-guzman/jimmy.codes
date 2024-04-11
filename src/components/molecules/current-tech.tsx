@@ -29,14 +29,16 @@ const technologies = [
 export const CurrentTechnologies = () => {
   return (
     <ul>
-      {technologies.map(({ name, Icon }) => (
-        <li key={name}>
-          <span>
-            {name}{" "}
-            <Icon className="inline-block h-4 align-baseline md:h-6 md:align-text-bottom" />
-          </span>
-        </li>
-      ))}
+      {technologies.map(({ name, Icon }) => {
+        return (
+          <li key={name}>
+            <span>
+              {name}{" "}
+              <Icon className="inline-block h-4 align-baseline md:h-6 md:align-text-bottom" />
+            </span>
+          </li>
+        );
+      })}
     </ul>
   );
 };

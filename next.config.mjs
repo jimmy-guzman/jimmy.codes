@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     remotePatterns: [{ hostname: "res.cloudinary.com" }],
   },
+  eslint: { ignoreDuringBuilds: true },
   experimental: {
     serverComponentsExternalPackages: ["@napi-rs/simple-git"],
   },

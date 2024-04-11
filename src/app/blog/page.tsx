@@ -37,9 +37,9 @@ export default async function Page() {
       </Prose>
       <section className="no-prose">
         <div className="no-prose grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {allPosts.map((post, index) => (
-            <BlogPostPreview post={post} key={index} />
-          ))}
+          {allPosts.map((post, index) => {
+            return <BlogPostPreview post={post} key={index} />;
+          })}
         </div>
       </section>
     </div>

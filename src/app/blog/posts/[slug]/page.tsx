@@ -8,7 +8,9 @@ interface Props {
 export const generateStaticParams = async () => {
   const posts = await getAllPosts(["slug"]);
 
-  return posts.map((post) => ({ slug: post.slug }));
+  return posts.map((post) => {
+    return { slug: post.slug };
+  });
 };
 
 export const generateMetadata = async ({ params }: Props) => {

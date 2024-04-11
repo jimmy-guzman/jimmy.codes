@@ -4,7 +4,9 @@ import { blogSelectors } from "../support/blog.po";
 import { homeSelectors } from "../support/home.po";
 
 describe("app", () => {
-  beforeEach(() => cy.visit("/"));
+  beforeEach(() => {
+    return cy.visit("/");
+  });
 
   it("should navigate through pages", () => {
     homeSelectors.greeting.should("be.visible");

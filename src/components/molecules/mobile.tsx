@@ -18,11 +18,13 @@ export const Mobile = () => {
         tabIndex={0}
         className="dsy-menu dsy-dropdown-content dsy-menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
       >
-        {navLinks.map(({ path, name }) => (
-          <li key={name}>
-            <NavLink to={path}>{name}</NavLink>
-          </li>
-        ))}
+        {navLinks.map(({ path, name }) => {
+          return (
+            <li key={name}>
+              <NavLink to={path}>{name}</NavLink>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

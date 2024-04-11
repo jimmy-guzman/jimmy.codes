@@ -28,11 +28,13 @@ export const BlogPostPreview = ({ post }: BlogPreviewProps) => {
         <h2 className="dsy-card-title">{post.title}</h2>
         <p>{truncate(post.description, 100)}</p>
         <div className="dsy-card-actions">
-          {post.keywords.split(",").map((keyword) => (
-            <span className="dsy-badge dsy-badge-neutral" key={keyword}>
-              {keyword.trim()}
-            </span>
-          ))}
+          {post.keywords.split(",").map((keyword) => {
+            return (
+              <span className="dsy-badge dsy-badge-neutral" key={keyword}>
+                {keyword.trim()}
+              </span>
+            );
+          })}
         </div>
         <div className="dsy-card-actions justify-end">
           <Link

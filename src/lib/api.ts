@@ -27,6 +27,7 @@ export const getPostBySlug = async <const T extends readonly string[]>(
       ...acc,
       ...(curr === "slug" && { [curr]: realSlug }),
       ...(curr === "content" && { [curr]: content }),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       ...(typeof data[curr] !== "undefined" && { [curr]: data[curr] }),
       timestamp,
     };
@@ -40,5 +41,9 @@ export const getAllPosts = async <const T extends readonly string[]>(
 ) => {
   const slugs = await readdir(POSTS);
 
-  return Promise.all(slugs.map((slug) => getPostBySlug(slug, fields)));
+  return Promise.all(
+    slugs.map((slug) => {
+      return getPostBySlug(slug, fields);
+    }),
+  );
 };
