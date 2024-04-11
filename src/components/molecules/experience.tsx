@@ -1,7 +1,7 @@
 import { jobs } from "./experience.constants";
 
 interface ExperienceProps {
-  projects?: Array<{
+  projects?: {
     description?: string;
     from: string;
     location: string;
@@ -9,7 +9,7 @@ interface ExperienceProps {
     tasks?: string[];
     title: string;
     to: string;
-  }>;
+  }[];
 }
 
 export const Experience = ({ projects = jobs }: ExperienceProps) => {
@@ -26,8 +26,12 @@ export const Experience = ({ projects = jobs }: ExperienceProps) => {
                 <p>
                   {location} ({from} - {to})
                 </p>
-                {description && <p>{description}</p>}
-                <ul>{tasks?.map((task) => <li key={task}>{task}</li>)}</ul>
+                {description ? <p>{description}</p> : null}
+                <ul>
+                  {tasks?.map((task) => {
+                    return <li key={task}>{task}</li>;
+                  })}
+                </ul>
               </div>
             </li>
           );

@@ -38,11 +38,11 @@ export const BlogPost = ({
       <header>
         <div className="flex items-center justify-between">
           <time>{publishDate}</time>
-          {repoUrl && (
+          {repoUrl ? (
             <ExtLink to={repoUrl as `https://${string}.${string}`} isIcon>
               <SiGithub />
             </ExtLink>
-          )}
+          ) : null}
         </div>
         <h1>{title}</h1>
         <p>
@@ -52,7 +52,7 @@ export const BlogPost = ({
       <main>
         <Markdown content={content} />
         <p>Thank you for reading ❤️</p>
-        {timestamp && <BlogPostTimestamp timestamp={timestamp} />}
+        {timestamp ? <BlogPostTimestamp timestamp={timestamp} /> : null}
       </main>
     </Prose>
   );

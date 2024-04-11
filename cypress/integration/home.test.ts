@@ -3,7 +3,9 @@ import { blogSelectors } from "../support/blog.po";
 import { homeActions } from "../support/home.po";
 
 describe("home", () => {
-  beforeEach(() => cy.visit("/"));
+  beforeEach(() => {
+    return cy.visit("/");
+  });
 
   it("should be able to see blog page", () => {
     homeActions.visitBlogPage();

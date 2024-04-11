@@ -1,7 +1,9 @@
 import { blogActions, blogSelectors } from "../support/blog.po";
 
 describe("blog", () => {
-  beforeEach(() => cy.visit("/blog"));
+  beforeEach(() => {
+    return cy.visit("/blog");
+  });
 
   it("should be able to read latest post", () => {
     blogActions.visitLatestBlogPost();
