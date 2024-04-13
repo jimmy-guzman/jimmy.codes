@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { truncate } from "../../utils/text-utils";
 import { Image } from "../atoms/image";
 
 interface BlogPreviewProps {
@@ -26,7 +25,7 @@ export const BlogPostPreview = ({ post }: BlogPreviewProps) => {
       <div className="dsy-card-body">
         <span>{post.publishDate}</span>
         <h2 className="dsy-card-title">{post.title}</h2>
-        <p>{truncate(post.description, 100)}</p>
+        <p className="overflow-hidden text-ellipsis">{post.description}</p>
         <div className="dsy-card-actions">
           {post.keywords.split(",").map((keyword) => {
             return (
