@@ -20,8 +20,8 @@ jobs:
       - name: format
         run: pnpm format
 
-      - name: tsc
-        run: pnpm tsc --noEmit
+      - name: typecheck
+        run: pnpm typecheck
 
   commit_check:
     runs-on: ubuntu-latest
@@ -49,5 +49,4 @@ jobs:
 
       - uses: streetsidesoftware/cspell-action@v6
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN}}
           inline: error
