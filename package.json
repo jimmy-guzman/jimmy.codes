@@ -33,7 +33,7 @@
     "fathom-client": "3.6.0",
     "gray-matter": "4.0.3",
     "highlight.js": "11.9.0",
-    "next": "14.2.1",
+    "next": "14.2.3",
     "react": "18.2.0",
     "react-cool-dimensions": "3.0.1",
     "react-dom": "18.2.0",
@@ -48,7 +48,7 @@
   "devDependencies": {
     "@jimmy.codes/eslint-config": "1.6.1",
     "@jimmy.codes/prettier-config": "1.0.2",
-    "@next/eslint-plugin-next": "14.2.1",
+    "@next/eslint-plugin-next": "14.2.3",
     "@tailwindcss/typography": "0.5.12",
     "@testing-library/cypress": "10.0.1",
     "@types/node": "20.12.7",
