@@ -49,7 +49,7 @@
     "@jimmy.codes/eslint-config": "1.6.1",
     "@jimmy.codes/prettier-config": "1.0.2",
     "@next/eslint-plugin-next": "14.2.1",
-    "@tailwindcss/typography": "0.5.12",
+    "@tailwindcss/typography": "0.5.13",
     "@testing-library/cypress": "10.0.1",
     "@types/node": "20.12.7",
     "@types/react": "18.2.78",
