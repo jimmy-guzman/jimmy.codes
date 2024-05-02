@@ -1,10 +1,11 @@
-import { clsx } from "clsx";
 import NextImage from "next/image";
 import type {
   DetailedHTMLProps,
   HTMLAttributes,
   ImgHTMLAttributes,
 } from "react";
+
+import { cn } from "../../lib/cn";
 
 type CodeElementProps = DetailedHTMLProps<
   HTMLAttributes<HTMLElement>,
@@ -18,16 +19,7 @@ type ImageElementProps = DetailedHTMLProps<
 
 export const renderers = {
   code: ({ children, className }: CodeElementProps) => {
-    return (
-      <code
-        className={clsx(
-          className,
-          "xs:whitespace-pre-wrap xs:!p-1 xs:text-[11px] !bg-neutral",
-        )}
-      >
-        {children}
-      </code>
-    );
+    return <code className={cn(className, "!bg-neutral")}>{children}</code>;
   },
   img: (image: ImageElementProps) => {
     if (!image.src) return null;

@@ -1,7 +1,9 @@
 "use client";
-import clsx from "clsx";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import { cn } from "../../lib/cn";
 
 interface NavLinkProps {
   children: React.ReactNode;
@@ -15,7 +17,7 @@ export const NavLink = ({ children, to, className }: NavLinkProps) => {
   const isActive = to === "/" ? pathname === to : pathname.startsWith(to);
 
   return (
-    <Link href={to} className={clsx(className, { "dsy-btn-active": isActive })}>
+    <Link href={to} className={cn(className, { "dsy-btn-active": isActive })}>
       {children}
     </Link>
   );

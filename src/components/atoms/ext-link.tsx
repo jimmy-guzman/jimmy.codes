@@ -1,5 +1,6 @@
-import clsx from "clsx";
 import type { ReactNode } from "react";
+
+import { cn } from "../../lib/cn";
 
 interface ExtLinkProps {
   children?: ReactNode;
@@ -11,7 +12,7 @@ export const ExtLink = ({ children, to, isIcon = false }: ExtLinkProps) => {
   return (
     <a
       href={to}
-      className={clsx(
+      className={cn(
         isIcon ? "dsy-btn dsy-btn-circle" : "dsy-link-hover dsy-link",
       )}
       rel="noreferrer"
