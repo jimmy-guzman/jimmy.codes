@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { AboutMe } from "../../components/organisms/about-me";
+import { AboutMe } from "@/components/organisms/about-me";
 
 export const metadata: Metadata = {
   title: "About Me",

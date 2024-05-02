@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-import { Prose } from "../../components/atoms/prose";
-import { BlogPostPreview } from "../../components/molecules/blog-post-preview";
-import { getAllPosts } from "../../lib/api";
+import { Prose } from "@/components/atoms/prose";
+import { BlogPostPreview } from "@/components/molecules/blog-post-preview";
+import { getAllPosts } from "@/lib/api";
 
 export const metadata = {
   title: "Read articles written by me",
