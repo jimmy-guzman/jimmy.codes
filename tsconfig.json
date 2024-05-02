@@ -20,7 +20,12 @@
       }
     ],
 
-    "types": ["@testing-library/cypress"]
+    "types": ["@testing-library/cypress"],
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

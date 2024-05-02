@@ -1,5 +1,5 @@
-import { BlogPost } from "../../../../components/organisms/blog-post";
-import { getAllPosts, getPostBySlug } from "../../../../lib/api";
+import { BlogPost } from "@/components/organisms/blog-post";
+import { getAllPosts, getPostBySlug } from "@/lib/api";
 
 interface Props {
   params: { slug: string };
