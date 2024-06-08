@@ -53,7 +53,7 @@
     "@tailwindcss/typography": "0.5.13",
     "@testing-library/cypress": "10.0.1",
     "@types/node": "20.12.8",
-    "@types/react": "18.3.1",
+    "@types/react": "18.3.3",
     "autoprefixer": "10.4.19",
     "commitlint": "19.3.0",
     "cypress": "13.8.1",
