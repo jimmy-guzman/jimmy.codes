@@ -80,7 +80,7 @@ importers:
         version: 0.5.13(tailwindcss@3.4.3)
       '@testing-library/cypress':
         specifier: 10.0.1
-        version: 10.0.1(cypress@13.8.1)
+        version: 10.0.1(cypress@13.13.3)
       '@types/node':
         specifier: 20.12.8
         version: 20.12.8
@@ -94,8 +94,8 @@ importers:
         specifier: 19.3.0
         version: 19.3.0(@types/node@20.12.8)(typescript@5.4.5)
       cypress:
-        specifier: 13.8.1
-        version: 13.8.1
+        specifier: 13.13.3
+        version: 13.13.3
       daisyui:
         specifier: 4.11.1
         version: 4.11.1(postcss@8.4.38)
@@ -426,6 +426,7 @@ packages:
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
+    deprecated: Use @eslint/config-array instead
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -433,6 +434,7 @@ packages:
 
   '@humanwhocodes/object-schema@2.0.2':
     resolution: {integrity: sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==}
+    deprecated: Use @eslint/object-schema instead
 
   '@icons-pack/react-simple-icons@9.4.1':
     resolution: {integrity: sha512-oDX8iE/AOyRIY0ys56+eybKSsyZODHQIPZ5mAGVxx3TszkA5l8lIxKl8HI9F801Y1CJxcySBjIk1XibrnFF0Hw==}
@@ -1546,8 +1548,8 @@ packages:
     resolution: {integrity: sha512-pHJg+jbuFsCjz9iclQBqyL3B2HLCBF71BwVNujUYEvCeQMvV97R59MNK3R2+jgJ3a1fcZgI9B3vYgz8lzr/BFQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  cypress@13.8.1:
-    resolution: {integrity: sha512-Uk6ovhRbTg6FmXjeZW/TkbRM07KPtvM5gah1BIMp4Y2s+i/NMxgaLw0+PbYTOdw1+egE0FP3mWRiGcRkjjmhzA==}
+  cypress@13.13.3:
+    resolution: {integrity: sha512-hUxPrdbJXhUOTzuML+y9Av7CKoYznbD83pt8g3klgpioEha0emfx4WNIuVRx0C76r0xV2MIwAW9WYiXfVJYFQw==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
 
@@ -5023,11 +5025,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@testing-library/cypress@10.0.1(cypress@13.8.1)':
+  '@testing-library/cypress@10.0.1(cypress@13.13.3)':
     dependencies:
       '@babel/runtime': 7.24.5
       '@testing-library/dom': 9.3.4
-      cypress: 13.8.1
+      cypress: 13.13.3
 
   '@testing-library/dom@9.3.4':
     dependencies:
@@ -5856,7 +5858,7 @@ snapshots:
 
   culori@3.3.0: {}
 
-  cypress@13.8.1:
+  cypress@13.13.3:
     dependencies:
       '@cypress/request': 3.0.1
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
