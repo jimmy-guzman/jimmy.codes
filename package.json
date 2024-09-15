@@ -28,7 +28,7 @@
   "dependencies": {
     "@heroicons/react": "2.1.5",
     "@icons-pack/react-simple-icons": "9.4.1",
-    "@napi-rs/simple-git": "0.1.17",
+    "@napi-rs/simple-git": "0.1.19",
     "clsx": "2.1.1",
     "fathom-client": "3.7.2",
     "gray-matter": "4.0.3",
