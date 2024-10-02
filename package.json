@@ -27,7 +27,7 @@
   "prettier": "@jimmy.codes/prettier-config",
   "dependencies": {
     "@heroicons/react": "2.1.5",
-    "@icons-pack/react-simple-icons": "9.4.1",
+    "@icons-pack/react-simple-icons": "10.0.0",
     "@napi-rs/simple-git": "0.1.19",
     "clsx": "2.1.1",
     "fathom-client": "3.7.2",
