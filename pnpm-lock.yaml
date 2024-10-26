@@ -80,7 +80,7 @@ importers:
         version: 0.5.15(tailwindcss@3.4.14)
       '@testing-library/cypress':
         specifier: 10.0.2
-        version: 10.0.2(cypress@13.15.0)
+        version: 10.0.2(cypress@13.15.1)
       '@types/node':
         specifier: 20.17.0
         version: 20.17.0
@@ -94,8 +94,8 @@ importers:
         specifier: 19.5.0
         version: 19.5.0(@types/node@20.17.0)(typescript@5.4.5)
       cypress:
-        specifier: 13.15.0
-        version: 13.15.0
+        specifier: 13.15.1
+        version: 13.15.1
       daisyui:
         specifier: 4.12.13
         version: 4.12.13(postcss@8.4.47)
@@ -1584,8 +1584,8 @@ packages:
     resolution: {integrity: sha512-pHJg+jbuFsCjz9iclQBqyL3B2HLCBF71BwVNujUYEvCeQMvV97R59MNK3R2+jgJ3a1fcZgI9B3vYgz8lzr/BFQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  cypress@13.15.0:
-    resolution: {integrity: sha512-53aO7PwOfi604qzOkCSzNlWquCynLlKE/rmmpSPcziRH6LNfaDUAklQT6WJIsD8ywxlIy+uVZsnTMCCQVd2kTw==}
+  cypress@13.15.1:
+    resolution: {integrity: sha512-DwUFiKXo4lef9kA0M4iEhixFqoqp2hw8igr0lTqafRb9qtU3X0XGxKbkSYsUFdkrAkphc7MPDxoNPhk5pj9PVg==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
 
@@ -3980,6 +3980,10 @@ packages:
     resolution: {integrity: sha512-Loo5UUvLD9ScZ6jh8beX1T6sO1w2/MpCRpEP7V280GKMVUQ0Jzar2U3UJPsrdbziLEMMhu3Ujnq//rhiFuIeag==}
     engines: {node: '>=6'}
 
+  tree-kill@1.2.2:
+    resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
+    hasBin: true
+
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
 
@@ -5125,11 +5129,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@testing-library/cypress@10.0.2(cypress@13.15.0)':
+  '@testing-library/cypress@10.0.2(cypress@13.15.1)':
     dependencies:
       '@babel/runtime': 7.24.7
       '@testing-library/dom': 10.3.0
-      cypress: 13.15.0
+      cypress: 13.15.1
 
   '@testing-library/dom@10.3.0':
     dependencies:
@@ -5956,7 +5960,7 @@ snapshots:
 
   culori@3.3.0: {}
 
-  cypress@13.15.0:
+  cypress@13.15.1:
     dependencies:
       '@cypress/request': 3.0.5
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
@@ -5998,6 +6002,7 @@ snapshots:
       semver: 7.6.3
       supports-color: 8.1.1
       tmp: 0.2.3
+      tree-kill: 1.2.2
       untildify: 4.0.0
       yauzl: 2.10.0
 
@@ -8895,6 +8900,8 @@ snapshots:
       punycode: 2.3.1
       universalify: 0.2.0
       url-parse: 1.5.10
+
+  tree-kill@1.2.2: {}
 
   trim-lines@3.0.1: {}
 
