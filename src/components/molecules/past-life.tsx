@@ -1,6 +1,5 @@
 import { ExtLink } from "../atoms/ext-link";
 
-// eslint-disable-next-line max-lines-per-function
 export const PastLife = () => {
   return (
     <>
