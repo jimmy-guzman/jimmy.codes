@@ -6,7 +6,6 @@ import { commonTechnologies } from "./intro.config";
 
 const ICON_CLASS_NAME = "inline-block h-4 fill-white align-baseline";
 
-// eslint-disable-next-line max-lines-per-function
 export const Intro = () => {
   return (
     <Prose>

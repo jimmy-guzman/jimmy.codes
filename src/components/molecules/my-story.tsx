@@ -39,7 +39,6 @@ const TargetDescription = () => {
   );
 };
 
-// eslint-disable-next-line max-lines-per-function
 export const MyStory = () => {
   return (
     <>
