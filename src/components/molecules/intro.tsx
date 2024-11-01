@@ -24,7 +24,7 @@ export const Intro = () => {
         most frequently:
       </p>
       <ul>
-        {commonTechnologies.map(({ name, Icon, link }) => {
+        {commonTechnologies.map(({ Icon, link, name }) => {
           return (
             <li key={name}>
               <ExtLink to={link}>
@@ -36,11 +36,11 @@ export const Intro = () => {
       </ul>
       <p>
         For{" "}
-        <Link href="/about" className="dsy-link-hover dsy-link">
+        <Link className="dsy-link-hover dsy-link" href="/about">
           more information about me
         </Link>{" "}
         or to{" "}
-        <Link href="/blog" className="dsy-link-hover dsy-link">
+        <Link className="dsy-link-hover dsy-link" href="/blog">
           read my blog
         </Link>
         , please follow the links.

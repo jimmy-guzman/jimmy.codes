@@ -4,17 +4,17 @@ import { cn } from "@/lib/cn";
 
 interface ExtLinkProps {
   children?: ReactNode;
-  to: `https://${string}.${string}` | `mailto:${string}@${string}.${string}`;
   isIcon?: boolean;
+  to: `https://${string}.${string}` | `mailto:${string}@${string}.${string}`;
 }
 
-export const ExtLink = ({ children, to, isIcon = false }: ExtLinkProps) => {
+export const ExtLink = ({ children, isIcon = false, to }: ExtLinkProps) => {
   return (
     <a
-      href={to}
       className={cn(
         isIcon ? "dsy-btn dsy-btn-circle" : "dsy-link-hover dsy-link",
       )}
+      href={to}
       rel="noreferrer"
       target="_blank"
     >

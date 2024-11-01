@@ -13,7 +13,7 @@ export const Navigation = () => {
     <div className="dsy-navbar bg-base-100">
       <div className="dsy-navbar-start">
         <Mobile />
-        <Link href="/" className="dsy-btn dsy-btn-ghost text-xl">
+        <Link className="dsy-btn dsy-btn-ghost text-xl" href="/">
           <Logo />
         </Link>
       </div>
@@ -21,17 +21,17 @@ export const Navigation = () => {
         <Tablet />
       </div>
       <div className="dsy-navbar-end">
-        <ExtLink to={EMAIL_LINK} isIcon>
+        <ExtLink isIcon to={EMAIL_LINK}>
           <EnvelopeIcon
-            title="Mail"
             aria-hidden={false}
             className="h-4 w-4 md:h-6 md:w-6"
+            title="Mail"
           />
         </ExtLink>
-        <ExtLink to={GITHUB_LINK} isIcon>
+        <ExtLink isIcon to={GITHUB_LINK}>
           <SiGithub className="h-4 w-4 md:h-6 md:w-6" />
         </ExtLink>
-        <ExtLink to={LINKEDIN_LINK} isIcon>
+        <ExtLink isIcon to={LINKEDIN_LINK}>
           <SiLinkedin className="h-4 w-4 md:h-6 md:w-6" />
         </ExtLink>
       </div>

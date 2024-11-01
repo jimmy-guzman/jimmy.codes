@@ -3,17 +3,17 @@ import type { Metadata } from "next";
 import { AboutMe } from "@/components/organisms/about-me";
 
 export const metadata: Metadata = {
-  title: "About Me",
   description: "An overview of my engineering story",
   openGraph: {
-    type: "website",
-    title: "About Me",
     description: "An overview of my engineering story",
+    title: "About Me",
+    type: "website",
     url: "https://jimmy.codes/about",
   },
+  title: "About Me",
   twitter: {
-    title: "About Me",
     description: "An overview of my engineering story",
+    title: "About Me",
   },
 };
 

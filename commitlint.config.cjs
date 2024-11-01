@@ -6,6 +6,8 @@ module.exports = {
     "footer-max-line-length": [2, "always", 100],
     "header-max-length": [2, "always", 75],
     "header-min-length": [2, "always", 5],
+    "scope-case": [2, "always", "lower-case"],
+    "scope-empty": [2, "always"],
     "subject-case": [
       2,
       "never",
@@ -20,7 +22,5 @@ module.exports = {
       "always",
       ["test", "feat", "fix", "chore", "docs", "refactor", "style", "ci"],
     ],
-    "scope-empty": [2, "always"],
-    "scope-case": [2, "always", "lower-case"],
   },
 };

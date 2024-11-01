@@ -1,6 +1,7 @@
+import type { Config } from "tailwindcss";
+
 import typography from "@tailwindcss/typography";
 import daisyui from "daisyui";
-import type { Config } from "tailwindcss";
 
 export default {
   content: [
@@ -9,9 +10,9 @@ export default {
     "./src/layouts/**/*.{js,ts,jsx,tsx}",
   ],
   daisyui: {
-    themes: ["night"],
-    prefix: "dsy-",
     logs: false,
+    prefix: "dsy-",
+    themes: ["night"],
   },
   plugins: [typography, daisyui],
 } satisfies Config;

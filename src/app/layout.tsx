@@ -6,18 +6,18 @@ import { Fathom } from "../components/atoms/fathom";
 import { Navigation } from "../components/organisms/navigation";
 
 export const metadata = {
-  title: "jimmy.codes",
   description: "I code things",
   metadataBase: new URL("https://jimmy.codes"),
   openGraph: {
-    type: "website",
-    title: "jimmy.codes",
     description: "I code things",
+    title: "jimmy.codes",
+    type: "website",
     url: "https://jimmy.codes",
   },
+  title: "jimmy.codes",
   twitter: {
-    title: "jimmy.codes",
     description: "I code things",
+    title: "jimmy.codes",
   },
 } satisfies Metadata;
 
