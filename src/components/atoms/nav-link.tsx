@@ -7,17 +7,17 @@ import { cn } from "@/lib/cn";
 
 interface NavLinkProps {
   children: React.ReactNode;
-  to: string;
   className?: string;
+  to: string;
 }
 
-export const NavLink = ({ children, to, className }: NavLinkProps) => {
+export const NavLink = ({ children, className, to }: NavLinkProps) => {
   const pathname = usePathname();
 
   const isActive = to === "/" ? pathname === to : pathname.startsWith(to);
 
   return (
-    <Link href={to} className={cn(className, { "dsy-btn-active": isActive })}>
+    <Link className={cn(className, { "dsy-btn-active": isActive })} href={to}>
       {children}
     </Link>
   );

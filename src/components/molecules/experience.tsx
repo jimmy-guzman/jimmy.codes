@@ -16,7 +16,7 @@ export const Experience = ({ projects = jobs }: ExperienceProps) => {
   return (
     <ul className="m-0 list-none p-0">
       {projects.map(
-        ({ name, title, from, to, description, tasks, location }) => {
+        ({ description, from, location, name, tasks, title, to }) => {
           return (
             <li key={name}>
               <div>

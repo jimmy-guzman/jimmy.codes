@@ -13,10 +13,10 @@ export const homeSelectors = {
 };
 
 export const homeActions = {
-  visitBlogPage: () => {
-    homeSelectors.blogLink.first().click();
-  },
   visitAboutPage: () => {
     homeSelectors.aboutLink.first().click();
+  },
+  visitBlogPage: () => {
+    homeSelectors.blogLink.first().click();
   },
 };

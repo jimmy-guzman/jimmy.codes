@@ -24,17 +24,17 @@ export const generateMetadata = async ({ params }: Props) => {
   ]);
 
   return {
-    title: post.title,
     description: post.description,
     openGraph: {
-      type: "website",
-      title: post.title,
       description: post.description,
+      title: post.title,
+      type: "website",
       url: `https://jimmy.codes/${params.slug}`,
     },
+    title: post.title,
     twitter: {
-      title: post.title,
       description: post.description,
+      title: post.title,
     },
   };
 };

@@ -9,15 +9,15 @@ export default jimmyDotCodes(
     },
   },
   {
-    name: "react-refresh/next",
     files: ["**/layout.tsx", "**/page.tsx"],
+    name: "react-refresh/next",
     rules: {
       "react-refresh/only-export-components": "off",
     },
   },
   {
-    name: "next",
     files: ["**/*.ts", "**/*.tsx"],
+    name: "next",
     plugins: {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       "@next/next": nextPlugin,

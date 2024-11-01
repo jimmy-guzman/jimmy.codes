@@ -20,7 +20,7 @@ export const getPostBySlug = async <const T extends readonly string[]>(
     : new Date(await repo.getFileLatestModifiedDateAsync(postPath));
 
   const fileContents = await readFile(postPath, "utf8");
-  const { data, content } = matter(fileContents);
+  const { content, data } = matter(fileContents);
 
   return fields.reduce((acc, curr) => {
     return {
@@ -31,9 +31,9 @@ export const getPostBySlug = async <const T extends readonly string[]>(
       ...(typeof data[curr] !== "undefined" && { [curr]: data[curr] }),
       timestamp,
     };
-  }, {}) as Record<(typeof fields)[number], string> & {
+  }, {}) as {
     timestamp: Date | null;
-  };
+  } & Record<(typeof fields)[number], string>;
 };
 
 export const getAllPosts = async <const T extends readonly string[]>(

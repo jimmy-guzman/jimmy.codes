@@ -1,7 +1,7 @@
 export const navLinks = [
-  { path: "/", name: "home" },
-  { path: "/about", name: "about" },
-  { path: "/blog", name: "blog" },
+  { name: "home", path: "/" },
+  { name: "about", path: "/about" },
+  { name: "blog", path: "/blog" },
 ];
 
 export const GITHUB_LINK = "https://github.com/jimmy-guzman";

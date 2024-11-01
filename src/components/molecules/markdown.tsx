@@ -12,26 +12,26 @@ interface MarkdownProps {
 }
 
 const autoLinkHeadingOpts = {
+  behavior: "prepend",
   properties: {
     "aria-hidden": "true",
-    "tabindex": "-1",
     "before": "#",
     "className": `relative before:content-[attr(before)] before:absolute before:right-0.5 before:text-gray-600 hover:before:text-accent before:font-light`,
+    "tabindex": "-1",
   },
-  behavior: "prepend",
 };
 
 export const Markdown = ({ content }: MarkdownProps) => {
   return (
     <ReactMarkdown
       components={renderers}
-      remarkPlugins={[remarkUnwrapImages]}
       rehypePlugins={[
         rehypeExternalLinks,
         highlight,
         rehypeSlug,
         [rehypeAutolinkHeadings, autoLinkHeadingOpts],
       ]}
+      remarkPlugins={[remarkUnwrapImages]}
     >
       {content}
     </ReactMarkdown>

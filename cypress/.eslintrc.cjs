@@ -1,11 +1,11 @@
 module.exports = {
   extends: ["../.eslintrc.cjs"],
   globals: {
+    assert: false,
+    chai: false,
     cy: false,
     Cypress: false,
     expect: false,
-    assert: false,
-    chai: false,
   },
   rules: {
     "jest/expect-expect": "off",

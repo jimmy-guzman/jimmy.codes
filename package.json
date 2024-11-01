@@ -13,7 +13,7 @@
     "lint": "eslint --flag unstable_ts_config --cache .",
     "lint:fix": "eslint --flag unstable_ts_config --cache --fix .",
     "typecheck": "tsc --noEmit",
-    "prepare": "is-ci || husky install",
+    "prepare": "is-ci || husky",
     "preview": "next start"
   },
   "lint-staged": {
@@ -47,7 +47,7 @@
     "tailwind-merge": "2.5.4"
   },
   "devDependencies": {
-    "@jimmy.codes/eslint-config": "3.0.0",
+    "@jimmy.codes/eslint-config": "3.2.4",
     "@jimmy.codes/prettier-config": "1.1.0",
     "@next/eslint-plugin-next": "14.2.16",
     "@tailwindcss/typography": "0.5.15",

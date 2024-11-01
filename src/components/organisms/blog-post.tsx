@@ -1,5 +1,4 @@
 import "highlight.js/styles/base16/material.css";
-
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import Link from "next/link";
 
@@ -23,23 +22,23 @@ export const BlogPost = ({
   imageUrl,
   publishDate,
   repoUrl,
-  title,
   timestamp,
+  title,
 }: BlogPostProps) => {
   return (
     <Prose>
       <Image
-        className="rounded-lg"
         alt="Blog Post Cover"
+        className="rounded-lg"
+        height={732}
         imageUrl={imageUrl}
         width={1472}
-        height={732}
       />
       <header>
         <div className="flex items-center justify-between">
           <time>{publishDate}</time>
           {repoUrl ? (
-            <ExtLink to={repoUrl as `https://${string}.${string}`} isIcon>
+            <ExtLink isIcon to={repoUrl as `https://${string}.${string}`}>
               <SiGithub />
             </ExtLink>
           ) : null}

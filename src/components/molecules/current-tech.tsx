@@ -13,23 +13,23 @@ import {
 } from "@icons-pack/react-simple-icons";
 
 const technologies = [
-  { name: "React", Icon: SiReact },
-  { name: "Next.js", Icon: SiNextdotjs },
-  { name: "TypeScript", Icon: SiTypescript },
-  { name: "Turborepo", Icon: SiTurborepo },
-  { name: "Express", Icon: SiExpress },
-  { name: "Fastify", Icon: SiFastify },
-  { name: "Prisma", Icon: SiPrisma },
-  { name: "Kafka", Icon: SiApachekafka },
-  { name: "Docker", Icon: SiDocker },
-  { name: "Postgres", Icon: SiPostgresql },
-  { name: "Redis", Icon: SiRedis },
+  { Icon: SiReact, name: "React" },
+  { Icon: SiNextdotjs, name: "Next.js" },
+  { Icon: SiTypescript, name: "TypeScript" },
+  { Icon: SiTurborepo, name: "Turborepo" },
+  { Icon: SiExpress, name: "Express" },
+  { Icon: SiFastify, name: "Fastify" },
+  { Icon: SiPrisma, name: "Prisma" },
+  { Icon: SiApachekafka, name: "Kafka" },
+  { Icon: SiDocker, name: "Docker" },
+  { Icon: SiPostgresql, name: "Postgres" },
+  { Icon: SiRedis, name: "Redis" },
 ];
 
 export const CurrentTechnologies = () => {
   return (
     <ul>
-      {technologies.map(({ name, Icon }) => {
+      {technologies.map(({ Icon, name }) => {
         return (
           <li key={name}>
             <span>

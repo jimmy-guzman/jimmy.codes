@@ -1,9 +1,10 @@
-import NextImage from "next/image";
 import type {
   DetailedHTMLProps,
   HTMLAttributes,
   ImgHTMLAttributes,
 } from "react";
+
+import NextImage from "next/image";
 
 import { cn } from "@/lib/cn";
 
@@ -26,19 +27,19 @@ export const renderers = {
 
     return (
       <NextImage
-        className="rounded-lg"
-        blurDataURL={image.src}
-        src={image.src}
         alt={image.alt ?? ""}
-        width={945}
+        blurDataURL={image.src}
+        className="rounded-lg"
         height={645}
         placeholder="blur"
         quality={65}
         sizes="100vw"
+        src={image.src}
         style={{
-          width: "100%",
           height: "auto",
+          width: "100%",
         }}
+        width={945}
       />
     );
   },
