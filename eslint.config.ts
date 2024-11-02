@@ -19,12 +19,12 @@ export default jimmyDotCodes(
     files: ["**/*.ts", "**/*.tsx"],
     name: "next",
     plugins: {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- missing types
       "@next/next": nextPlugin,
     },
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- missing types
     rules: {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- missing types
       ...nextPlugin.configs["core-web-vitals"].rules,
     },
   },

@@ -27,7 +27,7 @@ export const getPostBySlug = async <const T extends readonly string[]>(
       ...acc,
       ...(curr === "slug" && { [curr]: realSlug }),
       ...(curr === "content" && { [curr]: content }),
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- data comes from matter
       ...(data[curr] !== undefined && { [curr]: data[curr] }),
       timestamp,
     };
