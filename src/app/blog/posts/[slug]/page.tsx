@@ -2,7 +2,7 @@ import { BlogPost } from "@/components/organisms/blog-post";
 import { getAllPosts, getPostBySlug } from "@/lib/api";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export const generateStaticParams = async () => {
@@ -13,7 +13,9 @@ export const generateStaticParams = async () => {
   });
 };
 
-export const generateMetadata = async ({ params }: Props) => {
+export const generateMetadata = async (props: Props) => {
+  const params = await props.params;
+
   const post = await getPostBySlug(params.slug, [
     "title",
     "description",
@@ -39,7 +41,8 @@ export const generateMetadata = async ({ params }: Props) => {
   };
 };
 
-export default async function Page({ params }: Props) {
+export default async function Page(props: Props) {
+  const params = await props.params;
   const post = await getPostBySlug(params.slug, [
     "title",
     "description",
