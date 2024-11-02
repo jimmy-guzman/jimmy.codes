@@ -103,8 +103,8 @@ importers:
         specifier: 9.14.0
         version: 9.14.0(jiti@2.4.0)
       gitzy:
-        specifier: 5.4.0
-        version: 5.4.0
+        specifier: 5.5.0
+        version: 5.5.0
       husky:
         specifier: 9.1.6
         version: 9.1.6
@@ -2243,8 +2243,8 @@ packages:
   github-slugger@2.0.0:
     resolution: {integrity: sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==}
 
-  gitzy@5.4.0:
-    resolution: {integrity: sha512-lii2a031AzJ5iT1+gl2fb4MHmK/65xuX5Nr2ZNRwaK4TFvHMd6GMZk7BuMcxc3+DSFWC7AxWGXLkWFSq9NP3bg==}
+  gitzy@5.5.0:
+    resolution: {integrity: sha512-uk+tAP5eZfWs0XMhizKlNKdkZTgL29f7PUqExBBzCLHm/tpMD42feA6kFfIeN7tYyes1QLobhfateqlV6BUX4A==}
     engines: {node: '>= 18'}
     hasBin: true
 
@@ -4297,11 +4297,6 @@ packages:
 
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
-
-  yaml@2.4.5:
-    resolution: {integrity: sha512-aBx2bnqDzVOyNKfsysjA2ms5ZlnjSAW2eG3/L5G/CSujfjLJTJsEw1bGw8kCf04KodQWk1pxlGnZ56CRxiawmg==}
-    engines: {node: '>= 14'}
-    hasBin: true
 
   yaml@2.5.1:
     resolution: {integrity: sha512-bLQOjaX/ADgQ20isPJRvF0iRUHIxVhYvr53Of7wGcWlO2jvtUlH5m87DsmulFVxRpNLOnI4tB6p/oh8D7kpn9Q==}
@@ -6860,12 +6855,12 @@ snapshots:
 
   github-slugger@2.0.0: {}
 
-  gitzy@5.4.0:
+  gitzy@5.5.0:
     dependencies:
       commander: 11.1.0
       enquirer: 2.4.1
       lilconfig: 3.1.2
-      yaml: 2.4.5
+      yaml: 2.5.1
 
   glob-parent@5.1.2:
     dependencies:
@@ -9303,8 +9298,6 @@ snapshots:
   y18n@5.0.8: {}
 
   yallist@3.1.1: {}
-
-  yaml@2.4.5: {}
 
   yaml@2.5.1: {}
 
