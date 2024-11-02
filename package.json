@@ -7,7 +7,7 @@
     "build": "next build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "dev": "next dev --turbo",
+    "dev": "next dev --turbopack",
     "format": "prettier --check --cache .",
     "format:fix": "prettier --write --cache .",
     "lint": "eslint --flag unstable_ts_config --cache .",
@@ -33,10 +33,10 @@
     "fathom-client": "3.7.2",
     "gray-matter": "4.0.3",
     "highlight.js": "11.10.0",
-    "next": "14.2.16",
-    "react": "18.3.1",
+    "next": "15.0.2",
+    "react": "19.0.0-rc-02c0e824-20241028",
     "react-cool-dimensions": "3.0.1",
-    "react-dom": "18.3.1",
+    "react-dom": "19.0.0-rc-02c0e824-20241028",
     "react-markdown": "9.0.1",
     "rehype-autolink-headings": "7.1.0",
     "rehype-external-links": "3.0.0",
@@ -49,11 +49,11 @@
   "devDependencies": {
     "@jimmy.codes/eslint-config": "3.4.2",
     "@jimmy.codes/prettier-config": "1.1.0",
-    "@next/eslint-plugin-next": "14.2.16",
+    "@next/eslint-plugin-next": "15.0.2",
     "@tailwindcss/typography": "0.5.15",
     "@testing-library/cypress": "10.0.2",
     "@types/node": "20.17.5",
-    "@types/react": "18.3.12",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
     "autoprefixer": "10.4.20",
     "commitlint": "19.5.0",
     "cypress": "13.15.1",
@@ -76,5 +76,10 @@
   },
   "gitzy": {
     "useCommitlintConfig": true
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@19.0.0-rc.1"
+    }
   }
 }

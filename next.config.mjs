@@ -1,13 +1,11 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
-  experimental: {
-    serverComponentsExternalPackages: ["@napi-rs/simple-git"],
-  },
   images: {
     remotePatterns: [{ hostname: "res.cloudinary.com" }],
   },
   reactStrictMode: true,
+  serverExternalPackages: ["@napi-rs/simple-git"],
 };
 
 export default nextConfig;
