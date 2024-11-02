@@ -15,7 +15,7 @@ export const Mobile = () => {
       </div>
       <ul
         className="dsy-menu dsy-dropdown-content dsy-menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- https://daisyui.com/components/dropdown/#method-2-using-css-focus
         tabIndex={0}
       >
         {navLinks.map(({ name, path }) => {
