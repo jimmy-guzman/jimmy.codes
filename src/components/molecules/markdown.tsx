@@ -3,7 +3,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
 import highlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
-import remarkUnwrapImages from "remark-unwrap-images";
+import rehypeUnwrapImages from "rehype-unwrap-images";
 
 import { renderers } from "./markdown.renderers";
 
@@ -30,8 +30,8 @@ export const Markdown = ({ content }: MarkdownProps) => {
         highlight,
         rehypeSlug,
         [rehypeAutolinkHeadings, autoLinkHeadingOpts],
+        rehypeUnwrapImages,
       ]}
-      remarkPlugins={[remarkUnwrapImages]}
     >
       {content}
     </ReactMarkdown>
