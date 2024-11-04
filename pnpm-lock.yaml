@@ -70,8 +70,8 @@ importers:
         version: 2.5.4
     devDependencies:
       '@jimmy.codes/eslint-config':
-        specifier: 3.4.2
-        version: 3.4.2(@testing-library/dom@10.4.0)(@typescript-eslint/eslint-plugin@8.12.2(@typescript-eslint/parser@8.12.2(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.14.0(jiti@2.4.0))(jest@29.7.0(@types/node@20.17.6))(typescript@5.6.3)
+        specifier: 3.5.0
+        version: 3.5.0(@testing-library/dom@10.4.0)(@typescript-eslint/eslint-plugin@8.12.2(@typescript-eslint/parser@8.12.2(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.14.0(jiti@2.4.0))(jest@29.7.0(@types/node@20.17.6))(typescript@5.6.3)
       '@jimmy.codes/prettier-config':
         specifier: 1.1.0
         version: 1.1.0(prettier@3.3.3)
@@ -649,8 +649,8 @@ packages:
     resolution: {integrity: sha512-u3UPsIilWKOM3F9CXtrG8LEJmNxwoCQC/XVj4IKYXvvpx7QIi/Kg1LI5uDmDpKlac62NUtX7eLjRh+jVZcLOzw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
 
-  '@jimmy.codes/eslint-config@3.4.2':
-    resolution: {integrity: sha512-GZjSZ/0TGcfFPSMB0LCObG+owmIna287svhUxri8uSQZDEkK7BYWFZg+5DRocUAf3/cMi1PJmv+UksxXvx0Opg==}
+  '@jimmy.codes/eslint-config@3.5.0':
+    resolution: {integrity: sha512-yvtPBN5wb7epgksqOy+CrM+Bp+FiWOk1PVnIIrbJp0S+s0Q18HL2mJXesGT9uCx1Wg4E2zI+XbeubNx3fUNi4g==}
     engines: {node: '>= 20'}
     peerDependencies:
       eslint: ^9.10.0
@@ -4876,7 +4876,7 @@ snapshots:
       '@types/yargs': 17.0.33
       chalk: 4.1.2
 
-  '@jimmy.codes/eslint-config@3.4.2(@testing-library/dom@10.4.0)(@typescript-eslint/eslint-plugin@8.12.2(@typescript-eslint/parser@8.12.2(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.14.0(jiti@2.4.0))(jest@29.7.0(@types/node@20.17.6))(typescript@5.6.3)':
+  '@jimmy.codes/eslint-config@3.5.0(@testing-library/dom@10.4.0)(@typescript-eslint/eslint-plugin@8.12.2(@typescript-eslint/parser@8.12.2(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.14.0(jiti@2.4.0))(jest@29.7.0(@types/node@20.17.6))(typescript@5.6.3)':
     dependencies:
       '@eslint-community/eslint-plugin-eslint-comments': 4.4.1(eslint@9.14.0(jiti@2.4.0))
       '@eslint/js': 9.14.0
