@@ -31,9 +31,9 @@ export const getPostBySlug = async <const T extends readonly string[]>(
       ...(data[curr] !== undefined && { [curr]: data[curr] }),
       timestamp,
     };
-  }, {}) as {
+  }, {}) as Record<(typeof fields)[number], string> & {
     timestamp: Date | null;
-  } & Record<(typeof fields)[number], string>;
+  };
 };
 
 export const getAllPosts = async <const T extends readonly string[]>(
