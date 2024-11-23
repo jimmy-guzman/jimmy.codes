@@ -70,8 +70,8 @@ importers:
         version: 2.5.4
     devDependencies:
       '@jimmy.codes/eslint-config':
-        specifier: 3.17.2
-        version: 3.17.2(@testing-library/dom@10.4.0)(@typescript-eslint/eslint-plugin@8.15.0(@typescript-eslint/parser@8.15.0(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.15.0(jiti@2.4.0))(jest@29.7.0(@types/node@20.17.6))(typescript@5.6.3)
+        specifier: 3.17.3
+        version: 3.17.3(@testing-library/dom@10.4.0)(@typescript-eslint/eslint-plugin@8.15.0(@typescript-eslint/parser@8.15.0(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.15.0(jiti@2.4.0))(jest@29.7.0(@types/node@20.17.6))(typescript@5.6.3)
       '@jimmy.codes/prettier-config':
         specifier: 1.3.0
         version: 1.3.0(prettier@3.3.3)
@@ -646,8 +646,8 @@ packages:
     resolution: {integrity: sha512-u3UPsIilWKOM3F9CXtrG8LEJmNxwoCQC/XVj4IKYXvvpx7QIi/Kg1LI5uDmDpKlac62NUtX7eLjRh+jVZcLOzw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
 
-  '@jimmy.codes/eslint-config@3.17.2':
-    resolution: {integrity: sha512-xiQ4U9W79BjycFOWCemodzXr+DNgbaWx6dW3u1GAFFpwwcVc0KYl2jjC+1ZplJ+Aw+BJ6KsPmKkeTdY/R8Hvyg==}
+  '@jimmy.codes/eslint-config@3.17.3':
+    resolution: {integrity: sha512-JXAmhm/xPeJTT8f0HRd6I8Tow0/X8XiUP6Qy/depaTdAH6TOAKId2ZjX4OhmbUNkIhGjDg9EkqSfQTDfBXDPZw==}
     engines: {node: '>= 20'}
     peerDependencies:
       eslint: ^9.10.0
@@ -1885,9 +1885,9 @@ packages:
     peerDependencies:
       eslint: '>=8.44.0'
 
-  eslint-plugin-testing-library@7.0.0-beta.6:
-    resolution: {integrity: sha512-TK39+CTbMdkSH0wmnltdjur8tUYz+lnID8o0VZFG45fSeFknLnbn76we3uzDbUltH68bdmoPXk/7w1x3XFQ7+w==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0, npm: '>=6'}
+  eslint-plugin-testing-library@7.0.0:
+    resolution: {integrity: sha512-Bwrn5Qi08Lf5Huv4ZGDNYxwkFLAyGQIPB9lC0ALlojymP32aKsSxWnccP1NvIcI5vMhkENg4Y5Td/Q9/tLYmGQ==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0, npm: '>=9.8.1'}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
 
@@ -4874,7 +4874,7 @@ snapshots:
       '@types/yargs': 17.0.33
       chalk: 4.1.2
 
-  '@jimmy.codes/eslint-config@3.17.2(@testing-library/dom@10.4.0)(@typescript-eslint/eslint-plugin@8.15.0(@typescript-eslint/parser@8.15.0(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.15.0(jiti@2.4.0))(jest@29.7.0(@types/node@20.17.6))(typescript@5.6.3)':
+  '@jimmy.codes/eslint-config@3.17.3(@testing-library/dom@10.4.0)(@typescript-eslint/eslint-plugin@8.15.0(@typescript-eslint/parser@8.15.0(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3))(eslint@9.15.0(jiti@2.4.0))(jest@29.7.0(@types/node@20.17.6))(typescript@5.6.3)':
     dependencies:
       '@eslint-community/eslint-plugin-eslint-comments': 4.4.1(eslint@9.15.0(jiti@2.4.0))
       '@eslint/js': 9.15.0
@@ -4897,7 +4897,7 @@ snapshots:
       eslint-plugin-react-hooks: 5.0.0(eslint@9.15.0(jiti@2.4.0))
       eslint-plugin-react-refresh: 0.4.14(eslint@9.15.0(jiti@2.4.0))
       eslint-plugin-regexp: 2.7.0(eslint@9.15.0(jiti@2.4.0))
-      eslint-plugin-testing-library: 7.0.0-beta.6(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3)
+      eslint-plugin-testing-library: 7.0.0(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3)
       eslint-plugin-unicorn: 56.0.1(eslint@9.15.0(jiti@2.4.0))
       globals: 15.12.0
       local-pkg: 0.5.1
@@ -6307,7 +6307,7 @@ snapshots:
       regexp-ast-analysis: 0.7.1
       scslre: 0.3.0
 
-  eslint-plugin-testing-library@7.0.0-beta.6(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3):
+  eslint-plugin-testing-library@7.0.0(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3):
     dependencies:
       '@typescript-eslint/scope-manager': 8.15.0
       '@typescript-eslint/utils': 8.15.0(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3)

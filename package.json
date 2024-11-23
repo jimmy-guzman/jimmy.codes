@@ -47,7 +47,7 @@
     "tailwind-merge": "2.5.4"
   },
   "devDependencies": {
-    "@jimmy.codes/eslint-config": "3.17.2",
+    "@jimmy.codes/eslint-config": "3.17.3",
     "@jimmy.codes/prettier-config": "1.3.0",
     "@next/eslint-plugin-next": "15.0.3",
     "@tailwindcss/typography": "0.5.15",
