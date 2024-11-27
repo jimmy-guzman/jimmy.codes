@@ -1,8 +1,8 @@
-import jimmyDotCodes from "@jimmy.codes/eslint-config";
+import eslintConfig from "@jimmy.codes/eslint-config";
 // @ts-expect-error missing types
 import nextPlugin from "@next/eslint-plugin-next";
 
-export default jimmyDotCodes(
+export default eslintConfig(
   {
     testing: {
       framework: "jest",
