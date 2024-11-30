@@ -34,9 +34,9 @@
     "gray-matter": "4.0.3",
     "highlight.js": "11.10.0",
     "next": "15.0.3",
-    "react": "19.0.0-rc-66855b96-20241106",
+    "react": "18.3.1",
     "react-cool-dimensions": "3.0.1",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "18.3.1",
     "react-markdown": "9.0.1",
     "rehype-autolink-headings": "7.1.0",
     "rehype-external-links": "3.0.0",
@@ -53,7 +53,7 @@
     "@tailwindcss/typography": "0.5.15",
     "@testing-library/cypress": "10.0.2",
     "@types/node": "22.10.1",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react": "18.3.12",
     "autoprefixer": "10.4.20",
     "commitlint": "19.6.0",
     "cypress": "13.16.0",
@@ -76,10 +76,5 @@
   },
   "gitzy": {
     "useCommitlintConfig": true
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "npm:types-react@19.0.0-rc.1"
-    }
   }
 }
