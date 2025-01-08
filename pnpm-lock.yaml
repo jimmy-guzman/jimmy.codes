@@ -94,8 +94,8 @@ importers:
         specifier: 13.16.1
         version: 13.16.1
       daisyui:
-        specifier: 4.12.14
-        version: 4.12.14(postcss@8.4.49)
+        specifier: 4.12.23
+        version: 4.12.23(postcss@8.4.49)
       eslint:
         specifier: 9.16.0
         version: 9.16.0(jiti@2.4.1)
@@ -1578,8 +1578,8 @@ packages:
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
 
-  daisyui@4.12.14:
-    resolution: {integrity: sha512-hA27cdBasdwd4/iEjn+aidoCrRroDuo3G5W9NDKaVCJI437Mm/3eSL/2u7MkZ0pt8a+TrYF3aT2pFVemTS3how==}
+  daisyui@4.12.23:
+    resolution: {integrity: sha512-EM38duvxutJ5PD65lO/AFMpcw+9qEy6XAZrTpzp7WyaPeO/l+F/Qiq0ECHHmFNcFXh5aVoALY4MGrrxtCiaQCQ==}
     engines: {node: '>=16.9.0'}
 
   damerau-levenshtein@1.0.8:
@@ -6012,7 +6012,7 @@ snapshots:
       untildify: 4.0.0
       yauzl: 2.10.0
 
-  daisyui@4.12.14(postcss@8.4.49):
+  daisyui@4.12.23(postcss@8.4.49):
     dependencies:
       css-selector-tokenizer: 0.8.0
       culori: 3.3.0
