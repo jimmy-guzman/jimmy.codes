@@ -77,7 +77,7 @@ importers:
         version: 0.5.16(tailwindcss@3.4.16)
       '@testing-library/cypress':
         specifier: 10.0.3
-        version: 10.0.3(cypress@13.16.1)
+        version: 10.0.3(cypress@13.17.0)
       '@types/node':
         specifier: 22.13.1
         version: 22.13.1
@@ -91,8 +91,8 @@ importers:
         specifier: 19.7.1
         version: 19.7.1(@types/node@22.13.1)(typescript@5.7.3)
       cypress:
-        specifier: 13.16.1
-        version: 13.16.1
+        specifier: 13.17.0
+        version: 13.17.0
       daisyui:
         specifier: 4.12.23
         version: 4.12.23(postcss@8.5.1)
@@ -1582,8 +1582,8 @@ packages:
     resolution: {integrity: sha512-pHJg+jbuFsCjz9iclQBqyL3B2HLCBF71BwVNujUYEvCeQMvV97R59MNK3R2+jgJ3a1fcZgI9B3vYgz8lzr/BFQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  cypress@13.16.1:
-    resolution: {integrity: sha512-17FtCaz0cx7ssWYKXzGB0Vub8xHwpVPr+iPt2fHhLMDhVAPVrplD+rTQsZUsfb19LVBn5iwkEUFjQ1yVVJXsLA==}
+  cypress@13.17.0:
+    resolution: {integrity: sha512-5xWkaPurwkIljojFidhw8lFScyxhtiFHl/i/3zov+1Z5CmY4t9tjIdvSXfu82Y3w7wt0uR9KkucbhkVvJZLQSA==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
 
@@ -5278,11 +5278,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@testing-library/cypress@10.0.3(cypress@13.16.1)':
+  '@testing-library/cypress@10.0.3(cypress@13.17.0)':
     dependencies:
       '@babel/runtime': 7.26.7
       '@testing-library/dom': 10.4.0
-      cypress: 13.16.1
+      cypress: 13.17.0
 
   '@testing-library/dom@10.4.0':
     dependencies:
@@ -6025,7 +6025,7 @@ snapshots:
 
   culori@3.3.0: {}
 
-  cypress@13.16.1:
+  cypress@13.17.0:
     dependencies:
       '@cypress/request': 3.0.7
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
