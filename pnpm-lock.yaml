@@ -12,8 +12,8 @@ importers:
         specifier: 2.2.0
         version: 2.2.0(react@18.3.1)
       '@icons-pack/react-simple-icons':
-        specifier: 9.4.1
-        version: 9.4.1(react@18.3.1)
+        specifier: 11.2.0
+        version: 11.2.0(react@18.3.1)
       '@napi-rs/simple-git':
         specifier: 0.1.19
         version: 0.1.19
@@ -491,10 +491,10 @@ packages:
     resolution: {integrity: sha512-c7hNEllBlenFTHBky65mhq8WD2kbN9Q6gk0bTk8lSBvc554jpXSkST1iePudpt7+A/AQvuHs9EMqjHDXMY1lrA==}
     engines: {node: '>=18.18'}
 
-  '@icons-pack/react-simple-icons@9.4.1':
-    resolution: {integrity: sha512-oDX8iE/AOyRIY0ys56+eybKSsyZODHQIPZ5mAGVxx3TszkA5l8lIxKl8HI9F801Y1CJxcySBjIk1XibrnFF0Hw==}
+  '@icons-pack/react-simple-icons@11.2.0':
+    resolution: {integrity: sha512-jCJ+1Fe0yiBQGYSfhx8QGU/9o27t8J4Hw3mxHEI9vohRltLSi5CaPzO2fCQcMNeTrAUAm4j+yaDuAutskiKRjA==}
     peerDependencies:
-      react: ^16.13 || ^17 || ^18
+      react: ^16.13 || ^17 || ^18 || ^19
 
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
@@ -4792,7 +4792,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.1': {}
 
-  '@icons-pack/react-simple-icons@9.4.1(react@18.3.1)':
+  '@icons-pack/react-simple-icons@11.2.0(react@18.3.1)':
     dependencies:
       react: 18.3.1
 
