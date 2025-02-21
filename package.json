@@ -57,7 +57,7 @@
     "commitlint": "19.7.1",
     "cypress": "14.0.2",
     "daisyui": "4.12.23",
-    "eslint": "9.19.0",
+    "eslint": "9.21.0",
     "gitzy": "5.7.1",
     "husky": "9.1.7",
     "is-ci": "4.1.0",
