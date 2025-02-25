@@ -55,7 +55,7 @@
     "@types/react": "18.3.18",
     "autoprefixer": "10.4.20",
     "commitlint": "19.7.1",
-    "cypress": "14.0.2",
+    "cypress": "14.1.0",
     "daisyui": "4.12.23",
     "eslint": "9.19.0",
     "gitzy": "5.7.1",
