@@ -14,38 +14,35 @@ jobs:
       - name: 📦 Install
         uses: ./.github/actions/install
 
-      - name: lint
-        run: pnpm lint
+      - name: knip
+        run: bun knip
 
-      - name: format
-        run: pnpm format
+      - name: check
+        run: bun check
 
       - name: typecheck
-        run: pnpm typecheck
+        run: bun typecheck
 
   commit_check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      # TODO: remove once error TS6046: Argument for '--moduleResolution' option must be: 'node', 'classic', 'node16', 'nodenext'. is addressed
-      - run: rm tsconfig.json
 
       - name: commitlint
         uses: wagoid/commitlint-github-action@v6
         with:
-          configFile: commitlint.config.cjs
+          configFile: commitlint.config.ts
 
   spell_check:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: streetsidesoftware/cspell-action@v6
         with:

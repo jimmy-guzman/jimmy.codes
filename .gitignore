@@ -16,9 +16,6 @@ yarn-error.log*
 # macOS-specific files
 .DS_Store
 
-# cypress
-cypress/reports
-
 # next
 .next
 
@@ -27,3 +24,10 @@ tsconfig.tsbuildinfo
 
 # eslint
 .eslintcache
+
+# astro
+.astro
+
+# playwright
+test-results
+playwright-report

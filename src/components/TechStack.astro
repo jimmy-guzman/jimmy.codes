@@ -1,0 +1,10 @@
+---
+import TechCard from "../components/TechCard.astro";
+import { techDaily, techLearning, techLove, titles } from "../configs/tech";
+---
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <TechCard title={titles.love} techList={techLove} />
+  <TechCard title={titles.daily} techList={techDaily} />
+  <TechCard title={titles.learning} techList={techLearning} />
+</div>

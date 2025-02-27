@@ -1,25 +1,8 @@
 name: deployment
 
 on: [deployment_status]
+
 jobs:
-  e2e:
-    if: github.event.deployment_status.state == 'success'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: 📦 Install
-        uses: ./.github/actions/install
-
-      - name: cypress
-        uses: cypress-io/github-action@v5
-        with:
-          install: false
-          record: true
-        env:
-          CYPRESS_BASE_URL: ${{ github.event.deployment_status.target_url }}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-
   lighthouse:
     if: github.event.deployment_status.state == 'success'
     runs-on: ubuntu-latest
@@ -31,9 +14,23 @@ jobs:
         with:
           urls: |
             ${{ github.event.deployment_status.target_url }}
-            ${{ github.event.deployment_status.target_url }}/blog
-            ${{ github.event.deployment_status.target_url }}/about
-            ${{ github.event.deployment_status.target_url }}/blog/posts/how-i-built-simple-blogfolio
           uploadArtifacts: true
           temporaryPublicStorage: true
           configPath: .github/.lighthouserc.yml
+
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 📦 Install
+        uses: ./.github/actions/install
+
+      - name: 📦 Install Playwright Deps
+        run: bunx playwright install --with-deps
+
+      - name: 🧪 Run e2e Tests
+        run: bun e2e
+        env:
+          BASE_URL: ${{ github.event.deployment_status.environment_url }}
