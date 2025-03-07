@@ -1,0 +1,17 @@
+---
+import Logo from "./Logo.astro";
+import ThemeController from "./ThemeController.astro";
+---
+
+<nav class="navbar">
+  <div class="navbar-start flex items-center gap-2">
+    <a
+      href="/"
+      class="btn btn-ghost text-lg opacity-80 transition-opacity hover:opacity-100"
+    >
+      <Logo className="h-5 w-5" /> jimmy.codes
+    </a>
+  </div>
+  <div class="navbar-center"></div>
+  <div class="navbar-end"><ThemeController /></div>
+</nav>

@@ -1,0 +1,23 @@
+---
+import Intro from "../components/Intro.astro";
+import Links from "../components/Links.astro";
+import TechStack from "../components/TechStack.astro";
+import { pages } from "../configs/pages";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <main class="mx-auto w-full max-w-2xl px-4 py-2.5 flex flex-col gap-8">
+    <section class="text-center space-y-6">
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight tracking-tight">
+        {pages.home.title}
+        <span class="bg-yellow-300 bg-clip-text text-transparent">👋</span>
+      </h1>
+      <Intro />
+    </section>
+    <section class="flex gap-4 flex-col">
+      <TechStack />
+      <Links />
+    </section>
+  </main>
+</Layout>

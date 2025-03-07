@@ -1,0 +1,33 @@
+---
+import Footer from "../components/Footer.astro";
+
+import Nav from "../components/Nav.astro";
+import "../styles/global.css";
+import { FATHOM_SITE_ID } from "astro:env/client";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="Jimmy Guzman Moreno - Engineering leader architecting scalable systems, mentoring teams, and improving developer experience while driving technical strategy, scalability, and business impact through modern software architecture."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>jimmy.codes</title>
+    <script
+      is:inline
+      src="https://cdn.usefathom.com/script.js"
+      data-site={FATHOM_SITE_ID}
+      defer
+    ></script>
+  </head>
+  <body class="px-4 flex min-h-dvh flex-col justify-between">
+    <Nav />
+    <slot />
+    <Footer />
+  </body>
+</html>

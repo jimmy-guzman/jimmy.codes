@@ -1,0 +1,35 @@
+---
+export interface Tech {
+  link: string;
+  title: string;
+  icon: string;
+}
+
+export interface Props {
+  title: string;
+  techList: Tech[];
+}
+
+const { title, techList } = Astro.props;
+---
+
+<div class="card card-border bg-base-100 w-full">
+  <div class="card-body">
+    <h2 class="card-title">{title}</h2>
+    <div class="flex flex-wrap justify-center gap-3">
+      {
+        techList.map((tech) => (
+          <a
+            href={tech.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="badge badge-outline flex items-center gap-1 transition hover:scale-105 whitespace-nowrap"
+          >
+            <span class={`${tech.icon} w-4 h-4`} />
+            {tech.title}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>
