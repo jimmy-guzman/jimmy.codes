@@ -18,7 +18,7 @@
         "@types/node": "22.13.10",
         "astro": "5.4.2",
         "daisyui": "5.0.0",
-        "gitzy": "5.8.0",
+        "gitzy": "5.8.1",
         "is-ci": "4.1.0",
         "knip": "5.45.0",
         "lefthook": "1.11.3",
@@ -528,7 +528,7 @@
 
     "github-slugger": ["github-slugger@2.0.0", "", {}, "sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw=="],
 
-    "gitzy": ["gitzy@5.8.0", "", { "dependencies": { "commander": "^12.1.0", "enquirer": "2.3.6", "lilconfig": "^3.1.2", "yaml": "^2.6.0" }, "bin": { "gitzy": "dist/index.mjs" } }, "sha512-ptqsCDn8qX90n95ipEKdL+paW7+aKrkvHE+5sEvSuniB3vvuCGM1G480M0gGiUmDV4EGkgUf53ve8JIFlAbbMA=="],
+    "gitzy": ["gitzy@5.8.1", "", { "dependencies": { "commander": "^12.1.0", "enquirer": "2.3.6", "lilconfig": "^3.1.2", "yaml": "^2.6.0" }, "bin": { "gitzy": "dist/index.mjs" } }, "sha512-OndtQLjEUxGrxeG4se+q2rvVExL9dsQ3KL3SN2TaQoni6vEkjX+9PWwNgU6hGEufXEYiK4mWHXrbG5VQrFSjDQ=="],
 
     "glob-parent": ["glob-parent@5.1.2", "", { "dependencies": { "is-glob": "^4.0.1" } }, "sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow=="],
 
