@@ -9,9 +9,19 @@ import ThemeController from "./ThemeController.astro";
       href="/"
       class="btn btn-ghost text-lg opacity-80 transition-opacity hover:opacity-100"
     >
-      <Logo className="h-5 w-5" /> jimmy.codes
+      <Logo className="h-5 w-5" />
+      <span class="sr-only md:not-sr-only">jimmy.codes</span>
     </a>
   </div>
-  <div class="navbar-center"></div>
+  <div class="navbar-center">
+    <ul class="menu menu-horizontal px-1">
+      <li>
+        <a href="/about-me"
+          ><span class="sr-only md:not-sr-only">About Me</span>
+          <span class="icon-[lucide--user] h-4 w-4"></span></a
+        >
+      </li>
+    </ul>
+  </div>
   <div class="navbar-end"><ThemeController /></div>
 </nav>
