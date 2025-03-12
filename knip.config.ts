@@ -5,6 +5,7 @@ export default {
     "@iconify-json/*",
     "daisyui",
     "tailwindcss",
+    "@tailwindcss/typography",
     "@iconify/tailwind4",
     "gitzy",
     "@commitlint/cli",
