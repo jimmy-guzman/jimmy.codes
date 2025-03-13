@@ -39,7 +39,6 @@ Technical leader bridging **architecture and developer experience** to drive **s
 
 - **Led migration from AngularJS to ReactJS**, modernizing the frontend architecture for **scalability and maintainability**.
 - **Led migration from Sequelize to Prisma**, improving database performance, type safety, and developer experience.
-- **Architected NX Monorepo**, enabling **independent deployments for 30+ applications & 10+ teams**.
 - **Designed a Key Activation Service**, accelerating a mainframe decommissioning effort by **6 months** and reducing operational costs.
 - **Reduced load times by 75%** by leading migration to **React Router v7**, improving both UX and developer ergonomics.
 - **Accelerated build times by 50%** by migrating to **Vite**, enhancing developer productivity.
@@ -72,8 +71,6 @@ Technical leader bridging **architecture and developer experience** to drive **s
 - **Ensured security compliance** by maintaining **PI Score ~850**, aligning with **internal risk frameworks & regulatory standards**.
 - **Optimized CI/CD pipelines**, cutting build times by **67%** (from **30+ min to under 10 min**).
 - **Eliminated memory leaks in tests**, improving test efficiency.
-- **Drove observability adoption**, implementing **TAP-compliant logging**.
-- **Prevented performance degradation** by designing a **microservice** to replace a deprecated API.
 - **Optimized API payloads**, improving response times in collaboration with API teams.
 
 ---
@@ -87,7 +84,7 @@ Technical leader bridging **architecture and developer experience** to drive **s
 - **Designed high-performance, API-driven applications** in collaboration with backend teams.
 - **Enhanced CI/CD automation**, streamlining deployments and improving monitoring.
 - **Established engineering best practices**, elevating code quality through reviews & documentation.
-- **Led migration to an NX monorepo**, enabling **independent deployments for 30+ applications & 10+ teams**.
+- **Architected NX Monorepo**, enabling **independent deployments for 30+ applications & 10+ teams**.
 - **Designed CI/CD pipelines for monorepo**, ensuring **faster, isolated deployments** and improving release cadence.
 - **Owned and maintained Create React App-like tooling**, standardizing frontend builds across multiple teams.
 
