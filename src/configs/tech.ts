@@ -10,9 +10,24 @@ export const techDaily = [
     icon: "icon-[logos--typescript-icon]",
   },
   {
+    link: "https://reactrouter.com/",
+    title: "React Router",
+    icon: "icon-[logos--react-router]",
+  },
+  {
     link: "https://nodejs.org/",
     title: "Node.js",
     icon: "icon-[logos--nodejs-icon]",
+  },
+  {
+    link: "https://fastify.dev/",
+    title: "Fastify",
+    icon: "icon-[simple-icons--fastify]",
+  },
+  {
+    link: "https://expressjs.com/",
+    title: "Express",
+    icon: "icon-[simple-icons--express]",
   },
   {
     link: "https://www.postgresql.org/",
@@ -30,16 +45,6 @@ export const techDaily = [
     icon: "icon-[logos--redis]",
   },
   {
-    link: "https://fastify.dev/",
-    title: "Fastify",
-    icon: "icon-[simple-icons--fastify]",
-  },
-  {
-    link: "https://reactrouter.com/",
-    title: "React Router",
-    icon: "icon-[logos--react-router]",
-  },
-  {
     link: "https://playwright.dev/",
     title: "Playwright",
     icon: "icon-[logos--playwright]",
@@ -54,6 +59,21 @@ export const techDaily = [
     title: "MSW",
     icon: "icon-[logos--msw-icon]",
   },
+  {
+    link: "https://vite.dev/",
+    title: "Vite",
+    icon: "icon-[logos--vitejs]",
+  },
+  {
+    link: "https://turbo.build/repo/docs",
+    title: "Turborepo",
+    icon: "icon-[logos--turborepo-icon]",
+  },
+  {
+    link: "https://grafana.com//",
+    title: "Grafana",
+    icon: "icon-[logos--grafana]",
+  },
 ];
 
 export const techLearning = [
@@ -63,9 +83,9 @@ export const techLearning = [
     icon: "icon-[simple-icons--openai]",
   },
   {
-    link: "https://www.langchain.com/",
-    title: "LangChain",
-    icon: "icon-[simple-icons--langchain]",
+    link: "https://ollama.com/",
+    title: "Ollama",
+    icon: "icon-[simple-icons--ollama]",
   },
   {
     link: "https://workers.cloudflare.com/",
@@ -106,14 +126,14 @@ export const techLove = [
     icon: "icon-[simple-icons--biome]",
   },
   {
-    link: "https://graphql.org/",
-    title: "GraphQL",
-    icon: "icon-[logos--graphql]",
-  },
-  {
     link: "https://tailwindcss.com/",
     title: "TailwindCSS",
     icon: "icon-[logos--tailwindcss-icon]",
+  },
+  {
+    link: "https://graphql.org/",
+    title: "GraphQL",
+    icon: "icon-[logos--graphql]",
   },
   {
     link: "https://bun.sh/",
@@ -134,6 +154,11 @@ export const techLove = [
     link: "https://opentelemetry.io/",
     title: "OpenTelemetry",
     icon: "icon-[logos--opentelemetry-icon]",
+  },
+  {
+    link: "https://nx.dev/",
+    title: "NX",
+    icon: "icon-[logos--nx]",
   },
 ];
 
