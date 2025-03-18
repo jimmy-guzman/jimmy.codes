@@ -1,13 +1,15 @@
 ---
 import Logo from "./Logo.astro";
 import ThemeController from "./ThemeController.astro";
+
+const pathname = Astro.url.pathname;
 ---
 
 <nav class="navbar">
   <div class="navbar-start flex items-center gap-2">
     <a
       href="/"
-      class="btn btn-ghost text-lg opacity-80 transition-opacity hover:opacity-100"
+      class="btn btn-ghost text-lg transition-opacity hover:opacity-100"
     >
       <Logo className="h-5 w-5" />
       <span class="sr-only md:not-sr-only">jimmy.codes</span>
@@ -16,7 +18,15 @@ import ThemeController from "./ThemeController.astro";
   <div class="navbar-center">
     <ul class="menu menu-horizontal px-1">
       <li>
-        <a href="/about-me"
+        <a href="/" class={pathname === "/" ? "menu-active" : ""}
+          ><span class="sr-only md:not-sr-only">Home</span>
+          <span class="icon-[lucide--home] h-4 w-4"></span></a
+        >
+      </li>
+      <li>
+        <a
+          href="/about-me"
+          class={pathname === "/about-me" ? "menu-active" : ""}
           ><span class="sr-only md:not-sr-only">About Me</span>
           <span class="icon-[lucide--user] h-4 w-4"></span></a
         >
