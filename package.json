@@ -26,7 +26,7 @@
     "@iconify/tailwind4": "1.0.6",
     "@playwright/test": "1.51.1",
     "@tailwindcss/typography": "0.5.16",
-    "@tailwindcss/vite": "4.0.15",
+    "@tailwindcss/vite": "4.1.4",
     "@types/bun": "1.2.5",
     "@types/node": "22.13.10",
     "astro": "5.5.4",
@@ -35,7 +35,7 @@
     "is-ci": "4.1.0",
     "knip": "5.46.0",
     "lefthook": "1.11.3",
-    "tailwindcss": "4.0.15",
+    "tailwindcss": "4.1.4",
     "typescript": "5.8.2"
   },
   "gitzy": {
