@@ -1,9 +1,10 @@
 ---
-import Footer from "../components/Footer.astro";
-
-import Nav from "../components/Nav.astro";
-import "../styles/global.css";
 import { FATHOM_SITE_ID } from "astro:env/client";
+
+import Footer from "../components/Footer.astro";
+import Nav from "../components/Nav.astro";
+
+import "../styles/global.css";
 ---
 
 <!doctype html>
@@ -22,8 +23,7 @@ import { FATHOM_SITE_ID } from "astro:env/client";
       is:inline
       src="https://cdn.usefathom.com/script.js"
       data-site={FATHOM_SITE_ID}
-      defer
-    ></script>
+      defer></script>
   </head>
   <body class="px-4 flex min-h-dvh flex-col justify-between">
     <Nav />
