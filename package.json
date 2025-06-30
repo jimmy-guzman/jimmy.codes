@@ -22,7 +22,7 @@
     "@commitlint/types": "19.8.1",
     "@iconify-json/logos": "1.2.4",
     "@iconify-json/lucide": "1.2.45",
-    "@iconify-json/simple-icons": "1.2.37",
+    "@iconify-json/simple-icons": "1.2.41",
     "@iconify/tailwind4": "1.0.6",
     "@playwright/test": "1.52.0",
     "@tailwindcss/typography": "0.5.16",
