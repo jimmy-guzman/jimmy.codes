@@ -24,7 +24,7 @@
     "@iconify-json/lucide": "1.2.45",
     "@iconify-json/simple-icons": "1.2.37",
     "@iconify/tailwind4": "1.0.6",
-    "@playwright/test": "1.52.0",
+    "@playwright/test": "1.53.2",
     "@tailwindcss/typography": "0.5.16",
     "@tailwindcss/vite": "4.1.8",
     "@types/bun": "1.2.15",
