@@ -29,7 +29,7 @@
     "@tailwindcss/vite": "4.1.8",
     "@types/bun": "1.2.15",
     "@types/node": "22.15.29",
-    "astro": "5.8.1",
+    "astro": "5.11.0",
     "daisyui": "5.0.43",
     "gitzy": "5.8.1",
     "is-ci": "4.1.0",
