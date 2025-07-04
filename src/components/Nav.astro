@@ -1,37 +1,122 @@
 ---
 import Logo from "./Logo.astro";
 import ThemeController from "./ThemeController.astro";
-
-const pathname = Astro.url.pathname;
 ---
 
 <nav class="navbar">
   <div class="navbar-start flex items-center gap-2">
-    <a
-      href="/"
-      class="btn btn-ghost text-lg transition-opacity hover:opacity-100"
-    >
-      <Logo className="h-5 w-5" />
-      <span class="sr-only md:not-sr-only">jimmy.codes</span>
+    <a href="/" class="btn btn-ghost transition-opacity hover:opacity-100">
+      <Logo className="h-4 w-4" />
+      <span class="sr-only sm:not-sr-only">jimmy.codes</span>
     </a>
   </div>
-  <div class="navbar-center">
-    <ul class="menu menu-horizontal px-1">
+
+  <!-- Desktop navigation - hidden on mobile -->
+  <div class="navbar-center hidden sm:flex">
+    <ul class="menu menu-horizontal">
       <li>
-        <a href="/" class={pathname === "/" ? "menu-active" : ""}
-          ><span class="sr-only md:not-sr-only">Home</span>
-          <span class="icon-[lucide--home] h-4 w-4"></span></a
-        >
+        <a href="/">
+          <span class="sr-only md:not-sr-only">Home</span>
+          <span class="icon-[lucide--home] h-4 w-4"></span>
+        </a>
       </li>
       <li>
-        <a
-          href="/about-me"
-          class={pathname === "/about-me" ? "menu-active" : ""}
-          ><span class="sr-only md:not-sr-only">About Me</span>
-          <span class="icon-[lucide--user] h-4 w-4"></span></a
-        >
+        <a href="/about-me">
+          <span class="sr-only md:not-sr-only">About</span>
+          <span class="icon-[lucide--user] h-4 w-4"></span>
+        </a>
       </li>
     </ul>
   </div>
-  <div class="navbar-end"><ThemeController /></div>
+
+  <div class="navbar-end">
+    <div class="flex items-center gap-1">
+      <a
+        href="mailto:hi@jimmy.codes"
+        target="_blank"
+        class="btn btn-sm btn-ghost btn-circle"
+        rel="noopener noreferrer"
+      >
+        <span class="sr-only">Email</span>
+        <span class="icon-[lucide--mail] h-4 w-4"></span>
+      </a>
+
+      <div class="hidden sm:flex items-center gap-1">
+        <a href="/resume.pdf" download class="btn btn-sm btn-ghost btn-circle">
+          <span class="sr-only">Resume</span>
+          <span class="icon-[mdi--resume] h-4 w-4"></span>
+        </a>
+        <a
+          href="https://github.com/jimmy-guzman"
+          target="_blank"
+          class="btn btn-sm btn-ghost btn-circle"
+          rel="noopener noreferrer"
+        >
+          <span class="sr-only">GitHub</span>
+          <span class="icon-[simple-icons--github] h-4 w-4"></span>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/jimmy-guzman-moreno"
+          target="_blank"
+          class="btn btn-sm btn-ghost btn-circle"
+          rel="noopener noreferrer"
+        >
+          <span class="sr-only">LinkedIn</span>
+          <span class="icon-[simple-icons--linkedin] h-4 w-4"></span>
+        </a>
+      </div>
+
+      <ThemeController />
+
+      <div class="dropdown dropdown-end sm:hidden">
+        <label tabindex="0" class="btn btn-sm btn-ghost btn-circle">
+          <span class="sr-only">More options</span>
+          <span class="icon-[lucide--menu] h-4 w-4"></span>
+        </label>
+        <ul
+          tabindex="0"
+          class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+        >
+          <li>
+            <a href="/">
+              <span class="icon-[lucide--home] h-4 w-4"></span>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/about-me">
+              <span class="icon-[lucide--user] h-4 w-4"></span>
+              About
+            </a>
+          </li>
+          <li>
+            <a href="/resume.pdf" download>
+              <span class="icon-[mdi--resume] h-4 w-4"></span>
+              Resume
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/jimmy-guzman"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="icon-[simple-icons--github] h-4 w-4"></span>
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/jimmy-guzman-moreno"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="icon-[simple-icons--linkedin] h-4 w-4"></span>
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </nav>
