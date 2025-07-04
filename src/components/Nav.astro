@@ -6,12 +6,11 @@ import ThemeController from "./ThemeController.astro";
 <nav class="navbar">
   <div class="navbar-start flex items-center gap-2">
     <a href="/" class="btn btn-ghost transition-opacity hover:opacity-100">
-      <Logo className="h-4 w-4" />
+      <Logo className="h-6 w-6 sm:h-4 sm:w-4" />
       <span class="sr-only sm:not-sr-only">jimmy.codes</span>
     </a>
   </div>
 
-  <!-- Desktop navigation - hidden on mobile -->
   <div class="navbar-center hidden sm:flex">
     <ul class="menu menu-horizontal">
       <li>
@@ -30,7 +29,7 @@ import ThemeController from "./ThemeController.astro";
   </div>
 
   <div class="navbar-end">
-    <div class="flex items-center gap-1">
+    <div class="flex items-center gap-2">
       <a
         href="mailto:hi@jimmy.codes"
         target="_blank"
@@ -38,7 +37,7 @@ import ThemeController from "./ThemeController.astro";
         rel="noopener noreferrer"
       >
         <span class="sr-only">Email</span>
-        <span class="icon-[lucide--mail] h-4 w-4"></span>
+        <span class="icon-[lucide--mail] h-6 w-6 sm:h-4 sm:w-4"></span>
       </a>
 
       <div class="hidden sm:flex items-center gap-1">
@@ -69,13 +68,13 @@ import ThemeController from "./ThemeController.astro";
       <ThemeController />
 
       <div class="dropdown dropdown-end sm:hidden">
-        <label tabindex="0" class="btn btn-sm btn-ghost btn-circle">
+        <div tabindex="0" role="button" class="btn btn-sm btn-ghost btn-circle">
           <span class="sr-only">More options</span>
-          <span class="icon-[lucide--menu] h-4 w-4"></span>
-        </label>
+          <span class="icon-[lucide--menu] h-6 w-6"></span>
+        </div>
         <ul
           tabindex="0"
-          class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+          class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
         >
           <li>
             <a href="/">
