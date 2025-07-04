@@ -6,6 +6,12 @@ import Nav from "../components/Nav.astro";
 
 import "../styles/global.css";
 import { Font } from "astro:assets";
+
+interface Props {
+  title?: string;
+}
+
+const { title = "jimmy.codes" } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,13 +25,12 @@ import { Font } from "astro:assets";
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>jimmy.codes</title>
+    <title>{title}</title>
     <script
       is:inline
       src="https://cdn.usefathom.com/script.js"
       data-site={FATHOM_SITE_ID}
-      defer
-    ></script>
+      defer></script>
     <Font cssVariable="--font-satoshi" preload />
     <style>
       html {
