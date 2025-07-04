@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
 
 import "../styles/global.css";
+import { Font } from "astro:assets";
 ---
 
 <!doctype html>
@@ -23,7 +24,14 @@ import "../styles/global.css";
       is:inline
       src="https://cdn.usefathom.com/script.js"
       data-site={FATHOM_SITE_ID}
-      defer></script>
+      defer
+    ></script>
+    <Font cssVariable="--font-satoshi" preload />
+    <style>
+      html {
+        font-family: var(--font-satoshi), system-ui, sans-serif;
+      }
+    </style>
   </head>
   <body class="px-4 flex min-h-dvh flex-col justify-between">
     <Nav />

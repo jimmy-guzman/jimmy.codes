@@ -1,13 +1,9 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.0.0-beta.1/schema.json",
   "vcs": {
-    "enabled": false,
+    "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
-  },
-  "files": {
-    "ignoreUnknown": false,
-    "includes": ["**", "!**/.astro"]
   },
   "formatter": {
     "enabled": true,

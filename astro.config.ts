@@ -1,5 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig, envField } from "astro/config";
+import { defineConfig, envField, fontProviders } from "astro/config";
 
 export default defineConfig({
   vite: {
@@ -13,5 +13,16 @@ export default defineConfig({
         optional: true,
       }),
     },
+  },
+  experimental: {
+    fonts: [
+      {
+        name: "Satoshi",
+        provider: fontProviders.fontshare(),
+        cssVariable: "--font-satoshi",
+        weights: [300, 400, 500],
+        styles: ["normal"],
+      },
+    ],
   },
 });
