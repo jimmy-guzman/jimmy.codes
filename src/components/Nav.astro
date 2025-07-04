@@ -5,22 +5,22 @@ import ThemeController from "./ThemeController.astro";
 
 <nav class="navbar">
   <div class="navbar-start flex items-center gap-2">
-    <a href="/" class="btn btn-ghost transition-opacity hover:opacity-100">
-      <Logo className="h-6 w-6 sm:h-4 sm:w-4" />
-      <span class="sr-only sm:not-sr-only">jimmy.codes</span>
+    <a href="/" class="btn btn-ghost gap-2 p-1 sm:p-2">
+      <Logo className="h-6 w-6 sm:h-5 sm:w-5" />
+      <span class="sr-only sm:not-sr-only text-sm">jimmy.codes</span>
     </a>
   </div>
 
-  <div class="navbar-center hidden sm:flex">
-    <ul class="menu menu-horizontal">
+  <div class="navbar-center hidden md:flex">
+    <ul class="menu menu-horizontal gap-1">
       <li>
-        <a href="/">
+        <a href="/" class="btn btn-ghost btn-sm px-2 py-1 gap-1">
           <span class="sr-only md:not-sr-only">Home</span>
           <span class="icon-[lucide--home] h-4 w-4"></span>
         </a>
       </li>
       <li>
-        <a href="/about-me">
+        <a href="/about" class="btn btn-ghost btn-sm px-2 py-1 gap-1">
           <span class="sr-only md:not-sr-only">About</span>
           <span class="icon-[lucide--user] h-4 w-4"></span>
         </a>
@@ -29,52 +29,58 @@ import ThemeController from "./ThemeController.astro";
   </div>
 
   <div class="navbar-end">
-    <div class="flex items-center gap-2">
-      <a
-        href="mailto:hi@jimmy.codes"
-        target="_blank"
-        class="btn btn-sm btn-ghost btn-circle"
-        rel="noopener noreferrer"
-      >
-        <span class="sr-only">Email</span>
-        <span class="icon-[lucide--mail] h-6 w-6 sm:h-4 sm:w-4"></span>
-      </a>
+    <div class="flex items-center gap-4 sm:gap-3">
+      <div class="flex items-center gap-2">
+        <a
+          href="mailto:hi@jimmy.codes"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-sm btn-ghost btn-circle"
+        >
+          <span class="sr-only">Email</span>
+          <span class="icon-[lucide--mail] h-5 w-5 sm:h-4 sm:w-4"></span>
+        </a>
 
-      <div class="hidden sm:flex items-center gap-1">
-        <a href="/resume.pdf" download class="btn btn-sm btn-ghost btn-circle">
-          <span class="sr-only">Resume</span>
-          <span class="icon-[mdi--resume] h-4 w-4"></span>
-        </a>
-        <a
-          href="https://github.com/jimmy-guzman"
-          target="_blank"
-          class="btn btn-sm btn-ghost btn-circle"
-          rel="noopener noreferrer"
-        >
-          <span class="sr-only">GitHub</span>
-          <span class="icon-[simple-icons--github] h-4 w-4"></span>
-        </a>
-        <a
-          href="https://www.linkedin.com/in/jimmy-guzman-moreno"
-          target="_blank"
-          class="btn btn-sm btn-ghost btn-circle"
-          rel="noopener noreferrer"
-        >
-          <span class="sr-only">LinkedIn</span>
-          <span class="icon-[simple-icons--linkedin] h-4 w-4"></span>
-        </a>
+        <div class="hidden sm:flex items-center gap-2">
+          <a
+            href="/resume.pdf"
+            download
+            class="btn btn-sm btn-ghost btn-circle"
+          >
+            <span class="sr-only">Resume</span>
+            <span class="icon-[mdi--resume] h-4 w-4"></span>
+          </a>
+          <a
+            href="https://github.com/jimmy-guzman"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-sm btn-ghost btn-circle"
+          >
+            <span class="sr-only">GitHub</span>
+            <span class="icon-[simple-icons--github] h-4 w-4"></span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/jimmy-guzman-moreno"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-sm btn-ghost btn-circle"
+          >
+            <span class="sr-only">LinkedIn</span>
+            <span class="icon-[simple-icons--linkedin] h-4 w-4"></span>
+          </a>
+        </div>
       </div>
 
       <ThemeController />
 
       <div class="dropdown dropdown-end sm:hidden">
         <div tabindex="0" role="button" class="btn btn-sm btn-ghost btn-circle">
-          <span class="sr-only">More options</span>
-          <span class="icon-[lucide--menu] h-6 w-6"></span>
+          <span class="sr-only">Menu</span>
+          <span class="icon-[lucide--menu] h-5 w-5"></span>
         </div>
         <ul
           tabindex="0"
-          class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+          class="dropdown-content menu bg-base-100 rounded-box z-[1] w-48 shadow text-sm"
         >
           <li>
             <a href="/">
@@ -83,7 +89,7 @@ import ThemeController from "./ThemeController.astro";
             </a>
           </li>
           <li>
-            <a href="/about-me">
+            <a href="/about">
               <span class="icon-[lucide--user] h-4 w-4"></span>
               About
             </a>
