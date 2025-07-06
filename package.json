@@ -31,7 +31,7 @@
     "@tailwindcss/vite": "4.1.11",
     "@types/bun": "1.2.18",
     "astro": "5.11.0",
-    "daisyui": "5.0.43",
+    "daisyui": "5.0.46",
     "gitzy": "5.9.0",
     "is-ci": "4.1.0",
     "knip": "5.61.3",
