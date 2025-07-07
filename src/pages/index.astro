@@ -1,24 +1,125 @@
 ---
-import Intro from "../components/Intro.astro";
-import Links from "../components/Links.astro";
-import TechStack from "../components/TechStack.astro";
 import { pages } from "../configs/pages";
+import { techDaily, techLearning, techLove, titles } from "../configs/tech";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-  <main
-    class="mx-auto w-full max-w-3xl px-4 py-2.5 flex flex-col gap-6 md:gap-8"
-  >
-    <section class="text-center space-y-6">
-      <h1 class="text-4xl md:text-5xl font-bold leading-tight tracking-tight">
+  <main class="mx-auto w-full max-w-3xl px-4 py-8 space-y-6 prose prose-lg">
+    <section class="space-y-6">
+      <h1>
         {pages.home.title}
       </h1>
-      <Intro />
+      <p>
+        I design <strong>high-performance, scalable systems</strong> and improve
+        <strong>developer experience</strong> at scale. Passionate about
+        <strong
+          >mentorship, technical strategy, and guiding engineering teams</strong
+        >
+        to drive business impact through <strong
+          >modern software architecture</strong
+        >.
+      </p>
     </section>
-    <section class="flex gap-4 flex-col">
-      <TechStack />
-      <Links />
+
+    <section class="space-y-4">
+      <p>
+        <span>{titles.love}:</span>
+        {
+          techLove.map((tech, index) => (
+            <>
+              <a
+                href={tech.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 link link-hover"
+              >
+                <span class:list={[tech.icon, "h-4 w-5]"]} />
+                {tech.title}
+              </a>
+              {index < techLove.length - 1 && (
+                <span class="align-top"> • </span>
+              )}
+            </>
+          ))
+        }
+      </p>
+
+      <p>
+        <span>{titles.daily}:</span>
+        {
+          techDaily.map((tech, index) => (
+            <>
+              <a
+                href={tech.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 link-hover"
+              >
+                <span class:list={[tech.icon, "h-4 w-5]"]} />
+                {tech.title}
+              </a>
+              {index < techDaily.length - 1 && (
+                <span class="align-top"> • </span>
+              )}
+            </>
+          ))
+        }
+      </p>
+
+      <p>
+        <span>{titles.learning}:</span>
+        {
+          techLearning.map((tech, index) => (
+            <>
+              <a
+                href={tech.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 link-hover"
+              >
+                <span class:list={[tech.icon, "h-4 w-5]"]} />
+                {tech.title}
+              </a>
+              {index < techLearning.length - 1 && (
+                <span class="align-top"> • </span>
+              )}
+            </>
+          ))
+        }
+      </p>
+    </section>
+
+    <section class="space-y-6">
+      <p>
+        Find me on <a
+          href="https://github.com/jimmy-guzman"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1"
+        >
+          <span class="icon-[logos--github-octocat] h-4 w-4"></span>GitHub</a
+        > and <a
+          href="https://www.linkedin.com/in/jimmy-guzman-moreno"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1"
+          ><span class="icon-[logos--linkedin-icon] h-4 w-4"></span>LinkedIn</a
+        >.
+      </p>
+
+      <p>
+        Or email me at <a href="mailto:hi@jimmy.codes" class="transition-colors"
+          >hi@jimmy.codes</a
+        >.
+      </p>
+
+      <p>
+        Or learn more <a href="/about">about</a> me or take a look at my <a
+          href="/resume.pdf"
+          download>resume</a
+        >.
+      </p>
     </section>
   </main>
 </Layout>
