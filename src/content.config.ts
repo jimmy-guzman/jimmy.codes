@@ -6,7 +6,6 @@ const posts = defineCollection({
     description: z.string(),
     publishDate: z.date(),
     updatedDate: z.date().optional(),
-    imageUrl: z.string(),
     keywords: z.string(),
   }),
 });
