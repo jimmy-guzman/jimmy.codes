@@ -25,19 +25,30 @@ const posts = (await getCollection("posts")).sort(
     <section class="prose">
       <h1>Blog</h1>
       <div class="not-prose">
-        <ul>
+        <ul class="flex flex-col gap-y-4">
           {
             posts.map((post) => (
-              <li class="flex gap-2 items-center">
-                <a href={`/blog/${post.slug}`} class="link link-hover">
+              <li class="space-y-0.5">
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="link link-hover font-medium"
+                >
                   {post.data.title}
                 </a>
-                <time
-                  class="text-sm text-base-content/60 flex-shrink-0"
-                  datetime={post.data.publishDate.toISOString()}
-                >
-                  {dateFormatter.format(post.data.publishDate)}
-                </time>
+                <span class="block text-sm text-base-content/60">
+                  <time datetime={post.data.publishDate.toISOString()}>
+                    {dateFormatter.format(post.data.publishDate)}
+                  </time>
+                  {post.data.updatedDate && (
+                    <>
+                      {" "}
+                      •
+                      <time datetime={post.data.updatedDate.toISOString()}>
+                        Updated {dateFormatter.format(post.data.updatedDate)}
+                      </time>
+                    </>
+                  )}
+                </span>
               </li>
             ))
           }
