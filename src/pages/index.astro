@@ -38,7 +38,7 @@ import Layout from "../layouts/Layout.astro";
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-1 link link-hover"
               >
-                <span class:list={[tech.icon, "h-4 w-5]"]} />
+                <span class:list={[tech.icon, "hidden sm:inline h-4 w-5]"]} />
                 {tech.title}
               </a>
               {index < techLove.length - 1 && (
@@ -60,7 +60,7 @@ import Layout from "../layouts/Layout.astro";
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-1 link-hover"
               >
-                <span class:list={[tech.icon, "h-4 w-5]"]} />
+                <span class:list={[tech.icon, "hidden sm:inline h-4 w-5]"]} />
                 {tech.title}
               </a>
               {index < techDaily.length - 1 && (
@@ -82,7 +82,7 @@ import Layout from "../layouts/Layout.astro";
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-1 link-hover"
               >
-                <span class:list={[tech.icon, "h-4 w-5]"]} />
+                <span class:list={[tech.icon, "hidden sm:inline h-4 w-5]"]} />
                 {tech.title}
               </a>
               {index < techLearning.length - 1 && (
@@ -102,13 +102,15 @@ import Layout from "../layouts/Layout.astro";
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1"
         >
-          <span class="icon-[logos--github-octocat] h-4 w-4"></span>GitHub</a
+          <span class="icon-[logos--github-octocat] hidden sm:inline h-4 w-4"
+          ></span>GitHub</a
         > and <a
           href="https://www.linkedin.com/in/jimmy-guzman-moreno"
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1"
-          ><span class="icon-[logos--linkedin-icon] h-4 w-4"></span>LinkedIn</a
+          ><span class="icon-[logos--linkedin-icon] hidden sm:inline h-4 w-4"
+          ></span>LinkedIn</a
         >.
       </p>
 

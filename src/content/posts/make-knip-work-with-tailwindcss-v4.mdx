@@ -14,7 +14,7 @@ keywords: knip, tailwindcss, regex, typescript
 
 ## What is Knip?
 
-[Knip](https://knip.dev) helps declutter JavaScript and TypeScript projects by detecting dead exports, unused files, and dependencies. It does this intelligently using a plugin system modeled after real-world tooling and frameworks. This fine-grained approach results in an accurate representation of dead code. Out of the box, Knip technically works with Tailwind CSS v4 — but not perfectly. Its lack of support for Tailwind’s new **@plugin** and **@import** directives can cause false positives.
+[Knip](https://knip.dev) helps declutter JavaScript and TypeScript projects by detecting dead exports, unused files, and dependencies. It does this intelligently using a plugin system modeled after real-world tooling and frameworks. This fine-grained approach results in an accurate representation of dead code. 
 
 To [get started with Knip](https://knip.dev/overview/getting-started), run:
 ```bash
@@ -34,6 +34,8 @@ Or just run it directly:
 ```bash
 pnpx knip
 ```
+
+Out of the box, Knip technically works with Tailwind CSS v4 — but not perfectly. Its lack of support for Tailwind’s new **@plugin** and **@import** directives can cause false positives.
 
 ## What changed in Tailwind CSS v4?
 
