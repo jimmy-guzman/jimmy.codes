@@ -36,7 +36,7 @@ const formattedUpdatedDate = post.data.updatedDate
   keywords={post.data.keywords}
 >
   <main class="mx-auto w-full max-w-3xl px-4 py-8 space-y-8">
-    <section class="prose prose-lg">
+    <section class="prose">
       <header>
         <h1>{post.data.title}</h1>
         <p>{post.data.description}</p>
@@ -54,19 +54,7 @@ const formattedUpdatedDate = post.data.updatedDate
         </p>
       </header>
 
-      {
-        post.data.imageUrl && (
-          <Image
-            src={post.data.imageUrl}
-            alt={`Image for ${post.data.title}`}
-            width="1472"
-            height="732"
-            decoding="async"
-            loading="lazy"
-            class="rounded-lg"
-          />
-        )
-      }
+      <div class="divider"></div>
 
       <article>
         <Content />
