@@ -8,10 +8,12 @@ import "../styles/global.css";
 import { Font } from "astro:assets";
 
 interface Props {
-  title?: string;
+  title: string;
+  description: string;
+  keywords: string;
 }
 
-const { title = "jimmy.codes" } = Astro.props;
+const { title, description, keywords } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,13 +21,27 @@ const { title = "jimmy.codes" } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta
-      name="description"
-      content="Jimmy Guzman Moreno - Engineering leader architecting scalable systems, mentoring teams, and improving developer experience while driving technical strategy, scalability, and business impact through modern software architecture."
-    />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="Jimmy Guzman Moreno" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="jimmy.codes" />
+
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+
+    <link rel="canonical" href={Astro.url} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
     <script
       is:inline
       src="https://cdn.usefathom.com/script.js"

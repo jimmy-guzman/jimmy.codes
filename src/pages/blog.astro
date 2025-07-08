@@ -1,0 +1,48 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import { getCollection } from "astro:content";
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+
+const posts = (await getCollection("posts")).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
+);
+---
+
+<Layout
+  title="jimmy.codes | Blog"
+  description="Technical articles on scalable systems, developer experience, and modern web development by Lead Engineer Jimmy Guzman."
+  keywords="jimmy guzman blog, technical articles, scalable systems, developer experience, engineering leadership, typescript, react, nextjs, astro, web development, software architecture, mentorship"
+>
+  <main
+    class="flex-1 mx-auto w-full max-w-3xl px-4 py-8 space-y-8 flex flex-col items-start"
+  >
+    <section class="prose prose-lg">
+      <h1>Blog</h1>
+      <div class="not-prose">
+        <ul>
+          {
+            posts.map((post) => (
+              <li class="flex gap-2 items-center">
+                <a href={`/blog/${post.slug}`} class="link link-hover">
+                  {post.data.title}
+                </a>
+                <time
+                  class="text-sm text-base-content/60 flex-shrink-0"
+                  datetime={post.data.publishDate.toISOString()}
+                >
+                  {dateFormatter.format(post.data.publishDate)}
+                </time>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </main>
+</Layout>

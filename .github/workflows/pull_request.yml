@@ -20,6 +20,9 @@ jobs:
       - name: check
         run: bun check
 
+      - name: build
+        run: bun run build
+
       - name: typecheck
         run: bun typecheck
 
