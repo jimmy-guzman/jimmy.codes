@@ -43,12 +43,16 @@ const formattedUpdatedDate = post.data.updatedDate
         <p class="text-sm">
           <time datetime={post.data.publishDate.toISOString()}
             >{formattedPublishDate}</time
-          > •
+          >
           {
             post.data.updatedDate && (
-              <time datetime={post.data.updatedDate.toISOString()}>
-                Updated {formattedUpdatedDate}
-              </time>
+              <>
+                {" "}
+                •
+                <time datetime={post.data.updatedDate.toISOString()}>
+                  Updated {formattedUpdatedDate}
+                </time>
+              </>
             )
           }
         </p>

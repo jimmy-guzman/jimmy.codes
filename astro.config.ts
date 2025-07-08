@@ -1,7 +1,9 @@
+import mdx from "@astrojs/mdx";
 import vercel from "@astrojs/vercel";
 import { transformerColorizedBrackets } from "@shikijs/colorized-brackets";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField, fontProviders } from "astro/config";
+import expressiveCode from "astro-expressive-code";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeSlug from "rehype-slug";
@@ -20,6 +22,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
   env: {
     schema: {
       FATHOM_SITE_ID: envField.string({
@@ -29,6 +32,7 @@ export default defineConfig({
       }),
     },
   },
+
   experimental: {
     fonts: [
       {
@@ -40,14 +44,13 @@ export default defineConfig({
       },
     ],
   },
+
   adapter: vercel(),
   trailingSlash: "never",
+
   markdown: {
     gfm: true,
-    shikiConfig: {
-      theme: "catppuccin-mocha",
-      transformers: [transformerColorizedBrackets()],
-    },
+
     rehypePlugins: [
       [rehypeExternalLinks, { target: "_blank", rel: "noopener" }],
       rehypeSlug,
@@ -55,4 +58,12 @@ export default defineConfig({
       rehypeUnwrapImages,
     ],
   },
+
+  integrations: [
+    expressiveCode({
+      themes: ["catppuccin-mocha"],
+      shiki: { transformers: [transformerColorizedBrackets()] },
+    }),
+    mdx(),
+  ],
 });
