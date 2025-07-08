@@ -1,0 +1,94 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, render } from "astro:content";
+
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+const { Content } = await render(post);
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const formattedPublishDate = dateFormatter.format(post.data.publishDate);
+
+const formattedUpdatedDate = post.data.updatedDate
+  ? dateFormatter.format(post.data.updatedDate)
+  : null;
+---
+
+<Layout
+  title={`jimmy.codes | ${post.data.title}`}
+  description={post.data.description}
+  keywords={post.data.keywords}
+>
+  <main class="mx-auto w-full max-w-3xl px-4 py-8 space-y-8">
+    <section class="prose prose-lg">
+      <header>
+        <h1>{post.data.title}</h1>
+        <p>{post.data.description}</p>
+        <p class="text-sm">
+          <time datetime={post.data.publishDate.toISOString()}
+            >{formattedPublishDate}</time
+          > •
+          {
+            post.data.updatedDate && (
+              <time datetime={post.data.updatedDate.toISOString()}>
+                Updated {formattedUpdatedDate}
+              </time>
+            )
+          }
+        </p>
+      </header>
+
+      {
+        post.data.imageUrl && (
+          <Image
+            src={post.data.imageUrl}
+            alt={`Image for ${post.data.title}`}
+            width="1472"
+            height="732"
+            decoding="async"
+            loading="lazy"
+            class="rounded-lg"
+          />
+        )
+      }
+
+      <article>
+        <Content />
+      </article>
+
+      <p>Thank you for reading ❤️</p>
+
+      <div class="divider"></div>
+
+      {
+        post.data.keywords && (
+          <div class="flex flex-wrap gap-2">
+            {post.data.keywords.split(",").map((keyword) => (
+              <span class="badge">{keyword.trim()}</span>
+            ))}
+          </div>
+        )
+      }
+
+      <p>
+        <a href="/blog">← Back to all posts</a>
+      </p>
+    </section>
+  </main>
+</Layout>
