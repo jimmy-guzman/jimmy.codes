@@ -1,4 +1,5 @@
 import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 import { transformerColorizedBrackets } from "@shikijs/colorized-brackets";
 import tailwindcss from "@tailwindcss/vite";
@@ -19,6 +20,8 @@ const autoLinkHeadingOpts = {
 };
 
 export default defineConfig({
+  site: "https://jimmy.codes",
+
   vite: {
     plugins: [tailwindcss()],
   },
@@ -65,5 +68,6 @@ export default defineConfig({
       shiki: { transformers: [transformerColorizedBrackets()] },
     }),
     mdx(),
+    sitemap(),
   ],
 });

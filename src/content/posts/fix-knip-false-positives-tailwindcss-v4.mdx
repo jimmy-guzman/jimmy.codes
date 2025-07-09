@@ -1,8 +1,8 @@
 ---
-title: Make Knip Work With Tailwind CSS v4
+title: Fix Knip False Positives with TailwindCSS v4
 publishDate: 2025-07-08
-description: A quick overview of how to configure Knip to analyze CSS files using Tailwind CSS v4.
-keywords: knip, tailwindcss, regex, typescript
+description: Learn how to configure Knip to work with TailwindCSS v4's new @plugin and @import directives using custom compilers. Eliminate false positives and keep your dependency reports clean.
+keywords: [knip, tailwindcss, regex, typescript, custom compilers, false positives, css analysis, build tools, dead code elimination, unused dependencies]
 ---
 
 ## Table of Contents
@@ -115,7 +115,14 @@ This configuration defines a custom compiler for CSS files. It looks for **@impo
 
 *This borrows from [Knip's own css compiler example](https://knip.dev/features/compilers#css).*
 
-[matchAll](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll) is used to find all matches of a regular expression in a string. The regex `@(?:import|plugin)\s+["']([^"']+)["']` matches both **@import** and **@plugin** directives, capturing the dependency path inside the quotes. The `g` flag ensures it finds every match in the file, not just the first. In the earlier example, it would return:
+[matchAll](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll) is used to find all matches of a regular expression in a string. 
+
+The regex pattern `@(?:import|plugin)\s+["']([^"']+)["']` breaks down as:
+- `@(?:import|plugin)` - Matches either @import or @plugin
+- `\s+` - Matches one or more whitespace characters
+- `["']([^"']+)["']` - Captures the dependency name inside quotes
+
+In the earlier example, it would return:
 
 ```ts
 [

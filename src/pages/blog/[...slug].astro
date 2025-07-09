@@ -68,15 +68,13 @@ const formattedUpdatedDate = post.data.updatedDate
 
       <div class="divider"></div>
 
-      {
-        post.data.keywords && (
-          <div class="flex flex-wrap gap-2">
-            {post.data.keywords.split(",").map((keyword) => (
-              <span class="badge">{keyword.trim()}</span>
-            ))}
-          </div>
-        )
-      }
+      <div class="flex flex-wrap gap-2">
+        {
+          post.data.keywords.map((keyword) => (
+            <span class="badge">{keyword.trim()}</span>
+          ))
+        }
+      </div>
 
       <p>
         <a href="/blog">← Back to all posts</a>
