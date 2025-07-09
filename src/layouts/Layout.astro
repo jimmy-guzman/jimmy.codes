@@ -10,7 +10,7 @@ import { Font } from "astro:assets";
 interface Props {
   title: string;
   description: string;
-  keywords: string;
+  keywords: string[];
 }
 
 const { title, description, keywords } = Astro.props;
@@ -22,7 +22,7 @@ const { title, description, keywords } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="keywords" content={keywords} />
+    <meta name="keywords" content={keywords.join(", ")} />
     <meta name="author" content="Jimmy Guzman Moreno" />
 
     <meta property="og:type" content="website" />

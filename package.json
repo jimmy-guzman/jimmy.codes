@@ -16,6 +16,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.4.1",
     "astro-expressive-code": "^0.41.3"
   },
   "devDependencies": {

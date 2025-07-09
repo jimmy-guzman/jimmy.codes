@@ -3,7 +3,21 @@ title: How I Originally Built This Site
 publishDate: 2022-03-13
 updatedDate: 2025-07-07
 description: An overview of how jimmy.codes was built with modern technologies and services.
-keywords: nextjs, react, typescript, markdown, vercel, blogfolio, astro, tailwindcss, cloudinary, fathom, github-actions, react-markdown
+keywords:
+  [
+    nextjs,
+    react,
+    typescript,
+    markdown,
+    vercel,
+    blogfolio,
+    astro,
+    tailwindcss,
+    cloudinary,
+    fathom,
+    github-actions,
+    react-markdown,
+  ]
 ---
 
 At the beginning of 2022, I decided I wanted to start blogging about coding. So in order to blog I needed a platform. I've also wanted to build a new portfolio under [jimmy.codes](/). This all led to building this blogfolio. The goal for this was simplicity, performance and content powered by markdown. As a disclaimer, this is more of an overview rather than a how to guide.

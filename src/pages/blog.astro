@@ -17,7 +17,20 @@ const posts = (await getCollection("posts")).sort(
 <Layout
   title="jimmy.codes | Blog"
   description="Technical articles on scalable systems, developer experience, and modern web development by Lead Engineer Jimmy Guzman."
-  keywords="jimmy guzman blog, technical articles, scalable systems, developer experience, engineering leadership, typescript, react, nextjs, astro, web development, software architecture, mentorship"
+  keywords={[
+    "jimmy guzman blog",
+    "technical articles",
+    "scalable systems",
+    "developer experience",
+    "engineering leadership",
+    "typescript",
+    "react",
+    "nextjs",
+    "astro",
+    "web development",
+    "software architecture",
+    "mentorship",
+  ]}
 >
   <main
     class="flex-1 mx-auto w-full max-w-3xl px-4 py-8 space-y-8 flex flex-col items-start"
