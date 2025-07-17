@@ -16,24 +16,24 @@
     "typecheck": "tsc"
   },
   "devDependencies": {
-    "@astrojs/mdx": "4.3.0",
+    "@astrojs/mdx": "4.3.1",
     "@astrojs/sitemap": "3.4.1",
-    "@astrojs/vercel": "8.2.1",
-    "@biomejs/biome": "2.1.1",
+    "@astrojs/vercel": "8.2.2",
+    "@biomejs/biome": "2.1.2",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@commitlint/types": "19.8.1",
     "@iconify-json/logos": "1.2.4",
     "@iconify-json/lucide": "1.2.57",
     "@iconify-json/mdi": "1.2.3",
-    "@iconify-json/simple-icons": "1.2.42",
+    "@iconify-json/simple-icons": "1.2.43",
     "@iconify/tailwind4": "1.0.6",
     "@playwright/test": "1.54.1",
-    "@shikijs/colorized-brackets": "3.7.0",
+    "@shikijs/colorized-brackets": "3.8.0",
     "@tailwindcss/typography": "0.5.16",
     "@tailwindcss/vite": "4.1.11",
     "@types/bun": "1.2.18",
-    "astro": "5.11.0",
+    "astro": "5.12.0",
     "astro-expressive-code": "0.41.3",
     "daisyui": "5.0.46",
     "gitzy": "5.9.0",
@@ -50,5 +50,9 @@
   "packageManager": "bun@1.2.18",
   "gitzy": {
     "useCommitlintConfig": true
-  }
+  },
+  "trustedDependencies": [
+    "@tailwindcss/oxide",
+    "oxc-resolver"
+  ]
 }
