@@ -5,6 +5,7 @@ import { transformerColorizedBrackets } from "@shikijs/colorized-brackets";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField, fontProviders } from "astro/config";
 import expressiveCode from "astro-expressive-code";
+import expressiveCodeTwoSlash from "expressive-code-twoslash";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeSlug from "rehype-slug";
@@ -66,6 +67,7 @@ export default defineConfig({
     expressiveCode({
       themes: ["catppuccin-mocha"],
       shiki: { transformers: [transformerColorizedBrackets()] },
+      plugins: [expressiveCodeTwoSlash()],
     }),
     mdx(),
     sitemap(),
