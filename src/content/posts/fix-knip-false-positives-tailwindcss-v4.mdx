@@ -2,7 +2,19 @@
 title: Fix Knip False Positives with TailwindCSS v4
 publishDate: 2025-07-08
 description: Learn how to configure Knip to work with TailwindCSS v4's new @plugin and @import directives using custom compilers. Eliminate false positives and keep your dependency reports clean.
-keywords: [knip, tailwindcss, regex, typescript, custom compilers, false positives, css analysis, build tools, dead code elimination, unused dependencies]
+keywords:
+  [
+    knip,
+    tailwindcss,
+    regex,
+    typescript,
+    custom compilers,
+    false positives,
+    css analysis,
+    build tools,
+    dead code elimination,
+    unused dependencies,
+  ]
 ---
 
 ## Table of Contents
@@ -14,14 +26,16 @@ keywords: [knip, tailwindcss, regex, typescript, custom compilers, false positiv
 
 ## What is Knip?
 
-[Knip](https://knip.dev) helps declutter JavaScript and TypeScript projects by detecting dead exports, unused files, and dependencies. It does this intelligently using a plugin system modeled after real-world tooling and frameworks. This fine-grained approach results in an accurate representation of dead code. 
+[Knip](https://knip.dev) helps declutter JavaScript and TypeScript projects by detecting dead exports, unused files, and dependencies. It does this intelligently using a plugin system modeled after real-world tooling and frameworks. This fine-grained approach results in an accurate representation of dead code.
 
 To [get started with Knip](https://knip.dev/overview/getting-started), run:
+
 ```bash
 pnpm create @knip/config
 ```
 
 Add a script to your `package.json`:
+
 ```json title="package.json"
 {
   "scripts": {
@@ -31,6 +45,7 @@ Add a script to your `package.json`:
 ```
 
 Or just run it directly:
+
 ```bash
 pnpx knip
 ```
@@ -50,6 +65,7 @@ Tailwind CSS v4 introduced a new configuration approach that is [CSS-first](http
 
 @plugin "@iconify/tailwind4";
 ```
+
 When you run `knip`, you might see output like this:
 
 ```bash
@@ -64,7 +80,7 @@ error: script "knip" exited with code 1
 One quick fix is to ignore these dependencies in your [Knip configuration file](https://knip.dev/overview/configuration):
 
 ```ts title="knip.config.ts"
-import type { KnipConfig } from "knip";     
+import type { KnipConfig } from "knip";
 
 export default {
   ignoreDependencies: [
@@ -76,7 +92,7 @@ export default {
 } satisfies KnipConfig;
 ```
 
-*We use `satisfies KnipConfig` to ensure our config matches the expected structure — it’s a [TypeScript safety check](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator), not required for runtime.*
+_We use `satisfies KnipConfig` to ensure our config matches the expected structure — it’s a [TypeScript safety check](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator), not required for runtime._
 
 Knip supports a [custom compilers configuration option](https://knip.dev/features/compilers#custom-compilers), and with a bit of regex magic, we can teach it to understand Tailwind’s directives like **@import** and **@plugin**.
 
@@ -113,11 +129,12 @@ This prevents false positives, keeps your reports clean, and avoids accidentally
 
 This configuration defines a custom compiler for CSS files. It looks for **@import** and **@plugin** directives using a regular expression and transforms them into JavaScript-style import statements that Knip can understand and analyze like regular module imports.
 
-*This borrows from [Knip's own css compiler example](https://knip.dev/features/compilers#css).*
+_This borrows from [Knip's own css compiler example](https://knip.dev/features/compilers#css)._
 
-[matchAll](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll) is used to find all matches of a regular expression in a string. 
+[matchAll](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll) is used to find all matches of a regular expression in a string.
 
 The regex pattern `@(?:import|plugin)\s+["']([^"']+)["']` breaks down as:
+
 - `@(?:import|plugin)` - Matches either @import or @plugin
 - `\s+` - Matches one or more whitespace characters
 - `["']([^"']+)["']` - Captures the dependency name inside quotes
@@ -126,16 +143,16 @@ In the earlier example, it would return:
 
 ```ts
 [
-  ['@import "tailwindcss"', 'tailwindcss'],
-  ['@plugin "@tailwindcss/typography"', '@tailwindcss/typography'],
-  ['@plugin "daisyui"', 'daisyui'],
-  ['@plugin "@iconify/tailwind4"', '@iconify/tailwind4']
-]
+  ['@import "tailwindcss"', "tailwindcss"],
+  ['@plugin "@tailwindcss/typography"', "@tailwindcss/typography"],
+  ['@plugin "daisyui"', "daisyui"],
+  ['@plugin "@iconify/tailwind4"', "@iconify/tailwind4"],
+];
 ```
 
-*You can further learn about regex at [regex101](https://regex101.com/r/aoOabK/1).*
+_You can further learn about regex at [regex101](https://regex101.com/r/aoOabK/1)._
 
-Then `map` transforms each match into an import statement using the captured dependency name, and the `join("\n")` combines them into a single string to make it look like valid JavaScript/TypeScript code. 
+Then `map` transforms each match into an import statement using the captured dependency name, and the `join("\n")` combines them into a single string to make it look like valid JavaScript/TypeScript code.
 
 Once that’s in place, running `knip` will no longer flag these dependencies:
 

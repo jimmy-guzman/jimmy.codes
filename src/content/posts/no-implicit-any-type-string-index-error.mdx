@@ -1,0 +1,181 @@
+---
+title: How to Fix “Type ‘string’ Can’t Be Used to Index Type” in TypeScript
+publishDate: 2025-07-22
+description: "An overview of the TypeScript error \"Error ts(7053) ― Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '\u007B name: string; type: string; \u007D'\" and different ways to resolve it."
+keywords: [typescript]
+---
+
+## TL;DR
+
+TypeScript throws an error when you try to access an object with a dynamic key `string` without ensuring it's valid. Use `keyof`, type guards, or runtime checks to fix it safely.
+
+## Table of Contents
+
+- [Problem](#problem)
+- [Solutions](#solutions)
+  - [1. Use a type assertion](#1-use-a-type-assertion)
+  - [2. Restrict the key using `keyof`](#2-restrict-the-key-using-keyof)
+  - [3. Use a runtime check](#3-use-a-runtime-check)
+  - [4. Use a type guard](#4-use-a-type-guard)
+  - [5. Add an index signature](#5-add-an-index-signature)
+- [Conclusion](#conclusion)
+
+## Problem
+
+When working with TypeScript, you might come across the following error:
+
+```
+Error ts(7053) ― Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ name: string; type: string; }'. No index signature with a parameter of type 'string' was found on type '{ name: string; type: string; }'.
+```
+
+This error occurs when `noImplicitAny` is enabled—either directly or via `strict` in your `tsconfig.json`.
+
+Let's say we have an object and we want to access a property dynamically, for example:
+
+```ts twoslash
+// @errors: 7053
+const item = {
+  name: "Apple",
+  type: "fruit",
+};
+
+function logValue(key: string) {
+  console.log(item[key]);
+}
+```
+
+Luckily, there are a few ways to resolve this error.
+
+## Solutions
+
+### 1. Use a type assertion
+
+You can [assert](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions) that the `key` is a valid key of the `item` object. This tells TypeScript to trust you that the key exists:
+
+```ts twoslash
+const item = {
+  name: "Apple",
+  type: "fruit",
+};
+
+function logValue(key: string) {
+  console.log(item[key as keyof typeof item]);
+}
+```
+
+This approach silences the error, but it doesn't validate anything at runtime. If the key doesn't exist in `item`, the result will be `undefined`.
+
+### 2. Restrict the key using `keyof`
+
+You can use the [`keyof` operator](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html) alongside the [`typeof` operator](https://www.typescriptlang.org/docs/handbook/2/typeof-types.html) to ensure that the `key` variable is one of the keys of the `item` object:
+
+```ts twoslash
+const item = {
+  name: "Apple",
+  type: "fruit",
+};
+
+function logValue(key: keyof typeof item) {
+  console.log(item[key]);
+}
+```
+
+This approach provides type safety, ensuring that `key` can only be one of the keys in `item`. If you try to pass a key that doesn't exist, TypeScript will throw an error at compile time.
+
+### 3. Use a runtime check
+
+You can check at runtime if the key exists in the object before accessing it:
+
+```ts twoslash
+const item = {
+  name: "Apple",
+  type: "fruit",
+};
+
+function logValue(key: string) {
+  if (key in item) {
+    console.log(item[key as keyof typeof item]);
+  }
+}
+```
+
+This approach ensures that you only access the property if it exists, preventing runtime errors. However, it requires a type assertion to satisfy TypeScript.
+
+### 4. Use a type guard
+
+You can create a [type guard using a type predicate](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) to check if the key is valid:
+
+```ts twoslash
+const item = {
+  name: "Apple",
+  type: "fruit",
+};
+
+type KeyOfItem = keyof typeof item;
+
+function isKeyOfItem(key: string): key is KeyOfItem {
+  return key in item;
+}
+
+function logValue(key: string) {
+  if (isKeyOfItem(key)) {
+    console.log(item[key]);
+  }
+}
+```
+
+This approach provides type safety and ensures that you only access valid keys. The `isKeyOfItem` function acts as a type guard, narrowing the type of `key` to `KeyOfItem` within the `if` block.
+
+### 5. Add an index signature
+
+```ts twoslash
+const item: { [key: string]: string } = {
+  name: "Apple",
+  type: "fruit",
+};
+
+function logValue(key: string) {
+  const value = item[key]; // string
+
+  console.log(value);
+}
+```
+
+This approach allows you to access any property of `item` using a string key, but it sacrifices type safety. TypeScript will treat all properties as `string`, which may not be what you want.
+
+To get further type safety with this approach, you can use an index signature with [`noUncheckedIndexedAccess`](https://www.typescriptlang.org/tsconfig/#noUncheckedIndexedAccess) enabled in your `tsconfig.json`.
+
+```json title=tsconfig.json
+{
+  "compilerOptions": {
+    "noUncheckedIndexedAccess": true
+  }
+}
+```
+
+This way, TypeScript will require you to check if the key exists before accessing it:
+
+```ts twoslash
+// @noUncheckedIndexedAccess
+const item: { [key: string]: string } = {
+  name: "Apple",
+  type: "fruit",
+};
+
+function logValue(key: string) {
+  const value = item[key]; // string | undefined
+
+  console.log(value);
+}
+```
+
+## Conclusion
+
+TypeScript throws this error to protect you from accidentally accessing undefined properties at runtime. It forces you to be explicit about dynamic keys so your code stays safe and predictable.
+
+- Use `keyof` if your keys are known ahead of time
+- Use type guards or `in` checks when keys are dynamic
+- Avoid using index signatures unless the object is intentionally open-ended
+- Be cautious with type assertions—they bypass safety checks
+
+Choose the right approach based on your use case and data source.
