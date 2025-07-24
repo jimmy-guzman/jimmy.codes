@@ -55,6 +55,9 @@
   },
   "trustedDependencies": [
     "@tailwindcss/oxide",
-    "oxc-resolver"
+    "esbuild",
+    "lefthook",
+    "oxc-resolver",
+    "sharp"
   ]
 }
