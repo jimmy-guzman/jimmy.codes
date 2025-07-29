@@ -36,7 +36,7 @@
     "@types/bun": "1.2.19",
     "astro": "5.12.3",
     "astro-expressive-code": "0.41.3",
-    "daisyui": "5.0.46",
+    "daisyui": "5.0.50",
     "expressive-code-twoslash": "0.5.3",
     "gitzy": "5.9.0",
     "is-ci": "4.1.0",
