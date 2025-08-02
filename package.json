@@ -16,10 +16,10 @@
     "typecheck": "tsc"
   },
   "devDependencies": {
-    "@astrojs/mdx": "4.3.1",
+    "@astrojs/mdx": "4.3.3",
     "@astrojs/rss": "4.0.12",
-    "@astrojs/sitemap": "3.4.1",
-    "@astrojs/vercel": "8.2.3",
+    "@astrojs/sitemap": "3.4.2",
+    "@astrojs/vercel": "8.2.5",
     "@biomejs/biome": "2.1.2",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
@@ -34,7 +34,7 @@
     "@tailwindcss/typography": "0.5.16",
     "@tailwindcss/vite": "4.1.11",
     "@types/bun": "1.2.19",
-    "astro": "5.12.3",
+    "astro": "5.12.8",
     "astro-expressive-code": "0.41.3",
     "daisyui": "5.0.46",
     "expressive-code-twoslash": "0.5.3",
