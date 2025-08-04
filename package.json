@@ -30,7 +30,7 @@
     "@iconify-json/simple-icons": "1.2.44",
     "@iconify/tailwind4": "1.0.6",
     "@playwright/test": "1.54.1",
-    "@shikijs/colorized-brackets": "3.8.1",
+    "@shikijs/colorized-brackets": "3.9.2",
     "@tailwindcss/typography": "0.5.16",
     "@tailwindcss/vite": "4.1.11",
     "@types/bun": "1.2.19",
