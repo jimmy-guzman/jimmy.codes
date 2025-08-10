@@ -7,124 +7,100 @@ keywords: ["sliding window", "algorithm", "two pointers", "coding challenge"]
 
 ## Prompt
 
-> Given a string `s`, find the length of the longest substring without repeating characters.
+Given a string `s`, find the length of the longest substring without repeating characters.
 
-### Tests
+## Key Ideas
+
+- Use two pointers (`left` and `right`) to represent a sliding window.
+- Adjust the window to maintain the “no repeating characters” constraint.
+- **Set** → delete characters from the left until valid.
+- **Map** → jump `left` past the last duplicate’s index.
+
+---
+
+## Tests
 
 {/* cspell:disable */}
 
-```ts
-describe("lengthOfLongestSubstring", () => {
-  it("should return the correct length for a valid input", () => {
-    const result = lengthOfLongestSubstring("abcabcbb");
-    expect(result).toBe(3);
-  });
-
-  it("should handle empty strings", () => {
-    const result = lengthOfLongestSubstring("");
-    expect(result).toBe(0);
-  });
-
-  it("should handle strings with all identical characters", () => {
-    const result = lengthOfLongestSubstring("bbbbb");
-    expect(result).toBe(1);
-  });
-
-  it("should handle strings with no repeating characters", () => {
-    const result = lengthOfLongestSubstring("abcdefg");
-    expect(result).toBe(7);
-  });
-
-  it("should handle non-contiguous repeats", () => {
-    expect(lengthOfLongestSubstring("pwwkew")).toBe(3);
-  });
-
-  it("should handle repeated pairs", () => {
-    expect(lengthOfLongestSubstring("abba")).toBe(2);
-  });
-
-  it("should handle alternating repeats", () => {
-    expect(lengthOfLongestSubstring("dvdf")).toBe(3);
-  });
-});
-```
+- `"abcabcbb"` → `3` (`abc`)
+- `""` → `0`
+- `"bbbbb"` → `1` (`b`)
+- `"abcdefg"` → `7` (all unique)
+- `"pwwkew"` → `3` (`wke`)
+- `"abba"` → `2` (`ab` or `ba`)
+- `"dvdf"` → `3` (`vdf`)
 
 {/* cspell:enable */}
 
-### Solutions
+---
 
-#### Set-based Sliding Window
+## Set-based — O(n) time, O(min(m, n)) space
 
-_This approach has a time complexity of O(n) and a space complexity of O(min(m, n)), where m is the size of the character set and n is the length of the string._
+_Mental model:_ Expand `right` adding characters; shrink from `left` until window has no duplicates.
 
-```ts twoslash
+```ts
 function lengthOfLongestSubstring(s: string) {
-  // We'll use a set to track the characters in the current window
   const window = new Set<string>();
-
   let left = 0;
   let best = 0;
 
-  // Loop through the string with the right pointer
   for (let right = 0; right < s.length; right++) {
     const character = s[right];
 
-    // If the character is already in the window, shrink the window from the left
     while (window.has(character)) {
       window.delete(s[left++]);
     }
 
-    // Add the current character to the window
     window.add(character);
 
-    // Update the best length found by comparing with the current window size
-    if (right - left + 1 > best) {
-      best = right - left + 1;
-    }
+    best = Math.max(best, right - left + 1);
   }
 
   return best;
 }
 ```
 
-#### Map-based Sliding Window
+---
 
-_This approach has a time complexity of O(n) and a space complexity of O(min(m, n)), where m is the size of the character set and n is the length of the string._
+## Map-based — O(n) time, O(min(m, n)) space
+
+_Mental model:_ Track last index of each char; jump `left` past duplicates in one step.
 
 ```ts
 function lengthOfLongestSubstring(s: string) {
-  // We'll use a map to track the last seen index of each character
   const window = new Map<string, number>();
-
   let left = 0;
   let best = 0;
 
   for (let right = 0; right < s.length; right++) {
     const character = s[right];
 
-    // If the character is already in the map, move the left pointer
     if (window.has(character)) {
       left = Math.max(left, window.get(character)! + 1);
     }
 
-    // Update the last seen index of the current character
     window.set(character, right);
 
-    // Update the best length found by comparing with the current window size
-    if (right - left + 1 > best) {
-      best = right - left + 1;
-    }
+    best = Math.max(best, right - left + 1);
   }
 
   return best;
 }
 ```
 
-## Conclusion
+---
 
-The sliding window prompt is meant to test your ability to efficiently find substrings within a string while maintaining certain conditions, such as uniqueness of characters. By exploring different approaches, such as using a set or a map, you can gain a deeper understanding of algorithmic problem-solving and the trade-offs between time and space complexity.
+## Variants
 
-Both approaches run in **O(n)** time and **O(min(m, n))** space, where `m` is the size of the character set and `n` is the length of the string:
+- Longest substring **with at most k distinct characters**.
+- Longest substring **with exactly k distinct characters**.
+- Longest substring matching a pattern (sliding window + frequency map).
+- Longest subarray sum ≤ target (same two-pointer pattern, numeric arrays).
+- Smallest substring containing all chars of another string.
 
-- **Set-based:** simpler to read and implement, good when frequent deletes aren’t costly.
-- **Map-based:** jumps the left pointer forward to skip repeated deletes, often slightly faster for large repeat blocks.
+---
+
+## Takeaways
+
+- **Set** → simpler logic, may delete multiple times for repeats.
+- **Map** → fewer deletions, better for clustered duplicates.
