@@ -27,6 +27,7 @@
         "daisyui": "5.0.50",
         "expressive-code-twoslash": "0.5.3",
         "gitzy": "5.9.0",
+        "hastscript": "9.0.1",
         "is-ci": "4.1.0",
         "knip": "5.62.0",
         "lefthook": "1.12.2",

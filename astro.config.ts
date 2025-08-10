@@ -6,16 +6,25 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField, fontProviders } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import expressiveCodeTwoSlash from "expressive-code-twoslash";
+import { h } from "hastscript";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeSlug from "rehype-slug";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 
 const autoLinkHeadingOpts = {
-  behavior: "prepend",
+  behavior: "wrap",
+  content: [
+    h("span", {
+      "aria-hidden": "true",
+      class:
+        "icon-[lucide--link] absolute left-0 top-1/2 -translate-y-1/2 " +
+        "opacity-0 group-hover:opacity-100 transition-opacity duration-150 " +
+        "text-base-content/50 h-[1em] w-[1em]",
+    }),
+  ],
   properties: {
-    before: "#",
-    className: `relative before:content-[attr(before)] before:absolute before:right-0.5 before:text-gray-600 hover:before:text-accent before:font-light`,
+    className: "group relative block pl-[1.5em] -ml-[1.5em] link-hover",
     tabindex: "-1",
   },
 };
