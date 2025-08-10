@@ -1,20 +1,21 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection, render } from "astro:content";
 
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("posts");
+  const notes = await getCollection("notes");
 
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
+  return notes.map((note) => ({
+    params: { slug: note.slug },
+    props: { note },
   }));
 }
 
-const { post } = Astro.props;
+const { note } = Astro.props;
 
-const { Content } = await render(post);
+const { Content } = await render(note);
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
@@ -22,33 +23,33 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   day: "numeric",
 });
 
-const formattedPublishDate = dateFormatter.format(post.data.publishDate);
+const formattedPublishDate = dateFormatter.format(note.data.publishDate);
 
-const formattedUpdatedDate = post.data.updatedDate
-  ? dateFormatter.format(post.data.updatedDate)
+const formattedUpdatedDate = note.data.updatedDate
+  ? dateFormatter.format(note.data.updatedDate)
   : null;
 ---
 
 <Layout
-  title={`jimmy.codes | ${post.data.title}`}
-  description={post.data.description}
-  keywords={post.data.keywords}
+  title={`jimmy.codes | ${note.data.title}`}
+  description={note.data.description}
+  keywords={note.data.keywords}
 >
   <main class="mx-auto w-full max-w-3xl px-4 py-8 space-y-8">
     <section class="prose xl:prose-lg">
       <header>
-        <h1>{post.data.title}</h1>
-        <p>{post.data.description}</p>
+        <h1>{note.data.title}</h1>
+        <p>{note.data.description}</p>
         <p class="text-sm">
-          <time datetime={post.data.publishDate.toISOString()}
+          <time datetime={note.data.publishDate.toISOString()}
             >{formattedPublishDate}</time
           >
           {
-            post.data.updatedDate && (
+            note.data.updatedDate && (
               <>
                 {" "}
                 •
-                <time datetime={post.data.updatedDate.toISOString()}>
+                <time datetime={note.data.updatedDate.toISOString()}>
                   Updated {formattedUpdatedDate}
                 </time>
               </>
@@ -69,14 +70,14 @@ const formattedUpdatedDate = post.data.updatedDate
 
       <div class="flex flex-wrap gap-2">
         {
-          post.data.keywords.map((keyword) => (
+          note.data.keywords.map((keyword) => (
             <span class="badge">{keyword.trim()}</span>
           ))
         }
       </div>
 
       <p>
-        <a href="/blog">← Back to all posts</a>
+        <a href="/blog">← Back to all notes</a>
       </p>
     </section>
   </main>

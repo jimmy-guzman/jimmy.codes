@@ -9,61 +9,45 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   day: "numeric",
 });
 
-const posts = (await getCollection("posts")).sort(
+const notes = (await getCollection("notes")).sort(
   (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
 );
 
+const title = "jimmy.codes | Notes";
 const description =
-  "Articles on the craft of building software, architecture, system design, code, and developer experience.";
+  "Notes on the craft of building software, architecture, system design, code, and developer experience.";
 ---
 
-<Layout
-  title="jimmy.codes | Blog"
-  description={description}
-  keywords={[
-    "jimmy guzman blog",
-    "technical articles",
-    "scalable systems",
-    "developer experience",
-    "engineering leadership",
-    "typescript",
-    "react",
-    "nextjs",
-    "astro",
-    "web development",
-    "software architecture",
-    "mentorship",
-  ]}
->
+<Layout title={title} description={description} keywords={[]}>
   <main
     class="flex-1 mx-auto w-full max-w-3xl px-4 py-8 space-y-8 flex flex-col items-start"
   >
     <section class="prose xl:prose-lg">
-      <h1>Blog</h1>
+      <h1>Notes</h1>
       <blockquote class="not-italic text-base-content/80">
         {description}
       </blockquote>
       <div class="not-prose">
         <ul class="flex flex-col gap-y-4">
           {
-            posts.map((post) => (
+            notes.map((note) => (
               <li class="space-y-0.5">
                 <a
-                  href={`/blog/${post.slug}`}
+                  href={`/notes/${note.slug}`}
                   class="link link-hover font-medium"
                 >
-                  {post.data.title}
+                  {note.data.title}
                 </a>
                 <span class="block text-sm text-base-content/60">
-                  <time datetime={post.data.publishDate.toISOString()}>
-                    {dateFormatter.format(post.data.publishDate)}
+                  <time datetime={note.data.publishDate.toISOString()}>
+                    {dateFormatter.format(note.data.publishDate)}
                   </time>
-                  {post.data.updatedDate && (
+                  {note.data.updatedDate && (
                     <>
                       {" "}
                       •
-                      <time datetime={post.data.updatedDate.toISOString()}>
-                        Updated {dateFormatter.format(post.data.updatedDate)}
+                      <time datetime={note.data.updatedDate.toISOString()}>
+                        Updated {dateFormatter.format(note.data.updatedDate)}
                       </time>
                     </>
                   )}
