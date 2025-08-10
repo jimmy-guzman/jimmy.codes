@@ -39,7 +39,9 @@ const formattedUpdatedDate = note.data.updatedDate
     <section class="prose xl:prose-lg">
       <header>
         <h1>{note.data.title}</h1>
-        <p>{note.data.description}</p>
+        <blockquote class="not-italic text-base-content/80">
+          {note.data.description}
+        </blockquote>
         <p class="text-sm">
           <time datetime={note.data.publishDate.toISOString()}
             >{formattedPublishDate}</time
