@@ -38,7 +38,9 @@ const formattedUpdatedDate = post.data.updatedDate
     <section class="prose xl:prose-lg">
       <header>
         <h1>{post.data.title}</h1>
-        <p>{post.data.description}</p>
+        <blockquote class="not-italic text-base-content/80">
+          {post.data.description}
+        </blockquote>
         <p class="text-sm">
           <time datetime={post.data.publishDate.toISOString()}
             >{formattedPublishDate}</time
