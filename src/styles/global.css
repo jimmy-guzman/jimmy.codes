@@ -75,3 +75,48 @@
 }
 
 @plugin "@iconify/tailwind4";
+
+@view-transition {
+  navigation: auto;
+}
+
+@theme {
+  --vt: 180ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+::view-transition-group(root),
+::view-transition-group(main),
+::view-transition-group(title) {
+  animation-duration: var(--vt);
+  animation-timing-function: var(--ease);
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(title) {
+  transform: translateY(2px);
+  opacity: 0.98;
+}
+
+::view-transition-new(title) {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+::view-transition-group(nav) {
+  animation: none;
+}
+::view-transition-group(footer) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
