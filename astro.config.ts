@@ -30,6 +30,8 @@ const autoLinkHeadingOpts = {
 };
 
 export default defineConfig({
+  prefetch: true,
+
   site: "https://jimmy.codes",
 
   vite: {
