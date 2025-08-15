@@ -2,12 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 
 import { getCollection } from "astro:content";
-
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-});
+import { formatDate } from "../utils/md";
 
 const notes = (await getCollection("notes")).sort(
   (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
@@ -40,14 +35,14 @@ const description =
                 </a>
                 <span class="block text-sm text-base-content/60">
                   <time datetime={note.data.publishDate.toISOString()}>
-                    {dateFormatter.format(note.data.publishDate)}
+                    {formatDate(note.data.publishDate)}
                   </time>
                   {note.data.updatedDate && (
                     <>
                       {" "}
                       •
                       <time datetime={note.data.updatedDate.toISOString()}>
-                        Updated {dateFormatter.format(note.data.updatedDate)}
+                        Updated {formatDate(note.data.updatedDate)}
                       </time>
                     </>
                   )}
