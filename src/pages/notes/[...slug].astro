@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import { getCollection, render } from "astro:content";
 
 import Layout from "../../layouts/Layout.astro";
+import { formatDate } from "../../utils/md";
 
 export async function getStaticPaths() {
   const notes = await getCollection("notes");
@@ -17,16 +18,10 @@ const { note } = Astro.props;
 
 const { Content } = await render(note);
 
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
-
-const formattedPublishDate = dateFormatter.format(note.data.publishDate);
+const formattedPublishDate = formatDate(note.data.publishDate);
 
 const formattedUpdatedDate = note.data.updatedDate
-  ? dateFormatter.format(note.data.updatedDate)
+  ? formatDate(note.data.updatedDate)
   : null;
 ---
 

@@ -2,30 +2,27 @@
 import { getCollection, render } from "astro:content";
 
 import Layout from "../../layouts/Layout.astro";
+import { formatDate, getReadingTime } from "../../utils/md";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
 
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  return posts.map((post) => {
+    return {
+      params: { slug: post.slug },
+      props: { post, readingTime: getReadingTime(post.body) },
+    };
+  });
 }
 
-const { post } = Astro.props;
+const { post, readingTime } = Astro.props;
 
 const { Content } = await render(post);
 
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
-
-const formattedPublishDate = dateFormatter.format(post.data.publishDate);
+const formattedPublishDate = formatDate(post.data.publishDate);
 
 const formattedUpdatedDate = post.data.updatedDate
-  ? dateFormatter.format(post.data.updatedDate)
+  ? formatDate(post.data.updatedDate)
   : null;
 ---
 
@@ -56,6 +53,7 @@ const formattedUpdatedDate = post.data.updatedDate
               </>
             )
           }
+          • <span>{readingTime} Min Read</span>
         </p>
       </header>
 

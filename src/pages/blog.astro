@@ -1,17 +1,17 @@
 ---
-import Layout from "../layouts/Layout.astro";
-
 import { getCollection } from "astro:content";
 
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-});
+import Layout from "../layouts/Layout.astro";
+import { formatDate, getReadingTime } from "../utils/md";
 
-const posts = (await getCollection("posts")).sort(
-  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
-);
+const posts = (await getCollection("posts"))
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .map((post) => {
+    return {
+      ...post,
+      readingTime: getReadingTime(post.body),
+    };
+  });
 
 const description =
   "Articles on the craft of building software, architecture, system design, code, and developer experience.";
@@ -56,17 +56,18 @@ const description =
                 </a>
                 <span class="block text-sm text-base-content/60">
                   <time datetime={post.data.publishDate.toISOString()}>
-                    {dateFormatter.format(post.data.publishDate)}
+                    {formatDate(post.data.publishDate)}
                   </time>
                   {post.data.updatedDate && (
                     <>
                       {" "}
                       •
                       <time datetime={post.data.updatedDate.toISOString()}>
-                        Updated {dateFormatter.format(post.data.updatedDate)}
+                        Updated {formatDate(post.data.updatedDate)}
                       </time>
                     </>
                   )}
+                  • <span>{post.readingTime} Min Read</span>
                 </span>
               </li>
             ))
