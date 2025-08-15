@@ -31,7 +31,7 @@ import Layout from "../layouts/Layout.astro";
   ]}
 >
   <main
-    class="flex-1 mx-auto w-full max-w-3xl px-4 py-12 space-y-6 prose xl:prose-lg items-start [view-transition-name:main]"
+    class="mx-auto prose w-full max-w-3xl flex-1 items-start space-y-6 px-4 py-12 [view-transition-name:main] xl:prose-lg"
   >
     <section class="space-y-6">
       <h1 class="[view-transition-name:title]">
@@ -57,9 +57,9 @@ import Layout from "../layouts/Layout.astro";
                 href={tech.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-1 link link-hover"
+                class="inline-flex link items-center gap-1 link-hover"
               >
-                <span class:list={[tech.icon, "hidden sm:inline h-4 w-5]"]} />
+                <span class:list={[tech.icon, "w-5] hidden h-4 sm:inline"]} />
                 {tech.title}
               </a>
               {index < techLove.length - 1 && (
@@ -81,7 +81,7 @@ import Layout from "../layouts/Layout.astro";
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-1 link-hover"
               >
-                <span class:list={[tech.icon, "hidden sm:inline h-4 w-5]"]} />
+                <span class:list={[tech.icon, "w-5] hidden h-4 sm:inline"]} />
                 {tech.title}
               </a>
               {index < techDaily.length - 1 && (
@@ -103,7 +103,7 @@ import Layout from "../layouts/Layout.astro";
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-1 link-hover"
               >
-                <span class:list={[tech.icon, "hidden sm:inline h-4 w-5]"]} />
+                <span class:list={[tech.icon, "w-5] hidden h-4 sm:inline"]} />
                 {tech.title}
               </a>
               {index < techLearning.length - 1 && (
