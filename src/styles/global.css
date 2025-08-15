@@ -106,9 +106,6 @@
   opacity: 1;
 }
 
-::view-transition-group(nav) {
-  animation: none;
-}
 ::view-transition-group(footer) {
   animation: none;
 }
