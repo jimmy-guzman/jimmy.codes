@@ -15,11 +15,11 @@ const description =
 
 <Layout title={title} description={description} keywords={[]}>
   <main
-    class="flex-1 mx-auto w-full max-w-3xl px-4 py-12 space-y-8 flex flex-col items-start [view-transition-name:main]"
+    class="mx-auto flex w-full max-w-3xl flex-1 flex-col items-start space-y-8 px-4 py-12 [view-transition-name:main]"
   >
     <section class="prose xl:prose-lg">
       <h1 class="[view-transition-name:title]">Notes</h1>
-      <blockquote class="not-italic text-base-content/80">
+      <blockquote class="text-base-content/80 not-italic">
         {description}
       </blockquote>
       <div class="not-prose">
@@ -29,7 +29,7 @@ const description =
               <li class="space-y-0.5">
                 <a
                   href={`/notes/${note.slug}`}
-                  class="link link-hover font-medium"
+                  class="link font-medium link-hover"
                   data-astro-prefetch
                 >
                   {note.data.title}

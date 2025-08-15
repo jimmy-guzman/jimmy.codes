@@ -5,9 +5,9 @@ import ThemeController from "./ThemeController.astro";
 
 <nav class="navbar [view-transition-name:nav]">
   <div class="navbar-start flex items-center gap-2">
-    <a href="/" class="btn btn-ghost btn-sm xl:btn-md gap-2 p-1 sm:p-2">
+    <a href="/" class="btn gap-2 p-1 btn-ghost btn-sm sm:p-2 xl:btn-md">
       <Logo className="h-6 w-6 sm:h-5 sm:w-5" />
-      <span class="sr-only sm:not-sr-only text-sm xl:text-base"
+      <span class="sr-only text-sm sm:not-sr-only xl:text-base"
         >jimmy.codes</span
       >
     </a>
@@ -16,25 +16,25 @@ import ThemeController from "./ThemeController.astro";
   <div class="navbar-center hidden md:flex">
     <ul class="menu menu-horizontal gap-1">
       <li>
-        <a href="/" class="btn btn-ghost btn-sm xl:btn-md px-2 py-1 gap-1">
+        <a href="/" class="btn gap-1 px-2 py-1 btn-ghost btn-sm xl:btn-md">
           <span class="sr-only md:not-sr-only">Home</span>
           <span class="icon-[lucide--home] h-4 w-4"></span>
         </a>
       </li>
       <li>
-        <a href="/about" class="btn btn-ghost btn-sm xl:btn-md px-2 py-1 gap-1">
+        <a href="/about" class="btn gap-1 px-2 py-1 btn-ghost btn-sm xl:btn-md">
           <span class="sr-only md:not-sr-only">About</span>
           <span class="icon-[lucide--user] h-4 w-4"></span>
         </a>
       </li>
       <li>
-        <a href="/blog" class="btn btn-ghost btn-sm xl:btn-md px-2 py-1 gap-1">
+        <a href="/blog" class="btn gap-1 px-2 py-1 btn-ghost btn-sm xl:btn-md">
           <span class="sr-only md:not-sr-only">Blog</span>
           <span class="icon-[lucide--newspaper] h-4 w-4"></span>
         </a>
       </li>
       <li>
-        <a href="/notes" class="btn btn-ghost btn-sm xl:btn-md px-2 py-1 gap-1">
+        <a href="/notes" class="btn gap-1 px-2 py-1 btn-ghost btn-sm xl:btn-md">
           <span class="sr-only md:not-sr-only">Notes</span>
           <span class="icon-[lucide--sticky-note] h-4 w-4"></span>
         </a>
@@ -49,17 +49,17 @@ import ThemeController from "./ThemeController.astro";
           href="mailto:hi@jimmy.codes"
           target="_blank"
           rel="noopener noreferrer"
-          class="btn btn-sm xl:btn-md btn-ghost btn-circle"
+          class="btn btn-circle btn-ghost btn-sm xl:btn-md"
         >
           <span class="sr-only">Email</span>
           <span class="icon-[lucide--mail] h-5 w-5 sm:h-4 sm:w-4"></span>
         </a>
 
-        <div class="hidden sm:flex items-center gap-2">
+        <div class="hidden items-center gap-2 sm:flex">
           <a
             href="/resume.pdf"
             download
-            class="btn btn-sm xl:btn-md btn-ghost btn-circle"
+            class="btn btn-circle btn-ghost btn-sm xl:btn-md"
           >
             <span class="sr-only">Resume</span>
             <span class="icon-[mdi--resume] h-4 w-4"></span>
@@ -68,7 +68,7 @@ import ThemeController from "./ThemeController.astro";
             href="https://github.com/jimmy-guzman"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn btn-sm xl:btn-md btn-ghost btn-circle"
+            class="btn btn-circle btn-ghost btn-sm xl:btn-md"
           >
             <span class="sr-only">GitHub</span>
             <span class="icon-[simple-icons--github] h-4 w-4"></span>
@@ -77,12 +77,12 @@ import ThemeController from "./ThemeController.astro";
             href="https://www.linkedin.com/in/jimmy-guzman-moreno"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn btn-sm xl:btn-md btn-ghost btn-circle"
+            class="btn btn-circle btn-ghost btn-sm xl:btn-md"
           >
             <span class="sr-only">LinkedIn</span>
             <span class="icon-[simple-icons--linkedin] h-4 w-4"></span>
           </a>
-          <a href="/rss.xml" class="btn btn-sm xl:btn-md btn-ghost btn-circle">
+          <a href="/rss.xml" class="btn btn-circle btn-ghost btn-sm xl:btn-md">
             <span class="sr-only">RSS</span>
             <span class="icon-[lucide--rss] h-4 w-4"></span>
           </a>
@@ -92,13 +92,13 @@ import ThemeController from "./ThemeController.astro";
       <ThemeController />
 
       <div class="dropdown dropdown-end sm:hidden">
-        <div tabindex="0" role="button" class="btn btn-sm btn-ghost btn-circle">
+        <div tabindex="0" role="button" class="btn btn-circle btn-ghost btn-sm">
           <span class="sr-only">Menu</span>
           <span class="icon-[lucide--menu] h-5 w-5"></span>
         </div>
         <ul
           tabindex="0"
-          class="dropdown-content menu bg-base-100 rounded-box z-[1] w-48 shadow text-sm"
+          class="dropdown-content menu z-[1] w-48 rounded-box bg-base-100 text-sm shadow"
         >
           <li>
             <a href="/">
