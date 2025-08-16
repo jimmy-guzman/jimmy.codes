@@ -1,8 +1,9 @@
 ---
 import { getCollection, render } from "astro:content";
 
-import Layout from "../../layouts/Layout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatDate, getReadingTime } from "../../utils/md";
+import PageLayout from "../../layouts/PageLayout.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -26,49 +27,48 @@ const formattedUpdatedDate = post.data.updatedDate
   : null;
 ---
 
-<Layout
+<BaseLayout
   title={`jimmy.codes | ${post.data.title}`}
   description={post.data.description}
   keywords={post.data.keywords}
 >
-  <main
-    class="mx-auto w-full max-w-3xl space-y-8 px-4 py-12 [view-transition-name:main]"
-  >
-    <section class="prose xl:prose-lg">
-      <header>
-        <h1 class="[view-transition-name:title]">{post.data.title}</h1>
-        <blockquote class="text-base-content/80 not-italic">
-          {post.data.description}
-        </blockquote>
-        <p class="text-sm">
-          <time datetime={post.data.publishDate.toISOString()}
-            >{formattedPublishDate}</time
-          >
-          {
-            post.data.updatedDate && (
-              <>
-                {" "}
-                •
-                <time datetime={post.data.updatedDate.toISOString()}>
-                  Updated {formattedUpdatedDate}
-                </time>
-              </>
-            )
-          }
-          • <span>{readingTime} Min Read</span>
-        </p>
-      </header>
+  <PageLayout heading={post.data.title}>
+    <section>
+      <blockquote class="text-base-content/80 not-italic">
+        {post.data.description}
+      </blockquote>
+      <p class="text-sm">
+        <time datetime={post.data.publishDate.toISOString()}
+          >{formattedPublishDate}</time
+        >
+        {
+          post.data.updatedDate && (
+            <>
+              {" "}
+              •
+              <time datetime={post.data.updatedDate.toISOString()}>
+                Updated {formattedUpdatedDate}
+              </time>
+            </>
+          )
+        }
+        • <span>{readingTime} Min Read</span>
+      </p>
+    </section>
 
-      <div class="divider"></div>
+    <div class="divider"></div>
 
+    <section>
       <article>
         <Content />
       </article>
 
       <p>Thank you for reading ❤️</p>
+    </section>
 
-      <div class="divider"></div>
+    <div class="divider"></div>
 
+    <section>
       <div class="flex flex-wrap gap-2">
         {
           post.data.keywords.map((keyword) => (
@@ -81,5 +81,5 @@ const formattedUpdatedDate = post.data.updatedDate
         <a href="/blog" class="link-hover">← Back to all posts</a>
       </p>
     </section>
-  </main>
-</Layout>
+  </PageLayout>
+</BaseLayout>

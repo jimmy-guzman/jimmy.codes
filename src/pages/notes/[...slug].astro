@@ -1,9 +1,9 @@
 ---
-import { Image } from "astro:assets";
 import { getCollection, render } from "astro:content";
 
-import Layout from "../../layouts/Layout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatDate } from "../../utils/md";
+import PageLayout from "../../layouts/PageLayout.astro";
 
 export async function getStaticPaths() {
   const notes = await getCollection("notes");
@@ -25,48 +25,47 @@ const formattedUpdatedDate = note.data.updatedDate
   : null;
 ---
 
-<Layout
+<BaseLayout
   title={`jimmy.codes | ${note.data.title}`}
   description={note.data.description}
   keywords={note.data.keywords}
 >
-  <main
-    class="mx-auto w-full max-w-3xl space-y-8 px-4 py-12 [view-transition-name:main]"
-  >
-    <section class="prose xl:prose-lg">
-      <header>
-        <h1 class="[view-transition-name:title]">{note.data.title}</h1>
-        <blockquote class="text-base-content/80 not-italic">
-          {note.data.description}
-        </blockquote>
-        <p class="text-sm">
-          <time datetime={note.data.publishDate.toISOString()}
-            >{formattedPublishDate}</time
-          >
-          {
-            note.data.updatedDate && (
-              <>
-                {" "}
-                •
-                <time datetime={note.data.updatedDate.toISOString()}>
-                  Updated {formattedUpdatedDate}
-                </time>
-              </>
-            )
-          }
-        </p>
-      </header>
+  <PageLayout heading={note.data.title}>
+    <section>
+      <blockquote class="text-base-content/80 not-italic">
+        {note.data.description}
+      </blockquote>
+      <p class="text-sm">
+        <time datetime={note.data.publishDate.toISOString()}
+          >{formattedPublishDate}</time
+        >
+        {
+          note.data.updatedDate && (
+            <>
+              {" "}
+              •
+              <time datetime={note.data.updatedDate.toISOString()}>
+                Updated {formattedUpdatedDate}
+              </time>
+            </>
+          )
+        }
+      </p>
+    </section>
 
-      <div class="divider"></div>
+    <div class="divider"></div>
 
+    <section>
       <article>
         <Content />
       </article>
 
       <p>Thank you for reading ❤️</p>
+    </section>
 
-      <div class="divider"></div>
+    <div class="divider"></div>
 
+    <section>
       <div class="flex flex-wrap gap-2">
         {
           note.data.keywords.map((keyword) => (
@@ -79,5 +78,5 @@ const formattedUpdatedDate = note.data.updatedDate
         <a href="/notes" class="link-hover">← Back to all notes</a>
       </p>
     </section>
-  </main>
-</Layout>
+  </PageLayout>
+</BaseLayout>

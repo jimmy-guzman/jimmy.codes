@@ -1,8 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 
-import Layout from "../layouts/Layout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { formatDate, getReadingTime } from "../utils/md";
+import PageLayout from "../layouts/PageLayout.astro";
 
 const posts = (await getCollection("posts"))
   .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
@@ -17,7 +18,7 @@ const description =
   "Articles on the craft of building software, architecture, system design, code, and developer experience.";
 ---
 
-<Layout
+<BaseLayout
   title="jimmy.codes | Blog"
   description={description}
   keywords={[
@@ -35,46 +36,38 @@ const description =
     "mentorship",
   ]}
 >
-  <main
-    class="mx-auto flex w-full max-w-3xl flex-1 flex-col items-start space-y-8 px-4 py-12 [view-transition-name:main]"
-  >
-    <section class="prose xl:prose-lg">
-      <h1 class="[view-transition-name:title]">Blog</h1>
-      <blockquote class="text-base-content/80 not-italic">
-        {description}
-      </blockquote>
-      <div class="not-prose">
-        <ul class="flex flex-col gap-y-4">
-          {
-            posts.map((post) => (
-              <li class="space-y-0.5">
-                <a
-                  href={`/blog/${post.slug}`}
-                  class="link font-medium link-hover"
-                  data-astro-prefetch
-                >
-                  {post.data.title}
-                </a>
-                <span class="block text-sm text-base-content/60">
-                  <time datetime={post.data.publishDate.toISOString()}>
-                    {formatDate(post.data.publishDate)}
-                  </time>
-                  {post.data.updatedDate && (
-                    <>
-                      {" "}
-                      •
-                      <time datetime={post.data.updatedDate.toISOString()}>
-                        Updated {formatDate(post.data.updatedDate)}
-                      </time>
-                    </>
-                  )}
-                  • <span>{post.readingTime} Min Read</span>
-                </span>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+  <PageLayout heading="Blog">
+    <section class="not-prose">
+      <ul class="flex flex-col gap-y-4">
+        {
+          posts.map((post) => (
+            <li class="space-y-0.5">
+              <a
+                href={`/blog/${post.slug}`}
+                class="link font-medium link-hover"
+                data-astro-prefetch
+              >
+                {post.data.title}
+              </a>
+              <span class="block text-sm text-base-content/60">
+                <time datetime={post.data.publishDate.toISOString()}>
+                  {formatDate(post.data.publishDate)}
+                </time>
+                {post.data.updatedDate && (
+                  <>
+                    {" "}
+                    •
+                    <time datetime={post.data.updatedDate.toISOString()}>
+                      Updated {formatDate(post.data.updatedDate)}
+                    </time>
+                  </>
+                )}
+                • <span>{post.readingTime} Min Read</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
     </section>
-  </main>
-</Layout>
+  </PageLayout>
+</BaseLayout>

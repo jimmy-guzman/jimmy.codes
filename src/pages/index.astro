@@ -1,10 +1,11 @@
 ---
 import { pages } from "../configs/pages";
 import { techDaily, techLearning, techLove, titles } from "../configs/tech";
-import Layout from "../layouts/Layout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageLayout from "../layouts/PageLayout.astro";
 ---
 
-<Layout
+<BaseLayout
   title="jimmy.codes"
   description="Lead Engineer specializing in high-performance, scalable systems and developer experience. Passionate about mentorship, technical strategy, and modern software architecture."
   keywords={[
@@ -30,13 +31,8 @@ import Layout from "../layouts/Layout.astro";
     "ameriprise",
   ]}
 >
-  <main
-    class="mx-auto prose w-full max-w-3xl flex-1 items-start space-y-6 px-4 py-12 [view-transition-name:main] xl:prose-lg"
-  >
+  <PageLayout heading={pages.home.title}>
     <section class="space-y-6">
-      <h1 class="[view-transition-name:title]">
-        {pages.home.title}
-      </h1>
       <p>
         I build high-performance, scalable systems that are a joy for engineers
         to work with. I have a passion for the craft of creating software,
@@ -137,13 +133,13 @@ import Layout from "../layouts/Layout.astro";
       <p>
         Read my <a href="/blog" class="link-hover">blog</a>, learn more <a
           href="/about"
-          class="link-hover">about</a
-        > me, or take a look at my <a
+          class="link-hover">about me</a
+        >, or take a look at my <a
           href="/resume.pdf"
           download
           class="link-hover">resume</a
         >.
       </p>
     </section>
-  </main>
-</Layout>
+  </PageLayout>
+</BaseLayout>
