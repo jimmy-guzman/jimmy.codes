@@ -89,7 +89,12 @@ import PageLayout from "../layouts/PageLayout.astro";
         > or read my <a href="/blog" class="link-hover">blog</a>.
       </p>
 
-      <p><a href="/" class="link-hover">← Back to Home</a></p>
+      <p>
+        <a href="/" class="inline-flex items-center gap-1 link-hover" rel="up"
+          ><span class="icon-[lucide--arrow-left]" aria-hidden="true"></span> Back
+          to home</a
+        >
+      </p>
     </section>
   </PageLayout>
 </BaseLayout>
