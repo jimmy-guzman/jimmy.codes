@@ -27,7 +27,7 @@ const posts = (await getCollection("posts")).sort(sortByPublishDate);
                 rel="bookmark"
                 data-astro-prefetch
               >
-                {post.data.title}
+                {post.data.heading ?? post.data.title}
               </a>
               <MetaLine
                 class="block text-sm text-base-content/60"

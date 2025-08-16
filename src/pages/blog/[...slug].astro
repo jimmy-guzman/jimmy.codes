@@ -25,7 +25,7 @@ const { Content } = await render(post);
   description={post.data.description}
   keywords={post.data.keywords}
 >
-  <PageLayout heading={post.data.title}>
+  <PageLayout heading={post.data.heading ?? post.data.title}>
     <ContentLayout
       description={post.data.description}
       keywords={post.data.keywords}

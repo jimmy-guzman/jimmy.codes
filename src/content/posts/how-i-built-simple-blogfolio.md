@@ -94,7 +94,7 @@ const renderers = {
     image: DetailedHTMLProps<
       ImgHTMLAttributes<HTMLImageElement>,
       HTMLImageElement
-    >
+    >,
   ) => {
     if (!image.src) return null;
 

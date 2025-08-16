@@ -10,6 +10,7 @@
     "check:fix": "biome check --fix",
     "dev": "bunx --bun astro dev",
     "e2e": "playwright test",
+    "format:[astro,md]": "prettier --write \"src/**/*.{astro,md}\"",
     "knip": "knip",
     "prepare": "is-ci || lefthook install",
     "preview": "astro preview",
