@@ -3,88 +3,87 @@ export const pages = {
     title: "jimmy.codes",
     heading: "Hi, I'm Jimmy",
     description:
-      "Lead Engineer specializing in high-performance, scalable systems and developer experience. Passionate about mentorship, technical strategy, and modern software architecture.",
+      "Lead Engineer focused on high-performance systems, scalable architecture, and great developer experience. I enjoy mentoring, technical strategy, and building modern software.",
     keywords: [
       "jimmy guzman",
       "lead engineer",
       "software engineer",
+      "software architecture",
+      "developer experience",
       "typescript",
       "react",
       "nextjs",
       "astro",
-      "scalable systems",
-      "developer experience",
-      "engineering leadership",
-      "mentorship",
-      "technical strategy",
       "frontend",
       "backend",
-      "distributed systems",
-      "platform engineering",
-      "nx monorepo",
-      "turborepo",
-      "target",
-      "ameriprise",
     ],
   },
+
   about: {
-    title: "jimmy.codes | About Me",
+    title: "About Me | jimmy.codes",
     heading: "About Me",
     description:
-      "Lead Engineer with 9+ years experience in high-performance systems, scalable architecture, and developer experience. Engineering leader passionate about mentorship and technical strategy.",
+      "Lead Engineer with 9+ years of experience delivering high-performance systems and scalable platforms. Engineering leader focused on mentorship, technical strategy, and improving developer experience.",
     keywords: [
       "jimmy guzman",
       "lead engineer",
-      "target",
-      "ameriprise",
-      "engineering leadership",
+      "software engineering leadership",
       "scalable systems",
       "developer experience",
       "mentorship",
       "technical strategy",
+      "target",
+      "ameriprise",
     ],
   },
+
   blog: {
-    title: "jimmy.codes | Blog",
+    title: "Blog | jimmy.codes",
     heading: "Blog",
     description:
-      "Articles on the craft of building software, architecture, system design, code, and developer experience.",
+      "Articles on building software, system design, architecture, and developer experience.",
     keywords: [
       "jimmy guzman blog",
-      "technical articles",
-      "scalable systems",
+      "software engineering articles",
+      "system design",
+      "software architecture",
       "developer experience",
-      "engineering leadership",
       "typescript",
       "react",
-      "nextjs",
       "astro",
       "web development",
-      "software architecture",
-      "mentorship",
     ],
   },
+
   notes: {
-    title: "jimmy.codes | Notes",
+    title: "Notes | jimmy.codes",
     heading: "Notes",
     description:
-      "Notes on the craft of building software, architecture, system design, code, and developer experience.",
+      "Quick notes and references on software, architecture, code, and developer experience.",
     keywords: [
       "jimmy guzman notes",
       "technical notes",
-      "software architecture",
+      "software engineering",
       "developer experience",
       "web development",
-      "mentorship",
     ],
   },
-  rss: {
-    title: "jimmy.codes | RSS",
-    description:
-      "Articles and notes on the craft of building software, architecture, system design, code, and developer experience.",
+
+  bookmarks: {
+    title: "Bookmarks | jimmy.codes",
+    heading: "Bookmarks",
+    description: "A personal running list of saved links and references.",
+    keywords: ["bookmarks", "saved links", "references"],
   },
+
+  rss: {
+    title: "RSS | jimmy.codes",
+    description:
+      "Articles and notes on building software, system design, architecture, and developer experience.",
+  },
+
   notFound: {
-    title: "jimmy.codes | 404",
+    title: "404 | jimmy.codes",
     heading: "404",
   },
-};
+} as const;
