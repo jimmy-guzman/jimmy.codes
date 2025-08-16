@@ -9,12 +9,14 @@ keywords: ["sliding window", "algorithm", "two pointers", "coding challenge"]
 
 Given a string `s`, find the length of the longest substring without repeating characters.
 
+---
+
 ## Key Ideas
 
-- Use two pointers (`left` and `right`) to represent a sliding window.
-- Adjust the window to maintain the “no repeating characters” constraint.
-- **Set** → delete characters from the left until valid.
-- **Map** → jump `left` past the last duplicate’s index.
+- Two pointers (`left`, `right`) define a window.
+- Adjust window to keep all chars unique.
+- `Set` -> shrink one-by-one from `left`.
+- `Map` -> jump `left` past last duplicate.
 
 ---
 
@@ -22,21 +24,21 @@ Given a string `s`, find the length of the longest substring without repeating c
 
 {/* cspell:disable */}
 
-- `"abcabcbb"` → `3` (`abc`)
-- `""` → `0`
-- `"bbbbb"` → `1` (`b`)
-- `"abcdefg"` → `7` (all unique)
-- `"pwwkew"` → `3` (`wke`)
-- `"abba"` → `2` (`ab` or `ba`)
-- `"dvdf"` → `3` (`vdf`)
+- `"abcabcbb"` -> `3` (`abc`)
+- `""` -> `0`
+- `"bbbbb"` -> `1` (`b`)
+- `"abcdefg"` -> `7` (all unique)
+- `"pwwkew"` -> `3` (`wke`)
+- `"abba"` -> `2` (`ab` / `ba`)
+- `"dvdf"` -> `3` (`vdf`)
 
 {/* cspell:enable */}
 
 ---
 
-## Set-based — O(n) time, O(min(m, n)) space
+## Set-based — O(n) time / O(min(m, n)) space
 
-_Mental model:_ Expand `right` adding characters; shrink from `left` until window has no duplicates.
+_Expand `right`, shrink `left` until valid._
 
 ```ts
 function lengthOfLongestSubstring(s: string) {
@@ -62,9 +64,9 @@ function lengthOfLongestSubstring(s: string) {
 
 ---
 
-## Map-based — O(n) time, O(min(m, n)) space
+## Map-based — O(n) time / O(min(m, n)) space
 
-_Mental model:_ Track last index of each char; jump `left` past duplicates in one step.
+_Track last seen index -> skip left forward in one move._
 
 ```ts
 function lengthOfLongestSubstring(s: string) {
@@ -92,15 +94,15 @@ function lengthOfLongestSubstring(s: string) {
 
 ## Variants
 
-- Longest substring **with at most k distinct characters**.
-- Longest substring **with exactly k distinct characters**.
-- Longest substring matching a pattern (sliding window + frequency map).
-- Longest subarray sum ≤ target (same two-pointer pattern, numeric arrays).
+- Longest substring **with at most k distinct chars**.
+- Longest substring **with exactly k distinct chars**.
+- Pattern matching substring (freq map).
+- Longest subarray sum ≤ target (numeric arrays).
 - Smallest substring containing all chars of another string.
 
 ---
 
 ## Takeaways
 
-- **Set** → simpler logic, may delete multiple times for repeats.
-- **Map** → fewer deletions, better for clustered duplicates.
+- `Set` -> simpler, but may delete a lot.
+- `Map` -> cleaner jumps, better with clustered duplicates.

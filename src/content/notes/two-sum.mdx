@@ -7,28 +7,31 @@ keywords: ["two sum", "algorithm", "hash map", "for of", "coding challenge"]
 
 ## Prompt
 
-Given an array of integers and an integer target, return the indices of the two numbers such that they add up to target. You may assume exactly one solution exists.
+Array of integers + a target -> return indices of two numbers that add to target.
+(Assuming exactly one solution.)
+
+---
 
 ## Key Ideas
 
-- Use a hash map for **O(1)** complement lookups.
-- Establish complement as number needed to reach target.
-- Alternative: brute-force search with nested loops.
+- Hash map -> O(1) complement lookups.
+- Complement = `target - current`.
+- Brute force -> check all pairs.
 
 ---
 
 ## Tests
 
-- `[2, 7, 11, 15], 9` → `[0, 1]`
-- `[-3, 4, 3, 90], 0` → `[0, 2]`
-- `[3, 2, 4], 6` → `[1, 2]`
-- `[1, 2, 3], 7` → `[-1, -1]` (no match)
+- `[2, 7, 11, 15], 9` -> `[0, 1]`
+- `[-3, 4, 3, 90], 0` -> `[0, 2]`
+- `[3, 2, 4], 6` -> `[1, 2]`
+- `[1, 2, 3], 7` -> `[-1, -1]` (no match)
 
 ---
 
-## Hash Map — O(n) time, O(n) space
+## Hash Map — O(n) time / O(n) space
 
-_Mental model:_ Keep a running map of numbers we’ve seen; check if the needed complement is already in it.
+_Keep seen integers in a map. For each new one, check if its complement is already there._
 
 ```ts
 function twoSum(integers: number[], target: number) {
@@ -51,9 +54,9 @@ function twoSum(integers: number[], target: number) {
 
 ---
 
-## For-of Loop — O(n²) time, O(1) space
+## For-of Loop — O(n²) time / O(1) space
 
-_Mental model:_ For each element, search the remainder of the array for its complement.
+_Baseline brute force. For each element, check the rest._
 
 ```ts
 function twoSum(integers: number[], target: number) {
@@ -73,16 +76,16 @@ function twoSum(integers: number[], target: number) {
 
 ## Variants
 
-- **Return values instead of indices**: e.g., `[2, 7]` instead of `[0, 1]`.
-- **Return all pairs**: find every unique pair that sums to target (store in a set to avoid duplicates).
-- **Two Sum II (sorted input)**: use two-pointer technique for O(n) time and O(1) space.
-- **3-Sum / k-Sum**: generalization; usually sort + two-pointers or recursion.
-- **Two Sum with streaming data**: handle numbers as they arrive, keep a hash set of complements.
-- **Two Sum closest to target**: variation where you find the pair with the smallest difference from the target.
+- Return values instead of indices.
+- Return all pairs (store in a set).
+- Two Sum II (sorted) -> two pointers.
+- 3-Sum / k-Sum (sort + two pointers / recursion).
+- Streaming data (hash set of complements).
+- Closest-to-target variation.
 
 ---
 
 ## Takeaways
 
-- **Map** → best for speed and scale.
-- **Brute force** → acceptable for tiny inputs.
+- `Map` -> fastest, scales well.
+- Brute force -> okay for small arrays.
