@@ -1,0 +1,96 @@
+---
+title: Sort Matrix Diagonally
+publishDate: 2025-08-06
+description: "Solutions for sorting each diagonal of a matrix."
+keywords: ["sort", "matrix", "diagonal", "algorithm", "coding challenge"]
+---
+
+## Prompt
+
+Given an `m x n` matrix, sort each diagonal in ascending order and return the resulting matrix.
+
+---
+
+## Key Ideas
+
+- Each diagonal is identified by `(row - col)`.
+- Collect numbers per diagonal, sort once, then rebuild.
+
+---
+
+## Tests
+
+Input:
+
+```
+3 3 1
+2 2 1
+1 1 1
+```
+
+Output:
+
+```
+1 1 1
+1 2 3
+1 2 3
+```
+
+---
+
+## Map-based — O(mn log k)
+
+_Collect -> sort -> put back._
+
+```ts
+function diagonalSort(matrix: number[][]): number[][] {
+  const map = new Map<number, number[]>();
+  const m = matrix.length;
+  const n = matrix[0].length;
+
+  // collect diagonals
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      const key = i - j;
+
+      if (!map.has(key)) {
+        map.set(key, []);
+      }
+
+      map.get(key)?.push(matrix[i][j]);
+    }
+  }
+
+  // sort descending for easy pop()
+  for (const arr of map.values()) {
+    arr.sort((a, b) => b - a);
+  }
+
+  // rebuild
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      const key = i - j;
+
+      matrix[i][j] = map.get(key)?.pop();
+    }
+  }
+
+  return matrix;
+}
+```
+
+---
+
+## Variants
+
+- Sort diagonals descending instead of ascending.
+- Only sort upper/lower triangular diagonals.
+- Handle streaming updates (insert new rows dynamically).
+
+---
+
+## Takeaways
+
+- Diagonal ID = `row - col`.
+- Collect -> sort -> rebuild.
+- Efficient since each diagonal is sorted once.
