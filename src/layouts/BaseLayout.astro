@@ -9,32 +9,38 @@ import { Font } from "astro:assets";
 
 interface Props {
   title: string;
-  description: string;
-  keywords: string[];
+  description?: string;
+  keywords?: string[];
+  noIndex?: boolean;
 }
 
-const { title, description, keywords } = Astro.props;
+const { title, description, keywords, noIndex } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    {noIndex && <meta name="robots" content="noindex, follow" />}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
-    <meta name="keywords" content={keywords.join(", ")} />
+    {description && <meta name="description" content={description} />}
+    {keywords && <meta name="keywords" content={keywords.join(", ")} />}
     <meta name="author" content="Jimmy Guzman Moreno" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    {description && <meta property="og:description" content={description} />}
     <meta property="og:site_name" content="jimmy.codes" />
 
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
+    {
+      description && (
+        <meta property="twitter:description" content={description} />
+      )
+    }
 
     <link rel="canonical" href={Astro.url} />
 
