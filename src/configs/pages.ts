@@ -78,4 +78,9 @@ export const pages = {
       "mentorship",
     ],
   },
+  rss: {
+    title: "jimmy.codes | RSS",
+    description:
+      "Articles and notes on the craft of building software, architecture, system design, code, and developer experience.",
+  },
 };

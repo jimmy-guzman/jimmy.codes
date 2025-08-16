@@ -10,17 +10,6 @@ keywords: [typescript]
 
 TypeScript throws an error when you try to access an object with a dynamic key `string` without ensuring it's valid. Use `keyof`, type guards, or runtime checks to fix it safely.
 
-## Table of Contents
-
-- [Problem](#problem)
-- [Solutions](#solutions)
-  - [1. Use a type assertion](#1-use-a-type-assertion)
-  - [2. Restrict the key using `keyof`](#2-restrict-the-key-using-keyof)
-  - [3. Use a runtime check](#3-use-a-runtime-check)
-  - [4. Use a type guard](#4-use-a-type-guard)
-  - [5. Add an index signature](#5-add-an-index-signature)
-- [Conclusion](#conclusion)
-
 ## Problem
 
 When working with TypeScript, you might come across the following error:

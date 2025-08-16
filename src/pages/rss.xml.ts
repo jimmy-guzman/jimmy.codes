@@ -1,6 +1,8 @@
 import { getCollection } from "astro:content";
 import rss from "@astrojs/rss";
 
+import { pages } from "../configs/pages";
+
 export async function GET(context: { site: string }) {
   const blog = await getCollection("posts");
   const notes = await getCollection("notes");
@@ -21,9 +23,8 @@ export async function GET(context: { site: string }) {
   ];
 
   return rss({
-    title: "jimmy.codes | RSS Feed",
-    description:
-      "Articles and notes on the craft of building software, architecture, system design, code, and developer experience.",
+    title: pages.rss.title,
+    description: pages.rss.description,
     site: context.site,
     items: items.sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime()),
   });
