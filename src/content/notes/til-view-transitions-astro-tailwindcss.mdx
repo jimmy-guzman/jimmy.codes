@@ -1,0 +1,118 @@
+---
+title: TIL - View Transitions (Astro + Tailwind v4)
+publishDate: 2025-08-16
+description: Today I learned about page to page transitions with Astro and Tailwind v4. No router, no JS.
+keywords:
+  [
+    "view transitions",
+    "cross document view transitions",
+    "view transitions api",
+    "astro",
+    "tailwind v4",
+    "page transitions css",
+    "astro view transitions",
+  ]
+---
+
+## Setup
+
+### CSS
+
+```css
+@view-transition {
+  navigation: auto;
+} /* enable page to page transitions */
+
+@theme {
+  --vt: 180ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* page fade and named parts */
+::view-transition-group(root),
+::view-transition-group(main),
+::view-transition-group(title) {
+  animation-duration: var(--vt);
+  animation-timing-function: var(--ease);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal; /* keep text crisp */
+}
+
+::view-transition-old(title) {
+  transform: translateY(2px);
+  opacity: 0.98;
+}
+::view-transition-new(title) {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+```
+
+### Layout
+
+```html
+<!-- layout snippet -->
+<body>
+  <!-- do not name the body -->
+  <main class="[view-transition-name:main]">
+    <h1 class="[view-transition-name:title]">Page Title</h1>
+    <slot />
+  </main>
+</body>
+```
+
+## Things I learned
+
+- Do not name the `body`. The reserved name `root` handles the full page cross fade.
+- Put the `@view-transition` at-rule in global CSS that loads on every page.
+- Only same-origin, user-initiated navigation will animate. New tabs, downloads, hard reloads, or cross-origin jumps will not.
+- Names must match across pages, and there should be exactly one element per name.
+- Named elements act like capture boxes, so overflowing children can be clipped. Do not name containers that host dropdowns, popovers, or tooltips.
+- Keep text sharp. Avoid blur or scale. A short fade around 180ms with a small title nudge works well.
+- Opt out per element with `class="[view-transition-name:none]"`. `none` is a keyword, not a custom name.
+- For nav, the simplest approach is to leave the whole nav unnamed. If you need it pinned, name only non-overflow parts and set `animation: none;`.
+
+## Quick debug checklist
+
+- Temporarily set `::view-transition-group(root) { animation-duration: 600ms; }` to confirm it fires.
+- In DevTools, open [the Animations panel](https://developer.chrome.com/docs/devtools/css/animations) and click a link. You should see a View Transition group.
+  - `Command+Shift+P` then `Show Animations` to open it if not visible.
+- Verify the global CSS is included and pages share the same origin.
+
+## Extras
+
+```css
+/* Pin header or footer during fades if needed */
+::view-transition-group(nav),
+::view-transition-group(footer) {
+  animation: none;
+}
+
+/* Slightly faster title than body */
+::view-transition-group(title) {
+  animation-duration: 150ms;
+}
+::view-transition-group(main) {
+  animation-duration: 180ms;
+}
+```
+
+## Summary
+
+All of this uses the [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API). For this site I am using the multi-page (cross-document) version described in MDN’s [basic MPA example](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using#basic_mpa_view_transition). The Chrome docs have a good [overview](https://developer.chrome.com/docs/web-platform/view-transitions), and the Astro docs cover their [view transitions guide](https://docs.astro.build/en/guides/view-transitions).
+
+- Global `@view-transition { navigation: auto; }`.
+- Do not name `body`. Use `main` and `title`, one each.
+- Do not name overflow containers.
+- Short duration, gentle easing, no blur or scale.
