@@ -4,6 +4,7 @@ import { prettyDate } from "../utils/md";
 interface Props {
   publishDate: Date;
   updatedDate?: Date;
+  filePath?: string;
   minutes?: number;
   class?: string;
 }
@@ -12,26 +13,40 @@ const {
   publishDate,
   updatedDate,
   minutes,
+  filePath,
   class: className = "",
 } = Astro.props;
+
+const REPO = "jimmy-guzman/jimmy.codes";
+const BRANCH = "main";
 ---
 
-<span class={className}>
-  <time datetime={publishDate.toISOString()}>{prettyDate(publishDate)}</time>
+<span class:list={[className, "flex items-center justify-between"]}>
+  <span>
+    <time datetime={publishDate.toISOString()}>{prettyDate(publishDate)}</time>
+    {updatedDate && <> • Updated {prettyDate(updatedDate)}</>}
+    {
+      typeof minutes === "number" && (
+        <> • {minutes === 1 ? "1 min read" : `${minutes} min read`}</>
+      )
+    }
+  </span>
   {
-    updatedDate && (
-      <>
-        {" "}
-        •{" "}
-        <time datetime={updatedDate.toISOString()}>
-          Updated {prettyDate(updatedDate)}
-        </time>
-      </>
-    )
-  }
-  {
-    typeof minutes === "number" && (
-      <> • {minutes === 1 ? "1 min read" : `${minutes} min read`}</>
+    filePath && (
+      <span class="tooltip" data-tip="View on GitHub">
+        <a
+          href={`https://github.com/${REPO}/blob/${BRANCH}/${filePath}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-circle btn-ghost"
+        >
+          <span class="sr-only">View on GitHub</span>
+          <span
+            class="icon-[simple-icons--github] h-4 w-4"
+            aria-hidden="true"
+          />
+        </a>
+      </span>
     )
   }
 </span>

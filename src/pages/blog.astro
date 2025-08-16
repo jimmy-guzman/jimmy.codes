@@ -34,6 +34,7 @@ const posts = (await getCollection("posts")).sort(sortByPublishDate);
                 publishDate={post.data.publishDate}
                 updatedDate={post.data.updatedDate}
                 minutes={readingTime(post.body)}
+                filePath={post.filePath}
               />
             </li>
           ))

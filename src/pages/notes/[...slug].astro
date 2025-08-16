@@ -29,6 +29,7 @@ const { Content } = await render(note);
       keywords={note.data.keywords}
       publishDate={note.data.publishDate}
       updatedDate={note.data.updatedDate}
+      filePath={note.filePath}
       back={{
         href: "/notes",
         label: "Back to all notes",

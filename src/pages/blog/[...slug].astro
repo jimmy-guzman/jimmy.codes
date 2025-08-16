@@ -36,6 +36,7 @@ const { Content } = await render(post);
         label: "Back to all posts",
       }}
       minutes={readingTime(post.body)}
+      filePath={post.filePath}
     >
       <Content />
     </ContentLayout>

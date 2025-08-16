@@ -33,6 +33,7 @@ const notes = (await getCollection("notes")).sort(sortByPublishDate);
                 class="block text-sm text-base-content/60"
                 publishDate={note.data.publishDate}
                 updatedDate={note.data.updatedDate}
+                filePath={note.filePath}
               />
             </li>
           ))

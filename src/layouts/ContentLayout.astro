@@ -8,10 +8,18 @@ interface Props {
   updatedDate?: Date;
   back: { href: `/${string}`; label: string };
   minutes?: number;
+  filePath?: string;
 }
 
-const { description, keywords, publishDate, updatedDate, back, minutes } =
-  Astro.props;
+const {
+  description,
+  keywords,
+  publishDate,
+  updatedDate,
+  back,
+  minutes,
+  filePath,
+} = Astro.props;
 ---
 
 <section>
@@ -21,6 +29,7 @@ const { description, keywords, publishDate, updatedDate, back, minutes } =
       publishDate={publishDate}
       updatedDate={updatedDate}
       minutes={minutes}
+      filePath={filePath}
     />
   </p>
 </section>
