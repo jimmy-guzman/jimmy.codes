@@ -2,7 +2,7 @@ import getReadingTime from "reading-time";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
-  month: "long",
+  month: "short",
   day: "numeric",
 });
 
