@@ -5,7 +5,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageLayout from "../../layouts/PageLayout.astro";
 import ContentLayout from "../../layouts/ContentLayout.astro";
 
-import { readingTime } from "../../utils/md";
+import { readingTime } from "../../utils/content";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
