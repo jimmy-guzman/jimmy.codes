@@ -87,6 +87,7 @@ keywords:
 
 - Temporarily set `::view-transition-group(root) { animation-duration: 600ms; }` to confirm it fires.
 - In DevTools, open [the Animations panel](https://developer.chrome.com/docs/devtools/css/animations) and click a link. You should see a View Transition group.
+  - `Command+Shift+P` then `Show Animations` to open it if not visible.
 - Verify the global CSS is included and pages share the same origin.
 
 ## Extras
@@ -109,7 +110,7 @@ keywords:
 
 ## Summary
 
-All of this uses the [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API). For this site I am using the multi-page (cross-document) version described in MDN’s [basic MPA example](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using#basic_mpa_view_transition). The Chrome docs have a good [overview](https://developer.chrome.com/docs/web-platform/view-transitions/), and the Astro docs cover their [view transitions guide](https://docs.astro.build/en/guides/view-transitions/).
+All of this uses the [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API). For this site I am using the multi-page (cross-document) version described in MDN’s [basic MPA example](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using#basic_mpa_view_transition). The Chrome docs have a good [overview](https://developer.chrome.com/docs/web-platform/view-transitions), and the Astro docs cover their [view transitions guide](https://docs.astro.build/en/guides/view-transitions).
 
 - Global `@view-transition { navigation: auto; }`.
 - Do not name `body`. Use `main` and `title`, one each.
