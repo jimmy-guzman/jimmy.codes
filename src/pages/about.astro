@@ -1,29 +1,15 @@
 ---
+import { pages } from "../configs/pages";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageLayout from "../layouts/PageLayout.astro";
-
-const title = "About Me";
-const description =
-  "Lead Engineer with 9+ years experience in high-performance systems, scalable architecture, and developer experience. Engineering leader passionate about mentorship and technical strategy.";
-const keywords = [
-  "jimmy guzman",
-  "lead engineer",
-  "target",
-  "ameriprise",
-  "engineering leadership",
-  "scalable systems",
-  "developer experience",
-  "mentorship",
-  "technical strategy",
-];
 ---
 
 <BaseLayout
-  title={`jimmy.codes | ${title}`}
-  description={description}
-  keywords={keywords}
+  title={pages.about.title}
+  description={pages.about.description}
+  keywords={pages.about.keywords}
 >
-  <PageLayout heading={title}>
+  <PageLayout heading={pages.about.heading}>
     <section>
       <p>
         I’m Jimmy Guzman Moreno, an engineering leader with 9+ years of

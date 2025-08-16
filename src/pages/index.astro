@@ -6,32 +6,11 @@ import PageLayout from "../layouts/PageLayout.astro";
 ---
 
 <BaseLayout
-  title="jimmy.codes"
-  description="Lead Engineer specializing in high-performance, scalable systems and developer experience. Passionate about mentorship, technical strategy, and modern software architecture."
-  keywords={[
-    "jimmy guzman",
-    "lead engineer",
-    "software engineer",
-    "typescript",
-    "react",
-    "nextjs",
-    "astro",
-    "scalable systems",
-    "developer experience",
-    "engineering leadership",
-    "mentorship",
-    "technical strategy",
-    "frontend",
-    "backend",
-    "distributed systems",
-    "platform engineering",
-    "nx monorepo",
-    "turborepo",
-    "target",
-    "ameriprise",
-  ]}
+  title={pages.home.title}
+  description={pages.home.description}
+  keywords={pages.home.keywords}
 >
-  <PageLayout heading={pages.home.title}>
+  <PageLayout heading={pages.home.heading}>
     <section class="space-y-6">
       <p>
         I build high-performance, scalable systems that are a joy for engineers

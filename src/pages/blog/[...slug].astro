@@ -2,29 +2,22 @@
 import { getCollection, render } from "astro:content";
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatDate, getReadingTime } from "../../utils/md";
 import PageLayout from "../../layouts/PageLayout.astro";
+import ContentLayout from "../../layouts/ContentLayout.astro";
+
+import { readingTime } from "../../utils/md";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
 
-  return posts.map((post) => {
-    return {
-      params: { slug: post.slug },
-      props: { post, readingTime: getReadingTime(post.body) },
-    };
-  });
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
 }
 
-const { post, readingTime } = Astro.props;
-
+const { post } = Astro.props;
 const { Content } = await render(post);
-
-const formattedPublishDate = formatDate(post.data.publishDate);
-
-const formattedUpdatedDate = post.data.updatedDate
-  ? formatDate(post.data.updatedDate)
-  : null;
 ---
 
 <BaseLayout
@@ -33,53 +26,18 @@ const formattedUpdatedDate = post.data.updatedDate
   keywords={post.data.keywords}
 >
   <PageLayout heading={post.data.title}>
-    <section>
-      <blockquote class="text-base-content/80 not-italic">
-        {post.data.description}
-      </blockquote>
-      <p class="text-sm">
-        <time datetime={post.data.publishDate.toISOString()}
-          >{formattedPublishDate}</time
-        >
-        {
-          post.data.updatedDate && (
-            <>
-              {" "}
-              •
-              <time datetime={post.data.updatedDate.toISOString()}>
-                Updated {formattedUpdatedDate}
-              </time>
-            </>
-          )
-        }
-        • <span>{readingTime} Min Read</span>
-      </p>
-    </section>
-
-    <div class="divider"></div>
-
-    <section>
-      <article>
-        <Content />
-      </article>
-
-      <p>Thank you for reading ❤️</p>
-    </section>
-
-    <div class="divider"></div>
-
-    <section>
-      <div class="flex flex-wrap gap-2">
-        {
-          post.data.keywords.map((keyword) => (
-            <span class="badge">{keyword.trim()}</span>
-          ))
-        }
-      </div>
-
-      <p>
-        <a href="/blog" class="link-hover">← Back to all posts</a>
-      </p>
-    </section>
+    <ContentLayout
+      description={post.data.description}
+      keywords={post.data.keywords}
+      publishDate={post.data.publishDate}
+      updatedDate={post.data.updatedDate}
+      back={{
+        href: "/blog",
+        label: "Back to all posts",
+      }}
+      minutes={readingTime(post.body)}
+    >
+      <Content />
+    </ContentLayout>
   </PageLayout>
 </BaseLayout>
