@@ -83,4 +83,8 @@ export const pages = {
     description:
       "Articles and notes on the craft of building software, architecture, system design, code, and developer experience.",
   },
+  notFound: {
+    title: "jimmy.codes | 404",
+    heading: "404",
+  },
 };
