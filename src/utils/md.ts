@@ -1,6 +1,7 @@
 import getReadingTime from "reading-time";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  timeZone: "UTC",
   year: "numeric",
   month: "short",
   day: "numeric",
