@@ -2,8 +2,8 @@
 import { getCollection, render } from "astro:content";
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatDate } from "../../utils/md";
 import PageLayout from "../../layouts/PageLayout.astro";
+import ContentLayout from "../../layouts/ContentLayout.astro";
 
 export async function getStaticPaths() {
   const notes = await getCollection("notes");
@@ -15,14 +15,7 @@ export async function getStaticPaths() {
 }
 
 const { note } = Astro.props;
-
 const { Content } = await render(note);
-
-const formattedPublishDate = formatDate(note.data.publishDate);
-
-const formattedUpdatedDate = note.data.updatedDate
-  ? formatDate(note.data.updatedDate)
-  : null;
 ---
 
 <BaseLayout
@@ -31,52 +24,17 @@ const formattedUpdatedDate = note.data.updatedDate
   keywords={note.data.keywords}
 >
   <PageLayout heading={note.data.title}>
-    <section>
-      <blockquote class="text-base-content/80 not-italic">
-        {note.data.description}
-      </blockquote>
-      <p class="text-sm">
-        <time datetime={note.data.publishDate.toISOString()}
-          >{formattedPublishDate}</time
-        >
-        {
-          note.data.updatedDate && (
-            <>
-              {" "}
-              •
-              <time datetime={note.data.updatedDate.toISOString()}>
-                Updated {formattedUpdatedDate}
-              </time>
-            </>
-          )
-        }
-      </p>
-    </section>
-
-    <div class="divider"></div>
-
-    <section>
-      <article>
-        <Content />
-      </article>
-
-      <p>Thank you for reading ❤️</p>
-    </section>
-
-    <div class="divider"></div>
-
-    <section>
-      <div class="flex flex-wrap gap-2">
-        {
-          note.data.keywords.map((keyword) => (
-            <span class="badge">{keyword.trim()}</span>
-          ))
-        }
-      </div>
-
-      <p>
-        <a href="/notes" class="link-hover">← Back to all notes</a>
-      </p>
-    </section>
+    <ContentLayout
+      description={note.data.description}
+      keywords={note.data.keywords}
+      publishDate={note.data.publishDate}
+      updatedDate={note.data.updatedDate}
+      back={{
+        href: "/notes",
+        label: "Back to all notes",
+      }}
+    >
+      <Content />
+    </ContentLayout>
   </PageLayout>
 </BaseLayout>

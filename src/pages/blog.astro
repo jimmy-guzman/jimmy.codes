@@ -2,41 +2,20 @@
 import { getCollection } from "astro:content";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { formatDate, getReadingTime } from "../utils/md";
+import { readingTime, sortByPublishDate } from "../utils/md";
 import PageLayout from "../layouts/PageLayout.astro";
+import { pages } from "../configs/pages";
+import MetaLine from "../components/MetaLine.astro";
 
-const posts = (await getCollection("posts"))
-  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
-  .map((post) => {
-    return {
-      ...post,
-      readingTime: getReadingTime(post.body),
-    };
-  });
-
-const description =
-  "Articles on the craft of building software, architecture, system design, code, and developer experience.";
+const posts = (await getCollection("posts")).sort(sortByPublishDate);
 ---
 
 <BaseLayout
-  title="jimmy.codes | Blog"
-  description={description}
-  keywords={[
-    "jimmy guzman blog",
-    "technical articles",
-    "scalable systems",
-    "developer experience",
-    "engineering leadership",
-    "typescript",
-    "react",
-    "nextjs",
-    "astro",
-    "web development",
-    "software architecture",
-    "mentorship",
-  ]}
+  title={pages.blog.title}
+  description={pages.blog.description}
+  keywords={pages.blog.keywords}
 >
-  <PageLayout heading="Blog">
+  <PageLayout heading={pages.blog.heading}>
     <section class="not-prose">
       <ul class="flex flex-col gap-y-4">
         {
@@ -45,25 +24,17 @@ const description =
               <a
                 href={`/blog/${post.slug}`}
                 class="link font-medium link-hover"
+                rel="bookmark"
                 data-astro-prefetch
               >
                 {post.data.title}
               </a>
-              <span class="block text-sm text-base-content/60">
-                <time datetime={post.data.publishDate.toISOString()}>
-                  {formatDate(post.data.publishDate)}
-                </time>
-                {post.data.updatedDate && (
-                  <>
-                    {" "}
-                    •
-                    <time datetime={post.data.updatedDate.toISOString()}>
-                      Updated {formatDate(post.data.updatedDate)}
-                    </time>
-                  </>
-                )}
-                • <span>{post.readingTime} Min Read</span>
-              </span>
+              <MetaLine
+                class="block text-sm text-base-content/60"
+                publishDate={post.data.publishDate}
+                updatedDate={post.data.updatedDate}
+                minutes={readingTime(post.body)}
+              />
             </li>
           ))
         }

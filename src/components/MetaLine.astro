@@ -1,0 +1,37 @@
+---
+import { prettyDate } from "../utils/md";
+
+interface Props {
+  publishDate: Date;
+  updatedDate?: Date;
+  minutes?: number;
+  class?: string;
+}
+
+const {
+  publishDate,
+  updatedDate,
+  minutes,
+  class: className = "",
+} = Astro.props;
+---
+
+<span class={className}>
+  <time datetime={publishDate.toISOString()}>{prettyDate(publishDate)}</time>
+  {
+    updatedDate && (
+      <>
+        {" "}
+        •{" "}
+        <time datetime={updatedDate.toISOString()}>
+          Updated {prettyDate(updatedDate)}
+        </time>
+      </>
+    )
+  }
+  {
+    typeof minutes === "number" && (
+      <> • {minutes === 1 ? "1 min read" : `${minutes} min read`}</>
+    )
+  }
+</span>

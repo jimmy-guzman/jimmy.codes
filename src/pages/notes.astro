@@ -2,32 +2,20 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import { getCollection } from "astro:content";
-import { formatDate } from "../utils/md";
+import { sortByPublishDate } from "../utils/md";
 import PageLayout from "../layouts/PageLayout.astro";
+import { pages } from "../configs/pages";
+import MetaLine from "../components/MetaLine.astro";
 
-const notes = (await getCollection("notes")).sort(
-  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
-);
-
-const title = "Notes";
-const description =
-  "Notes on the craft of building software, architecture, system design, code, and developer experience.";
-const keywords = [
-  "jimmy guzman notes",
-  "technical notes",
-  "software architecture",
-  "developer experience",
-  "web development",
-  "mentorship",
-];
+const notes = (await getCollection("notes")).sort(sortByPublishDate);
 ---
 
 <BaseLayout
-  title={`jimmy.codes | ${title}`}
-  description={description}
-  keywords={keywords}
+  title={pages.notes.title}
+  description={pages.notes.description}
+  keywords={pages.notes.keywords}
 >
-  <PageLayout heading={title}>
+  <PageLayout heading={pages.notes.heading}>
     <section class="not-prose">
       <ul class="flex flex-col gap-y-4">
         {
@@ -36,24 +24,16 @@ const keywords = [
               <a
                 href={`/notes/${note.slug}`}
                 class="link font-medium link-hover"
+                rel="bookmark"
                 data-astro-prefetch
               >
                 {note.data.title}
               </a>
-              <span class="block text-sm text-base-content/60">
-                <time datetime={note.data.publishDate.toISOString()}>
-                  {formatDate(note.data.publishDate)}
-                </time>
-                {note.data.updatedDate && (
-                  <>
-                    {" "}
-                    •
-                    <time datetime={note.data.updatedDate.toISOString()}>
-                      Updated {formatDate(note.data.updatedDate)}
-                    </time>
-                  </>
-                )}
-              </span>
+              <MetaLine
+                class="block text-sm text-base-content/60"
+                publishDate={note.data.publishDate}
+                updatedDate={note.data.updatedDate}
+              />
             </li>
           ))
         }

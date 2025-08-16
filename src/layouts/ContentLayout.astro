@@ -1,0 +1,54 @@
+---
+import MetaLine from "../components/MetaLine.astro";
+
+interface Props {
+  description: string;
+  keywords: string[];
+  publishDate: Date;
+  updatedDate?: Date;
+  back: { href: `/${string}`; label: string };
+  minutes?: number;
+}
+
+const { description, keywords, publishDate, updatedDate, back, minutes } =
+  Astro.props;
+---
+
+<section>
+  <p class="text-base-content/80 not-italic">{description}</p>
+  <p class="text-sm">
+    <MetaLine
+      publishDate={publishDate}
+      updatedDate={updatedDate}
+      minutes={minutes}
+    />
+  </p>
+</section>
+
+<div class="divider" aria-hidden="true" role="presentation"></div>
+
+<section>
+  <article>
+    <slot />
+  </article>
+  <p>Thank you for reading ❤️.</p>
+</section>
+
+<div class="divider" aria-hidden="true" role="presentation"></div>
+
+<section>
+  <ul class="flex flex-wrap gap-2" aria-label="Keywords">
+    {keywords.map((keyword) => <li class="badge">{keyword}</li>)}
+  </ul>
+
+  <p>
+    <a
+      href={back.href}
+      class="inline-flex items-center gap-1 link-hover"
+      rel="up"
+    >
+      <span class="icon-[lucide--arrow-left]" aria-hidden="true"></span>
+      {back.label}
+    </a>
+  </p>
+</section>
