@@ -42,6 +42,16 @@ const { title, description, keywords, noIndex } = Astro.props;
       )
     }
 
+    <meta
+      property="og:image"
+      content={new URL("/og.png?title=jimmy.codes", Astro.url).toString()}
+    />
+    <meta
+      property="twitter:image"
+      content={new URL("/og.png?title=jimmy.codes", Astro.url).toString()}
+    />
+    <meta property="twitter:card" content="summary_large_image" />
+
     <link rel="canonical" href={Astro.url} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
