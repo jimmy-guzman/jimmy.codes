@@ -28,10 +28,11 @@ export const sortByPublishDate = (
 export const lastModified = (filePath: string) => {
   try {
     const gitCommand = `git log -1 --pretty="format:%cI" "${filePath}"`;
-
     const result = execSync(gitCommand).toString().trim();
+    const date = new Date(result);
+    const isDateValid = date instanceof Date && !Number.isNaN(date.getTime());
 
-    return new Date(result);
+    return isDateValid ? date : undefined;
   } catch {
     return undefined;
   }

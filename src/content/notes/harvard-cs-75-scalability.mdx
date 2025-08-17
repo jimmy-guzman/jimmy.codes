@@ -1,0 +1,197 @@
+---
+title: Harvard's CS 75 Scalability
+publishDate: 2025-08-17
+description: "Notes on Harvard's CS 75 lecture 9 on Scalability (Summer 2012)."
+keywords: ["cs75", "lecture", "notes", "harvard", "scalability", "2012"]
+---
+
+## Resources
+
+- [CS75 (Summer 2012) Lecture 9 - Scalability Harvard Web Development - David Malan](https://www.youtube.com/watch?v=-W9F__D3oY4&ab_channel=JorgeScott)
+
+---
+
+## Web Hosts
+
+- Some hosts may block IP addresses in certain regions/countries.
+- **SFTP vs. FTP**: SFTP encrypts all traffic (important for credentials), FTP does not.
+- "Unlimited storage" hosting plans usually oversell resources; you’re sharing one machine with hundreds of other users.
+- **VPS (Virtual Private Server)**: Still shares hardware, but you get your own OS instance; only you and admins access your files.
+- For maximum privacy/control, you may need to run your own servers.
+- **AWS EC2**: Example of an IaaS option offering virtualized servers.
+
+---
+
+## Scaling
+
+### Vertical Scaling
+
+- Add more RAM, CPUs, and disks to a single server.
+- Limited by cost and hardware constraints - eventually you hit a ceiling.
+
+### Horizontal Scaling
+
+- Add multiple (often cheaper) servers.
+- Distributes load and avoids the ceiling of a single machine.
+- Common in modern system design.
+
+---
+
+### Load Balancing
+
+- Distributes inbound requests across multiple servers.
+- Client sees only the load balancer’s public IP.
+- **Can be implemented by**:
+  - **DNS Round Robin** - simple but limited (cache issues, uneven loads).
+  - **Dynamic load awareness** - routing based on server load.
+  - **Dedicated resources** - e.g., separate servers for static content (images, video).
+- **Load Balancing Tech**:
+  - Software: ELB (AWS), HAProxy, LVS.
+  - Hardware: Barracuda, Cisco, Citrix, F5 (expensive).
+
+---
+
+### Shared Session State
+
+- With multiple servers, sessions stored locally can be lost if requests hit a different server.
+- **Solutions**:
+  - Centralized session storage (file server, database, or NFS).
+  - Sticky sessions (session affinity).
+
+---
+
+### Session Affinity (Sticky Sessions)
+
+- Ensures requests from the same user hit the same server.
+- **Approaches**:
+  - **Cookies with server IDs** - brittle if IPs change.
+  - **Load balancer-managed mapping** - user gets a random ID, load balancer keeps track.
+
+---
+
+### Storage & RAID
+
+- RAID improves redundancy/performance within a single server.
+  - **RAID 0**: Striping (fast, no redundancy).
+  - **RAID 1**: Mirroring (redundancy, doubles space needed).
+  - **RAID 5/6**: Parity-based redundancy.
+  - **RAID 10**: Striping + mirroring.
+- Reduces downtime risk from disk failures.
+- **Shared storage tech**:
+  - Fiber Channel, iSCSI for high-speed SAN.
+  - NFS for shared filesystems.
+  - Databases (MySQL) for session storage.
+
+---
+
+### Database Replication
+
+#### Primary-Replica (Active:Passive)
+
+- Primary handles writes, replicas keep synchronized copies.
+- Replicas improve read scalability.
+- Failover possible, but involves downtime.
+
+#### Primary-Primary (Active:Active)
+
+- Writes allowed on multiple primaries.
+- Provides higher availability and redundancy.
+- Complexity: conflict resolution.
+
+#### Load Balancing + Replication
+
+- Can use active-passive load balancers or active-active pairs.
+- Passive balancer can auto-promote itself if active fails.
+
+---
+
+### Partitioning (Sharding)
+
+- Split data across servers based on rules (e.g., A-M vs. N-Z users).
+- Enables horizontal DB scaling.
+- Requires careful handling of cross-partition queries.
+
+---
+
+### Caching
+
+#### Types
+
+- **Static HTML vs. dynamic DB-driven pages**: Static = fast but harder to update.
+- **MySQL Query Cache**: Stores results of identical SQL queries.
+- **Memcached**: Distributed in-memory key-value store.
+- **PHP Acceleration**: Compiled bytecode caching (avoids recompiling scripts).
+
+#### Benefits
+
+- Reduces DB load.
+- Speeds up repeated queries or frequently accessed content.
+
+---
+
+### Data Center Redundancy
+
+- Multiple geographically distributed data centers mitigate outages/disasters.
+- DNS directs traffic to the nearest/healthiest center.
+- An example is AWS Availability Zones.
+
+---
+
+## Security
+
+- Firewalls restrict unnecessary ports (least privilege principle).
+- HTTP/HTTPS for web traffic; DB ports only for DB communication.
+- Helps contain breaches and reduce attack surface.
+
+---
+
+## Summary
+
+```
+             ┌────────────────────┐
+             │   Internet         │
+             │ (Clients/Browsers) │
+             └─────────┬──────────┘
+                       │  TCP 80/443
+             ┌─────────▼──────────┐
+             │   Load Balancers   :
+             │ (Active/Passive or │
+             │   Active/Active)   │
+             └───────┬─┬──────────┘
+                     │ │
+        ┌────────────┘ └─────────────┐
+        │                            │
+┌───────▼─────────┐        ┌─────────▼───────┐
+│   Web Servers   │        │   Web Servers   │
+│ (App / PHP/etc) │  ...   │ (App / PHP/etc) │
+└───────┬─────────┘        └─────────┬───────┘
+        │  (Shared Session / Cache)  │
+        │          │                 │
+        └──────────┴─────────────────┘
+                   │
+          ┌────────▼─────────┐
+          │   In-Memory      │
+          │   Caching Layer  │
+          │ (Memcached/Redis)│
+          └────────┬─────────┘
+                   │
+         ┌─────────▼─────────┐
+         │  Database Tier    │
+         │                   │
+         │   ┌───────────┐   │
+         │   │  Primary  │◄──┐
+         │   └─────┬─────┘   │
+         │         │ Replication
+         │   ┌─────▼─────┐   │
+         │   │ Replicas  │   │
+         │   └───────────┘   │
+         └───────────────────┘
+                   │
+          ┌────────▼─────────┐
+          │   Storage Layer  │
+          │  (RAID / SAN /   │
+          │   NFS / iSCSI)   │
+          └──────────────────┘
+
+          [ Firewalls between tiers ]
+```
