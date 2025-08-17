@@ -12,6 +12,16 @@ import rehypeExternalLinks from "rehype-external-links";
 import rehypeSlug from "rehype-slug";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 
+const vercelUrl = process.env.VERCEL_URL;
+const vercelEnv = process.env.VERCEL_ENV;
+
+const site =
+  vercelEnv === "production"
+    ? "https://jimmy.codes"
+    : vercelUrl
+      ? `https://${vercelUrl}`
+      : "http://localhost:4321";
+
 const autoLinkHeadingOpts = {
   behavior: "wrap",
   content: [
@@ -32,7 +42,7 @@ const autoLinkHeadingOpts = {
 export default defineConfig({
   prefetch: true,
 
-  site: "https://jimmy.codes",
+  site,
 
   vite: {
     plugins: [tailwindcss()],
