@@ -1,4 +1,5 @@
 ---
+import LastModified from "../components/LastModified.astro";
 import MetaLine from "../components/MetaLine.astro";
 
 interface Props {
@@ -44,6 +45,14 @@ const { description, publishDate, updatedDate, back, minutes, filePath } =
 </a>
 
 <div class="divider" aria-hidden="true" role="presentation"></div>
+
+{
+  updatedDate && (
+    <section class="flex justify-end text-sm text-base-content/60">
+      <LastModified updatedDate={updatedDate} />
+    </section>
+  )
+}
 
 <section>
   <p>

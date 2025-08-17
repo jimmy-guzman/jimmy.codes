@@ -5,6 +5,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageLayout from "../../layouts/PageLayout.astro";
 import ContentLayout from "../../layouts/ContentLayout.astro";
 import { BASE_TITLE } from "../../configs/pages";
+import { lastModified } from "../../utils/content";
 
 export async function getStaticPaths() {
   const notes = await getCollection("notes");
@@ -29,7 +30,7 @@ const { Content } = await render(note);
       description={note.data.description}
       keywords={note.data.keywords}
       publishDate={note.data.publishDate}
-      updatedDate={note.data.updatedDate}
+      updatedDate={note.filePath ? lastModified(note.filePath) : undefined}
       filePath={note.filePath}
       back={{
         href: "/notes",
