@@ -18,7 +18,7 @@ When working with TypeScript, you might come across the following error:
 Error ts(7053) ― Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ name: string; type: string; }'. No index signature with a parameter of type 'string' was found on type '{ name: string; type: string; }'.
 ```
 
-This error occurs when `noImplicitAny` is enabled—either directly or via `strict` in your `tsconfig.json`.
+This error occurs when `noImplicitAny` is enabled, either directly or via `strict` in your `tsconfig.json`.
 
 Let's say we have an object and we want to access a property dynamically, for example:
 
@@ -166,6 +166,6 @@ TypeScript throws this error to protect you from accidentally accessing undefine
 - Use `keyof` if your keys are known ahead of time
 - Use type guards or `in` checks when keys are dynamic
 - Avoid using index signatures unless the object is intentionally open-ended
-- Be cautious with type assertions—they bypass safety checks
+- Be cautious with type assertions since they bypass safety checks
 
 Choose the right approach based on your use case and data source.

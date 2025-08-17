@@ -1,0 +1,19 @@
+---
+import { prettyDate } from "../utils/content";
+
+interface Props {
+  updatedDate: Date;
+}
+
+const { updatedDate } = Astro.props;
+---
+
+<span class="inline-flex items-center gap-1">
+  Last updated on
+  <time
+    datetime={updatedDate.toISOString()}
+    title={`Last updated on ${prettyDate(updatedDate)}`}
+  >
+    {prettyDate(updatedDate)}
+  </time>
+</span>

@@ -22,15 +22,18 @@ const BRANCH = "main";
 ---
 
 <span class:list={[className, "flex items-center justify-between"]}>
-  <span>
+  <span class="inline-flex items-center gap-2">
     <time datetime={publishDate.toISOString()}>{prettyDate(publishDate)}</time>
-    {updatedDate && <> • Updated {prettyDate(updatedDate)}</>}
     {
       typeof minutes === "number" && (
-        <> • {minutes === 1 ? "1 min read" : `${minutes} min read`}</>
+        <>
+          <span aria-hidden="true">•</span>
+          <span>{minutes === 1 ? "1 min read" : `${minutes} min read`}</span>
+        </>
       )
     }
   </span>
+
   {
     filePath && (
       <span class="tooltip" data-tip="View on GitHub">

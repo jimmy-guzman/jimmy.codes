@@ -43,7 +43,7 @@ Or just run it directly:
 pnpx knip
 ```
 
-Out of the box, Knip technically works with Tailwind CSS v4 — but not perfectly. Its lack of support for Tailwind’s new **@plugin** and **@import** directives can cause false positives.
+Out of the box, Knip technically works with Tailwind CSS v4, but not perfectly. Its lack of support for Tailwind’s new **@plugin** and **@import** directives can cause false positives.
 
 ## What changed in Tailwind CSS v4?
 
@@ -85,7 +85,7 @@ export default {
 } satisfies KnipConfig;
 ```
 
-_We use `satisfies KnipConfig` to ensure our config matches the expected structure — it’s a [TypeScript safety check](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator), not required for runtime._
+_We use `satisfies KnipConfig` to ensure our config matches the expected structure. It’s a [TypeScript safety check](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator), not required for runtime._
 
 Knip supports a [custom compilers configuration option](https://knip.dev/features/compilers#custom-compilers), and with a bit of regex magic, we can teach it to understand Tailwind’s directives like **@import** and **@plugin**.
 
@@ -153,4 +153,4 @@ Once that’s in place, running `knip` will no longer flag these dependencies:
 ✂️  Excellent, Knip found no issues.
 ```
 
-Tailwind’s new config is great — but Knip doesn’t know what to do with **@plugin** or **@import** by default. This setup bridges that gap and keeps your reports clean.
+Tailwind’s new config is great, but Knip doesn’t know what to do with **@plugin** or **@import** by default. This setup bridges that gap and keeps your reports clean.

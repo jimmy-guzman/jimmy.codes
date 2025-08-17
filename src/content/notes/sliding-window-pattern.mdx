@@ -36,7 +36,7 @@ Given a string `s`, find the length of the longest substring without repeating c
 
 ---
 
-## Set-based — O(n) time / O(min(m, n)) space
+## Set-based, O(n) time / O(min(m, n)) space
 
 _Expand `right`, shrink `left` until valid._
 
@@ -64,7 +64,7 @@ function lengthOfLongestSubstring(s: string) {
 
 ---
 
-## Map-based — O(n) time / O(min(m, n)) space
+## Map-based, O(n) time / O(min(m, n)) space
 
 _Track last seen index -> skip left forward in one move._
 

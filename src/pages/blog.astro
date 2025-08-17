@@ -32,7 +32,6 @@ const posts = (await getCollection("posts")).sort(sortByPublishDate);
               <MetaLine
                 class="block text-sm text-base-content/60"
                 publishDate={post.data.publishDate}
-                updatedDate={post.data.updatedDate}
                 minutes={readingTime(post.body)}
                 filePath={post.filePath}
               />

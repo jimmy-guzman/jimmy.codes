@@ -1,3 +1,4 @@
+import { execSync } from "node:child_process";
 import getReadingTime from "reading-time";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
@@ -22,4 +23,16 @@ export const sortByPublishDate = (
   b: { data: { publishDate: Date } },
 ) => {
   return b.data.publishDate.getTime() - a.data.publishDate.getTime();
+};
+
+export const lastModified = (filePath: string) => {
+  try {
+    const gitCommand = `git log -1 --pretty="format:%cI" "${filePath}"`;
+
+    const result = execSync(gitCommand).toString().trim();
+
+    return new Date(result);
+  } catch {
+    return undefined;
+  }
 };
