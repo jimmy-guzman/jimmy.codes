@@ -4,8 +4,8 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageLayout from "../../layouts/PageLayout.astro";
 import ContentLayout from "../../layouts/ContentLayout.astro";
-
 import { readingTime } from "../../utils/content";
+import { BASE_TITLE } from "../../configs/pages";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -21,7 +21,7 @@ const { Content } = await render(post);
 ---
 
 <BaseLayout
-  title={`jimmy.codes | ${post.data.title}`}
+  title={`${post.data.title} | ${BASE_TITLE}`}
   description={post.data.description}
   keywords={post.data.keywords}
 >
