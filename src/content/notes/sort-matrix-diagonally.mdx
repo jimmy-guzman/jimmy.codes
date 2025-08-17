@@ -5,7 +5,7 @@ description: "Solutions for sorting each diagonal of a matrix."
 keywords: ["sort", "matrix", "diagonal", "algorithm", "coding challenge"]
 ---
 
-## Prompt
+## Problem
 
 Given an `m x n` matrix, sort each diagonal in ascending order and return the resulting matrix.
 
@@ -43,35 +43,46 @@ Output:
 _Collect -> sort -> put back._
 
 ```ts
-function diagonalSort(matrix: number[][]): number[][] {
-  const map = new Map<number, number[]>();
+function diagonalSort(matrix: number[][]) {
   const m = matrix.length;
-  const n = matrix[0].length;
+  const n = matrix[0]?.length ?? 0;
+
+  if (m === 0 || n === 0) return matrix;
 
   // collect diagonals
-  for (let i = 0; i < m; i++) {
-    for (let j = 0; j < n; j++) {
-      const key = i - j;
+  const diagonals = new Map<number, number[]>();
 
-      if (!map.has(key)) {
-        map.set(key, []);
+  for (let row = 0; row < m; row++) {
+    const row = matrix[row]!;
+
+    for (let col = 0; col < n; col++) {
+      const key = row - col;
+      const value = row[col]!;
+      const diagonal = diagonals.get(key);
+
+      if (diagonal) {
+        diagonal.push(value);
+      } else {
+        diagonals.set(key, [value]);
       }
-
-      map.get(key)?.push(matrix[i][j]);
     }
   }
 
   // sort descending for easy pop()
-  for (const arr of map.values()) {
-    arr.sort((a, b) => b - a);
+  for (const diagonal of diagonals.values()) {
+    diagonal.sort((a, b) => b - a);
   }
 
   // rebuild
-  for (let i = 0; i < m; i++) {
-    for (let j = 0; j < n; j++) {
-      const key = i - j;
+  for (let row = 0; row < m; row++) {
+    const row = matrix[row]!;
 
-      matrix[i][j] = map.get(key)?.pop();
+    for (let col = 0; col < n; col++) {
+      const key = row - col;
+      const diagonal = diagonals.get(key)!;
+      const sortedValue = diagonal.pop()!;
+
+      row[col] = sortedValue;
     }
   }
 
