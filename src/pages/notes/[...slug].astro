@@ -1,11 +1,11 @@
 ---
 import { getCollection, render } from "astro:content";
 
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageLayout from "../../layouts/PageLayout.astro";
-import ContentLayout from "../../layouts/ContentLayout.astro";
-import { BASE_TITLE } from "../../configs/pages";
-import { lastModified } from "../../utils/content";
+import { BASE_TITLE } from "@/configs/pages";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ContentLayout from "@/layouts/ContentLayout.astro";
+import PageLayout from "@/layouts/PageLayout.astro";
+import { lastModified } from "@/utils/content";
 
 export async function getStaticPaths() {
   const notes = await getCollection("notes");

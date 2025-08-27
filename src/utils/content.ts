@@ -1,4 +1,5 @@
 import { execSync } from "node:child_process";
+
 import getReadingTime from "reading-time";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {

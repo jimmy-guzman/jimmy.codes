@@ -1,11 +1,11 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-
 import { getCollection } from "astro:content";
-import { sortByPublishDate } from "../utils/content";
-import PageLayout from "../layouts/PageLayout.astro";
-import { pages } from "../configs/pages";
-import MetaLine from "../components/MetaLine.astro";
+
+import MetaLine from "@/components/MetaLine.astro";
+import { pages } from "@/configs/pages";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageLayout from "@/layouts/PageLayout.astro";
+import { sortByPublishDate } from "@/utils/content";
 
 const notes = (await getCollection("notes")).sort(sortByPublishDate);
 ---
