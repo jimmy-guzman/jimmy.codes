@@ -9,13 +9,7 @@ interface Props {
   class?: string;
 }
 
-const {
-  publishDate,
-  updatedDate,
-  minutes,
-  filePath,
-  class: className = "",
-} = Astro.props;
+const { publishDate, minutes, filePath, class: className = "" } = Astro.props;
 
 const REPO = "jimmy-guzman/jimmy.codes";
 const BRANCH = "main";

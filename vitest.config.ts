@@ -7,7 +7,7 @@ export default getViteConfig({
     coverage: {
       exclude: [
         ...(configDefaults.coverage.exclude ?? []),
-        "{astro,commitlint,knip,playwright,content}.config.*",
+        "**/{astro,commitlint,knip,playwright,content}.config.*",
       ],
     },
     exclude: [...configDefaults.exclude, "e2e/*"],
