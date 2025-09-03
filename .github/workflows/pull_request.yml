@@ -25,6 +25,9 @@ jobs:
 
       - name: typecheck
         run: bun typecheck
+  
+      - name: coverage
+        run: bun coverage
 
   commit_check:
     runs-on: ubuntu-latest
