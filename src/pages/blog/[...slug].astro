@@ -5,7 +5,7 @@ import { BASE_TITLE } from "@/configs/pages";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ContentLayout from "@/layouts/ContentLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
-import { readingTime } from "@/utils/content";
+import { lastModified, readingTime } from "@/utils/content";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -18,6 +18,10 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const updatedDate =
+  post.data.updatedDate ??
+  (post.filePath ? lastModified(post.filePath) : undefined);
 ---
 
 <BaseLayout
@@ -30,7 +34,7 @@ const { Content } = await render(post);
       description={post.data.description}
       keywords={post.data.keywords}
       publishDate={post.data.publishDate}
-      updatedDate={post.data.updatedDate}
+      updatedDate={updatedDate}
       back={{
         href: "/blog",
         label: "Back to all posts",
