@@ -34,3 +34,6 @@ playwright-report
 
 # vercel
 .vercel
+
+# vitest
+coverage/
