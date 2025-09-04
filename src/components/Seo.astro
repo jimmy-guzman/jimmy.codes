@@ -1,0 +1,46 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  keywords?: readonly string[];
+  noIndex?: boolean;
+}
+
+const { title, description, keywords, noIndex } = Astro.props;
+
+const site = Astro.site;
+const url = new URL(Astro.url, site).toString();
+const ogImage = new URL("/og/default.png", site).toString();
+const ogAlt = "jimmy.codes - Jimmy Guzman Moreno";
+---
+
+{noIndex && <meta name="robots" content="noindex, follow" />}
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+
+{description && <meta name="description" content={description} />}
+{keywords && <meta name="keywords" content={keywords.join(", ")} />}
+<meta name="author" content="Jimmy Guzman Moreno" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="jimmy.codes" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content={url} />
+<meta property="og:title" content={title} />
+{description && <meta property="og:description" content={description} />}
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content={ogAlt} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={url} />
+<meta name="twitter:title" content={title} />
+{description && <meta name="twitter:description" content={description} />}
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={ogAlt} />
+
+<link rel="canonical" href={url} />
+<title>{title}</title>

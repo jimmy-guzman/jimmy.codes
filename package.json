@@ -6,7 +6,7 @@
   "scripts": {
     "astro": "astro",
     "build": "astro build",
-    "check": "biome check",
+    "check": "biome check && astro check",
     "check:fix": "biome check --fix",
     "coverage": "vitest run --coverage",
     "deps:dedupe": "rm -rf node_modules && rm bun.lock && bun install",
@@ -20,6 +20,7 @@
     "typecheck": "tsc"
   },
   "devDependencies": {
+    "@astrojs/check": "0.9.4",
     "@astrojs/mdx": "4.3.4",
     "@astrojs/rss": "4.0.12",
     "@astrojs/sitemap": "3.5.1",
