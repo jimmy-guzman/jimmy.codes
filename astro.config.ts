@@ -15,39 +15,17 @@ import rehypeUnwrapImages from "rehype-unwrap-images";
 const vercelUrl = process.env.VERCEL_URL;
 const vercelEnv = process.env.VERCEL_ENV;
 
-const site =
-  vercelEnv === "production"
-    ? "https://jimmy.codes"
-    : vercelUrl
-      ? `https://${vercelUrl}`
-      : "http://localhost:4321";
-
-const autoLinkHeadingOpts = {
-  behavior: "wrap",
-  content: [
-    h("span", {
-      "aria-hidden": "true",
-      class:
-        "icon-[lucide--link] absolute left-0 top-1/2 -translate-y-1/2 " +
-        "opacity-0 group-hover:opacity-100 transition-opacity duration-150 " +
-        "text-base-content/50 h-[1em] w-[1em]",
-    }),
-  ],
-  properties: {
-    className: "group relative block pl-[1.5em] -ml-[1.5em] link-hover",
-    tabindex: "-1",
-  },
-};
-
 export default defineConfig({
   prefetch: true,
-
-  site,
-
+  site:
+    vercelEnv === "production"
+      ? "https://jimmy.codes"
+      : vercelUrl
+        ? `https://${vercelUrl}`
+        : "http://localhost:4321",
   vite: {
     plugins: [tailwindcss()],
   },
-
   env: {
     schema: {
       FATHOM_SITE_ID: envField.string({
@@ -57,7 +35,6 @@ export default defineConfig({
       }),
     },
   },
-
   experimental: {
     fonts: [
       {
@@ -69,21 +46,35 @@ export default defineConfig({
       },
     ],
   },
-
   adapter: vercel(),
   trailingSlash: "never",
-
   markdown: {
     gfm: true,
-
     rehypePlugins: [
       [rehypeExternalLinks, { target: "_blank", rel: "noopener" }],
       rehypeSlug,
-      [rehypeAutolinkHeadings, autoLinkHeadingOpts],
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "wrap",
+          content: [
+            h("span", {
+              "aria-hidden": "true",
+              class:
+                "icon-[lucide--link] absolute left-0 top-1/2 -translate-y-1/2 " +
+                "opacity-0 group-hover:opacity-100 transition-opacity duration-150 " +
+                "text-base-content/50 h-[1em] w-[1em]",
+            }),
+          ],
+          properties: {
+            className: "group relative block pl-[1.5em] -ml-[1.5em] link-hover",
+            tabindex: "-1",
+          },
+        },
+      ],
       rehypeUnwrapImages,
     ],
   },
-
   integrations: [
     expressiveCode({
       themes: ["catppuccin-mocha"],
