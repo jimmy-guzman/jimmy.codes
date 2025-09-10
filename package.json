@@ -43,7 +43,7 @@
     "@vitest/coverage-v8": "3.2.4",
     "astro": "5.13.5",
     "astro-expressive-code": "0.41.3",
-    "daisyui": "5.1.7",
+    "daisyui": "5.1.10",
     "expressive-code-twoslash": "0.5.3",
     "gitzy": "5.9.0",
     "hastscript": "9.0.1",
