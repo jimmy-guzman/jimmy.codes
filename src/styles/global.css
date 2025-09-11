@@ -119,3 +119,8 @@
     animation: none !important;
   }
 }
+
+html {
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--color-base-200) var(--color-base-100);
+}

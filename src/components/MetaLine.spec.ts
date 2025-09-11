@@ -27,7 +27,7 @@ describe("MetaLine", () => {
       },
     });
 
-    expect(html).toContain("5 min read");
+    expect(html).toContain("5 mins read");
   });
 
   it("should render minutes (singular) when minutes = 1", async () => {
