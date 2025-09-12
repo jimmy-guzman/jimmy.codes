@@ -77,7 +77,13 @@ export default defineConfig({
   },
   integrations: [
     expressiveCode({
-      themes: ["catppuccin-mocha"],
+      themes: ["kanagawa-dragon", "kanagawa-lotus"],
+      themeCssSelector: (theme) => {
+        if (theme.type === "light") return `[data-theme='light']`;
+
+        return `[data-theme='dark']`;
+      },
+      useDarkModeMediaQuery: false,
       shiki: { transformers: [transformerColorizedBrackets()] },
       plugins: [expressiveCodeTwoSlash()],
     }),
