@@ -110,6 +110,7 @@ function isKeyOfItem(key: string): key is KeyOfItem {
 function logValue(key: string) {
   if (isKeyOfItem(key)) {
     console.log(item[key]);
+    //                 ^?
   }
 }
 ```
@@ -125,7 +126,8 @@ const item: { [key: string]: string } = {
 };
 
 function logValue(key: string) {
-  const value = item[key]; // string
+  const value = item[key];
+  //    ^?
 
   console.log(value);
 }
@@ -153,11 +155,38 @@ const item: { [key: string]: string } = {
 };
 
 function logValue(key: string) {
-  const value = item[key]; // string | undefined
+  const value = item[key];
+  //    ^?
 
   console.log(value);
 }
 ```
+
+### 6. Add a permissive index signature
+
+While not recommended, you can add a permissive index signature to your interface or type.
+
+```ts twoslash
+interface Item {
+  [key: string]: any;
+  name: string;
+  quantity: number;
+}
+
+const item: Item = {
+  name: "Apple",
+  quantity: 6,
+};
+
+function logValue(key: string) {
+  const value = item[key];
+  //    ^?
+
+  console.log(value);
+}
+```
+
+This approach is generally discouraged as it defeats the purpose of TypeScript's type safety since it essentially disables type checking for property access.
 
 ## Conclusion
 
