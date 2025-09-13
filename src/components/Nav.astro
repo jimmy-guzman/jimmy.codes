@@ -14,10 +14,14 @@ const mobileDropdown = mobile.filter((link) => !link.primary);
 <nav class="navbar">
   <div class="flex-1">
     <a href="/" class="btn gap-2 btn-ghost btn-sm lg:btn-md">
-      <Logo className="h-5 w-5 md:h-6 md:w-6" />
-      <span class="sr-only lg:not-sr-only lg:text-base"
+      <Logo className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+      <span class="hidden md:inline md:text-base lg:hidden" aria-hidden="true"
+        >JGM</span
+      >
+      <span class="hidden lg:inline lg:text-base" aria-hidden="true"
         >Jimmy Guzman Moreno</span
       >
+      <span class="sr-only">Jimmy Guzman Moreno</span>
     </a>
   </div>
 
