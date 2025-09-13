@@ -17,9 +17,21 @@
     document.documentElement.dataset.theme = theme;
   }
 
-  const currentTheme = getPreferredTheme();
+  function setToggleStates(theme) {
+    const themeToggles = document.querySelectorAll(".theme-controller");
+
+    themeToggles.forEach((toggle) => {
+      toggle.checked = theme === "light";
+    });
+  }
+
+  let currentTheme = getPreferredTheme();
 
   applyTheme(document, currentTheme);
+
+  if (document.readyState !== "loading") {
+    setToggleStates(currentTheme);
+  }
 
   document.addEventListener("astro:before-swap", (event) => {
     applyTheme(event.newDocument, currentTheme);
@@ -28,15 +40,22 @@
   document.addEventListener("DOMContentLoaded", () => {
     const themeToggles = document.querySelectorAll(".theme-controller");
 
-    themeToggles.forEach((toggle) => {
-      toggle.checked = currentTheme === "light";
+    setToggleStates(currentTheme);
 
+    themeToggles.forEach((toggle) => {
       toggle.addEventListener("change", () => {
         const newTheme = toggle.checked ? "light" : "dark";
 
-        document.documentElement.dataset.theme = newTheme;
+        currentTheme = newTheme;
 
+        document.documentElement.dataset.theme = newTheme;
         localStorage.setItem("theme", newTheme);
+
+        themeToggles.forEach((otherToggle) => {
+          if (otherToggle !== toggle) {
+            otherToggle.checked = newTheme === "light";
+          }
+        });
       });
     });
   });
@@ -45,7 +64,13 @@
     .matchMedia("(prefers-color-scheme: dark)")
     .addEventListener("change", (event) => {
       if (!localStorage.getItem("theme")) {
-        applyTheme(document, event.matches ? "dark" : "light");
+        const systemTheme = event.matches ? "dark" : "light";
+
+        currentTheme = systemTheme;
+
+        applyTheme(document, systemTheme);
+
+        setToggleStates(systemTheme);
       }
     });
 </script>
