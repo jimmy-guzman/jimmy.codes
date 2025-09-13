@@ -44,15 +44,13 @@ const mobileDropdown = mobile.filter((link) => !link.primary);
       <ThemeController />
 
       <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-circle btn-ghost btn-sm">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
           <span class="sr-only">More</span>
-          <span
-            class:list={["icon-[lucide--menu]", "h-5", "w-5"]}
-            aria-hidden="true"></span>
+          <span class="icon-[lucide--menu] h-5 w-5" aria-hidden="true"></span>
         </div>
         <ul
           tabindex="0"
-          class="dropdown-content menu z-[1] w-48 rounded-box bg-base-100 text-sm shadow"
+          class="dropdown-content menu z-[1] w-34 rounded-box border border-base-200 bg-base-100 text-sm shadow"
         >
           {
             mobileDropdown.map((link) => (
@@ -80,7 +78,7 @@ const mobileDropdown = mobile.filter((link) => !link.primary);
             {...ext(link)}
             download={link.download}
           >
-            <span class={link.primary ? "sr-only lg:not-sr-only" : "sr-only"}>
+            <span class:list={["sr-only", { "lg:not-sr-only": link.primary }]}>
               {link.label}
             </span>
             <span
