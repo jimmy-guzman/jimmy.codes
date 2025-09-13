@@ -1,0 +1,99 @@
+---
+title: TIL - Clickable Links in Terminal Output
+publishDate: 2025-09-13
+description: Today I learned you can make terminal output clickable using OSC 8 escape codes instead of forcing users to copy-paste URLs and file paths.
+keywords: [til, terminal, cli, osc8, hyperlinks]
+---
+
+I was recently looking at a CLI I wrote that prints file paths directly to the terminal. As those paths got longer and more numerous, I realized this creates cluttered output and forces users to copy-paste manually.
+
+Turns out there's a simple solution: you can make terminal output clickable like HTML links using a special ANSI escape sequence called [**OSC 8**](https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda).
+
+---
+
+## Why This Matters
+
+There's a few drawbacks to printing raw URLs or file paths like this:
+
+```
+View logs at: https://example.com/logs/123456
+View file at: file:///Users/jimmy/logs/app.log
+```
+
+They do the job, but:
+
+- Long URLs clutter your output.
+- Some terminals don’t automatically make them clickable.
+- Users need to copy and paste manually.
+
+Luckily, there's a better way.
+
+---
+
+## The Solution: OSC 8 Hyperlinks
+
+Here’s a minimal helper function:
+
+```ts
+export const link = (text: string, target: string) => {
+  return `\u001B]8;;${target}\u001B\\${text}\u001B]8;;\u001B\\`;
+};
+
+console.log(link("View Logs", "https://example.com/logs/123"));
+console.log(link("Open File", "file:///Users/jimmy/logs/app.log"));
+```
+
+If your terminal supports OSC 8:
+
+- `"View Logs"` becomes clickable and opens in your browser.
+- `"Open File"` opens in your default app or editor.
+
+![Screenshot of clickable links in terminal](/images/posts/clickable-links-terminal.png)
+
+If not supported, it just shows plain text.
+
+---
+
+## How it works
+
+The escape sequence breaks down as:
+
+- `\u001B]8;;` - Start hyperlink
+- `${target}` - The URL/path to link to
+- `\u001B\\` - End URL, start display text
+- `${text}` - What users see
+- `\u001B]8;;\u001B\\` - End hyperlink
+
+## Compatibility
+
+Most modern terminals support this:
+
+- iTerm2, Ghostty, Kitty
+- VS Code Terminal
+- GNOME Terminal (and other VTE-based terminals)
+- Windows Terminal
+- and [more...](https://github.com/Alhadis/OSC8-Adoption)
+
+**Tip:**
+
+- Use `CMD+Click` on macOS.
+- Use `CTRL+Click` on Linux and Windows.
+
+---
+
+## Resources
+
+- [OSC 8 Adoption List](https://github.com/Alhadis/OSC8-Adoption)
+- [OSC 8 Hyperlink Proposal](https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda)
+
+---
+
+## Final Thoughts
+
+This is a tiny addition that **dramatically improves developer experience** in your CLI:
+
+- Users no longer copy and paste URLs.
+- File paths open directly with one click.
+- Fallback is just plain text when unsupported.
+
+For a single line of code, it's worth adding.
