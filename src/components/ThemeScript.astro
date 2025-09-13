@@ -17,9 +17,21 @@
     document.documentElement.dataset.theme = theme;
   }
 
+  function setToggleStates(theme) {
+    const themeToggles = document.querySelectorAll(".theme-controller");
+
+    themeToggles.forEach((toggle) => {
+      toggle.checked = theme === "light";
+    });
+  }
+
   let currentTheme = getPreferredTheme();
 
   applyTheme(document, currentTheme);
+
+  if (document.readyState !== "loading") {
+    setToggleStates(currentTheme);
+  }
 
   document.addEventListener("astro:before-swap", (event) => {
     applyTheme(event.newDocument, currentTheme);
@@ -28,16 +40,15 @@
   document.addEventListener("DOMContentLoaded", () => {
     const themeToggles = document.querySelectorAll(".theme-controller");
 
-    themeToggles.forEach((toggle) => {
-      toggle.checked = currentTheme === "light";
+    setToggleStates(currentTheme);
 
+    themeToggles.forEach((toggle) => {
       toggle.addEventListener("change", () => {
         const newTheme = toggle.checked ? "light" : "dark";
 
         currentTheme = newTheme;
 
         document.documentElement.dataset.theme = newTheme;
-
         localStorage.setItem("theme", newTheme);
 
         themeToggles.forEach((otherToggle) => {
@@ -59,11 +70,7 @@
 
         applyTheme(document, systemTheme);
 
-        const themeToggles = document.querySelectorAll(".theme-controller");
-
-        themeToggles.forEach((toggle) => {
-          toggle.checked = systemTheme === "light";
-        });
+        setToggleStates(systemTheme);
       }
     });
 </script>
