@@ -14,6 +14,11 @@
         "glob": "package.json",
         "run": "bunx sort-package-json {staged_files}",
         "stage_fixed": true
+      },
+      "prettier:astro-md": {
+        "glob": "*.{astro,md,mdx}",
+        "run": "bunx prettier --experimental-cli --write --ignore-path .gitignore {staged_files}",
+        "stage_fixed": true
       }
     }
   },
