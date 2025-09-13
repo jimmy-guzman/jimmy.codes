@@ -1,7 +1,7 @@
 interface Link {
   href: `/${string}` | `mailto:${string}` | `https://${string}`;
   label: string;
-  icon: `icon-[${"lucide" | "mdi" | "simple-icons"}--${string}]`;
+  icon: `icon-[lucide--${string}]`;
   external?: boolean;
   download?: boolean;
   primary?: boolean;
@@ -34,19 +34,19 @@ export const mobile: Link[] = [
   {
     href: "/resume.pdf",
     label: "Resume",
-    icon: "icon-[mdi--resume]",
+    icon: "icon-[lucide--file-user]",
     download: true,
   },
   {
     href: "https://github.com/jimmy-guzman",
     label: "GitHub",
-    icon: "icon-[simple-icons--github]",
+    icon: "icon-[lucide--github]",
     external: true,
   },
   {
     href: "https://www.linkedin.com/in/jimmy-guzman-moreno",
     label: "LinkedIn",
-    icon: "icon-[simple-icons--linkedin]",
+    icon: "icon-[lucide--linkedin]",
     external: true,
   },
   {
@@ -78,7 +78,7 @@ export const desktop: Link[] = [
   {
     href: "/resume.pdf",
     label: "Resume",
-    icon: "icon-[mdi--resume]",
+    icon: "icon-[lucide--file-user]",
     download: true,
     primary: true,
   },
@@ -90,13 +90,13 @@ export const desktop: Link[] = [
   {
     href: "https://github.com/jimmy-guzman",
     label: "GitHub",
-    icon: "icon-[simple-icons--github]",
+    icon: "icon-[lucide--github]",
     external: true,
   },
   {
     href: "https://www.linkedin.com/in/jimmy-guzman-moreno",
     label: "LinkedIn",
-    icon: "icon-[simple-icons--linkedin]",
+    icon: "icon-[lucide--linkedin]",
     external: true,
   },
   {

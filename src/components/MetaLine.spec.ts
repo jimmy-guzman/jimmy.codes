@@ -65,7 +65,7 @@ describe("MetaLine", () => {
     expect(html).toContain(`href="${expected}"`);
     expect(html).toContain('data-tip="View on GitHub"');
     expect(html).toContain(">View on GitHub</span>");
-    expect(html).toContain("icon-[simple-icons--github]");
+    expect(html).toContain("icon-[lucide--github]");
   });
 
   it("should not render a GitHub link when filePath is absent", async () => {
@@ -75,7 +75,7 @@ describe("MetaLine", () => {
     });
 
     expect(html).not.toContain("View on GitHub");
-    expect(html).not.toContain("icon-[simple-icons--github]");
+    expect(html).not.toContain("icon-[lucide--github]");
     expect(html).not.toContain('data-tip="View on GitHub"');
     expect(html).not.toContain("github.com/jimmy-guzman/jimmy.codes");
   });

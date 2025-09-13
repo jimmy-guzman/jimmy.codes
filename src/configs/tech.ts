@@ -1,3 +1,9 @@
+interface Tech {
+  link: `https://${string}.${string}/`;
+  title: string;
+  icon: `icon-[${"logos" | "simple-icons"}--${string}]`;
+}
+
 export const techDaily = [
   {
     link: "https://react.dev/",
@@ -65,7 +71,7 @@ export const techDaily = [
     icon: "icon-[logos--vitejs]",
   },
   {
-    link: "https://turbo.build/repo/docs",
+    link: "https://turbo.build/repo/docs/",
     title: "Turborepo",
     icon: "icon-[logos--turborepo-icon]",
   },
@@ -74,7 +80,7 @@ export const techDaily = [
     title: "Grafana",
     icon: "icon-[logos--grafana]",
   },
-];
+] satisfies Tech[];
 
 export const techLearning = [
   {
@@ -102,7 +108,7 @@ export const techLearning = [
     title: "Kotlin",
     icon: "icon-[logos--kotlin-icon]",
   },
-];
+] satisfies Tech[];
 
 export const techLove = [
   {
@@ -160,7 +166,7 @@ export const techLove = [
     title: "NX",
     icon: "icon-[logos--nx]",
   },
-];
+] satisfies Tech[];
 
 export const titles = {
   daily: "Tech I Use Daily",
