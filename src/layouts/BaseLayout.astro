@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
 import Seo from "../components/Seo.astro";
 import "../styles/global.css";
+import ThemeScript from "@/components/ThemeScript.astro";
 
 interface Props {
   title: string;
@@ -25,6 +26,7 @@ const { title, description, keywords, noIndex } = Astro.props;
       keywords={keywords}
       noIndex={noIndex}
     />
+    <ThemeScript />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
     <meta name="generator" content={Astro.generator} />
@@ -45,6 +47,7 @@ const { title, description, keywords, noIndex } = Astro.props;
   <body class="flex min-h-dvh flex-col justify-between px-4" tabindex="-1">
     <Nav />
     <slot />
+
     <Footer />
   </body>
 </html>

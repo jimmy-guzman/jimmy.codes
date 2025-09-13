@@ -24,7 +24,7 @@ test.describe("Primary journeys", () => {
 
     await page.goto("/");
 
-    await page.getByRole("button", { name: "Menu" }).click();
+    await page.getByRole("button", { name: "More" }).click();
 
     await page.getByRole("link", { name: "RSS" }).click();
 

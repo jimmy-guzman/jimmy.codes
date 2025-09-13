@@ -1,152 +1,96 @@
 ---
+import { desktop, mobile } from "../configs/nav";
 import Logo from "./Logo.astro";
 import ThemeController from "./ThemeController.astro";
+
+const ext = (link: { external?: boolean }) => {
+  return link.external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+};
+
+const mobilePrimary = mobile.filter((link) => link.primary);
+const mobileDropdown = mobile.filter((link) => !link.primary);
 ---
 
 <nav class="navbar">
-  <div class="navbar-start flex items-center gap-2">
-    <a href="/" class="btn gap-2 p-1 btn-ghost btn-sm sm:p-2 xl:btn-md">
-      <Logo className="h-6 w-6 sm:h-5 sm:w-5" />
-      <span class="sr-only text-sm sm:not-sr-only xl:text-base"
+  <div class="flex-1">
+    <a href="/" class="btn gap-2 btn-ghost btn-sm lg:btn-md">
+      <Logo className="h-5 w-5 md:h-6 md:w-6" />
+      <span class="sr-only lg:not-sr-only lg:text-base"
         >Jimmy Guzman Moreno</span
       >
     </a>
   </div>
 
-  <div class="navbar-center hidden md:flex">
-    <ul class="menu menu-horizontal gap-1">
-      <li>
-        <a href="/" class="btn gap-1 px-2 py-1 btn-ghost btn-sm xl:btn-md">
-          <span class="sr-only md:not-sr-only">Home</span>
-          <span class="icon-[lucide--home] h-4 w-4"></span>
-        </a>
-      </li>
-      <li>
-        <a href="/about" class="btn gap-1 px-2 py-1 btn-ghost btn-sm xl:btn-md">
-          <span class="sr-only md:not-sr-only">About</span>
-          <span class="icon-[lucide--user] h-4 w-4"></span>
-        </a>
-      </li>
-      <li>
-        <a href="/blog" class="btn gap-1 px-2 py-1 btn-ghost btn-sm xl:btn-md">
-          <span class="sr-only md:not-sr-only">Blog</span>
-          <span class="icon-[lucide--newspaper] h-4 w-4"></span>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="navbar-end">
-    <div class="flex items-center gap-4 sm:gap-3">
-      <div class="flex items-center gap-2">
-        <a
-          href="mailto:hi@jimmy.codes"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn btn-circle btn-ghost btn-sm xl:btn-md"
-        >
-          <span class="sr-only">Email</span>
-          <span class="icon-[lucide--mail] h-5 w-5 sm:h-4 sm:w-4"></span>
-        </a>
-
-        <div class="hidden items-center gap-2 sm:flex">
+  <div class="flex flex-none items-center gap-1">
+    <div class="flex items-center gap-1 md:hidden">
+      {
+        mobilePrimary.map((link) => (
           <a
-            href="/resume.pdf"
-            download
-            class="btn btn-circle btn-ghost btn-sm xl:btn-md"
+            href={link.href}
+            class="btn btn-ghost btn-sm"
+            {...ext(link)}
+            download={link.download}
           >
-            <span class="sr-only">Resume</span>
-            <span class="icon-[mdi--resume] h-4 w-4"></span>
+            <span class="sr-only">{link.label}</span>
+            <span class:list={[link.icon, "h-4", "w-4"]} aria-hidden="true" />
           </a>
-          <a
-            href="https://github.com/jimmy-guzman"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-circle btn-ghost btn-sm xl:btn-md"
-          >
-            <span class="sr-only">GitHub</span>
-            <span class="icon-[simple-icons--github] h-4 w-4"></span>
-          </a>
-          <a
-            href="https://www.linkedin.com/in/jimmy-guzman-moreno"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-circle btn-ghost btn-sm xl:btn-md"
-          >
-            <span class="sr-only">LinkedIn</span>
-            <span class="icon-[simple-icons--linkedin] h-4 w-4"></span>
-          </a>
-          <a href="/rss.xml" class="btn btn-circle btn-ghost btn-sm xl:btn-md">
-            <span class="sr-only">RSS</span>
-            <span class="icon-[lucide--rss] h-4 w-4"></span>
-          </a>
-        </div>
-      </div>
+        ))
+      }
 
       <ThemeController />
 
-      <div class="dropdown dropdown-end sm:hidden">
+      <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-circle btn-ghost btn-sm">
-          <span class="sr-only">Menu</span>
-          <span class="icon-[lucide--menu] h-5 w-5"></span>
+          <span class="sr-only">More</span>
+          <span
+            class:list={["icon-[lucide--menu]", "h-5", "w-5"]}
+            aria-hidden="true"></span>
         </div>
         <ul
           tabindex="0"
           class="dropdown-content menu z-[1] w-48 rounded-box bg-base-100 text-sm shadow"
         >
-          <li>
-            <a href="/">
-              <span class="icon-[lucide--home] h-4 w-4"></span>
-              Home
-            </a>
-          </li>
-
-          <li>
-            <a href="/about">
-              <span class="icon-[lucide--user] h-4 w-4"></span>
-              About
-            </a>
-          </li>
-          <li>
-            <a href="/blog">
-              <span class="icon-[lucide--newspaper] h-4 w-4"></span>
-              Blog
-            </a>
-          </li>
-          <li>
-            <a href="/resume.pdf" download>
-              <span class="icon-[mdi--resume] h-4 w-4"></span>
-              Resume
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://github.com/jimmy-guzman"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="icon-[simple-icons--github] h-4 w-4"></span>
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.linkedin.com/in/jimmy-guzman-moreno"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="icon-[simple-icons--linkedin] h-4 w-4"></span>
-              LinkedIn
-            </a>
-          </li>
-          <li>
-            <a href="/rss.xml">
-              <span class="icon-[lucide--rss] h-4 w-4"></span>
-              RSS
-            </a>
-          </li>
+          {
+            mobileDropdown.map((link) => (
+              <li>
+                <a href={link.href} {...ext(link)} download={link.download}>
+                  <span
+                    class:list={[link.icon, "h-4 w-4"]}
+                    aria-hidden="true"
+                  />
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
+    </div>
+
+    <div class="hidden items-center gap-1 md:flex">
+      {
+        desktop.map((link) => (
+          <a
+            href={link.href}
+            class="btn btn-ghost btn-sm lg:btn-md"
+            {...ext(link)}
+            download={link.download}
+          >
+            <span class={link.primary ? "sr-only lg:not-sr-only" : "sr-only"}>
+              {link.label}
+            </span>
+            <span
+              class:list={[
+                link.icon,
+                "h-4 w-4 md:h-5 md:w-5",
+                { "lg:hidden": link.primary },
+              ]}
+              aria-hidden="true"
+            />
+          </a>
+        ))
+      }
+      <ThemeController />
     </div>
   </div>
 </nav>
