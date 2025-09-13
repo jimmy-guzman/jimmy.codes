@@ -17,7 +17,7 @@
     document.documentElement.dataset.theme = theme;
   }
 
-  const currentTheme = getPreferredTheme();
+  let currentTheme = getPreferredTheme();
 
   applyTheme(document, currentTheme);
 
@@ -34,9 +34,17 @@
       toggle.addEventListener("change", () => {
         const newTheme = toggle.checked ? "light" : "dark";
 
+        currentTheme = newTheme;
+
         document.documentElement.dataset.theme = newTheme;
 
         localStorage.setItem("theme", newTheme);
+
+        themeToggles.forEach((otherToggle) => {
+          if (otherToggle !== toggle) {
+            otherToggle.checked = newTheme === "light";
+          }
+        });
       });
     });
   });
@@ -45,7 +53,17 @@
     .matchMedia("(prefers-color-scheme: dark)")
     .addEventListener("change", (event) => {
       if (!localStorage.getItem("theme")) {
-        applyTheme(document, event.matches ? "dark" : "light");
+        const systemTheme = event.matches ? "dark" : "light";
+
+        currentTheme = systemTheme;
+
+        applyTheme(document, systemTheme);
+
+        const themeToggles = document.querySelectorAll(".theme-controller");
+
+        themeToggles.forEach((toggle) => {
+          toggle.checked = systemTheme === "light";
+        });
       }
     });
 </script>
