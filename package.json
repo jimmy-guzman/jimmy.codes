@@ -34,7 +34,7 @@
     "@commitlint/types": "19.8.1",
     "@iconify-json/logos": "1.2.9",
     "@iconify-json/lucide": "1.2.67",
-    "@iconify-json/simple-icons": "1.2.51",
+    "@iconify-json/simple-icons": "1.2.52",
     "@iconify/tailwind4": "1.0.6",
     "@playwright/test": "1.55.0",
     "@shikijs/colorized-brackets": "3.12.2",
