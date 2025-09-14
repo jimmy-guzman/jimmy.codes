@@ -40,7 +40,7 @@
     "@shikijs/colorized-brackets": "3.12.2",
     "@tailwindcss/typography": "0.5.16",
     "@tailwindcss/vite": "4.1.13",
-    "@types/bun": "1.2.21",
+    "@types/bun": "1.2.22",
     "@vitest/coverage-v8": "3.2.4",
     "astro": "5.13.7",
     "astro-expressive-code": "0.41.3",
