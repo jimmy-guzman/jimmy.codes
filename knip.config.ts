@@ -9,4 +9,5 @@ export default {
         .join("\n");
     },
   },
+  ignoreBinaries: ["pandoc"],
 } satisfies KnipConfig;
