@@ -2,23 +2,21 @@
 
 Minneapolis, MN | [hi@jimmy.codes](mailto:hi@jimmy.codes) | [jimmy.codes](https://jimmy.codes)
 
-### **Frontend Platform Engineer | Technical Leadership & Scalable Systems**
+### **Engineering Leader** | **React, TypeScript, Node.js** | **Scalable Frontend & System Design**
 
-Technical leader focused on **platform engineering** and **cross-team technical strategy**. Track record of **building systems that enable engineering teams at scale** and delivering **measurable business impact**. Expert in **full-stack architecture, developer experience, and technical leadership** across multiple product teams.
+Technical leader with deep expertise in **frontend architecture** and **full-stack systems**. Proven track record of **driving cross-team technical strategy**, **scaling engineering platforms**, and **elevating developer experience**. Skilled at **building products and platforms that accelerate teams** and deliver **meaningful business outcomes**, with a focus on **scalable, modern frontend solutions**.
 
 ---
 
 ## **Key Strengths & Strategic Impact**
 
-- **Platform Engineering Leadership** – Architected **NX monorepo serving 15+ teams**, enabling independent deployments and reducing development friction across the organization
-- **Cross-Team Technical Leadership** – Key contributor to **Tech Case Study Working Group** with Principal Engineers & Directors, shaping company-wide hiring standards and technical evaluation processes
-- **Large-Scale System Modernization** – Orchestrated **AngularJS → React migration** reducing frontend load times by **75%** while maintaining business continuity
-- **Developer Platform Excellence** – Cut **CI/CD build times by 83%** (_30+ min → 5 min_) with **Turborepo & PNPM**, accelerating delivery for multiple product teams
-- **Technical Standards & Culture** – Established **enterprise component library** and **engineering standards** adopted by **15+ teams**, improving code quality and development velocity
-- **Engineering Leadership at Scale** – Mentored **50+ engineers** across multiple teams, fostering promotions to **Senior & Lead** roles while building technical capability
-- **Full-Stack Performance Architecture** – Reduced **API latency by 70%** through optimized backend design and **React rendering optimization by 75%**
-
----
+- **Platform Engineering Leadership** – Built **NX monorepos and Turborepo architectures** supporting **15+ teams** across frontend and backend services, enabling independent deployments and reducing development friction
+- **Cross-Team Technical Strategy** – Partnered with Principal Engineers and Directors to **define company-wide hiring standards** and technical evaluation processes.
+- **System Modernization at Scale** – Led **AngularJS → React migration**, improving frontend load times by **75%** while ensuring business continuity
+- **Developer Platform Optimization** – Reduced **CI/CD build times by 83%** (_30+ min → 5 min_), accelerating delivery across multiple product teams
+- **Enterprise Standards & Design Systems** – Created **enterprise component library** and **engineering standards** adopted by **15+ teams**, improving code quality and velocity
+- **Scaling Engineering Talent** – Mentored **50+ engineers**, fostering growth into **Senior and Lead roles** and strengthening organizational technical capability
+- **Full-Stack Performance Engineering** – Achieved **70% API latency reduction** and **75% faster frontend rendering** through backend optimization and modern React patterns
 
 ## **Technical Skills**
 
