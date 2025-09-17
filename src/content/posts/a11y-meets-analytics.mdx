@@ -43,7 +43,7 @@ or with [Plausible](https://plausible.io/docs/custom-event-goals):
 
 This works, but it tells you very little about what the user did. IDs and custom properties often change during refactors, and they don't always match what's visible on screen. Analytics ends up filled with mystery strings that don't help product teams understand real behavior. This also puts the burden on developers to maintain these attributes, which can lead to inconsistencies and errors.
 
-On top of that, maintenance can become a headache due to the fragile nature. Lastly, it doesn't encourage good accessibility practices, as there's no direct link between what's tracked and what users see.
+Lastly, it doesn't encourage good accessibility practices, as there's no direct link between what's tracked and what users see.
 
 Compare these analytics results:
 
@@ -150,7 +150,7 @@ import { computeAccessibleName } from "dom-accessibility-api";
 
 This only requires a few lines of code and works across your entire app. You can easily adapt it to log events to your analytics provider of choice.
 
-> [!NOTE]
+> [!WARNING]
 > This approach only works if we're following good accessibility practices. If a button has no label, it will log an empty string, which is a clear sign of an issue that needs to be fixed.
 
 ## Performance Considerations
