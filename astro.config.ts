@@ -8,6 +8,7 @@ import expressiveCode from "astro-expressive-code";
 import expressiveCodeTwoSlash from "expressive-code-twoslash";
 import { h } from "hastscript";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeCallouts from "rehype-callouts";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeSlug from "rehype-slug";
 import rehypeUnwrapImages from "rehype-unwrap-images";
@@ -73,6 +74,7 @@ export default defineConfig({
         },
       ],
       rehypeUnwrapImages,
+      rehypeCallouts,
     ],
   },
   integrations: [
