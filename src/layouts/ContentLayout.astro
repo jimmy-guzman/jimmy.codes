@@ -21,7 +21,7 @@ const { description, publishDate, updatedDate, back, minutes, filePath } =
 <section>
   <p class="text-base-content/80 not-italic">{description}</p>
   <p class="text-sm">
-    <MetaLine {publishDate} {updatedDate} {minutes} {filePath} />
+    <MetaLine publishDate={publishDate} minutes={minutes} filePath={filePath} />
   </p>
 </section>
 
@@ -31,11 +31,6 @@ const { description, publishDate, updatedDate, back, minutes, filePath } =
   <article>
     <slot />
   </article>
-  <p class="mt-10 text-center">
-    Thank you for reading <span class="bg-red-400 bg-clip-text text-transparent"
-      >❤️</span
-    >.
-  </p>
 </section>
 
 <a
@@ -46,21 +41,19 @@ const { description, publishDate, updatedDate, back, minutes, filePath } =
   <span class="icon-[lucide--arrow-up] h-4 w-4" aria-hidden="true"></span>
 </a>
 
-<div class="divider" aria-hidden="true" role="presentation"></div>
-
 {
   updatedDate && (
-    <section class="flex justify-end text-sm text-base-content/60">
+    <section class="mt-8 flex justify-end text-sm text-base-content/60">
       <LastModified updatedDate={updatedDate} />
     </section>
   )
 }
 
-<section class="mt-4">
+<section class="mt-8">
   <p>
     <a
       href={back.href}
-      class="inline-flex items-center gap-1 link-hover"
+      class="inline-flex items-center gap-1 text-base-content/60 link-hover"
       rel="up"
     >
       <span class="icon-[lucide--arrow-left]" aria-hidden="true"></span>
