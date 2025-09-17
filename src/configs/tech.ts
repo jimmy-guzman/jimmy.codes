@@ -1,5 +1,5 @@
 interface Tech {
-  link: `https://${string}.${string}/`;
+  link: `https://${string}.${string}`;
   title: string;
   icon: `icon-[${"logos" | "simple-icons"}--${string}]`;
 }
@@ -34,6 +34,11 @@ export const techDaily = [
     link: "https://expressjs.com/",
     title: "Express",
     icon: "icon-[simple-icons--express]",
+  },
+  {
+    link: "https://kotlinlang.org/",
+    title: "Kotlin",
+    icon: "icon-[logos--kotlin-icon]",
   },
   {
     link: "https://www.postgresql.org/",
@@ -71,14 +76,19 @@ export const techDaily = [
     icon: "icon-[logos--vitejs]",
   },
   {
-    link: "https://turbo.build/repo/docs/",
+    link: "https://turbo.build/repo/docs",
     title: "Turborepo",
     icon: "icon-[logos--turborepo-icon]",
   },
   {
-    link: "https://grafana.com//",
+    link: "https://grafana.com/",
     title: "Grafana",
     icon: "icon-[logos--grafana]",
+  },
+  {
+    link: "https://docker.com/",
+    title: "Docker",
+    icon: "icon-[logos--docker-icon]",
   },
 ] satisfies Tech[];
 
@@ -94,6 +104,11 @@ export const techLearning = [
     icon: "icon-[simple-icons--ollama]",
   },
   {
+    title: "LangChain",
+    link: "https://langchain.com/",
+    icon: "icon-[simple-icons--langchain]",
+  },
+  {
     link: "https://workers.cloudflare.com/",
     title: "Cloudflare Workers",
     icon: "icon-[logos--cloudflare-workers-icon]",
@@ -104,9 +119,9 @@ export const techLearning = [
     icon: "icon-[simple-icons--rust]",
   },
   {
-    link: "https://kotlinlang.org//",
-    title: "Kotlin",
-    icon: "icon-[logos--kotlin-icon]",
+    link: "https://expo.dev/",
+    title: "Expo",
+    icon: "icon-[simple-icons--expo]",
   },
 ] satisfies Tech[];
 
@@ -165,6 +180,11 @@ export const techLove = [
     link: "https://nx.dev/",
     title: "NX",
     icon: "icon-[logos--nx]",
+  },
+  {
+    title: "GitHub Actions",
+    icon: "icon-[logos--github-actions]",
+    link: "https://github.com/features/actions",
   },
 ] satisfies Tech[];
 

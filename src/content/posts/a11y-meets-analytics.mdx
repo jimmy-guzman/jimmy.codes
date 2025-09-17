@@ -5,7 +5,7 @@ description: "How to track clicks using accessible names to make analytics stabl
 keywords: [accessibility, analytics, react, javascript, dom-accessibility-api]
 ---
 
-When working on analytics, I kept running into the same issue: **the data didn't match what users actually experienced**. I was tracking clicks with IDs or custom properties like `data-track-name`. These were brittle, broke during refactors, and required tedious manual work, not great for developer experience. We were also on a mission to improve accessibility, so I wanted a solution that aligned with that goal.
+When working on analytics, I've come across different implementations that tracked clicks using data attributes, like `data-track-name`, or even simple IDs. These approaches had similar issues and were brittle, prone to breaking during refactors, and required tedious manual work, which wasn't great for developer experience. In one project, we were also on a mission to improve accessibility, so I wanted a solution that aligned with that goal.
 
 That's when I discovered a better way. While writing tests using [Testing Library](https://testing-library.com/), I wondered if we could leverage the same principles for analytics. After some research, I found the `dom-accessibility-api` library, which can compute **accessible names** for any DOM element.
 
