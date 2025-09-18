@@ -10,8 +10,7 @@ interface Props {
 
 const { publishDate, minutes, filePath, class: className = "" } = Astro.props;
 
-const REPO = "jimmy-guzman/jimmy.codes";
-const BRANCH = "main";
+const GITHUB_URL = `https://github.com/jimmy-guzman/jimmy.codes/blob/main/${filePath}`;
 ---
 
 <span class:list={[className, "flex items-center justify-between"]}>
@@ -29,17 +28,28 @@ const BRANCH = "main";
 
   {
     filePath && (
-      <span class="tooltip" data-tip="View on GitHub">
+      <>
+        <span class="tooltip md:hidden" data-tip="View on GitHub">
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-circle btn-ghost"
+          >
+            <span class="sr-only">View on GitHub</span>
+            <span class="icon-[lucide--github] h-4 w-4" aria-hidden="true" />
+          </a>
+        </span>
+
         <a
-          href={`https://github.com/${REPO}/blob/${BRANCH}/${filePath}`}
+          href={GITHUB_URL}
           target="_blank"
           rel="noopener noreferrer"
-          class="btn btn-circle btn-ghost"
+          class="hidden link link-hover md:inline-flex"
         >
-          <span class="sr-only">View on GitHub</span>
-          <span class="icon-[lucide--github] h-4 w-4" aria-hidden="true" />
+          View on GitHub
         </a>
-      </span>
+      </>
     )
   }
 </span>

@@ -5,7 +5,6 @@ import MetaLine from "../components/MetaLine.astro";
 import "rehype-callouts/theme/github";
 
 interface Props {
-  description: string;
   keywords: string[];
   publishDate: Date;
   updatedDate?: Date;
@@ -14,12 +13,10 @@ interface Props {
   filePath?: string;
 }
 
-const { description, publishDate, updatedDate, back, minutes, filePath } =
-  Astro.props;
+const { publishDate, updatedDate, back, minutes, filePath } = Astro.props;
 ---
 
 <section>
-  <p class="text-base-content/80 not-italic">{description}</p>
   <p class="text-sm">
     <MetaLine publishDate={publishDate} minutes={minutes} filePath={filePath} />
   </p>

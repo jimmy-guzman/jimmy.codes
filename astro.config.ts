@@ -37,6 +37,7 @@ export default defineConfig({
     },
   },
   experimental: {
+    clientPrerender: true,
     fonts: [
       {
         name: "Satoshi",
