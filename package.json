@@ -39,7 +39,7 @@
     "@iconify/tailwind4": "1.0.6",
     "@playwright/test": "1.55.0",
     "@shikijs/colorized-brackets": "3.12.2",
-    "@tailwindcss/typography": "0.5.16",
+    "@tailwindcss/typography": "0.5.18",
     "@tailwindcss/vite": "4.1.13",
     "@types/bun": "1.2.22",
     "@types/node": "24.5.2",
