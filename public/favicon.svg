@@ -1,22 +1,20 @@
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 24 24"
-  width="512"
-  height="512"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="512" height="512" fill="none" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
   <style>
-    :root { color-scheme: light dark; } 
-    .fg { fill: #000; }
+    :root {
+      color-scheme: light dark;
+    }
+
+    .terminal-stroke {
+      stroke: #1a1a1a;
+    }
+
     @media (prefers-color-scheme: dark) {
-      .fg { fill: #d6d6d6; }
+      .terminal-stroke {
+        stroke: #e5e5e5;
+      }
     }
   </style>
-  <path d="M3 6 L9 12 L3 18" stroke-linecap="round" stroke-linejoin="round"
-  ></path>
-  <line x1="12" y1="18" x2="18" y2="18" stroke-linecap="round"></line>
+  <path class="terminal-stroke" d="M3 6 L9 12 L3 18" fill="none" />
+  <line class="terminal-stroke" x1="12" y1="18" x2="18" y2="18" />
 </svg>
