@@ -5,6 +5,7 @@ import { transformerColorizedBrackets } from "@shikijs/colorized-brackets";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField, fontProviders } from "astro/config";
 import expressiveCode from "astro-expressive-code";
+import favicons from "astro-favicons";
 import expressiveCodeTwoSlash from "expressive-code-twoslash";
 import { h } from "hastscript";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -92,5 +93,38 @@ export default defineConfig({
     }),
     mdx(),
     sitemap(),
+    favicons({
+      themes: ["#1a1a1a", "#e5e5e5"],
+      cacheBustingQueryParam: "v3",
+      name: "jimmy.codes",
+      short_name: "JGM",
+      icons: {
+        favicons: [
+          "favicon.svg",
+          "favicon-16x16.png",
+          "favicon-32x32.png",
+          "favicon-48x48.png",
+        ],
+        appleStartup: false,
+        yandex: true,
+        windows: true,
+        android: [
+          "android-chrome-192x192.png",
+          {
+            name: "android-chrome-512x512.png",
+            sizes: [{ width: 512, height: 512 }],
+            purpose: "maskable",
+            transparent: true,
+            rotate: false,
+            offset: 13,
+          },
+        ],
+        appleIcon: [
+          "apple-touch-icon.png",
+          "apple-touch-icon-precomposed.png",
+          "safari-pinned-tab.svg",
+        ],
+      },
+    }),
   ],
 });
