@@ -9,6 +9,7 @@ const content = z.object({
   description: z.string(),
   publishDate: z.date(),
   keywords: z.array(z.string()),
+  tags: z.array(z.string()),
 });
 
 const blog = defineCollection({

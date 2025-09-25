@@ -16,13 +16,15 @@ afterEach(() => {
 
 describe("prettyDate", () => {
   it("should format a date as `Mon D, YYYY` in en-US with UTC", () => {
-    const d = new Date("2024-01-05T00:00:00Z");
-    expect(prettyDate(d)).toBe("Jan 5, 2024");
+    const date = new Date("2024-01-05T00:00:00Z");
+
+    expect(prettyDate(date)).toBe("Jan 5, 2024");
   });
 
   it("should handle different months/days", () => {
-    const d = new Date("2025-09-03T12:34:56Z");
-    expect(prettyDate(d)).toBe("Sep 3, 2025");
+    const date = new Date("2025-09-03T12:34:56Z");
+
+    expect(prettyDate(date)).toBe("Sep 3, 2025");
   });
 });
 

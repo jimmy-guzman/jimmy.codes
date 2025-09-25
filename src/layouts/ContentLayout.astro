@@ -1,11 +1,12 @@
 ---
+import Tags from "@/components/Tags.astro";
 import LastModified from "../components/LastModified.astro";
 import MetaLine from "../components/MetaLine.astro";
 
 import "rehype-callouts/theme/github";
 
 interface Props {
-  keywords: string[];
+  tags: string[];
   publishDate: Date;
   updatedDate?: Date;
   back: { href: `/${string}`; label: string };
@@ -13,7 +14,7 @@ interface Props {
   filePath?: string;
 }
 
-const { publishDate, updatedDate, back, minutes, filePath } = Astro.props;
+const { publishDate, updatedDate, back, minutes, filePath, tags } = Astro.props;
 ---
 
 <section>
@@ -28,6 +29,10 @@ const { publishDate, updatedDate, back, minutes, filePath } = Astro.props;
   <article>
     <slot />
   </article>
+</section>
+
+<section class="mt-8">
+  <Tags tags={tags} />
 </section>
 
 <a

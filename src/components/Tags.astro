@@ -1,0 +1,39 @@
+---
+import { slugifyTag } from "@/utils/tag";
+
+interface Props {
+  tags: string[];
+  active?: string;
+}
+
+const { tags, active } = Astro.props;
+---
+
+<nav class="not-prose mb-8" aria-label="Filter posts by tag">
+  <div class="flex flex-wrap justify-center gap-2">
+    {
+      tags.sort().map((tag) => {
+        const tagSlug = slugifyTag(tag);
+        const isActive = tagSlug === active;
+
+        return (
+          <a
+            href={`/blog/tag/${tagSlug}`}
+            aria-label={`${isActive ? "Current tag: " : "Filter by "}${tag}`}
+            aria-current={isActive ? "page" : undefined}
+            data-astro-prefetch
+            class:list={[
+              "badge transition-colors",
+              "focus-visible:ring-2 focus-visible:ring-base-content focus-visible:outline-none",
+              isActive
+                ? "text-primary-content badge-primary"
+                : "badge-outline hover:border-base-300 hover:bg-base-300/50",
+            ]}
+          >
+            {tag}
+          </a>
+        );
+      })
+    }
+  </div>
+</nav>
