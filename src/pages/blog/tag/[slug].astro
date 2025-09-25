@@ -1,0 +1,89 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPaths } from "astro";
+
+import MetaLine from "@/components/MetaLine.astro";
+import Tags from "@/components/Tags.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageLayout from "@/layouts/PageLayout.astro";
+import { readingTime, sortByPublishDate } from "@/utils/content";
+import { getAllTags, slugifyTag } from "@/utils/tag";
+
+export const getStaticPaths = (async () => {
+  const allPosts = await getCollection("posts");
+  const allTags = getAllTags(allPosts);
+
+  return allTags.map((originalTag) => ({
+    params: { slug: slugifyTag(originalTag) },
+    props: {
+      originalTag,
+      allPosts,
+      allTags,
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { slug } = Astro.params;
+const { originalTag, allPosts, allTags } = Astro.props;
+
+const posts = allPosts
+  .filter((post) =>
+    post.data.tags?.some((postTag) => slugifyTag(postTag) === slug),
+  )
+  .sort(sortByPublishDate);
+
+const pageTitle = `Posts tagged "${originalTag}"`;
+const pageDescription = `All blog posts tagged with "${originalTag}"`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  keywords={[originalTag, "blog", "posts"]}
+>
+  <PageLayout heading={pageTitle}>
+    <Tags tags={allTags} active={slug} />
+
+    <section class="not-prose">
+      {
+        posts.length > 0 ? (
+          <ul class="flex flex-col gap-y-4">
+            {posts.map((post) => (
+              <li class="space-y-0.5">
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="link font-medium link-hover"
+                  rel="bookmark"
+                  data-astro-prefetch
+                >
+                  {post.data.heading ?? post.data.title}
+                </a>
+                <MetaLine
+                  class="block text-sm text-base-content/60"
+                  publishDate={post.data.publishDate}
+                  minutes={readingTime(post.body)}
+                  filePath={post.filePath}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="text-base-content/60">No posts found for this tag.</p>
+        )
+      }
+    </section>
+
+    <section class="mt-8">
+      <p>
+        <a
+          href="/blog"
+          class="inline-flex items-center gap-1 text-base-content/60 link-hover"
+          rel="up"
+        >
+          <span class="icon-[lucide--arrow-left]" aria-hidden="true"></span>
+          Back to all posts
+        </a>
+      </p>
+    </section>
+  </PageLayout>
+</BaseLayout>
