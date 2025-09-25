@@ -10,15 +10,15 @@ import { readingTime, sortByPublishDate } from "@/utils/content";
 import { getAllTags, slugifyTag } from "@/utils/tag";
 
 export const getStaticPaths = (async () => {
-  const posts = await getCollection("posts");
-  const allTags = getAllTags(posts);
+  const allPosts = await getCollection("posts");
+  const allTags = getAllTags(allPosts);
 
-  return Array.from(allTags).map((tag) => ({
-    params: { slug: slugifyTag(tag) },
+  return Array.from(allTags).map((originalTag) => ({
+    params: { slug: slugifyTag(originalTag) },
     props: {
-      originalTag: tag,
-      allPosts: posts,
-      allTags: Array.from(allTags),
+      originalTag,
+      allPosts,
+      allTags,
     },
   }));
 }) satisfies GetStaticPaths;
