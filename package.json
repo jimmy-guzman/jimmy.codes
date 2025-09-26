@@ -1,6 +1,5 @@
 {
   "name": "jimmy.codes",
-  "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,8 +9,7 @@
     "check": "biome check && astro check",
     "check:fix": "biome check --fix",
     "coverage": "vitest run --coverage",
-    "deps:dedupe": "rm -rf node_modules && rm bun.lock && bun install",
-    "deps:up": "bunx npm-check-updates -ui",
+    "dedupe": "rm -rf node_modules && rm bun.lock && bun install",
     "dev": "bunx --bun astro dev",
     "e2e": "playwright test",
     "format": "bun run format:biome && bun run format:prettier",
@@ -21,7 +19,8 @@
     "prepare": "is-ci || lefthook install",
     "preview": "astro preview",
     "test": "vitest",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "up": "bunx npm-check-updates -ui"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",
@@ -44,10 +43,10 @@
     "@types/bun": "1.2.22",
     "@types/node": "24.5.2",
     "@vitest/coverage-v8": "3.2.4",
-    "astro": "5.14.0",
+    "astro": "5.14.1",
     "astro-expressive-code": "0.41.3",
     "astro-favicons": "3.1.5",
-    "daisyui": "5.1.23",
+    "daisyui": "5.1.24",
     "expressive-code-twoslash": "0.5.3",
     "gitzy": "5.9.0",
     "hastscript": "9.0.1",

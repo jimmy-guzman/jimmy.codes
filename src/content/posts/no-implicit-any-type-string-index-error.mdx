@@ -35,6 +35,8 @@ function logValue(key: string) {
 }
 ```
 
+Here, `key` is of type `string`, which means it could be any string value. TypeScript cannot guarantee that this string corresponds to a valid key in the `item` object, which only has the keys `name` and `type`. Therefore, it raises an error to prevent potential runtime issues.
+
 Luckily, there are a few ways to resolve this error.
 
 ## Solutions
