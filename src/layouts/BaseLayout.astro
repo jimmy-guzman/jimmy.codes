@@ -1,11 +1,13 @@
 ---
 import { Font } from "astro:assets";
 import { FATHOM_SITE_ID } from "astro:env/client";
-import Footer from "../components/Footer.astro";
-import Nav from "../components/Nav.astro";
-import Seo from "../components/Seo.astro";
-import "../styles/global.css";
+
+import Footer from "@/components/Footer.astro";
+import Nav from "@/components/Nav.astro";
+import Seo from "@/components/Seo.astro";
 import ThemeScript from "@/components/ThemeScript.astro";
+
+import "@/styles/global.css";
 
 interface Props {
   title: string;
@@ -40,6 +42,7 @@ const { title, description, keywords, noIndex } = Astro.props;
       defer></script>
 
     <Font cssVariable="--font-satoshi" preload />
+
     <style>
       html {
         font-family: var(--font-satoshi), system-ui, sans-serif;

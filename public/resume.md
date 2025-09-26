@@ -23,7 +23,7 @@ Technical leader with deep expertise in **frontend architecture** and **full-sta
 - **Frontend Platforms:** React, SolidJS, Next.js, Astro, React Router v7
 - **Languages:** TypeScript, JavaScript, Java, Kotlin, Groovy
 - **Backend & APIs:** Node.js (Express, Fastify), bun, GraphQL, REST, Kafka, PostgreSQL, MongoDB, Redis, Prisma, Drizzle
-- **Platform Engineering:** Vite, Turborepo, NX, Webpack, Rollup, GitHub Actions, Jenkins, Docker, Infrastructure as Code (IaC)
+- **Platform Engineering:** Vite, Turborepo, NX, webpack, Rollup, GitHub Actions, Jenkins, Docker, Infrastructure as Code (IaC)
 - **Testing & Observability:** Vitest, Playwright, Jest, Cypress, Testing Library, Mock Service Worker, OpenTelemetry, Grafana
 - **Developer Experience:** Monorepo Architecture, Build Optimization, Static Analysis, Performance Engineering, Feature Flagging
 
