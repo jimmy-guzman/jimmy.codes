@@ -12,18 +12,26 @@ import { getRelatedByTags } from "@/utils/related";
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
 
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post, relatedPosts: getRelatedByTags(posts, post) },
-  }));
+  return posts.map((post) => {
+    const updatedDate =
+      post.data.updatedDate ??
+      (post.filePath ? lastModified(post.filePath) : undefined);
+
+    const relatedPosts = getRelatedByTags(posts, post);
+
+    return {
+      params: { slug: post.slug },
+      props: {
+        post,
+        updatedDate,
+        relatedPosts,
+      },
+    };
+  });
 }
 
-const { post, relatedPosts } = Astro.props;
+const { post, relatedPosts, updatedDate } = Astro.props;
 const { Content } = await render(post);
-
-const updatedDate =
-  post.data.updatedDate ??
-  (post.filePath ? lastModified(post.filePath) : undefined);
 ---
 
 <BaseLayout
