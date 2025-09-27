@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 
 import { BASE_TITLE } from "@/configs/pages";
+import { urls } from "@/configs/urls";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ContentLayout from "@/layouts/ContentLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
@@ -32,23 +33,50 @@ export async function getStaticPaths() {
 
 const { post, relatedPosts, updatedDate } = Astro.props;
 const { Content } = await render(post);
+
+const postUrl = `${urls.site}/blog/${post.slug}`;
+const minutes = readingTime(post.body);
+const datePublished = post.data.publishDate;
+const dateModified = updatedDate ?? datePublished;
+const timeRequired = minutes
+  ? `PT${Math.max(1, Math.round(minutes))}M`
+  : undefined;
+const description = post.data.description;
+
+const jsonLd = {
+  "@type": "BlogPosting",
+  "@id": `${postUrl}#article`,
+  inLanguage: "en-US",
+  headline: post.data.title,
+  ...(description ? { description } : {}),
+  author: { "@id": `${urls.site}/#person` },
+  publisher: { "@id": `${urls.site}/#person` },
+  datePublished,
+  dateModified,
+  url: postUrl,
+  mainEntityOfPage: { "@id": `${postUrl}#webpage` },
+  keywords: post.data.keywords,
+  isAccessibleForFree: true,
+  ...(timeRequired ? { timeRequired } : {}),
+};
 ---
 
 <BaseLayout
   title={`${post.data.title} | ${BASE_TITLE}`}
-  description={post.data.description}
+  description={description}
   keywords={post.data.keywords}
+  extraLd={[jsonLd]}
 >
   <PageLayout heading={shortTitle(post)}>
     <ContentLayout
       tags={post.data.tags}
-      publishDate={post.data.publishDate}
+      publishDate={datePublished}
       updatedDate={updatedDate}
       back={{
         href: "/blog",
         label: "Back to all posts",
       }}
-      minutes={readingTime(post.body)}
+      minutes={minutes}
       filePath={post.filePath}
       relatedPosts={relatedPosts}
     >
