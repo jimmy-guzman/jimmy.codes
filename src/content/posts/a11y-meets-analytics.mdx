@@ -174,7 +174,7 @@ In practice, `computeAccessibleName` is lightweight since it's only called on us
 
 In production, this approach has not only improved our analytics quality but also surfaced accessibility issues we didn't know existed. Buttons with empty accessible names immediately showed up in our click data as empty strings, and "lazy" names became obvious.
 
-We had multiple "Delete" buttons across different sections that all logged the same name, making it impossible to distinguish which content was being deleted. This pushed us to use `aria-labelledby` to reference section headings, creating unique names like "Delete Project Alpha" and "Delete User Profile".
+We also had multiple "Edit" buttons across different sections that all logged the same name, making it impossible to distinguish which content was being edited. This pushed us to use `aria-labelledby` to reference section headings, creating unique names like "Edit Project Alpha" and "Edit User Profile".
 
 ---
 
