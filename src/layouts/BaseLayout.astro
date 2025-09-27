@@ -33,7 +33,7 @@ const jsonLd = JSON.stringify({
       name: pages.site.title,
       description: pages.site.description,
       publisher: { "@id": `${urls.site}/#person` },
-      inLanguage: "en",
+      inLanguage: "en-US",
     },
     {
       "@type": "Person",
@@ -48,7 +48,7 @@ const jsonLd = JSON.stringify({
       url: canonical,
       name: title,
       isPartOf: { "@id": `${urls.site}/#website` },
-      inLanguage: "en",
+      inLanguage: "en-US",
       ...(description ? { description } : {}),
     },
     ...extraLd,
