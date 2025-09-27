@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import { defaultErrorMap } from "astro:schema";
+
 import { BASE_TITLE } from "@/configs/pages";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ContentLayout from "@/layouts/ContentLayout.astro";
@@ -48,7 +48,7 @@ const jsonLd = {
   "@id": `${postUrl}#article`,
   inLanguage: "en-US",
   headline: post.data.title,
-  ...(description ? { description: description } : {}),
+  ...(description ? { description } : {}),
   author: { "@id": `${siteUrl}/#person` },
   publisher: { "@id": `${siteUrl}/#person` },
   datePublished,

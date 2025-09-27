@@ -52,7 +52,7 @@ const jsonLd = JSON.stringify({
       name: title,
       isPartOf: { "@id": `${siteUrl}/#website` },
       inLanguage: "en",
-      ...(description ? { description: description } : {}),
+      ...(description ? { description } : {}),
     },
     ...extraLd,
   ],
