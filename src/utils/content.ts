@@ -23,9 +23,11 @@ export function prettyDate(date: Date) {
  * Estimate reading time for a given text.
  *
  * @param text The text to estimate reading time for
- * @returns Estimated reading time in minutes (minimum 1)
+ * @returns Estimated reading time in minutes. Minimum is 1 minute for non-empty text, 0 for empty text.
  */
 export const readingTime = (text: string) => {
+  if (!text) return 0;
+
   const { minutes } = getReadingTime(text);
 
   return Math.max(1, Math.round(minutes));

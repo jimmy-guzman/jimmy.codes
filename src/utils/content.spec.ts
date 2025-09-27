@@ -33,6 +33,14 @@ describe("readingTime", () => {
     expect(readingTime("word")).toBe(1);
   });
 
+  it("should return 0 minutes for empty text", () => {
+    expect(readingTime("")).toBe(0);
+  });
+
+  it("should NOT throw for empty text", () => {
+    expect(() => readingTime("")).not.toThrow();
+  });
+
   it("should increase with longer text", () => {
     const short = "word ".repeat(100);
     const medium = "word ".repeat(500);
