@@ -6,10 +6,6 @@ interface Post {
   data: InferEntrySchema<"posts">;
 }
 
-const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
-const DAYS_PER_MONTH = 30;
-const MILLISECONDS_PER_MONTH = MILLISECONDS_PER_DAY * DAYS_PER_MONTH;
-
 const normalizeTag = (tag: string) => tag.toLowerCase();
 
 const filterUsableTags = (tags: string[], stop: Set<string>) => {
@@ -85,11 +81,20 @@ export const getRelatedByTags = (
    * Rare tags get higher weights, making them more significant for relatedness.
    */
   const getTagWeight = (tag: string) => {
+    /**
+     * Ensures every tag has a minimum weight, even if common.
+     */
+    const TAG_WEIGHT_BASELINE = 1;
+    /**
+     * Prevents division by zero and smooths the weighting curve.
+     */
+    const TAG_WEIGHT_LOG_OFFSET = 1;
+
     const count = tagCounts.get(tag);
 
     if (!count) return 0; // unseen/filtered tags have no weight
 
-    return 1 + 1 / Math.log(1 + count);
+    return TAG_WEIGHT_BASELINE + 1 / Math.log(TAG_WEIGHT_LOG_OFFSET + count);
   };
 
   const now = Date.now();
@@ -99,6 +104,13 @@ export const getRelatedByTags = (
    * Used for recency decay in scoring algorithm.
    */
   const calculateMonthsSince = (date: Date) => {
+    const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+    /**
+     * Using average month length of 30.44 days (365.25 days / 12 months)
+     */
+    const DAYS_PER_MONTH = 30.44;
+    const MILLISECONDS_PER_MONTH = MILLISECONDS_PER_DAY * DAYS_PER_MONTH;
+
     return Math.max(0, (now - +date) / MILLISECONDS_PER_MONTH);
   };
 
