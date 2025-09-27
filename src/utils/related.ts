@@ -1,5 +1,10 @@
 import type { InferEntrySchema } from "astro:content";
 
+interface Post {
+  slug: string;
+  data: InferEntrySchema<"posts">;
+}
+
 const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
 const DAYS_PER_MONTH = 30;
 const MILLISECONDS_PER_MONTH = MILLISECONDS_PER_DAY * DAYS_PER_MONTH;
@@ -29,11 +34,6 @@ const getTagFrequencies = (allPosts: Post[], stopTags: Set<string>) => {
 
   return tagCounts;
 };
-
-interface Post {
-  slug: string;
-  data: InferEntrySchema<"posts">;
-}
 
 interface RelatedOptions {
   limit?: number;
@@ -146,8 +146,8 @@ export const getRelatedByTags = (
         return +b.post.data.publishDate - +a.post.data.publishDate;
       }
 
-      const titleCmp = (a.post.data.heading ?? a.post.data.title).localeCompare(
-        b.post.data.heading ?? b.post.data.title,
+      const titleCmp = a.post.data.title.localeCompare(
+        b.post.data.title,
         "en",
         { sensitivity: "base" },
       );
@@ -161,6 +161,6 @@ export const getRelatedByTags = (
     .slice(0, limit)
     .map((result) => ({
       slug: result.post.slug,
-      title: result.post.data.heading ?? result.post.data.title,
+      title: result.post.data.title,
     }));
 };
