@@ -184,4 +184,49 @@ describe("getRelatedByTags", () => {
     // Should sort by title: "Alpha Title" comes before "Zebra Title"
     expect(results.map((r) => r.slug)).toEqual(["alpha-slug", "zebra-slug"]);
   });
+
+  it("should prefer `heading` over `title` when available", () => {
+    const current = makePost({ slug: "current", data: { tags: ["x"] } });
+
+    const related = makePost({
+      slug: "candidate",
+      data: {
+        tags: ["x"],
+        title: "Fallback Title",
+        heading: "Preferred Heading",
+      },
+    });
+
+    const all = [current, related];
+
+    const results = getRelatedByTags(all, current);
+
+    expect(results).toHaveLength(1);
+    expect(results[0]).toEqual({
+      slug: "candidate",
+      title: "Preferred Heading",
+    });
+  });
+
+  it("should fall back to `title` when `heading` is not provided", () => {
+    const current = makePost({ slug: "current", data: { tags: ["x"] } });
+
+    const related = makePost({
+      slug: "candidate",
+      data: {
+        tags: ["x"],
+        title: "Only Title",
+      },
+    });
+
+    const all = [current, related];
+
+    const results = getRelatedByTags(all, current);
+
+    expect(results).toHaveLength(1);
+    expect(results[0]).toEqual({
+      slug: "candidate",
+      title: "Only Title",
+    });
+  });
 });

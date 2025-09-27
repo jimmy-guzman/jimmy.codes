@@ -7,6 +7,7 @@ import { pages } from "@/configs/pages";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { readingTime, sortByPublishDate } from "@/utils/content";
+import { shortTitle } from "@/utils/post";
 import { getAllTags } from "@/utils/tag";
 
 const posts = (await getCollection("posts")).sort(sortByPublishDate);
@@ -33,7 +34,7 @@ const tags = getAllTags(posts);
                 rel="bookmark"
                 data-astro-prefetch
               >
-                {post.data.heading ?? post.data.title}
+                {shortTitle(post)}
               </a>
               <MetaLine
                 class="block text-sm text-base-content/60"
