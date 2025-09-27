@@ -40,7 +40,7 @@ interface RelatedOptions {
   /**
    * Tags to ignore when calculating related posts.
    */
-  stopTags?: string[];
+  stopTags?: InferEntrySchema<"posts">["tags"];
   /**
    * Minimum number of shared tags required for a post to be considered related.
    */
