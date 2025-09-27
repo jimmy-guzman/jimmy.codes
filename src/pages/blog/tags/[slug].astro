@@ -7,6 +7,7 @@ import Tags from "@/components/Tags.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { readingTime, sortByPublishDate } from "@/utils/content";
+import { shortTitle } from "@/utils/post";
 import { getAllTags, slugifyTag } from "@/utils/tag";
 
 export const getStaticPaths = (async () => {
@@ -56,7 +57,7 @@ const pageDescription = `All blog posts tagged with "${originalTag}"`;
                   rel="bookmark"
                   data-astro-prefetch
                 >
-                  {post.data.heading ?? post.data.title}
+                  {shortTitle(post)}
                 </a>
                 <MetaLine
                   class="block text-sm text-base-content/60"

@@ -8,8 +8,8 @@ const content = z.object({
     .optional(),
   description: z.string(),
   publishDate: z.date(),
-  keywords: z.array(z.string()),
-  tags: z.array(z.string()),
+  keywords: z.array(z.string()).min(1, "At least one keyword is required"),
+  tags: z.array(z.string()).min(1, "At least one tag is required"),
 });
 
 const blog = defineCollection({
