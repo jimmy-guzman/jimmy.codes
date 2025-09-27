@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 
 import { BASE_TITLE } from "@/configs/pages";
+import { urls } from "@/configs/urls";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ContentLayout from "@/layouts/ContentLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
@@ -33,8 +34,7 @@ export async function getStaticPaths() {
 const { post, relatedPosts, updatedDate } = Astro.props;
 const { Content } = await render(post);
 
-const siteUrl = "https://www.jimmy.codes";
-const postUrl = `${siteUrl}/blog/${post.slug}`;
+const postUrl = `${urls.site}/blog/${post.slug}`;
 const minutes = readingTime(post.body);
 const datePublished = post.data.publishDate;
 const dateModified = updatedDate ?? datePublished;
@@ -49,8 +49,8 @@ const jsonLd = {
   inLanguage: "en-US",
   headline: post.data.title,
   ...(description ? { description } : {}),
-  author: { "@id": `${siteUrl}/#person` },
-  publisher: { "@id": `${siteUrl}/#person` },
+  author: { "@id": `${urls.site}/#person` },
+  publisher: { "@id": `${urls.site}/#person` },
   datePublished,
   dateModified,
   url: postUrl,

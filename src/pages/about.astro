@@ -1,5 +1,6 @@
 ---
 import { pages } from "@/configs/pages";
+import { urls } from "@/configs/urls";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 ---
@@ -87,14 +88,14 @@ import PageLayout from "@/layouts/PageLayout.astro";
         <a href="mailto:hi@jimmy.codes" class="link-hover">hi@jimmy.codes</a>
         or find me on
         <a
-          href="https://github.com/jimmy-guzman"
+          href={urls.GitHub}
           class="link-hover"
           target="_blank"
           rel="noopener noreferrer">GitHub</a
         >
         and
         <a
-          href="https://www.linkedin.com/in/jimmy-guzman-moreno"
+          href={urls.LinkedIn}
           class="link-hover"
           target="_blank"
           rel="noopener noreferrer">LinkedIn</a
