@@ -82,6 +82,7 @@ export default defineConfig({
           theme: "obsidian",
           props: {
             containerProps: { class: "my-[1.25rem] callout" },
+            titleProps: { class: "callout-title items-center!" },
           },
         },
       ],
