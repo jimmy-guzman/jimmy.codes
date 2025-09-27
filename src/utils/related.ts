@@ -1,9 +1,33 @@
 import type { InferEntrySchema } from "astro:content";
 
+const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+const DAYS_PER_MONTH = 30;
+const MILLISECONDS_PER_MONTH = MILLISECONDS_PER_DAY * DAYS_PER_MONTH;
+
 const normalizeTag = (tag: string) => tag.toLowerCase();
 
 const filterUsableTags = (tags: string[], stop: Set<string>) => {
   return tags.map(normalizeTag).filter((tag) => !stop.has(tag));
+};
+
+/**
+ * Pre-compute tag frequencies across all posts for performance optimization.
+ * This prevents recalculating tag counts on every function call.
+ */
+const getTagFrequencies = (allPosts: Post[], stopTags: Set<string>) => {
+  const tagCounts = new Map<string, number>();
+
+  for (const post of allPosts) {
+    const uniqueTagsForPost = new Set(
+      filterUsableTags(post.data.tags, stopTags),
+    );
+
+    for (const tag of uniqueTagsForPost) {
+      tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+    }
+  }
+
+  return tagCounts;
 };
 
 interface Post {
@@ -23,6 +47,7 @@ interface RelatedOptions {
   minimumSharedTags?: number;
   /**
    * Weight for recency bias. 0 means no bias. Small values like 0.03 add subtle bias towards newer posts.
+   * Higher values create stronger exponential decay favoring recent content.
    */
   recencyWeight?: number;
 }
@@ -52,18 +77,12 @@ export const getRelatedByTags = (
 
   if (currentPostTags.size === 0) return [];
 
-  const tagCounts = new Map<string, number>();
+  const tagCounts = getTagFrequencies(allPosts, stopTags);
 
-  for (const post of allPosts) {
-    const uniqueTagsForPost = new Set(
-      filterUsableTags(post.data.tags, stopTags),
-    );
-
-    for (const tag of uniqueTagsForPost) {
-      tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
-    }
-  }
-
+  /**
+   * Calculate tag weight using inverse frequency weighting.
+   * Rare tags get higher weights, making them more significant for relatedness.
+   */
   const getTagWeight = (tag: string) => {
     const count = tagCounts.get(tag);
 
@@ -74,8 +93,12 @@ export const getRelatedByTags = (
 
   const now = Date.now();
 
+  /**
+   * Calculate months elapsed since publication date.
+   * Used for recency decay in scoring algorithm.
+   */
   const calculateMonthsSince = (date: Date) => {
-    return Math.max(0, (now - +date) / (1000 * 60 * 60 * 24 * 30));
+    return Math.max(0, (now - +date) / MILLISECONDS_PER_MONTH);
   };
 
   return allPosts
@@ -95,6 +118,14 @@ export const getRelatedByTags = (
       );
 
       const monthsOld = calculateMonthsSince(post.data.publishDate);
+
+      /**
+       * Apply exponential recency decay: newer posts get higher scores.
+       * Formula: 1 / (1 + recencyWeight * monthsOld)
+       * - When recencyWeight = 0: no decay (recencyDecay = 1)
+       * - Higher recencyWeight values create stronger preference for recent content
+       * - Exponential decay means very old posts quickly lose relevance
+       */
       const recencyDecay = recencyWeight
         ? 1 / (1 + recencyWeight * monthsOld)
         : 1;
