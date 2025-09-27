@@ -18,7 +18,7 @@ const { tags, active } = Astro.props;
 
         return (
           <a
-            href={`/blog/tag/${tagSlug}`}
+            href={`/blog/tags/${tagSlug}`}
             aria-label={`${isActive ? "Current tag: " : "Filter by "}${tag}`}
             aria-current={isActive ? "page" : undefined}
             data-astro-prefetch
