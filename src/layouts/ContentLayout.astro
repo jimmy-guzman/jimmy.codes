@@ -46,7 +46,10 @@ const {
 
 {
   relatedPosts && relatedPosts.length > 0 && (
-    <aside class="mt-8" aria-labelledby="related-heading">
+    <aside
+      class="mt-8 prose-a:hover:no-underline"
+      aria-labelledby="related-heading"
+    >
       <h2 id="related-heading">Related Posts</h2>
       <ul>
         {relatedPosts.map((post) => (
