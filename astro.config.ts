@@ -76,7 +76,15 @@ export default defineConfig({
         },
       ],
       rehypeUnwrapImages,
-      rehypeCallouts,
+      [
+        rehypeCallouts,
+        {
+          theme: "obsidian",
+          props: {
+            containerProps: { class: "my-[1.25rem] callout" },
+          },
+        },
+      ],
     ],
   },
   integrations: [
