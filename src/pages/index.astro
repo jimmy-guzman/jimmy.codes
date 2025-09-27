@@ -1,6 +1,7 @@
 ---
 import { pages } from "@/configs/pages";
 import { techDaily, techLearning, techLove, titles } from "@/configs/tech";
+import { urls } from "@/configs/urls";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 ---
@@ -93,14 +94,14 @@ import PageLayout from "@/layouts/PageLayout.astro";
     <section class="space-y-6">
       <p>
         Find me on <a
-          href="https://github.com/jimmy-guzman"
+          href={urls.GitHub}
           target="_blank"
           rel="noopener noreferrer"
           class="link-hover"
         >
           GitHub</a
         > and <a
-          href="https://www.linkedin.com/in/jimmy-guzman-moreno"
+          href={urls.LinkedIn}
           target="_blank"
           rel="noopener noreferrer"
           class="link-hover">LinkedIn</a

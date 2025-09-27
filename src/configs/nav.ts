@@ -1,3 +1,5 @@
+import { urls } from "./urls";
+
 interface Link {
   href: `/${string}` | `mailto:${string}` | `https://${string}`;
   label: string;
@@ -38,13 +40,13 @@ export const mobile: Link[] = [
     download: true,
   },
   {
-    href: "https://github.com/jimmy-guzman",
+    href: urls.GitHub,
     label: "GitHub",
     icon: "icon-[lucide--github]",
     external: true,
   },
   {
-    href: "https://www.linkedin.com/in/jimmy-guzman-moreno",
+    href: urls.LinkedIn,
     label: "LinkedIn",
     icon: "icon-[lucide--linkedin]",
     external: true,
@@ -88,13 +90,13 @@ export const desktop: Link[] = [
     icon: "icon-[lucide--mail]",
   },
   {
-    href: "https://github.com/jimmy-guzman",
+    href: urls.GitHub,
     label: "GitHub",
     icon: "icon-[lucide--github]",
     external: true,
   },
   {
-    href: "https://www.linkedin.com/in/jimmy-guzman-moreno",
+    href: urls.LinkedIn,
     label: "LinkedIn",
     icon: "icon-[lucide--linkedin]",
     external: true,
