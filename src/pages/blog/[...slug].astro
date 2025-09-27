@@ -6,17 +6,18 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import ContentLayout from "@/layouts/ContentLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { lastModified, readingTime } from "@/utils/content";
+import { getRelatedByTags } from "@/utils/related";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
 
   return posts.map((post) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { post, relatedPosts: getRelatedByTags(posts, post) },
   }));
 }
 
-const { post } = Astro.props;
+const { post, relatedPosts } = Astro.props;
 const { Content } = await render(post);
 
 const updatedDate =
@@ -40,6 +41,7 @@ const updatedDate =
       }}
       minutes={readingTime(post.body)}
       filePath={post.filePath}
+      relatedPosts={relatedPosts}
     >
       <Content />
     </ContentLayout>

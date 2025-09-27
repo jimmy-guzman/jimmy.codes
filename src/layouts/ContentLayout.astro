@@ -12,9 +12,18 @@ interface Props {
   back: { href: `/${string}`; label: string };
   minutes?: number;
   filePath?: string;
+  relatedPosts?: { slug: string; title: string }[];
 }
 
-const { publishDate, updatedDate, back, minutes, filePath, tags } = Astro.props;
+const {
+  publishDate,
+  updatedDate,
+  back,
+  minutes,
+  filePath,
+  tags,
+  relatedPosts,
+} = Astro.props;
 ---
 
 <section>
@@ -34,6 +43,21 @@ const { publishDate, updatedDate, back, minutes, filePath, tags } = Astro.props;
 <section class="mt-8">
   <Tags tags={tags} />
 </section>
+
+{
+  relatedPosts && relatedPosts.length > 0 && (
+    <aside class="mt-8" aria-labelledby="related-heading">
+      <h2 id="related-heading">Related Posts</h2>
+      <ul>
+        {relatedPosts.map((post) => (
+          <li>
+            <a href={`/blog/${post.slug}`}>{post.title}</a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}
 
 <a
   href="#"
