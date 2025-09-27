@@ -6,6 +6,7 @@ import Footer from "@/components/Footer.astro";
 import Nav from "@/components/Nav.astro";
 import Seo from "@/components/Seo.astro";
 import ThemeScript from "@/components/ThemeScript.astro";
+import { pages } from "@/configs/pages";
 import { urls } from "@/configs/urls";
 
 import "@/styles/global.css";
@@ -29,9 +30,8 @@ const jsonLd = JSON.stringify({
       "@type": "WebSite",
       "@id": `${urls.site}/#website`,
       url: urls.site,
-      name: "Jimmy Guzman Moreno's blogfolio",
-      description:
-        "Jimmy Guzman Moreno's blogfolio — exploring software engineering, scalable systems, and developer experience.",
+      name: pages.site.title,
+      description: pages.site.description,
       publisher: { "@id": `${urls.site}/#person` },
       inLanguage: "en",
     },

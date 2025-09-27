@@ -1,6 +1,11 @@
 export const BASE_TITLE = "Jimmy Guzman Moreno";
 
 export const pages = {
+  site: {
+    title: "Jimmy Guzman Moreno's blogfolio",
+    description:
+      "Jimmy Guzman Moreno's blogfolio — exploring software engineering, scalable systems, and developer experience.",
+  },
   home: {
     title: BASE_TITLE,
     heading: "Hi, I'm Jimmy",
