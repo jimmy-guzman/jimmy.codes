@@ -163,4 +163,25 @@ describe("getRelatedByTags", () => {
 
     expect(results).toHaveLength(2);
   });
+
+  it("should break ties deterministically with different titles", () => {
+    const date = new Date("2024-01-01T00:00:00Z");
+    const current = makePost({ slug: "a", data: { tags: ["x"] } });
+
+    // Same score (share one tag), same date, but DIFFERENT titles
+    const zebra = makePost({
+      slug: "zebra-slug",
+      data: { title: "Zebra Title", publishDate: date, tags: ["x"] },
+    });
+    const alpha = makePost({
+      slug: "alpha-slug",
+      data: { title: "Alpha Title", publishDate: date, tags: ["x"] },
+    });
+
+    const all = [current, zebra, alpha];
+    const results = getRelatedByTags(all, current);
+
+    // Should sort by title: "Alpha Title" comes before "Zebra Title"
+    expect(results.map((r) => r.slug)).toEqual(["alpha-slug", "zebra-slug"]);
+  });
 });
