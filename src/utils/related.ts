@@ -13,8 +13,11 @@ const filterUsableTags = (tags: string[], stop: Set<string>) => {
 };
 
 /**
- * Pre-compute tag frequencies across all posts for performance optimization.
- * This prevents recalculating tag counts on every function call.
+ * Compute the frequency of each tag across all posts, excluding stop tags.
+ *
+ * @param allPosts All posts to analyze
+ * @param stopTags Tags to ignore when counting frequencies
+ * @returns A map of tag to its frequency count
  */
 const getTagFrequencies = (allPosts: Post[], stopTags: Set<string>) => {
   const tagCounts = new Map<string, number>();
@@ -44,7 +47,7 @@ interface RelatedOptions {
   minimumSharedTags?: number;
   /**
    * Weight for recency bias. 0 means no bias. Small values like 0.03 add subtle bias towards newer posts.
-   * Higher values create stronger exponential decay favoring recent content.
+   * Higher values create stronger hyperbolic decay favoring recent content.
    */
   recencyWeight?: number;
 }
@@ -65,7 +68,7 @@ export const getRelatedByTags = (
 ) => {
   const limit = options.limit ?? 5;
   const minimumSharedTags = options.minimumSharedTags ?? 1;
-  const recencyWeight = options.recencyWeight ?? 0;
+  const recencyWeight = Math.max(0, options.recencyWeight ?? 0);
   const stopTags = new Set((options.stopTags ?? []).map(normalizeTag));
 
   const currentPostTags = new Set(
@@ -133,11 +136,9 @@ export const getRelatedByTags = (
       const monthsOld = calculateMonthsSince(post.data.publishDate);
 
       /**
-       * Apply exponential recency decay: newer posts get higher scores.
-       * Formula: 1 / (1 + recencyWeight * monthsOld)
-       * - When recencyWeight = 0: no decay (recencyDecay = 1)
-       * - Higher recencyWeight values create stronger preference for recent content
-       * - Exponential decay means very old posts quickly lose relevance
+       * Apply hyperbolic recency decay: 1 / (1 + recencyWeight * monthsOld)
+       * - recencyWeight = 0 → no decay (1)
+       * - Larger weights favor newer content more strongly
        */
       const recencyDecay = recencyWeight
         ? 1 / (1 + recencyWeight * monthsOld)
@@ -159,7 +160,7 @@ export const getRelatedByTags = (
         return +b.post.data.publishDate - +a.post.data.publishDate;
       }
 
-      const titleCmp = shortTitle(a.post).localeCompare(
+      const titleComparison = shortTitle(a.post).localeCompare(
         shortTitle(b.post),
         "en",
         {
@@ -167,7 +168,7 @@ export const getRelatedByTags = (
         },
       );
 
-      if (titleCmp !== 0) return titleCmp;
+      if (titleComparison !== 0) return titleComparison;
 
       return a.post.slug.localeCompare(b.post.slug, "en", {
         sensitivity: "base",
