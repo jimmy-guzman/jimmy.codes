@@ -38,9 +38,7 @@ const postUrl = `${urls.site}/blog/${post.slug}`;
 const minutes = readingTime(post.body);
 const datePublished = post.data.publishDate;
 const dateModified = updatedDate ?? datePublished;
-const timeRequired = minutes
-  ? `PT${Math.max(1, Math.round(minutes))}M`
-  : undefined;
+const timeRequired = `PT${Math.max(1, Math.round(minutes))}M`;
 const description = post.data.description;
 
 const jsonLd = {
@@ -48,7 +46,7 @@ const jsonLd = {
   "@id": `${postUrl}#article`,
   inLanguage: "en-US",
   headline: post.data.title,
-  ...(description ? { description } : {}),
+  description,
   author: { "@id": `${urls.site}/#person` },
   publisher: { "@id": `${urls.site}/#person` },
   datePublished,
@@ -57,7 +55,7 @@ const jsonLd = {
   mainEntityOfPage: { "@id": `${postUrl}#webpage` },
   keywords: post.data.keywords,
   isAccessibleForFree: true,
-  ...(timeRequired ? { timeRequired } : {}),
+  timeRequired,
 };
 ---
 

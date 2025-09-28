@@ -10,9 +10,9 @@ interface Props {
   publishDate: Date;
   updatedDate?: Date;
   back: { href: `/${string}`; label: string };
-  minutes?: number;
+  minutes: number;
   filePath?: string;
-  relatedPosts?: { slug: string; title: string }[];
+  relatedPosts: { slug: string; title: string }[];
 }
 
 const {
@@ -45,7 +45,7 @@ const {
 </section>
 
 {
-  relatedPosts && relatedPosts.length > 0 && (
+  relatedPosts.length > 0 && (
     <aside
       class="mt-8 prose-a:hover:no-underline"
       aria-labelledby="related-heading"

@@ -4,7 +4,7 @@ import { prettyDate } from "../utils/content";
 interface Props {
   publishDate: Date;
   filePath?: string;
-  minutes?: number;
+  minutes: number;
   class?: string;
 }
 
@@ -16,14 +16,8 @@ const GITHUB_URL = `https://github.com/jimmy-guzman/jimmy.codes/blob/main/${file
 <span class:list={[className, "flex items-center justify-between"]}>
   <span class="inline-flex items-center gap-2">
     <time datetime={publishDate.toISOString()}>{prettyDate(publishDate)}</time>
-    {
-      typeof minutes === "number" && (
-        <>
-          <span aria-hidden="true">•</span>
-          <span>{minutes === 1 ? "1 min read" : `${minutes} mins read`}</span>
-        </>
-      )
-    }
+    <span aria-hidden="true">•</span>
+    <span>{minutes === 1 ? "1 min read" : `${minutes} mins read`}</span>
   </span>
 
   {

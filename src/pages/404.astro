@@ -4,7 +4,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 ---
 
-<BaseLayout title={pages.notFound.title} noIndex>
+<BaseLayout
+  title={pages.notFound.title}
+  description={pages.notFound.description}
+  keywords={pages.notFound.keywords}
+  noIndex
+>
   <PageLayout heading={pages.notFound.heading}>
     <section>
       <p>The page you're looking for does not exist.</p>

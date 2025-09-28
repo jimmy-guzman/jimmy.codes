@@ -4,6 +4,7 @@ import type { GetStaticPaths } from "astro";
 
 import MetaLine from "@/components/MetaLine.astro";
 import Tags from "@/components/Tags.astro";
+import { BASE_TITLE } from "@/configs/pages";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { readingTime, sortByPublishDate } from "@/utils/content";
@@ -28,12 +29,10 @@ const { slug } = Astro.params;
 const { originalTag, allPosts, allTags } = Astro.props;
 
 const posts = allPosts
-  .filter((post) =>
-    post.data.tags?.some((postTag) => slugifyTag(postTag) === slug),
-  )
+  .filter((post) => post.data.tags.some((tag) => slugifyTag(tag) === slug))
   .sort(sortByPublishDate);
 
-const pageTitle = `Posts tagged "${originalTag}"`;
+const pageTitle = `Posts tagged "${originalTag}" | ${BASE_TITLE}`;
 const pageDescription = `All blog posts tagged with "${originalTag}"`;
 ---
 

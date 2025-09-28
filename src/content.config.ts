@@ -30,7 +30,10 @@ const posts = defineCollection({
     publishDate: z.date(),
     updatedDate: z.date().optional(),
     keywords: z.array(z.string()).min(1, "At least one keyword is required"),
-    tags: z.array(tags).min(1, "At least one tag is required"),
+    tags: z
+      .array(tags)
+      .min(1, "At least one tag is required")
+      .max(5, "No more than five tags allowed"),
   }),
 });
 
