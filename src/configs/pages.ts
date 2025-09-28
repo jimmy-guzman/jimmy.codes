@@ -92,5 +92,7 @@ export const pages = {
   notFound: {
     title: `404 | ${BASE_TITLE}`,
     heading: "404",
+    description: "The page you're looking for does not exist.",
+    keywords: ["404", "not found", "error"],
   },
 } as const;

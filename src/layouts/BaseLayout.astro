@@ -13,8 +13,8 @@ import "@/styles/global.css";
 
 interface Props {
   title: string;
-  description?: string;
-  keywords?: readonly string[];
+  description: string;
+  keywords: readonly string[];
   noIndex?: boolean;
   extraLd?: Record<string, unknown>[];
 }
@@ -49,7 +49,7 @@ const jsonLd = JSON.stringify({
       name: title,
       isPartOf: { "@id": `${urls.site}/#website` },
       inLanguage: "en-US",
-      ...(description ? { description } : {}),
+      description,
     },
     ...extraLd,
   ],
