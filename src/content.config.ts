@@ -1,22 +1,22 @@
 import { defineCollection, z } from "astro:content";
 
-const tags = z.union([
-  z.literal("Frontend"),
-  z.literal("Analytics"),
-  z.literal("Accessibility"),
-  z.literal("Astro"),
-  z.literal("Markdown"),
-  z.literal("Tailwind CSS"),
-  z.literal("TIL"),
-  z.literal("Node.js"),
-  z.literal("Terminal"),
-  z.literal("TypeScript"),
-  z.literal("Tooling"),
-  z.literal("Performance"),
-  z.literal("Next.js"),
-  z.literal("CI/CD"),
-  z.literal("React"),
-  z.literal("JavaScript"),
+const tags = z.enum([
+  "Accessibility",
+  "Analytics",
+  "Astro",
+  "CI/CD",
+  "CLI",
+  "Frontend",
+  "JavaScript",
+  "Markdown",
+  "Next.js",
+  "Node.js",
+  "Performance",
+  "React",
+  "Tailwind",
+  "TIL",
+  "Tooling",
+  "TypeScript",
 ]);
 
 const posts = defineCollection({
