@@ -108,8 +108,15 @@ import { computeAccessibleName } from "dom-accessibility-api";
 
 export default function App() {
   useEffect(() => {
-    function handleClick(event) {
-      console.log(computeAccessibleName(event.currentTarget));
+    function handleClick(event: MouseEvent) {
+      if (event.target instanceof Element) {
+        const name = computeAccessibleName(event.target);
+
+        if (name) {
+          // or your analytics provider of choice
+          fathom.trackEvent(`${name} clicked`);
+        }
+      }
     }
 
     window.addEventListener("click", handleClick);
@@ -120,8 +127,6 @@ export default function App() {
   return <button>Search</button>;
 }
 ```
-
-When attaching listeners directly to interactive elements, use `event.currentTarget` instead of `event.target` to ensure you always pass the correct element to `computeAccessibleName`, as `currentTarget` refers to the element the listener is attached to rather than the element that triggered the event.
 
 ### Astro
 
@@ -135,7 +140,14 @@ import { computeAccessibleName } from "dom-accessibility-api";
     <script>
       window.addEventListener("load", () => {
         function handleClick(event) {
-          console.log(computeAccessibleName(event.currentTarget));
+          if (event.target instanceof Element) {
+            const name = computeAccessibleName(event.target);
+
+            if (name) {
+              // or your analytics provider of choice
+              fathom.trackEvent(`${name} clicked`);
+            }
+          }
         }
 
         window.addEventListener("click", handleClick);
