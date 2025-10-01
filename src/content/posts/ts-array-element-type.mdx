@@ -79,7 +79,7 @@ type ElementOf<T, K extends keyof T> = T[K] extends readonly unknown[]
   ? T[K][number]
   : never;
 
-// @warn: Order is never because orders is optional
+// @warn: Order is not what we expect
 type Order = ElementOf<Store, "orders">;
 //   ^?
 ```
@@ -105,7 +105,7 @@ type ElementOf<T, K extends keyof T = never> = [K] extends [never]
     : never
   : Extract<T[K], readonly unknown[]>[number];
 
-// @annotate: Order is { id: string; total: number }
+// @annotate: Order is what we expect
 type Order = ElementOf<Store, "orders">;
 //   ^?
 ```
