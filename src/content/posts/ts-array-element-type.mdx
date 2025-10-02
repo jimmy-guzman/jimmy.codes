@@ -7,7 +7,7 @@ keywords: ["typescript", "types", "utility types", "array element type"]
 tags: ["TypeScript"]
 ---
 
-When working with types that are out of your control like API responses, GraphQL codegen or third-party libraries, you might need the type of an element inside an array, not the array itself. TypeScript makes this easy in the simple cases, but it gets trickier when the array lives inside another type and **might be optional**.
+When working with types that are out of your control like API responses, GraphQL codegen, or third-party libraries, you might need the type of an element inside an array, not the array itself. TypeScript makes this easy in the simple cases, but it gets trickier when the array lives inside another type and **might be optional**.
 
 Some time back, I helped a teammate with this situation. This post is a recollection of that solution. We'll start with the obvious, run into rough edges, and end with a reusable strict-safe helper.
 
