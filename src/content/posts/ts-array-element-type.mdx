@@ -1,0 +1,188 @@
+---
+title: "TypeScript: Get the Element Type of an Array Property Safely"
+heading: "Get Array Element Type Safely"
+publishDate: 2025-10-02
+description: "Extracting the type of an element inside an array property, even when the property is optional."
+keywords: ["typescript", "types", "utility types", "array element type"]
+tags: ["TypeScript"]
+---
+
+When working with types that are out of your control like API responses, GraphQL codegen, or third-party libraries, you might need the type of an element inside an array, not the array itself. TypeScript makes this easy in the simple cases, but it gets trickier when the array lives inside another type and **might be optional**.
+
+Some time back, I helped a teammate with this situation. This post is a recollection of that solution. We'll start with the obvious, run into rough edges, and end with a reusable strict-safe helper.
+
+## Step 0: The Obvious Case
+
+If we have an array property and we know it's always there, we can use `T[number]` to get the element type.
+
+```ts twoslash
+interface Store {
+  orders: { id: string; total: number }[];
+}
+
+type Order = Store["orders"][number];
+//   ^?
+```
+
+This works because `Store["orders"]` is an array, and indexing an array type with `number` gives us the element type. In other words, this is how you ask TypeScript: "give me one of its elements."
+
+Simple and readable. Perfect for required array properties. But what if we want a reusable version for raw arrays?
+
+## Step 1: Generalizing to Raw Arrays
+
+Let's create a utility type that extracts the element type from any array:
+
+```ts twoslash
+type ElementOf<T> = T extends readonly unknown[] ? T[number] : never;
+
+type Num = ElementOf<number[]>;
+//   ^?
+type Tuple = ElementOf<[1, 2, 3]>;
+//   ^?
+
+interface Store {
+  orders: { id: string; total: number }[];
+}
+
+type Order = ElementOf<Store["orders"]>;
+//   ^?
+```
+
+> [!NOTE]
+> We use `readonly unknown[]` instead of `unknown[]` because it matches both mutable and readonly arrays—TypeScript considers `T[]` to be assignable to `readonly T[]`.
+
+This works for plain arrays and tuples, but what about when the array is a property of another type?
+
+## Step 2: Targeting Object Properties
+
+We can add a second generic parameter for the property key:
+
+```ts twoslash
+interface Store {
+  orders: { id: string; total: number }[];
+}
+
+type ElementOf<T, K extends keyof T> = T[K] extends readonly unknown[]
+  ? T[K][number]
+  : never;
+
+type Order = ElementOf<Store, "orders">;
+//   ^?
+```
+
+Now we can say: "give me the element type of the `orders` property on `Store`."
+
+However, this breaks down with `strictNullChecks` enabled if the property is optional. Without strict null checks, optional properties don't include `undefined` in their type, so the approach above would still work. But with strict mode (which you should be using), we hit a problem.
+
+```ts twoslash
+interface Store {
+  orders?: { id: string; total: number }[];
+}
+
+type ElementOf<T, K extends keyof T> = T[K] extends readonly unknown[]
+  ? T[K][number]
+  : never;
+
+// @warn: Order is not what we expect.
+type Order = ElementOf<Store, "orders">;
+//   ^?
+```
+
+As you can see, `Order` is `never` because `T[K]` is `{ id: string; total: number }[] | undefined`, and that union does not extend `readonly unknown[]`.
+
+Let's fix that.
+
+## Step 3: Handling Optional Properties (Strict-Safe)
+
+To improve our [Step 2](#step-2-targeting-object-properties) solution, we need to extract only the array type from the union before indexing. But we also want to keep our utility working for raw arrays from [Step 1](#step-1-generalizing-to-raw-arrays). Here's how we do both:
+
+```ts twoslash
+interface Store {
+  orders?: { id: string; total: number }[];
+}
+
+type ElementOf<T, K extends keyof T = never> = [K] extends [never]
+  ? T extends readonly unknown[]
+    ? T[number]
+    : never
+  : Extract<T[K], readonly unknown[]>[number];
+
+// @annotate: Order is what we expect.
+type Order = ElementOf<Store, "orders">;
+//   ^?
+```
+
+### How This Works
+
+**The mode switch**: `[K] extends [never]` checks whether a key was provided:
+
+- **No key passed** (`K` defaults to `never`): Use the raw array logic from [Step 1](#step-1-generalizing-to-raw-arrays)
+
+  ```ts twoslash
+  // ---cut-start---
+  type ElementOf<T, K extends keyof T = never> = [K] extends [never]
+    ? T extends readonly unknown[]
+      ? T[number]
+      : never
+    : Extract<T[K], readonly unknown[]>[number];
+  // ---cut-end---
+  type Num = ElementOf<number[]>;
+  //   ^?
+  ```
+
+- **Key passed**: Use the Extract approach for object properties
+  ```ts twoslash
+  // ---cut-start---
+  interface Store {
+    orders?: { id: string; total: number }[];
+  }
+  type ElementOf<T, K extends keyof T = never> = [K] extends [never]
+    ? T extends readonly unknown[]
+      ? T[number]
+      : never
+    : Extract<T[K], readonly unknown[]>[number];
+  // ---cut-end---
+  type Order = ElementOf<Store, "orders">;
+  //   ^?
+  ```
+
+The tuple syntax `[K] extends [never]` is important since it prevents TypeScript from distributing the check over union types, which would break the logic.
+
+**The Extract trick**: When a key is passed, `Extract<T[K], readonly unknown[]>[number]` does three things:
+
+1. Access the property: `T[K]` → `{ id: string; total: number }[] | undefined`
+2. Extract only the array type: `Extract<..., readonly unknown[]>` isolates the array type from the union, discarding `undefined` → `{ id: string; total: number }[]`
+3. Get the element type: `[number]` → `{ id: string; total: number }`
+
+By extracting only the array type before indexing, we avoid the type error.
+
+In other words, this single helper covers both raw arrays and object properties without needing two separate utilities.
+
+**Edge case note**: For non-array properties, this helper returns `never`:
+
+```ts twoslash
+interface Store {
+  name: string;
+}
+// ---cut-start---
+type ElementOf<T, K extends keyof T = never> = [K] extends [never]
+  ? T extends readonly unknown[]
+    ? T[number]
+    : never
+  : Extract<T[K], readonly unknown[]>[number];
+// ---cut-end---
+
+// @annotate: never as intended.
+type Invalid = ElementOf<Store, "name">;
+//   ^?
+```
+
+## Conclusion
+
+We started with `T[number]` and ended with a strict-safe helper. Along the way we learned:
+
+- Use `T['prop'][number]` if the property is always an array.
+- Use `ElementOf<T>` for raw arrays and tuples.
+- Use `ElementOf<T, 'prop'>` for array properties, especially if they're optional.
+
+Next time you need to extract an array element type, you'll know exactly which tool fits, from a quick one-liner to a strict-safe helper.
