@@ -32,7 +32,8 @@ const posts = allPosts
   .filter((post) => post.data.tags.some((tag) => slugifyTag(tag) === slug))
   .sort(sortByPublishDate);
 
-const pageTitle = `Posts tagged "${originalTag}" | ${BASE_TITLE}`;
+const pageHeading = `Posts tagged "${originalTag}"`;
+const pageTitle = `${pageHeading} | ${BASE_TITLE}`;
 const pageDescription = `All blog posts tagged with "${originalTag}"`;
 ---
 
@@ -41,7 +42,7 @@ const pageDescription = `All blog posts tagged with "${originalTag}"`;
   description={pageDescription}
   keywords={[originalTag, "blog", "posts"]}
 >
-  <PageLayout heading={pageTitle}>
+  <PageLayout heading={pageHeading}>
     <Tags tags={allTags} active={slug} />
 
     <section class="not-prose">
