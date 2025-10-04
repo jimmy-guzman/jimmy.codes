@@ -23,7 +23,7 @@ export const mobile: Link[] = [
     primary: true,
   },
   {
-    href: "mailto:hi@jimmy.codes",
+    href: urls.email,
     label: "Email",
     icon: "icon-[lucide--mail]",
     primary: true,
@@ -85,7 +85,7 @@ export const desktop: Link[] = [
     primary: true,
   },
   {
-    href: "mailto:hi@jimmy.codes",
+    href: urls.email,
     label: "Email",
     icon: "icon-[lucide--mail]",
   },
