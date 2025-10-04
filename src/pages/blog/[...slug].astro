@@ -40,6 +40,7 @@ const datePublished = post.data.publishDate;
 const dateModified = updatedDate ?? datePublished;
 const timeRequired = `PT${Math.max(1, Math.round(minutes))}M`;
 const description = post.data.description;
+const keywords = post.data.keywords;
 
 const jsonLd = {
   "@type": "BlogPosting",
@@ -53,27 +54,26 @@ const jsonLd = {
   dateModified,
   url: postUrl,
   mainEntityOfPage: { "@id": `${postUrl}#webpage` },
-  keywords: post.data.keywords,
+  keywords,
   isAccessibleForFree: true,
   timeRequired,
 };
+
+const heading = shortTitle(post);
 ---
 
 <BaseLayout
   title={`${post.data.title} | ${BASE_TITLE}`}
   description={description}
-  keywords={post.data.keywords}
+  keywords={keywords}
   extraLd={[jsonLd]}
 >
-  <PageLayout heading={shortTitle(post)}>
+  <PageLayout heading={heading}>
     <ContentLayout
+      title={heading}
       tags={post.data.tags}
       publishDate={datePublished}
       updatedDate={updatedDate}
-      back={{
-        href: "/blog",
-        label: "Back to all posts",
-      }}
       minutes={minutes}
       filePath={post.filePath}
       relatedPosts={relatedPosts}

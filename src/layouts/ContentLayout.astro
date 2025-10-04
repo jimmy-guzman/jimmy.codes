@@ -2,28 +2,31 @@
 import LastModified from "@/components/LastModified.astro";
 import MetaLine from "@/components/MetaLine.astro";
 import Tags from "@/components/Tags.astro";
+import { urls } from "@/configs/urls";
 
 import "rehype-callouts/theme/github";
 
 interface Props {
+  title: string;
   tags: string[];
   publishDate: Date;
   updatedDate?: Date;
-  back: { href: `/${string}`; label: string };
   minutes: number;
   filePath?: string;
   relatedPosts: { slug: string; title: string }[];
 }
 
 const {
+  title,
   publishDate,
   updatedDate,
-  back,
   minutes,
   filePath,
   tags,
   relatedPosts,
 } = Astro.props;
+
+const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
 ---
 
 <section>
@@ -62,6 +65,20 @@ const {
   )
 }
 
+<section
+  class="mt-8 prose-a:hover:no-underline"
+  aria-labelledby="discuss-heading"
+>
+  <h2 id="discuss-heading">Questions or Feedback?</h2>
+  <p>I'd love to hear your thoughts, questions, or feedback about this post.</p>
+  <p>
+    Reach me via <a href={`${urls.email}?subject=${emailSubject}`}>email</a>
+    or <a href={urls.LinkedIn} target="_blank" rel="noopener noreferrer"
+      >LinkedIn</a
+    >.
+  </p>
+</section>
+
 <a
   href="#"
   class="btn fixed right-6 bottom-6 btn-circle shadow-lg btn-ghost btn-primary"
@@ -81,12 +98,12 @@ const {
 <section class="mt-8">
   <p>
     <a
-      href={back.href}
+      href="/blog"
       class="inline-flex items-center gap-1 text-base-content/60 link-hover"
       rel="up"
     >
       <span class="icon-[lucide--arrow-left]" aria-hidden="true"></span>
-      {back.label}
+      Back to all posts
     </a>
   </p>
 </section>
