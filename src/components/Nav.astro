@@ -7,8 +7,10 @@ const ext = (link: { external?: boolean }) => {
   return link.external ? { target: "_blank", rel: "noopener noreferrer" } : {};
 };
 
-const mobilePrimary = mobile.filter((link) => link.primary);
-const mobileDropdown = mobile.filter((link) => !link.primary);
+const { mobilePrimary = [], mobileDropdown = [] } = Object.groupBy(
+  mobile,
+  (link) => (link.primary ? "mobilePrimary" : "mobileDropdown"),
+);
 ---
 
 <nav class="navbar">

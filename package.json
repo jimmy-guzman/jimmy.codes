@@ -74,7 +74,6 @@
     "@tailwindcss/oxide",
     "esbuild",
     "lefthook",
-    "oxc-resolver",
     "sharp"
   ]
 }
