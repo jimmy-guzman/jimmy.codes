@@ -22,13 +22,14 @@ const GITHUB_URL = `https://github.com/jimmy-guzman/jimmy.codes/blob/main/${file
 
   {
     filePath && (
-      <>
+      // Stabilizes layout for icon-only GitHub button
+      <span class="w-12 shrink-0 md:w-auto">
         <span class="tooltip md:hidden" data-tip="View on GitHub">
           <a
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            class="btn btn-circle btn-ghost"
+            class="btn btn-circle btn-ghost btn-sm"
           >
             <span class="sr-only">View on GitHub</span>
             <span class="icon-[lucide--github] h-4 w-4" aria-hidden="true" />
@@ -39,11 +40,11 @@ const GITHUB_URL = `https://github.com/jimmy-guzman/jimmy.codes/blob/main/${file
           href={GITHUB_URL}
           target="_blank"
           rel="noopener noreferrer"
-          class="not-prose hidden link link-hover md:inline-flex"
+          class="not-prose hidden shrink-0 link whitespace-nowrap link-hover md:inline-flex"
         >
           View on GitHub
         </a>
-      </>
+      </span>
     )
   }
 </span>
