@@ -16,6 +16,7 @@ describe("Footer", () => {
 
   it("should render year", async () => {
     const date = new Date(2000, 1, 1, 13);
+
     vi.setSystemTime(date);
 
     const container = await AstroContainer.create();

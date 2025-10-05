@@ -34,7 +34,7 @@
     "@commitlint/types": "20.0.0",
     "@iconify-json/logos": "1.2.9",
     "@iconify-json/lucide": "1.2.68",
-    "@iconify-json/simple-icons": "1.2.53",
+    "@iconify-json/simple-icons": "1.2.54",
     "@iconify/tailwind4": "1.0.6",
     "@playwright/test": "1.55.1",
     "@shikijs/colorized-brackets": "3.13.0",
@@ -74,7 +74,6 @@
     "@tailwindcss/oxide",
     "esbuild",
     "lefthook",
-    "oxc-resolver",
     "sharp"
   ]
 }
