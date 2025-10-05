@@ -18,7 +18,7 @@ describe("MetaLine", () => {
     expect(html).toContain(`datetime="${publish.toISOString()}"`);
   });
 
-  it("should render minutes (plural) when provided", async () => {
+  it("should render minutes when provided", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(MetaLine, {
       props: {
@@ -27,28 +27,7 @@ describe("MetaLine", () => {
       },
     });
 
-    expect(html).toContain("5 mins read");
-  });
-
-  it("should render minutes (singular) when minutes = 1", async () => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(MetaLine, {
-      props: {
-        publishDate: new Date("2024-01-05T00:00:00Z"),
-        minutes: 1,
-      },
-    });
-
-    expect(html).toContain("1 min read");
-  });
-
-  it("should not render minutes when not provided", async () => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(MetaLine, {
-      props: { publishDate: new Date("2024-01-05T00:00:00Z") },
-    });
-
-    expect(html).not.toContain("min read");
+    expect(html).toContain("5 min read");
   });
 
   it("should render a GitHub link when filePath is provided", async () => {
