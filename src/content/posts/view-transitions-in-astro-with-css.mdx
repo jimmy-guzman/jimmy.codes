@@ -13,16 +13,15 @@ keywords:
 tags: [Astro, CSS, Frontend]
 ---
 
-When I first heard about the [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API), I assumed it only worked for single page apps.  
-Most examples relied on frameworks or client-side routers. I wanted the same polish for a static site built with [Astro](https://astro.build).
+The [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API) has been on my radar for a while. I finally decided to see how it would work in practice on my [Astro](https://astro.build) site using **Tailwind v4**, without adding any extra JavaScript.
 
-It turns out you can get smooth, page-to-page transitions with no JavaScript at all. Just CSS.
+It turns out you can get smooth, page-to-page transitions with only CSS.
 
 ---
 
 ## Why I Tried This
 
-Astro already makes navigation feel instant by streaming pages as static HTML, but I wanted something more, a subtle fade that connects pages without feeling flashy.
+Astro already makes navigation feel instant by streaming pages as static HTML. I wanted something more: a subtle fade that connects pages without feeling flashy.
 
 With the View Transitions API now supporting **cross-document navigation**, browsers can animate between full page loads automatically. If I could enable it globally, Astro's static pages could feel even smoother without a router or hydration.
 
@@ -32,7 +31,7 @@ That worked better than I expected.
 
 ## The Core Idea
 
-The browser can detect when you move between same-origin pages (pages on the same domain—like going from `/blog` to `/about` on `jimmy.codes`) and automatically animate the visual change.  
+The browser can detect when you move between same-origin pages (for example, going from `/blog` to `/about` on `jimmy.codes`) and automatically animate the visual change.
 You only need a single rule:
 
 ```css
@@ -56,7 +55,7 @@ Here is how I put those pieces together.
 
 The setup has two moving parts: CSS for the animation itself, and the layout that declares which elements should participate. Together, they create smooth, natural transitions with minimal effort.
 
-I started with the global CSS layer, since that controls how everything feels.
+I started with the global CSS layer since that controls how everything feels.
 
 ### CSS
 
@@ -108,7 +107,7 @@ Here is the full setup:
 }
 ```
 
-Let's unpack it:
+Let's unpack it.
 
 - **`@view-transition { navigation: auto; }`**
   Enables cross-document transitions for same-origin navigation. No scripts or routers required.
@@ -125,11 +124,10 @@ Let's unpack it:
   - `title` runs faster and starts 25 milliseconds earlier, keeping hierarchy clear.
 
 - **`will-change: transform, opacity`**
-  Tells the browser to optimize rendering for these properties ahead of time. This helps prevent subpixel blur—the slight fuzziness that can occur when elements are moved by fractions of a pixel during transitions.
+  Tells the browser to optimize rendering for these properties ahead of time. This helps prevent subpixel blur, the slight fuzziness that can occur when elements are moved by fractions of a pixel during transitions.
 
 - **Reduced motion**
-  The `prefers-reduced-motion` query turns everything off for users who opt out of animation.
-  It also disables navigation transitions entirely to avoid any motion between pages.
+  The `prefers-reduced-motion` query turns everything off for users who opt out of animation. It also disables navigation transitions entirely to avoid any motion between pages.
 
 The result is quiet and deliberate. The page fades gently, the title glides into place just ahead of the main content, and the transition feels like part of the document rather than an effect layered on top.
 
@@ -137,7 +135,7 @@ The result is quiet and deliberate. The page fades gently, the title glides into
 
 ### Layout
 
-The next step is telling the browser _which_ elements should carry over between pages.
+The next step is telling the browser which elements should carry over between pages.
 That is done with the `view-transition-name` property:
 
 ```html
@@ -228,17 +226,17 @@ The title finishes first, drawing the eye before content settles.
 }
 ```
 
-Everything moves together—simpler, but less hierarchy.
+Everything moves together. Simpler, but with less hierarchy.
 
-These 30-50ms differences are subtle but shape whether motion feels intentional or mechanical.
+These 30–50 ms differences are subtle but shape whether motion feels intentional or mechanical.
 
 ---
 
-## Closing Thoughts
+## Final Thoughts
 
 This experiment reminded me how capable the modern web has become. What started as curiosity about a browser API turned into one of the simplest ways to make static sites feel alive.
 
-Astro's static output pairs well with the View Transitions API. No hydration, no scripts, just a better experience powered by CSS.
+Astro's static output pairs well with the View Transitions API. No hydration. No scripts. Just a better experience powered by CSS.
 
 ---
 
