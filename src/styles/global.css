@@ -78,6 +78,10 @@
 
 @plugin "@iconify/tailwind4";
 
+@theme inline {
+  --font-sans: var(--font-satoshi);
+}
+
 @view-transition {
   navigation: auto;
 }
