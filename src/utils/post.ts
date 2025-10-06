@@ -11,4 +11,6 @@ interface Post {
  * @param post The post to get the short title for
  * @returns The short title of the post
  */
-export const shortTitle = (post: Post) => post.data.heading ?? post.data.title;
+export const shortTitle = (post: Post) => {
+  return post.data.shortTitle ?? post.data.title;
+};

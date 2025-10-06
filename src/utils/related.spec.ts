@@ -196,7 +196,7 @@ describe("getRelatedByTags", () => {
       data: {
         tags: ["React"],
         title: "Fallback Title",
-        heading: "Preferred Heading",
+        shortTitle: "Preferred Heading",
       },
     });
 
