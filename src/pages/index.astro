@@ -27,66 +27,54 @@ import PageLayout from "@/layouts/PageLayout.astro";
       <p>
         <span>{titles.love}:</span>
         {
-          techLove.map((tech, index) => (
-            <>
-              <a
-                href={tech.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex link items-center gap-1 link-hover"
-              >
-                <span class:list={[tech.icon, "w-5] hidden h-4 sm:inline"]} />
-                {tech.title}
-              </a>
-              {index < techLove.length - 1 && (
-                <span class="align-top"> • </span>
-              )}
-            </>
-          ))
+          techLove.flatMap((tech, index) => [
+            <a
+              href={tech.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex link items-center gap-1 link-hover"
+            >
+              <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
+              {tech.title}
+            </a>,
+            index < techLove.length - 1 && ", ",
+          ])
         }
       </p>
 
       <p>
         <span>{titles.daily}:</span>
         {
-          techDaily.map((tech, index) => (
-            <>
-              <a
-                href={tech.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-1 link-hover"
-              >
-                <span class:list={[tech.icon, "w-5] hidden h-4 sm:inline"]} />
-                {tech.title}
-              </a>
-              {index < techDaily.length - 1 && (
-                <span class="align-top"> • </span>
-              )}
-            </>
-          ))
+          techDaily.flatMap((tech, index) => [
+            <a
+              href={tech.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 link-hover"
+            >
+              <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
+              {tech.title}
+            </a>,
+            index < techDaily.length - 1 && ", ",
+          ])
         }
       </p>
 
       <p>
         <span>{titles.learning}:</span>
         {
-          techLearning.map((tech, index) => (
-            <>
-              <a
-                href={tech.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-1 link-hover"
-              >
-                <span class:list={[tech.icon, "w-5] hidden h-4 sm:inline"]} />
-                {tech.title}
-              </a>
-              {index < techLearning.length - 1 && (
-                <span class="align-top"> • </span>
-              )}
-            </>
-          ))
+          techLearning.flatMap((tech, index) => [
+            <a
+              href={tech.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 link-hover"
+            >
+              <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
+              {tech.title}
+            </a>,
+            index < techLearning.length - 1 && ", ",
+          ])
         }
       </p>
     </section>
