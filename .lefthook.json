@@ -23,6 +23,11 @@
       "case-police": {
         "run": "bunx case-police {staged_files}",
         "stage_fixed": true
+      },
+      "markdownlint": {
+        "glob": "*.{md,mdx}",
+        "run": "bunx markdownlint --fix {staged_files}",
+        "stage_fixed": true
       }
     }
   },

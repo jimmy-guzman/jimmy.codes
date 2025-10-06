@@ -48,12 +48,9 @@ Lastly, it doesn't encourage good accessibility practices, since there's no conn
 
 Compare these analytics results:
 
-```
-// Old way
-"btn-324", "modal-close-x", "nav-item-2", "cta-primary"
-
-// New way
-"Search products", "Close dialog", "About us", "Start free trial"
+```diff
+- "btn-324", "modal-close-x", "nav-item-2", "cta-primary"
++ "Search products", "Close dialog", "About us", "Start free trial"
 ```
 
 The difference is immediately clear: one reveals code internals, the other captures user intent.

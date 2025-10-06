@@ -17,15 +17,15 @@ jobs:
       - name: knip
         run: bun knip
 
-      - name: check
-        run: bun check
+      - name: lint
+        run: bun lint
 
       - name: build
         run: bun run build
 
       - name: typecheck
         run: bun typecheck
-  
+
       - name: coverage
         run: bun coverage
 
@@ -34,7 +34,6 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-
 
     steps:
       - uses: actions/checkout@v5
