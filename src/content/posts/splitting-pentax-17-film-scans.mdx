@@ -361,18 +361,6 @@ Zero or negative crop sizes are skipped automatically.
 
 ---
 
-## Architecture Overview
-
-The codebase is organized into three layers:
-
-1. **Pure utilities:** smoothing, thresholds, and geometry calculations
-2. **Image operations:** Sharp wrappers for extraction and resizing
-3. **File I/O:** path parsing, orchestration, and output handling
-
-This separation keeps the core algorithm testable and portable beyond Sharp.
-
----
-
 ## Conclusion
 
 What started as a time-saver turned into a compact image-processing system that combines:
