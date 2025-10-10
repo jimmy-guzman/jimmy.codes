@@ -284,7 +284,7 @@ await image
 
 ### 8. JPEG Re-encoding
 
-Because these scans are already JPEGs, preserving quality during re-encoding is important. Since the lab already delivered JPEGs, re-encoding with maximum quality minimizes additional generation loss:
+Because the lab delivered these scans as JPEGs, preserving quality during re-encoding is important to minimize additional generation loss:
 
 ```ts
 .jpeg({
@@ -382,7 +382,7 @@ What started as a time-saver turned into a compact image-processing system that 
 - High-quality resampling and color preservation
 - Robust handling of edge cases
 
-The two-pass approach (analyze, then process) delivers consistent results while it maintains the highest possible quality. In the end, 89% of frames matched perfectly, and the rest required only minor adjustment.
+The two-pass approach (analyze, then process) delivers consistent results while maintaining the highest possible quality. In the end, 89% of frames matched perfectly, and the rest required only minor adjustment.
 
 If you shoot half-frame film, this pipeline can save hours of manual cropping and produce cleaner, more consistent results than manual workflows.
 
