@@ -15,11 +15,11 @@ keywords:
 tags: ["Node.js"]
 ---
 
-When I started getting into film photography, I didn't make it easy on myself. I picked up the **Pentax 17**, a half-frame camera that captures two 17x24 mm photos on a single 35 mm frame.
+I recently got into photography but I didn't make it easy on myself. I picked up the **Pentax 17**, a half-frame film camera that captures two 17x24 mm photos on a single 35 mm frame.
 
 Each scan from the lab comes back as a single image with both frames side by side, separated by a dark divider. Cropping them manually gets tedious fast: crop, save, repeat. After a few rolls, it's easy to make mistakes.
 
-I wanted a faster and more reliable process, so I built an automated solution using [**Node.js**](https://nodejs.org/en) and [**Sharp**](https://sharp.pixelplumbing.com). It splits each scan into two clean frames and optimizes their dimensions to preserve quality. Along the way, I learned more than expected about signal processing, image geometry, and compression.
+I wanted a faster and more reliable process, or I'm just lazy, so I built an automated solution using [**Node.js**](https://nodejs.org/en) and [**Sharp**](https://sharp.pixelplumbing.com). It splits each scan into two clean frames and optimizes their dimensions to preserve quality. Along the way, I learned more than expected about how images are processed, measured, and compressed.
 
 Here's how it works.
 
@@ -27,7 +27,7 @@ Here's how it works.
 
 ## The Problem
 
-My local lab returns each film scan as a single JPEG. Each contains:
+My local lab returns each film scan as a single JPEG. Each contains the following:
 
 - Two frames separated by a dark vertical divider
 - Divider widths that vary (usually 10-110 px, sometimes 300-900 px)
@@ -160,7 +160,7 @@ let dividerStart = Math.max(0, start - 2);
 let dividerEnd = Math.min(width, end + 2);
 ```
 
-**Threshold (x 1.25):**
+**Threshold (1.25x):**
 Edges of the divider are often brighter than the center. The 25% tolerance ensures the full divider is captured.
 
 **2-pixel margin:**
@@ -231,7 +231,7 @@ const targetSize = {
 **Why median?**
 
 - Less affected by outliers
-- Represents the “typical” frame ratio
+- Represents the "typical" frame ratio
 
 In practice, this produced 900x1300 px outputs: sharp, consistent, and balanced.
 
@@ -284,7 +284,7 @@ await image
 
 ### 8. JPEG Re-encoding
 
-Because these scans are already JPEGs, preserving quality during re-encoding is important:
+Because these scans are already JPEGs, preserving quality during re-encoding is important. Since the lab already delivered JPEGs, re-encoding with maximum quality minimizes additional generation loss:
 
 ```ts
 .jpeg({
@@ -314,7 +314,7 @@ This doubles throughput by overlapping CPU and disk operations.
 
 ## Results
 
-Processing 112 images (224 frames) produced the following:
+Processing 112 images (224 frames) produced the following results:
 
 - **3 skipped** due to invalid dimensions
 - **Optimal size:** 900x1300 px
@@ -382,7 +382,7 @@ What started as a time-saver turned into a compact image-processing system that 
 - High-quality resampling and color preservation
 - Robust handling of edge cases
 
-The two-pass approach (analyze, then process) delivers consistent results while maintaining the highest possible quality. In the end, 89% of frames matched perfectly, and the rest required only minor adjustment.
+The two-pass approach (analyze, then process) delivers consistent results while it maintains the highest possible quality. In the end, 89% of frames matched perfectly, and the rest required only minor adjustment.
 
 If you shoot half-frame film, this pipeline can save hours of manual cropping and produce cleaner, more consistent results than manual workflows.
 
