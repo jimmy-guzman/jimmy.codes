@@ -19,7 +19,7 @@ When I started getting into film photography, I didn't make it easy on myself. I
 
 Each scan from the lab comes back as a single image with both frames side by side, separated by a dark divider. Cropping them manually gets tedious fast: crop, save, repeat. After a few rolls, it's easy to make mistakes.
 
-I wanted a faster and more reliable process, so I built an automated solution using **Node.js** and [**Sharp**](https://sharp.pixelplumbing.com). It splits each scan into two clean frames and optimizes their dimensions to preserve quality. Along the way, I learned more than expected about signal processing, image geometry, and compression.
+I wanted a faster and more reliable process, so I built an automated solution using [**Node.js**](https://nodejs.org/en) and [**Sharp**](https://sharp.pixelplumbing.com). It splits each scan into two clean frames and optimizes their dimensions to preserve quality. Along the way, I learned more than expected about signal processing, image geometry, and compression.
 
 Here's how it works.
 
@@ -134,7 +134,7 @@ const smooth = (array: number[], windowSize: number) => {
 const smoothed = smooth(columnIntensity, 15);
 ```
 
-**Window size:** 15 px
+**15-pixel Window size:**
 Large enough to filter single-pixel noise but small enough to preserve edges.
 
 The result is a stable brightness curve where the divider appears as a clear valley.
