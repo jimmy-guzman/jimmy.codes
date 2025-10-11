@@ -1,0 +1,379 @@
+---
+title: "Splitting Pentax 17 Film Scans: A Technical Deep Dive"
+shortTitle: "Splitting Pentax 17 Film Scans"
+publishDate: 2025-10-11
+description: "A deep dive into the technical process of automatically splitting and optimizing Pentax 17 film scans using Node.js and Sharp."
+keywords:
+  [
+    "film scanning",
+    "pentax 17",
+    "node.js",
+    "sharp",
+    "image processing",
+    "photography",
+  ]
+tags: ["Node.js"]
+---
+
+I recently got into photography but I didn't make it easy on myself. I picked up the **Pentax 17**, a half-frame film camera that captures two 17x24 mm photos on a single 35 mm frame.
+
+Each scan from the lab comes back as a single image with both frames side by side, separated by a dark divider. Cropping them manually gets tedious fast: crop, save, repeat. After a few rolls, it's easy to make mistakes.
+
+I wanted a faster and more reliable process, or I'm just lazy, so I built an automated solution using [**Node.js**](https://nodejs.org/en) and [**Sharp**](https://sharp.pixelplumbing.com). It splits each scan into two clean frames and optimizes their dimensions to preserve quality. Along the way, I learned more than expected about how images are processed, measured, and compressed.
+
+Here's how it works.
+
+---
+
+## The Problem
+
+My local lab returns each film scan as a single JPEG. Each contains the following:
+
+- Two frames separated by a dark vertical divider
+- Divider widths that vary (usually 10-110 px, sometimes 300-900 px)
+- Slightly inconsistent frame dimensions
+- A need for consistent, high-quality output
+
+![Example of a raw Pentax 17 scan showing two frames side by side with a dark divider in the middle](/images/posts/before-photo.jpg)
+
+The challenge was to detect the divider, extract both frames, and export them at uniform dimensions without unnecessary cropping or letterboxing.
+
+> [!NOTE]
+> _Letterboxing_ adds black bars to fit a specific aspect ratio. It preserves the full image but wastes pixels and reduces effective resolution.
+
+---
+
+## The Approach
+
+I designed the workflow as a **two-pass pipeline**:
+
+1. Scan all images to determine the optimal output dimensions based on actual frame aspect ratios.
+2. Extract and resize frames using the target size calculated in the first pass.
+
+This approach adapts dynamically to small scan variations instead of relying on fixed coordinates.
+
+---
+
+## Image Processing Pipeline
+
+### 1. Grayscale Conversion for Divider Detection
+
+The first step is simplifying the image. Each scan is converted to grayscale, and the raw pixel data is extracted:
+
+```ts
+const grayBuffer = await image.clone().grayscale().raw().toBuffer();
+```
+
+**Why grayscale?**
+
+- Simplifies to a single intensity channel
+- Dividers are always dark regardless of color
+- Removes noise from color channel variations
+
+Sharp's `.grayscale()` uses the luminance-preserving ITU-R BT.709 formula:
+
+```log
+Y = 0.2126 R + 0.7152 G + 0.0722 B
+```
+
+This matches how humans perceive brightness and gives more accurate divider detection.
+
+The `.raw()` method returns an uncompressed `Uint8Array`:
+
+- One byte per pixel (0-255)
+- Row-major order: `[row0col0, row0col1, …]`
+- Direct pixel access with no decoding overhead
+
+---
+
+### 2. Column Intensity Analysis
+
+To find the divider, I average brightness across each vertical column:
+
+```ts
+const columnIntensity = Array.from({ length: width }, (_, x) => {
+  let sum = 0;
+
+  for (let y = 0; y < height; y++) {
+    const pixel = grayBuffer[y * width + x];
+
+    if (pixel) sum += pixel;
+  }
+
+  return sum / height;
+});
+```
+
+`y * width + x` converts 2D coordinates to a 1D index.
+
+**Why vertical averaging?**
+
+- The divider runs top to bottom
+- Averaging removes horizontal noise
+- Produces a clean intensity profile: high (frame) → low (divider) → high (frame)
+
+---
+
+### 3. Smoothing with a Moving Average
+
+Film grain and scanning artifacts introduce noise. A moving average helps smooth it out:
+
+```ts
+const smooth = (array: number[], windowSize: number) => {
+  const half = Math.floor(windowSize / 2);
+
+  return array.map((_, i) => {
+    const start = Math.max(0, i - half);
+    const end = Math.min(array.length, i + half + 1);
+    const slice = array.slice(start, end);
+
+    return slice.reduce((a, b) => a + b, 0) / slice.length;
+  });
+};
+
+const smoothed = smooth(columnIntensity, 15);
+```
+
+**15-pixel Window size:**
+Large enough to filter single-pixel noise but small enough to preserve edges.
+
+The result is a stable brightness curve where the divider appears as a clear valley.
+
+---
+
+### 4. Divider Boundary Detection
+
+Once smoothed, the divider valley and boundaries can be detected:
+
+```ts
+const minValue = Math.min(...smoothed);
+const threshold = minValue * 1.25;
+const minX = smoothed.indexOf(minValue);
+
+let start = minX;
+while (start > 0 && smoothed[start] < threshold) start--;
+
+let end = minX;
+while (end < smoothed.length && smoothed[end] < threshold) end++;
+
+let dividerStart = Math.max(0, start - 2);
+let dividerEnd = Math.min(width, end + 2);
+```
+
+**Threshold (1.25x):**
+Edges of the divider are often brighter than the center. The 25% tolerance ensures the full divider is captured.
+
+**2-pixel margin:**
+Prevents losing edge pixels during cropping.
+
+If the detected divider collapses to a single column, a minimum width is enforced:
+
+```ts
+if (dividerEnd - dividerStart < 10) {
+  const center = minX;
+  const half = 5;
+
+  dividerStart = Math.max(0, center - half);
+  dividerEnd = Math.min(width, center + half);
+}
+```
+
+---
+
+### 5. Crop Region Calculation
+
+With divider boundaries defined, both frames can be cropped:
+
+```ts
+const leftCropWidth = Math.min(
+  dividerStart - cropPadding,
+  width - dividerEnd - cropPadding,
+);
+
+const bleed = 6;
+const leftCropStart = Math.max(0, dividerStart - leftCropWidth - bleed);
+const rightCropStart = Math.min(width, dividerEnd + bleed);
+```
+
+**Why use the narrower side?**
+
+- Guarantees symmetrical results
+- Compensates for uneven spacing on film
+
+The **6-pixel bleed** slightly overlaps the divider to prevent losing frame edges. It's safer to include a few dark pixels than to crop too tightly.
+
+Aspect ratios are stored for later optimization:
+
+```ts
+aspectRatio: cropWidth / cropHeight;
+```
+
+---
+
+### 6. Two-Pass Optimization
+
+After analyzing all scans, I calculate the best target size:
+
+```ts
+const allAspectRatios = analysisResults.flatMap((r) => [
+  r.leftCrop.aspectRatio,
+  r.rightCrop.aspectRatio,
+]);
+
+const medianAspectRatio = median(allAspectRatios);
+
+const targetSize = {
+  width: 900,
+  height: Math.round(900 / medianAspectRatio),
+};
+```
+
+**Why median?**
+
+- Less affected by outliers
+- Represents the "typical" frame ratio
+
+In practice, this produced 900x1300 px outputs: sharp, consistent, and balanced.
+
+To verify:
+
+```ts
+const tolerance = 0.05;
+const perfect = ratios.filter(
+  (ratio) => Math.abs(ratio / targetAspectRatio - 1) <= tolerance,
+).length;
+```
+
+Results:
+
+- **89%** of frames fit perfectly
+- **5%** cropped slightly
+- **6%** had small bars
+
+---
+
+### 7. Extraction and Resizing
+
+In the second pass, each frame is extracted and resized:
+
+```ts
+await image
+  .clone()
+  .extract(leftCrop)
+  .withMetadata()
+  .resize(targetSize.width, targetSize.height, {
+    fit: "cover",
+    position: "attention",
+    kernel: sharp.kernel.lanczos3,
+  })
+  .jpeg({
+    quality: 100,
+    progressive: true,
+    chromaSubsampling: "4:4:4",
+  })
+  .toFile(outputPath);
+```
+
+#### Key details
+
+- `fit: "cover"` fills the target size with minimal cropping
+- `position: "attention"` uses Sharp's saliency detection to preserve key features
+- `kernel: lanczos3` provides high-quality resampling with less aliasing
+
+---
+
+### 8. JPEG Re-encoding
+
+Because the lab delivered these scans as JPEGs, preserving quality during re-encoding is important to minimize additional generation loss:
+
+```ts
+.jpeg({
+  quality: 100,
+  progressive: true,
+  chromaSubsampling: "4:4:4",
+});
+```
+
+- **Quality 100:** near-lossless
+- **Progressive:** improves perceived loading speed
+- **4:4:4 chroma:** preserves full color data, critical for film scans
+
+---
+
+### 9. Parallel Processing
+
+Both frames are processed concurrently:
+
+```ts
+await Promise.all([processLeftFrame(), processRightFrame()]);
+```
+
+This doubles throughput by overlapping CPU and disk operations.
+
+---
+
+## Results
+
+Processing 112 images (224 frames) produced the following results:
+
+- **3 skipped** due to invalid dimensions
+- **Optimal size:** 900x1300 px
+- **89% perfect fit**, **11% minimal crop or bars**
+- **Divider width:** 10-110 px typical, 300-900 px outliers
+
+<div className="my-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+  <figure>
+    <img
+      src="/images/posts/after-photo-1.jpg"
+      alt="First extracted frame showing enhanced clarity and color correction"
+      className="h-auto w-full"
+      loading="lazy"
+    />
+    <figcaption className="mt-2 text-center text-sm text-base-content/40">
+      Frame 1
+    </figcaption>
+  </figure>
+  <figure>
+    <img
+      src="/images/posts/after-photo-2.jpg"
+      alt="Second extracted frame demonstrating improved detail preservation"
+      className="h-auto w-full"
+      loading="lazy"
+    />
+    <figcaption className="mt-2 text-center text-sm text-base-content/40">
+      Frame 2
+    </figcaption>
+  </figure>
+</div>
+
+---
+
+## Edge Cases
+
+**Very narrow dividers (10-16 px):**
+Frames nearly touch, but the minimum-width safeguard prevents collapse.
+
+**Very wide dividers (300-900 px):**
+Usually double exposures or scanning errors. Detected correctly and flagged for review.
+
+**Invalid dimensions:**
+Zero or negative crop sizes are skipped automatically.
+
+---
+
+## Conclusion
+
+What started as a time-saver turned into a compact image-processing system that combines:
+
+- Signal analysis for accurate divider detection
+- Geometric optimization for consistent aspect ratios
+- High-quality resampling and color preservation
+- Robust handling of edge cases
+
+The two-pass approach (analyze, then process) delivers consistent results while maintaining the highest possible quality. In the end, 89% of frames matched perfectly, and the rest required only minor adjustment.
+
+If you shoot half-frame film, this pipeline can save hours of manual cropping and produce cleaner, more consistent results than manual workflows.
+
+---
+
+_[Full source code](https://gist.github.com/jimmy-guzman/2a14ba5b2928050e28712bbdbd1582b9) is available as a reference implementation for automated film scan splitting._
