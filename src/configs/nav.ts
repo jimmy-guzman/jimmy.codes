@@ -52,7 +52,7 @@ export const mobile: Link[] = [
     external: true,
   },
   {
-    href: "/rss.xml",
+    href: "/blog/rss.xml",
     label: "RSS",
     icon: "icon-[lucide--rss]",
   },
@@ -102,7 +102,7 @@ export const desktop: Link[] = [
     external: true,
   },
   {
-    href: "/rss.xml",
+    href: "/blog/rss.xml",
     label: "RSS",
     icon: "icon-[lucide--rss]",
   },

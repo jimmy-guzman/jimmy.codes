@@ -2,7 +2,7 @@ import { getCollection } from "astro:content";
 
 import rss from "@astrojs/rss";
 
-import { pages } from "../configs/pages";
+import { pages } from "@/configs/pages";
 
 export async function GET(context: { site: string }) {
   const blog = await getCollection("posts");
