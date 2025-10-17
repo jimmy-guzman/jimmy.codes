@@ -38,7 +38,7 @@ const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
 <div class="divider" aria-hidden="true" role="presentation"></div>
 
 <section>
-  <article class="prose-a:hover:no-underline">
+  <article>
     <slot />
   </article>
 </section>
@@ -49,10 +49,7 @@ const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
 
 {
   relatedPosts.length > 0 && (
-    <aside
-      class="mt-8 prose-a:hover:no-underline"
-      aria-labelledby="related-heading"
-    >
+    <aside class="mt-8" aria-labelledby="related-heading">
       <h2 id="related-heading">Related Posts</h2>
       <ul>
         {relatedPosts.map((post) => (
@@ -65,10 +62,7 @@ const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
   )
 }
 
-<section
-  class="mt-8 prose-a:hover:no-underline"
-  aria-labelledby="discuss-heading"
->
+<section class="mt-8" aria-labelledby="discuss-heading">
   <h2 id="discuss-heading">Questions or Feedback?</h2>
   <p>I'd love to hear your thoughts, questions, or feedback about this post.</p>
   <p>
@@ -99,7 +93,7 @@ const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
   <p>
     <a
       href="/blog"
-      class="inline-flex items-center gap-1 text-base-content/60 link-hover"
+      class="inline-flex items-center gap-1 text-base-content/60"
       rel="up"
     >
       <span class="icon-[lucide--arrow-left]" aria-hidden="true"></span>

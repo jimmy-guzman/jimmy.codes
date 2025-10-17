@@ -32,7 +32,7 @@ import PageLayout from "@/layouts/PageLayout.astro";
               href={tech.link}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex link items-center gap-1 link-hover"
+              class="inline-flex link items-center gap-1"
             >
               <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
               {tech.title}
@@ -50,7 +50,7 @@ import PageLayout from "@/layouts/PageLayout.astro";
               href={tech.link}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-1 link-hover"
+              class="inline-flex items-center gap-1"
             >
               <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
               {tech.title}
@@ -68,7 +68,7 @@ import PageLayout from "@/layouts/PageLayout.astro";
               href={tech.link}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-1 link-hover"
+              class="inline-flex items-center gap-1"
             >
               <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
               {tech.title}
@@ -85,26 +85,17 @@ import PageLayout from "@/layouts/PageLayout.astro";
           href={urls.GitHub}
           target="_blank"
           rel="noopener noreferrer"
-          class="link-hover"
         >
           GitHub</a
-        > and <a
-          href={urls.LinkedIn}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="link-hover">LinkedIn</a
-        >. Or email me at <a href={urls.email} class="link-hover"
-          >hi@jimmy.codes</a
-        >.
+        > and <a href={urls.LinkedIn} target="_blank" rel="noopener noreferrer"
+          >LinkedIn</a
+        >. Or email me at <a href={urls.email}>hi@jimmy.codes</a>.
       </p>
 
       <p>
-        Read <a href="/blog" class="link-hover">my blog</a>, learn more <a
-          href="/about"
-          class="link-hover">about me</a
-        >, or take a look at <a href="/resume.pdf" download class="link-hover"
-          >my resume</a
-        >.
+        Read <a href="/blog">my blog</a>, learn more <a href="/about"
+          >about me</a
+        >, or take a look at <a href="/resume.pdf" download>my resume</a>.
       </p>
     </section>
   </PageLayout>
