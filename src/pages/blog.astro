@@ -7,12 +7,14 @@ import { pages } from "@/configs/pages";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { readingTime, sortByPublishDate } from "@/utils/content";
-import { shortTitle } from "@/utils/post";
+import { getPostByYear, shortTitle } from "@/utils/post";
 import { getAllTags } from "@/utils/tag";
 
 const posts = (await getCollection("posts")).sort(sortByPublishDate);
 
 const tags = getAllTags(posts);
+
+const postsByYear = getPostByYear(posts);
 ---
 
 <BaseLayout
@@ -23,30 +25,37 @@ const tags = getAllTags(posts);
   <PageLayout heading={pages.blog.heading}>
     <Tags tags={tags} />
     <section class="not-prose">
-      <ul class="flex flex-col gap-y-4">
-        {
-          posts.map((post) => (
-            <li class="space-y-0.5">
-              <a
-                href={`/blog/${post.slug}`}
-                class="link font-medium link-hover"
-                rel="bookmark"
-                data-astro-prefetch
-              >
-                {shortTitle(post)}
-              </a>
-              <MetaLine
-                class="block text-sm text-base-content/60"
-                publishDate={post.data.publishDate}
-                minutes={readingTime(post.body)}
-                filePath={post.filePath}
-              />
-            </li>
-          ))
-        }
-      </ul>
+      {
+        postsByYear.map(([year, posts = []]) => (
+          <div class="mb-8">
+            <h2 class="mb-4 text-xl font-semibold text-base-content/55">
+              {year}
+            </h2>
+            <ul class="flex flex-col gap-y-4">
+              {posts.map((post) => (
+                <li class="space-y-0.5">
+                  <a
+                    href={`/blog/${post.slug}`}
+                    class="link font-medium link-hover"
+                    rel="bookmark"
+                    data-astro-prefetch
+                  >
+                    {shortTitle(post)}
+                  </a>
+                  <MetaLine
+                    class="block text-sm text-base-content/60"
+                    publishDate={post.data.publishDate}
+                    minutes={readingTime(post.body)}
+                    filePath={post.filePath}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
     </section>
-    <section class="mt-8 prose-a:hover:no-underline">
+    <section class="mt-8">
       <p class="text-center text-xs text-base-content/60">
         Also available via <a href="/blog/rss.xml" class="link">RSS</a>
       </p>
