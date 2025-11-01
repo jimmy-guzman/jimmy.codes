@@ -29,7 +29,7 @@
         "astro-favicons": "3.1.5",
         "daisyui": "5.3.10",
         "expressive-code-twoslash": "0.5.3",
-        "gitzy": "6.5.1",
+        "gitzy": "6.5.2",
         "hastscript": "9.0.1",
         "is-ci": "4.1.0",
         "knip": "5.63.1",
@@ -841,7 +841,7 @@
 
     "github-slugger": ["github-slugger@2.0.0", "", {}, "sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw=="],
 
-    "gitzy": ["gitzy@6.5.1", "", { "dependencies": { "lilconfig": "^3.1.3", "tinyexec": "^1.0.1" }, "bin": { "gitzy": "dist/index.mjs" } }, "sha512-IB7FoUOLrsAsv6dKd7rZtOe8BSaQHnCx6iFXKechc4UCTlXLrm4Yl3Y9mIblr2a8m/GvnEHgbSxKIYfW318RmQ=="],
+    "gitzy": ["gitzy@6.5.2", "", { "dependencies": { "lilconfig": "^3.1.3", "tinyexec": "^1.0.1" }, "bin": { "gitzy": "dist/index.mjs" } }, "sha512-WMhbfnP77I8hxNRh1xDUcdiAMj5OSwywbrXRbf01542RoYCVUEsM6GGhFFCnBAdF+DxlpdAO8yiYwXzxKKZKHQ=="],
 
     "glob": ["glob@11.0.3", "", { "dependencies": { "foreground-child": "^3.3.1", "jackspeak": "^4.1.1", "minimatch": "^10.0.3", "minipass": "^7.1.2", "package-json-from-dist": "^1.0.0", "path-scurry": "^2.0.0" }, "bin": { "glob": "dist/esm/bin.mjs" } }, "sha512-2Nim7dha1KVkaiF4q6Dj+ngPPMdfvLJEOpZk/jKiUAkqKebpGAWQXAq9z1xu9HKu5lWfqw/FASuccEjyznjPaA=="],
 
