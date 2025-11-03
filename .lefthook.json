@@ -16,7 +16,7 @@
         "stage_fixed": true
       },
       "prettier:astro-md": {
-        "glob": "*.{astro,md,mdx}",
+        "glob": "*.{astro,md}",
         "run": "bunx prettier --experimental-cli --write --ignore-path .gitignore {staged_files}",
         "stage_fixed": true
       },
