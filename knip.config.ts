@@ -6,13 +6,7 @@ export default {
     "gitzy",
     "@commitlint/cli",
     "markdownlint",
+    "astro:env", // TODO: remove when https://github.com/webpro-nl/knip/pull/1331 is merged
   ],
-  compilers: {
-    css: (text: string) => {
-      return [...text.matchAll(/@(?:import|plugin)\s+["']([^"']+)["']/g)]
-        .map(([_, dep]) => `import "${dep}";`)
-        .join("\n");
-    },
-  },
   ignoreBinaries: ["pandoc"],
 } satisfies KnipConfig;
