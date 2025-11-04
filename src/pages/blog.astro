@@ -28,7 +28,9 @@ const postsByYear = getPostByYear(posts);
       {
         postsByYear.map(([year, posts = []]) => (
           <div class="mb-8">
-            <h2 class="mb-4 text-xl font-semibold text-neutral">{year}</h2>
+            <h2 class="mb-4 text-xl font-semibold text-base-content/65">
+              {year}
+            </h2>
             <ul class="flex flex-col gap-y-4">
               {posts.map((post) => (
                 <li class="space-y-0.5">
@@ -41,7 +43,7 @@ const postsByYear = getPostByYear(posts);
                     {shortTitle(post)}
                   </a>
                   <MetaLine
-                    class="block text-sm text-neutral"
+                    class="block text-sm font-light text-base-content/65"
                     publishDate={post.data.publishDate}
                     minutes={readingTime(post.body)}
                     filePath={post.filePath}
@@ -54,7 +56,7 @@ const postsByYear = getPostByYear(posts);
       }
     </section>
     <section class="mt-8">
-      <p class="text-center text-xs text-neutral">
+      <p class="text-center text-xs text-base-content/65">
         Also available via <a href="/blog/rss.xml" class="link">RSS</a>
       </p>
     </section>
