@@ -27,7 +27,7 @@
         "astro": "5.15.3",
         "astro-expressive-code": "0.41.3",
         "astro-favicons": "3.1.5",
-        "daisyui": "5.4.2",
+        "daisyui": "5.4.3",
         "expressive-code-twoslash": "0.5.3",
         "gitzy": "6.5.2",
         "hastscript": "9.0.1",
@@ -735,7 +735,7 @@
 
     "csstype": ["csstype@3.1.3", "", {}, "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="],
 
-    "daisyui": ["daisyui@5.4.2", "", {}, "sha512-yLoRFlx5hKvn5ODpT7CVb9oU/fAF2X1BGuLmVZo4LN33r7hcmO8v+gcxB6l33mcMas5jut3lZwHj9erqbMvvEA=="],
+    "daisyui": ["daisyui@5.4.3", "", {}, "sha512-dfDCJnN4utErGoWfElgdEE252FtfHV9Mxj5Dq1+JzUq3nVkluWdF3JYykP0Xy/y/yArnPXYztO1tLNCow3kjmg=="],
 
     "dargs": ["dargs@8.1.0", "", {}, "sha512-wAV9QHOsNbwnWdNW2FYvE1P56wtgSbM+3SZcdGiWQILwVjACCXDCI3Ai8QlCjMDB8YK5zySiXZYBiwGmNY3lnw=="],
 
