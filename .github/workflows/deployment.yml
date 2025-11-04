@@ -16,7 +16,7 @@ jobs:
             ${{ github.event.deployment_status.target_url }}
             ${{ github.event.deployment_status.target_url }}/about
             ${{ github.event.deployment_status.target_url }}/blog
-            ${{ github.event.deployment_status.target_url }}/how-i-built-simple-blogfolio
+            ${{ github.event.deployment_status.target_url }}/blog/how-i-built-simple-blogfolio
           uploadArtifacts: true
           temporaryPublicStorage: true
           configPath: .github/.lighthouserc.yml
