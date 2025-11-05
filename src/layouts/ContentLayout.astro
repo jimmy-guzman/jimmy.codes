@@ -83,7 +83,7 @@ const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
 
 {
   updatedDate && (
-    <section class="mt-8 flex justify-end text-sm text-base-content/65">
+    <section class="mt-8 flex justify-end text-sm text-muted">
       <LastModified updatedDate={updatedDate} />
     </section>
   )
@@ -91,11 +91,7 @@ const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
 
 <section class="mt-8">
   <p>
-    <a
-      href="/blog"
-      class="inline-flex items-center gap-1 text-base-content/65"
-      rel="up"
-    >
+    <a href="/blog" class="inline-flex items-center gap-1 text-muted" rel="up">
       <span class="icon-[lucide--arrow-left]" aria-hidden="true"></span>
       Back to all posts
     </a>

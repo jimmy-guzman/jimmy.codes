@@ -60,7 +60,7 @@ const pageDescription = `All blog posts tagged with "${originalTag}"`;
                   {shortTitle(post)}
                 </a>
                 <MetaLine
-                  class="block text-sm text-base-content/65"
+                  class="block text-sm text-muted"
                   publishDate={post.data.publishDate}
                   minutes={readingTime(post.body)}
                   filePath={post.filePath}
@@ -69,7 +69,7 @@ const pageDescription = `All blog posts tagged with "${originalTag}"`;
             ))}
           </ul>
         ) : (
-          <p class="text-base-content/65">No posts found for this tag.</p>
+          <p class="text-muted">No posts found for this tag.</p>
         )
       }
     </section>
@@ -78,7 +78,7 @@ const pageDescription = `All blog posts tagged with "${originalTag}"`;
       <p>
         <a
           href="/blog"
-          class="inline-flex items-center gap-1 text-base-content/65"
+          class="inline-flex items-center gap-1 text-muted"
           rel="up"
         >
           <span class="icon-[lucide--arrow-left]" aria-hidden="true"></span>
