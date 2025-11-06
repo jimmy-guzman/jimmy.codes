@@ -208,7 +208,7 @@ This is where `NoInfer` comes in. TypeScript 5.4 introduced this utility type sp
 By wrapping the callback's `values` parameter with `NoInfer<T>`, we tell TypeScript: "Don't infer `T` from here, use the type inferred from elsewhere."
 
 > [!TIP]
-> Use `NoInfer` when you have multiple sources TypeScript could infer from and need to control which one takes priority. This is especially useful when refactoring existing codebases or building flexible component APIs.
+> Use `NoInfer` when TypeScript infers from the wrong parameter. It blocks inference at specific positions while preserving type checking.
 
 ```tsx twoslash
 // @jsx: react-jsx
@@ -284,17 +284,17 @@ If you're curious how this actually works under the hood, the `NoInfer` type is 
 type NoInfer<T> = T & { [K in keyof T]: T[K] };
 ```
 
-At first glance, this looks like it does nothing. It takes a type `T` and intersects it with a mapped type that produces the exact same shape. But this "identity" transformation is the key to how it works.
+At first glance, this looks like it does nothing. It intersects `T` with a mapped type that produces the exact same shape. But that's exactly the point.
 
-TypeScript's type inference algorithm doesn't infer through mapped types or intersection types in the same way it does through direct type references. By wrapping `T` in this seemingly redundant mapped type, `NoInfer<T>` creates a barrier that prevents TypeScript from using this position as an inference site.
+TypeScript's inference algorithm doesn't infer through mapped types or intersections the same way it does through direct references. This seemingly redundant wrapper creates a barrier that blocks inference at that position.
 
-When TypeScript encounters `NoInfer<T>` in a function parameter, it:
+When TypeScript sees `NoInfer<T>`:
 
-1. Recognizes that `T` is wrapped in a non-trivial type operation
-2. Skips this position when collecting inference candidates
-3. Uses the type that was inferred from other positions instead
+1. It recognizes `T` is wrapped in a non-trivial type operation
+2. It skips this position when collecting inference candidates
+3. It uses the type inferred from other positions instead
 
-The result is a type that's structurally identical to `T` but is "invisible" to TypeScript's inference algorithm, giving us precise control over where inference comes from.
+**The result**: a type that's structurally identical to `T` but invisible to TypeScript's inference, giving you precise control over where inference happens.
 
 ## Conclusion
 
