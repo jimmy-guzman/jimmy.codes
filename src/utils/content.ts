@@ -19,6 +19,25 @@ export function prettyDate(date: Date) {
   return dateFormatter.format(date);
 }
 
+const TWOSLASH_SETUP_REGEX =
+  /```(tsx?)\s+twoslash\n[\s\S]*?\/\/\s*---cut---\n/g;
+const TWOSLASH_ANNOTATION_REGEX = /^\s*\/\/\s*\^[?|]\s*$/gm;
+const TWOSLASH_DIRECTIVE_REGEX = /^\s*\/\/\s+@[\w-].*$/gm;
+
+/**
+ * Clean markdown content for accurate reading time calculation.
+ * Removes twoslash setup code, annotations, and directives.
+ *
+ * @param markdown The markdown content to process
+ * @returns Cleaned markdown content
+ */
+export const cleanMarkdownForReadingTime = (markdown: string) => {
+  return markdown
+    .replaceAll(TWOSLASH_SETUP_REGEX, "```$1\n")
+    .replaceAll(TWOSLASH_ANNOTATION_REGEX, "")
+    .replaceAll(TWOSLASH_DIRECTIVE_REGEX, "");
+};
+
 /**
  * Estimate reading time for a given text.
  *
@@ -28,7 +47,7 @@ export function prettyDate(date: Date) {
 export const readingTime = (text: string) => {
   if (!text) return 0;
 
-  const { minutes } = getReadingTime(text);
+  const { minutes } = getReadingTime(cleanMarkdownForReadingTime(text));
 
   return Math.max(1, Math.round(minutes));
 };
