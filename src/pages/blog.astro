@@ -1,4 +1,5 @@
 ---
+
 import { getCollection } from "astro:content";
 
 import MetaLine from "@/components/MetaLine.astro";
@@ -28,7 +29,7 @@ const postsByYear = getPostByYear(posts);
       {
         postsByYear.map(([year, posts = []]) => (
           <div class="mb-8">
-            <h2 class="mb-4 text-xl font-semibold text-muted">{year}</h2>
+            <h2 class="mb-4 text-xl font-light text-muted">{year}</h2>
             <ul class="flex flex-col gap-y-4">
               {posts.map((post) => (
                 <li class="space-y-0.5">
