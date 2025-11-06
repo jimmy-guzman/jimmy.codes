@@ -6,274 +6,159 @@ keywords: ["TypeScript", "Type Inference", "NoInfer", "Generics"]
 tags: ["TypeScript"]
 ---
 
-I recently ran into an interesting TypeScript problem while refactoring our table component at work. TypeScript's type inference usually makes our lives easier, but sometimes it can be _too_ helpful and infer from the wrong places.
+I recently ran into an interesting TypeScript problem while refactoring a form component at work. Well, it wasn't actually a form, but I'll use that as a simpler example here. TypeScript's type inference usually makes our lives easier, but sometimes it can be _too_ helpful and infer from the wrong places.
 
-In this post, I'll walk through a simple table component, show how generics improve type safety, and then tackle what happens when inference goes too far. We'll use [the `NoInfer` utility type introduced in TypeScript 5.4](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-4.html#the-noinfer-utility-type) to fix it. As a disclaimer, this is a simplified example, but the problem shows up in any API with generics and callbacks.
+In this post, I'll walk through a simple form component, show how generics improve type safety, and then tackle what happens when inference goes too far. We'll use [the `NoInfer` utility type introduced in TypeScript 5.4](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-4.html#the-noinfer-utility-type) to fix it. As a disclaimer, this is a simplified example, but the problem shows up in any API with generics and callbacks.
 
 ---
 
 ## Missing Type Links with `any`
 
-Let's start with a simple table component that accepts `columns` and `data` as props:
+Let's start with a simple form component that accepts `initialValues` and an `onSubmit` callback:
 
 ```tsx twoslash
 // @jsx: react-jsx
-interface Column {
-  header: string;
-  accessor: string;
+interface FormProps {
+  initialValues: any;
+  onSubmit?: (values: any) => void;
 }
 
-interface TableProps {
-  columns: Column[];
-  data: any[];
-  onCellClick?: (row: any, column: Column) => void;
-  onRowClick?: (row: any) => void;
-}
-
-function Table({ columns, data, onCellClick, onRowClick }: TableProps) {
-  return <table />;
+function Form({ initialValues, onSubmit }: FormProps) {
+  return <form />;
 }
 ```
 
-This works, but when we use the component, we don't get any type safety for the `row` parameter:
+This works, but when we use the component, we don't get any type safety for the `values` parameter:
 
 ```tsx twoslash
 // @jsx: react-jsx
-interface Column {
-  header: string;
-  accessor: string;
+interface FormProps {
+  initialValues: any;
+  onSubmit?: (values: any) => void;
 }
 
-interface TableProps {
-  columns: Column[];
-  data: any[];
-  onCellClick?: (row: any, column: Column) => void;
-  onRowClick?: (row: any) => void;
-}
-
-function Table({ columns, data, onCellClick, onRowClick }: TableProps) {
-  return <table />;
+function Form({ initialValues, onSubmit }: FormProps) {
+  return <form />;
 }
 // ---cut---
-const columns = [
-  { header: "Name", accessor: "name" },
-  { header: "Age", accessor: "age" },
-];
-
-const data = [
-  { name: "Alice", age: 30 },
-  { name: "Bob", age: 25 },
-];
-
 function App() {
   return (
-    <Table
-      columns={columns}
-      data={data}
-      onCellClick={(row, { accessor }) => {
-//                  ^?
-        console.log(row, accessor);
-//                          ^?
+    <Form
+      initialValues={{ name: "", email: "" }}
+      onSubmit={(values) => {
+//               ^?
+        console.log(values.name, values.email);
       }}
     />
   );
 }
 ```
 
-The `row` is typed as `any`, so if the data shape changes or we mistype a property, TypeScript won't catch it. The `accessor` is just a `string`, which means we can easily reference columns that don't exist in the data.
+The `values` parameter is typed as `any`, so if the form shape changes or we mistype a property, TypeScript won't catch it.
 
-So let's improve this by letting TypeScript infer the right types from the data we pass in.
+So let's improve this by letting TypeScript infer the right types from the initial values we pass in.
 
 ---
 
 ## Let TypeScript Infer Types
 
-To make TypeScript infer `row` and `column` types automatically, we can make our `Table` component generic. This way, the data type becomes the source of truth for everything else.
+To make TypeScript infer the `values` type automatically, we can make our `Form` component generic. This way, the initial values type becomes the source of truth for everything else.
 
 ```tsx twoslash
 // @jsx: react-jsx
-interface Column<T> {
-  header: string;
-  accessor: keyof T;
+interface FormProps<T> {
+  initialValues: T;
+  onSubmit?: (values: T) => void;
 }
 
-interface TableProps<T> {
-  columns: Column<T>[];
-  data: T[];
-  onCellClick?: (row: T, column: Column<T>) => void;
-  onRowClick?: (row: T) => void;
-}
-
-function Table<T>({ columns, data, onCellClick, onRowClick }: TableProps<T>) {
-  return <table />;
+function Form<T>({ initialValues, onSubmit }: FormProps<T>) {
+  return <form />;
 }
 ```
 
-Now TypeScript will infer types based on the data we pass to the component:
+Now TypeScript will infer types based on the initial values we pass to the component:
 
 ```tsx twoslash
 // @jsx: react-jsx
-interface Column<T> {
-  header: string;
-  accessor: keyof T;
+interface FormProps<T> {
+  initialValues: T;
+  onSubmit?: (values: T) => void;
 }
 
-interface TableProps<T> {
-  columns: Column<T>[];
-  data: T[];
-  onCellClick?: (row: T, column: Column<T>) => void;
-  onRowClick?: (row: T) => void;
+function Form<T>({ initialValues, onSubmit }: FormProps<T>) {
+  return <form />;
 }
-
-function Table<T>({ columns, data, onCellClick, onRowClick }: TableProps<T>) {
-  return <table />;
-}
-
+// ---cut---
 function App() {
-  // ---cut---
   return (
-    <Table
-      columns={[
-        { header: "Name", accessor: "name" },
-        { header: "Age", accessor: "age" },
-      ]}
-      data={[
-        { name: "Alice", age: 30 },
-        { name: "Bob", age: 25 },
-      ]}
-      onCellClick={(row, { accessor }) => {
-//                   ^?
-        console.log(row[accessor]);
-//                      ^?
+    <Form
+      initialValues={{ name: "", email: "" }}
+      onSubmit={(values) => {
+//               ^?
 // @noErrors
-        console.log(row.)
-//                      ^|
+        console.log(values.)
+//                         ^|
       }}
     />
   );
 }
 ```
 
-Both `row` and `accessor` now have accurate inferred types, which gives us autocomplete and type safety throughout the component.
+The `values` parameter now has the accurate inferred type, which gives us autocomplete and type safety.
 
-TypeScript will catch errors if we try to use a column that doesn't exist in our data:
-
-```tsx twoslash
-// @errors: 2322
-// @jsx: react-jsx
-interface Column<T> {
-  header: string;
-  accessor: keyof T;
-}
-
-interface TableProps<T> {
-  columns: Column<T>[];
-  data: T[];
-  onCellClick?: (row: T, column: Column<T>) => void;
-  onRowClick?: (row: T) => void;
-}
-
-function Table<T>({ columns, data, onCellClick, onRowClick }: TableProps<T>) {
-  return <table />;
-}
-
-function App() {
-  // ---cut---
-  return (
-    <Table
-      columns={[
-        { header: "Name", accessor: "name" },
-        { header: "Address", accessor: "address" },
-      ]}
-      data={[
-        { name: "Alice", age: 30 },
-        { name: "Bob", age: 25 },
-      ]}
-    />
-  );
-}
-```
-
-Or if we try to access a property that doesn't exist on the row:
+TypeScript will catch errors if we try to access a property that doesn't exist:
 
 ```tsx twoslash
 // @errors: 2339
 // @jsx: react-jsx
-interface Column<T> {
-  header: string;
-  accessor: keyof T;
+interface FormProps<T> {
+  initialValues: T;
+  onSubmit?: (values: T) => void;
 }
 
-interface TableProps<T> {
-  columns: Column<T>[];
-  data: T[];
-  onCellClick?: (row: T, column: Column<T>) => void;
-  onRowClick?: (row: T) => void;
+function Form<T>({ initialValues, onSubmit }: FormProps<T>) {
+  return <form />;
 }
-
-function Table<T>({ columns, data, onCellClick, onRowClick }: TableProps<T>) {
-  return <table />;
-}
-
+// ---cut---
 function App() {
-  // ---cut---
   return (
-    <Table
-      columns={[
-        { header: "Name", accessor: "name" },
-        { header: "Age", accessor: "age" },
-      ]}
-      data={[
-        { name: "Alice", age: 30 },
-        { name: "Bob", age: 25 },
-      ]}
-      onCellClick={(row) => {
-        console.log(row.address);
+    <Form
+      initialValues={{ name: "", email: "" }}
+      onSubmit={(values) => {
+        console.log(values.address);
       }}
     />
   );
 }
 ```
 
-We now have reliable type safety driven by the data we provide. But this power comes with a catch—sometimes TypeScript infers too much.
+We now have reliable type safety driven by the initial values we provide. But this power comes with a catch. Sometimes TypeScript infers too much.
 
 ---
 
 ## When Inference Goes Too Far
 
-So here's where things got interesting during our refactor. We had a `Table` component with no generics, which meant developers had to manually type the callback parameters:
+So here's where things got interesting during our refactor. We had a `Form` component with no generics, which meant developers had to manually type the callback parameters:
 
 ```tsx twoslash
 // @jsx: react-jsx
-interface Column {
-  header: string;
-  accessor: string;
+interface FormProps {
+  initialValues: any;
+  onSubmit?: (values: any) => void;
 }
 
-interface TableProps {
-  columns: Column[];
-  data: any[];
-  onCellClick?: (row: any, column: Column) => void;
-  onRowClick?: (row: any) => void;
+function Form({ initialValues, onSubmit }: FormProps) {
+  return <form />;
 }
-
-function Table({ columns, data, onCellClick, onRowClick }: TableProps) {
-  return <table />;
-}
-
 // ---cut---
-const data: any[] = [];
+const initialValues: any = {};
 
 function App() {
   return (
-    <Table
-      columns={[
-        { header: "Name", accessor: "name" },
-        { header: "Age", accessor: "age" },
-      ]}
-      data={data}
-      onRowClick={(row: { name: string; age: number }) => {
-        console.log(row.name, row.age);
+    <Form
+      initialValues={initialValues}
+      onSubmit={(values: { name: string; email: string }) => {
+        console.log(values.name, values.email);
       }}
     />
   );
@@ -284,160 +169,108 @@ When we added generics to get type safety, those manual annotations became a pro
 
 ```tsx twoslash
 // @jsx: react-jsx
-interface Column<T> {
-  header: string;
-  accessor: keyof T;
+interface FormProps<T> {
+  initialValues: T;
+  onSubmit?: (values: T) => void;
 }
 
-interface TableProps<T> {
-  columns: Column<T>[];
-  data: T[];
-  onCellClick?: (row: T, column: Column<T>) => void;
-  onRowClick?: (row: T) => void;
+function Form<T>({ initialValues, onSubmit }: FormProps<T>) {
+  return <form />;
 }
 
-function Table<T>({ columns, data, onCellClick, onRowClick }: TableProps<T>) {
-  return <table />;
-}
-
-const data: any[] = [];
-
+const initialValues: any = {};
 // ---cut---
 function App() {
   return (
-    <Table
+    <Form
 //    ^?
-      columns={[
-        { header: "Name", accessor: "name" },
-        { header: "Age", accessor: "age" },
-      ]}
-      data={data}
-      onRowClick={(row: { name: string; age: number }) => {
-        console.log(row.name, row.age);
+      initialValues={initialValues}
+      onSubmit={(values: { name: string; email: string }) => {
+        console.log(values.name, values.email);
       }}
     />
   );
 }
 ```
 
-Because `data` is `any[]`, TypeScript infers `T` from the callback annotation instead. Now `T` is `{ name: string; age: number }`, which means our columns must use `"name" | "age"` as accessors (even though the actual data might have different properties).
+Because `initialValues` is `any`, TypeScript infers `T` from the callback annotation instead. Now `T` is `{ name: string; email: string }`, even though the actual initial values might have a different shape.
 
-The inference happened, but from the wrong place. The callback annotation is now driving the types instead of the data. We needed a way to tell TypeScript: "Only infer `T` from `data`, ignore the callback annotation."
+The inference happened, but from the wrong place. The callback annotation is now driving the types instead of the initial values. We needed a way to tell TypeScript: "Only infer `T` from `initialValues`, ignore the callback annotation."
 
 ## Stop Unwanted Inference with `NoInfer`
 
 This is where `NoInfer` comes in. TypeScript 5.4 introduced this utility type specifically to handle situations like this. It tells TypeScript not to infer a type from specific positions, letting us control where inference comes from.
 
-By wrapping the callback's `row` parameter with `NoInfer<T>`, we tell TypeScript: "Don't infer `T` from here, use the type inferred from elsewhere."
+By wrapping the callback's `values` parameter with `NoInfer<T>`, we tell TypeScript: "Don't infer `T` from here, use the type inferred from elsewhere."
 
 > [!TIP]
 > Use `NoInfer` when you have multiple sources TypeScript could infer from and need to control which one takes priority. This is especially useful when refactoring existing codebases or building flexible component APIs.
 
 ```tsx twoslash
 // @jsx: react-jsx
-interface Column<T> {
-  header: string;
-  accessor: keyof T;
+interface FormProps<T> {
+  initialValues: T;
+  onSubmit?: (values: NoInfer<T>) => void;
 }
 
-interface TableProps<T> {
-  columns: Column<T>[];
-  data: T[];
-  onCellClick?: (row: NoInfer<T>, column: Column<T>) => void;
-  onRowClick?: (row: NoInfer<T>) => void;
-}
-
-function Table<T>({ columns, data, onCellClick, onRowClick }: TableProps<T>) {
-  return <table />;
+function Form<T>({ initialValues, onSubmit }: FormProps<T>) {
+  return <form />;
 }
 ```
 
-Now when we use the component, TypeScript infers `T` only from `data`, not from the callback:
+Now when we use the component, TypeScript infers `T` only from `initialValues`, not from the callback:
 
 ```tsx twoslash
 // @jsx: react-jsx
-interface Column<T> {
-  header: string;
-  accessor: keyof T;
+interface FormProps<T> {
+  initialValues: T;
+  onSubmit?: (values: NoInfer<T>) => void;
 }
 
-interface TableProps<T> {
-  columns: Column<T>[];
-  data: T[];
-  onCellClick?: (row: NoInfer<T>, column: Column<T>) => void;
-  onRowClick?: (row: NoInfer<T>) => void;
+function Form<T>({ initialValues, onSubmit }: FormProps<T>) {
+  return <form />;
 }
-
-function Table<T>({ columns, data, onCellClick, onRowClick }: TableProps<T>) {
-  return <table />;
-}
-
 // ---cut---
 function App() {
   return (
-    <Table
-      columns={[
-        { header: "Name", accessor: "name" },
-        { header: "Age", accessor: "age" },
-      ]}
-      data={[
-        { name: "Alice", age: 30 },
-        { name: "Bob", age: 25 },
-      ]}
-      onCellClick={(row, column) => {
-//                   ^?
-        console.log(row.name, row.age);
+    <Form
+      initialValues={{ name: "", email: "" }}
+      onSubmit={(values) => {
+//               ^?
+        console.log(values.name, values.email);
       }}
     />
   );
 }
 ```
 
-The callback's `row` parameter now has the correct type inferred from `data`. If we try to add a manual annotation that doesn't match, TypeScript will catch it:
+The callback's `values` parameter now has the correct type inferred from `initialValues`. If we try to add a manual annotation that doesn't match, TypeScript will catch it:
 
 ```tsx twoslash
 // @errors: 2322
 // @jsx: react-jsx
-interface Column<T> {
-  header: string;
-  accessor: keyof T;
+interface FormProps<T> {
+  initialValues: T;
+  onSubmit?: (values: NoInfer<T>) => void;
 }
 
-interface TableProps<T> {
-  columns: Column<T>[];
-  data: T[];
-  onCellClick?: (row: NoInfer<T>, column: Column<T>) => void;
-  onRowClick?: (row: NoInfer<T>) => void;
+function Form<T>({ initialValues, onSubmit }: FormProps<T>) {
+  return <form />;
 }
-
-function Table<T>({ columns, data, onCellClick, onRowClick }: TableProps<T>) {
-  return <table />;
-}
-
 // ---cut---
 function App() {
   return (
-    <Table
-      columns={[
-        { header: "Name", accessor: "name" },
-        { header: "Age", accessor: "age" },
-      ]}
-      data={[
-        { name: "Alice", age: 30 },
-        { name: "Bob", age: 25 },
-      ]}
-      onCellClick={(
-        row: { name: string; age: number; address: string },
-        column,
-      ) => {
-        console.log(row.name);
+    <Form
+      initialValues={{ name: "", email: "" }}
+      onSubmit={(values: { name: string; email: string; address: string }) => {
+        console.log(values.name);
       }}
     />
   );
 }
 ```
 
-`NoInfer` ensures that `data` remains the source of truth for our types, even during refactoring when old manual annotations might still be present.
+`NoInfer` ensures that `initialValues` remains the source of truth for our types, even during refactoring when old manual annotations might still be present.
 
 ## Behind the Scenes of `NoInfer`
 
@@ -447,7 +280,7 @@ If you're curious how this actually works under the hood, the `NoInfer` type is 
 type NoInfer<T> = T & { [K in keyof T]: T[K] };
 ```
 
-At first glance, this looks like it does nothing—it takes a type `T` and intersects it with a mapped type that produces the exact same shape. But this "identity" transformation is the key to how it works.
+At first glance, this looks like it does nothing. It takes a type `T` and intersects it with a mapped type that produces the exact same shape. But this "identity" transformation is the key to how it works.
 
 TypeScript's type inference algorithm doesn't infer through mapped types or intersection types in the same way it does through direct type references. By wrapping `T` in this seemingly redundant mapped type, `NoInfer<T>` creates a barrier that prevents TypeScript from using this position as an inference site.
 
@@ -457,10 +290,10 @@ When TypeScript encounters `NoInfer<T>` in a function parameter, it:
 2. Skips this position when collecting inference candidates
 3. Uses the type that was inferred from other positions instead
 
-The result is a type that's structurally identical to `T` but is "invisible" to TypeScript's inference algorithm—giving us precise control over where inference comes from.
+The result is a type that's structurally identical to `T` but is "invisible" to TypeScript's inference algorithm, giving us precise control over where inference comes from.
 
 ## Conclusion
 
-We started with a table component that lost type safety because of `any`. By making the component generic, we let TypeScript infer types automatically from `data`. But we also saw how inference can sometimes go too far, picking up types from the wrong place.
+We started with a form component that lost type safety because of `any`. By making the component generic, we let TypeScript infer types automatically from `initialValues`. But we also saw how inference can sometimes go too far, picking up types from the wrong place.
 
-With the `NoInfer` utility type from TypeScript 5.4, we can control exactly where inference comes from, keeping `data` as the single source of truth and maintaining consistent, predictable types.
+With the `NoInfer` utility type from TypeScript 5.4, we can control exactly where inference comes from, keeping `initialValues` as the single source of truth and maintaining consistent, predictable types.
