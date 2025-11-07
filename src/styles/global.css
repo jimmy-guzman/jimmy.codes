@@ -40,7 +40,7 @@
   --depth: 0;
   --noise: 0;
 
-  --muted-strength: 51%;
+  --muted-strength: 50.6%;
 }
 
 @plugin "daisyui/theme" {
