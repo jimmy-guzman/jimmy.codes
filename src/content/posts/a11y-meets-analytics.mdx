@@ -6,7 +6,7 @@ keywords: [accessibility, analytics, react, javascript, dom-accessibility-api]
 tags: [Accessibility, Analytics, Frontend]
 ---
 
-I’ve seen analytics setups that rely on data attributes like `data-track-name` or plain IDs. They’re brittle, break during refactors, and require tedious upkeep, which is a constant source of pain for developers. In one project, we were also on a mission to improve accessibility, so I wanted a solution that aligned with that goal.
+I've seen analytics setups that rely on data attributes like `data-track-name` or plain IDs. They're brittle, break during refactors, and require tedious upkeep, which is a constant source of pain for developers. In one project, we were also on a mission to improve accessibility, so I wanted a solution that aligned with that goal.
 
 That's when I discovered a better way. While writing tests using [Testing Library](https://testing-library.com/), I wondered if we could leverage the same principles for analytics. After some research, I found the `dom-accessibility-api` library, which can compute **accessible names** for any DOM element.
 
@@ -162,7 +162,7 @@ This only requires a few lines of code and works across your entire app. You can
 > [!NOTE]
 > This approach only works if we're following good accessibility practices. If a button has no label, it will log an empty string, which is a clear sign of an issue that needs to be fixed.
 
-Before diving into the broader benefits, let’s address a common concern: performance.
+Before diving into the broader benefits, let's address a common concern: performance.
 
 ## Performance Considerations
 
@@ -186,4 +186,4 @@ For example, we had multiple "Edit" buttons across different sections that all l
 
 ---
 
-By aligning analytics with accessibility, you gain accurate, meaningful data while improving user experiences. It’s a rare win-win for modern web development.
+By aligning analytics with accessibility, you gain accurate, meaningful data while improving user experiences. It's a rare win-win for modern web development.
