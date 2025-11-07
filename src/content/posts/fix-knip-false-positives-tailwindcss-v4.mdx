@@ -47,11 +47,11 @@ Or just run it directly:
 pnpx knip
 ```
 
-Out of the box, Knip technically works with Tailwind CSS v4, but not perfectly. Its lack of support for Tailwind’s new **@plugin** and **@import** directives can cause false positives.
+Out of the box, Knip technically works with Tailwind CSS v4, but not perfectly. Its lack of support for Tailwind's new **@plugin** and **@import** directives can cause false positives.
 
 ## What changed in Tailwind CSS v4?
 
-Tailwind CSS v4 introduced a new configuration approach that is [CSS-first](http://tailwindcss.com/blog/tailwindcss-v4#css-first-configuration), which allows for imports and plugins. However, Knip doesn’t scan these directives by default, which leads to false positives. For example, if you have a Tailwind CSS file like this:
+Tailwind CSS v4 introduced a new configuration approach that is [CSS-first](http://tailwindcss.com/blog/tailwindcss-v4#css-first-configuration), which allows for imports and plugins. However, Knip doesn't scan these directives by default, which leads to false positives. For example, if you have a Tailwind CSS file like this:
 
 ```css
 @import "tailwindcss";
@@ -89,9 +89,9 @@ export default {
 } satisfies KnipConfig;
 ```
 
-_We use `satisfies KnipConfig` to ensure our config matches the expected structure. It’s a [TypeScript safety check](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator), not required for runtime._
+_We use `satisfies KnipConfig` to ensure our config matches the expected structure. It's a [TypeScript safety check](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator), not required for runtime._
 
-Knip supports a [custom compilers configuration option](https://knip.dev/features/compilers#custom-compilers), and with a bit of regex magic, we can teach it to understand Tailwind’s directives like **@import** and **@plugin**.
+Knip supports a [custom compilers configuration option](https://knip.dev/features/compilers#custom-compilers), and with a bit of regex magic, we can teach it to understand Tailwind's directives like **@import** and **@plugin**.
 
 ## How to configure Knip for Tailwind CSS v4?
 
@@ -151,10 +151,10 @@ _You can further learn about regex at [regex101](https://regex101.com/r/aoOabK/1
 
 Then `map` transforms each match into an import statement using the captured dependency name, and the `join("\n")` combines them into a single string to make it look like valid JavaScript/TypeScript code.
 
-Once that’s in place, running `knip` will no longer flag these dependencies:
+Once that's in place, running `knip` will no longer flag these dependencies:
 
 ```bash
 ✂️  Excellent, Knip found no issues.
 ```
 
-Tailwind’s new config is great, but Knip doesn’t know what to do with **@plugin** or **@import** by default. This setup bridges that gap and keeps your reports clean.
+Tailwind's new config is great, but Knip doesn't know what to do with **@plugin** or **@import** by default. This setup bridges that gap and keeps your reports clean.
