@@ -17,26 +17,26 @@ tags: ["Astro", "Markdown", "CSS", "Frontend"]
 
 ## Overview
 
-I wanted the headings in my [Astro Markdown](https://docs.astro.build/en/guides/markdown-content) site to behave like GitHub’s:  
+I wanted the headings in my [Astro Markdown](https://docs.astro.build/en/guides/markdown-content) site to behave like GitHub's:  
 _hover to reveal a link icon for deep-linking to that heading_.
 
-After reading [`rehype-autolink-headings`](https://github.com/rehypejs/rehype-autolink-headings)’ docs on using [`hastscript`](https://github.com/syntax-tree/hastscript),  
+After reading [`rehype-autolink-headings`](https://github.com/rehypejs/rehype-autolink-headings)' docs on using [`hastscript`](https://github.com/syntax-tree/hastscript),  
 I realized I could replicate the effect with some [`tailwindcss`](https://tailwindcss.com) magic.
 
 ---
 
 ## Before and after
 
-Here’s how it looked before and after adding the configuration.
+Here's how it looked before and after adding the configuration.
 
-Without any changes, hovering over a heading does nothing. There’s no visual cue that it’s linkable.
+Without any changes, hovering over a heading does nothing. There's no visual cue that it's linkable.
 
 ![Screenshot of Astro heading without hover link](/images/posts/before-heading.png)
 
 ---
 
 Now when you hover over a heading, a subtle link icon appears.  
-Clicking it jumps directly to that heading’s URL.
+Clicking it jumps directly to that heading's URL.
 
 ![Screenshot of Astro heading with hover link icon](/images/posts/after-heading.png)
 
@@ -47,7 +47,7 @@ Clicking it jumps directly to that heading’s URL.
 - [`rehype-slug`](https://github.com/rehypejs/rehype-slug) generates `id`s for each heading.
 - [`rehype-autolink-headings`](https://github.com/rehypejs/rehype-autolink-headings) wraps them in links.
 - [`hastscript`](https://github.com/syntax-tree/hastscript) builds the icon element.
-- Tailwind’s [`group-hover`](https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-parent-state) fades the icon in.
+- Tailwind's [`group-hover`](https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-parent-state) fades the icon in.
 
 ---
 
@@ -71,7 +71,7 @@ const autoLinkHeadingOpts = {
     }),
   ],
   properties: {
-    className: "group relative block pl-[1.5em] -ml-[1.5em] link-hover",
+    className: "group relative block pl-[1.5em] -ml-[1.5em]",
     tabindex: "-1",
   },
 };
@@ -105,12 +105,12 @@ content: [
 ```
 
 - `h` comes from `hastscript`. It creates a `<span>` element in [hast](https://github.com/syntax-tree/hast) syntax, which is how [rehype](https://github.com/rehypejs/rehype) represents HTML.
-- `aria-hidden="true"` hides the icon from screen readers since it’s decorative.
+- `aria-hidden="true"` hides the icon from screen readers since it's decorative.
 - `icon-[lucide--link]` is the [Iconify class](#note-on-icons) for the link icon.
 - `absolute left-0 top-1/2 -translate-y-1/2` positions the icon to the left of the heading and vertically centers it.
 - `opacity-0 group-hover:opacity-100 transition-opacity duration-150` hides the icon until you hover over the heading, then fades it in smoothly.
 - `text-base-content/50` makes the icon a muted, theme-aware color. In this case [daisyUI](https://daisyui.com/docs/colors/#list-of-all-daisyui-color-names) is being used.
-- `h-[1em] w-[1em]` sizes the icon to match the heading’s font size.
+- `h-[1em] w-[1em]` sizes the icon to match the heading's font size.
 
 ---
 
@@ -118,16 +118,15 @@ content: [
 
 ```ts
 properties: {
-  className: "group relative block pl-[1.5em] -ml-[1.5em] link-hover",
+  className: "group relative block pl-[1.5em] -ml-[1.5em]",
   tabindex: "-1",
 },
 ```
 
-- `group` lets us use `group-hover` inside the icon’s classes.
+- `group` lets us use `group-hover` inside the icon's classes.
 - `relative` makes the heading container the positioning reference for the absolutely positioned icon.
 - `block` ensures consistent spacing and padding behavior.
 - `pl-[1.5em] -ml-[1.5em]` adds space for the icon while keeping the text aligned with other elements.
-- `link-hover` applies link hover styles from your Tailwind theme.
 - `tabindex="-1"` removes the link from the tab order so keyboard navigation focuses on the heading text instead.
 
 ---
@@ -155,6 +154,6 @@ Or, use your own icon setup such as SVGs, React components, or any approach you 
 
 ## Wrapping up
 
-With just a couple of `rehype` plugins, a sprinkle of `hastscript`, and some Tailwind magic, you can make your Astro headings more interactive, just like GitHub’s.
+With just a couple of `rehype` plugins, a sprinkle of `hastscript`, and some Tailwind magic, you can make your Astro headings more interactive, just like GitHub's.
 
 ![Gif of Astro heading with hover link icon](/images/posts/after-heading.gif)
