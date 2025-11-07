@@ -1,4 +1,5 @@
 ---
+
 import LastModified from "@/components/LastModified.astro";
 import MetaLine from "@/components/MetaLine.astro";
 import Tags from "@/components/Tags.astro";
@@ -30,7 +31,7 @@ const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
 ---
 
 <section>
-  <p class="text-sm">
+  <p class="text-sm text-muted">
     <MetaLine publishDate={publishDate} minutes={minutes} filePath={filePath} />
   </p>
 </section>
