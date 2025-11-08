@@ -1,5 +1,5 @@
 ---
-
+import BackLink from "@/components/BackLink.astro";
 import { pages } from "@/configs/pages";
 import { urls } from "@/configs/urls";
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -96,10 +96,7 @@ import PageLayout from "@/layouts/PageLayout.astro";
       </p>
 
       <p class="mt-8">
-        <a href="/" class="inline-flex items-center gap-1" rel="up"
-          ><span class="icon-[lucide--arrow-left]" aria-hidden="true"></span> Back
-          to home</a
-        >
+        <BackLink url="/" title="home" />
       </p>
     </section>
   </PageLayout>

@@ -68,7 +68,7 @@ const heading = shortTitle(post);
   keywords={keywords}
   extraLd={[jsonLd]}
 >
-  <PageLayout heading={heading}>
+  <PageLayout heading={heading} back={{ title: "blog", url: "/blog" }}>
     <ContentLayout
       title={heading}
       tags={post.data.tags}

@@ -1,5 +1,5 @@
 ---
-
+import BackLink from "@/components/BackLink.astro";
 import LastModified from "@/components/LastModified.astro";
 import MetaLine from "@/components/MetaLine.astro";
 import Tags from "@/components/Tags.astro";
@@ -92,9 +92,6 @@ const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
 
 <section class="mt-8">
   <p>
-    <a href="/blog" class="inline-flex items-center gap-1 text-muted" rel="up">
-      <span class="icon-[lucide--arrow-left]" aria-hidden="true"></span>
-      Back to all posts
-    </a>
+    <BackLink url="/blog" title="blog" />
   </p>
 </section>
