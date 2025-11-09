@@ -45,17 +45,17 @@ const keywords = post.data.keywords;
 const jsonLd = {
   "@type": "BlogPosting",
   "@id": `${postUrl}#article`,
-  inLanguage: "en-US",
-  headline: post.data.title,
+  "inLanguage": "en-US",
+  "headline": post.data.title,
   description,
-  author: { "@id": `${urls.site}/#person` },
-  publisher: { "@id": `${urls.site}/#person` },
+  "author": { "@id": `${urls.site}/#person` },
+  "publisher": { "@id": `${urls.site}/#person` },
   datePublished,
   dateModified,
-  url: postUrl,
-  mainEntityOfPage: { "@id": `${postUrl}#webpage` },
+  "url": postUrl,
+  "mainEntityOfPage": { "@id": `${postUrl}#webpage` },
   keywords,
-  isAccessibleForFree: true,
+  "isAccessibleForFree": true,
   timeRequired,
 };
 
@@ -68,7 +68,7 @@ const heading = shortTitle(post);
   keywords={keywords}
   extraLd={[jsonLd]}
 >
-  <PageLayout heading={heading}>
+  <PageLayout heading={heading} back={{ title: "Blog", url: "/blog" }}>
     <ContentLayout
       title={heading}
       tags={post.data.tags}

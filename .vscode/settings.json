@@ -1,5 +1,6 @@
 {
   "css.lint.unknownAtRules": "ignore",
+  // @case-police-ignore tailwindCSS
   "tailwindCSS.experimental.classRegex": [
     ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
@@ -22,5 +23,8 @@
   },
   "[svg]": {
     "editor.defaultFormatter": "jock.svg"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
 
+import BackLink from "@/components/BackLink.astro";
 import MetaLine from "@/components/MetaLine.astro";
 import Tags from "@/components/Tags.astro";
 import { BASE_TITLE } from "@/configs/pages";
@@ -76,14 +77,7 @@ const pageDescription = `All blog posts tagged with "${originalTag}"`;
 
     <section class="mt-8">
       <p>
-        <a
-          href="/blog"
-          class="inline-flex items-center gap-1 text-muted"
-          rel="up"
-        >
-          <span class="icon-[lucide--arrow-left]" aria-hidden="true"></span>
-          Back to all posts
-        </a>
+        <BackLink url="/blog" title="Blog" />
       </p>
     </section>
   </PageLayout>
