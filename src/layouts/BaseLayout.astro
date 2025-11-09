@@ -78,7 +78,13 @@ const jsonLd = JSON.stringify({
       data-site={FATHOM_SITE_ID}
       defer></script>
 
-    <Font cssVariable="--font-satoshi" preload />
+    <Font
+      cssVariable="--font-satoshi"
+      preload={[
+        { weight: 400, style: "normal" },
+        { weight: 700, style: "normal" },
+      ]}
+    />
 
     <script type="application/ld+json" is:inline set:html={jsonLd} />
   </head>
