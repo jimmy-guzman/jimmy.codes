@@ -41,10 +41,10 @@ describe("getAllTags", () => {
     ];
 
     expect(getAllTags(posts)).toEqual([
-      "react", // 2 occurrences
-      "typescript", // 1 occurrence
-      "node", // 1 occurrence
-      "design", // 1 occurrence
+      { tag: "react", count: 2 },
+      { tag: "typescript", count: 1 },
+      { tag: "node", count: 1 },
+      { tag: "design", count: 1 },
     ]);
   });
 
@@ -56,9 +56,9 @@ describe("getAllTags", () => {
     ];
 
     expect(getAllTags(posts)).toEqual([
-      "b", // 3 occurrences
-      "a", // 2 occurrences
-      "c", // 1 occurrence
+      { tag: "b", count: 3 },
+      { tag: "a", count: 2 },
+      { tag: "c", count: 1 },
     ]);
   });
 
@@ -69,8 +69,8 @@ describe("getAllTags", () => {
     ];
 
     expect(getAllTags(posts)).toEqual([
-      "react", // 2 posts
-      "node", // 1 post
+      { tag: "react", count: 2 },
+      { tag: "node", count: 1 },
     ]);
   });
 
@@ -90,6 +90,9 @@ describe("getAllTags", () => {
       { data: { tags: ["TypeScript"] } },
     ];
 
-    expect(getAllTags(posts)).toEqual(["React Router", "TypeScript"]);
+    expect(getAllTags(posts)).toEqual([
+      { tag: "React Router", count: 1 },
+      { tag: "TypeScript", count: 1 },
+    ]);
   });
 });

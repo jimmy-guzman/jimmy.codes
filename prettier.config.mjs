@@ -7,7 +7,7 @@ export default {
       options: {
         parser: "astro",
         astroAllowShorthand: false,
-        astroSkipFrontmatter: true,
+        astroSkipFrontmatter: false,
       },
     },
   ],

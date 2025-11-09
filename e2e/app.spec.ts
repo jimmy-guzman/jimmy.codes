@@ -30,4 +30,32 @@ test.describe("Primary journeys", () => {
 
     await expect(page).toHaveURL(/\/rss\.xml$/);
   });
+
+  test("should filter blog posts by tag", async ({ page }) => {
+    await page.goto("/blog");
+
+    const firstTag = page
+      .getByRole("navigation", { name: "Filter posts by tag" })
+      .getByRole("link")
+      .first();
+
+    const tagText = await firstTag.textContent();
+    await firstTag.click();
+
+    await expect(page).toHaveURL(/\/blog\/tags\/.+/);
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(
+      tagText?.trim() || "",
+    );
+  });
+
+  test("should navigate to all tags page from more link", async ({ page }) => {
+    await page.goto("/blog");
+
+    const moreLink = page.getByRole("link", { name: /\+\d+ more/ });
+
+    if (await moreLink.isVisible()) {
+      await moreLink.click();
+      await expect(page).toHaveURL("/blog/tags");
+    }
+  });
 });

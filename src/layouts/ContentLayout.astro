@@ -9,7 +9,7 @@ import "rehype-callouts/theme/github";
 
 interface Props {
   title: string;
-  tags: string[];
+  tags: { tag: string; count: number }[];
   publishDate: Date;
   updatedDate?: Date;
   minutes: number;
