@@ -2,11 +2,14 @@
 import { slugifyTag } from "@/utils/tag";
 
 interface Props {
-  tags: string[];
+  tags: { tag: string; count: number }[];
   active?: string;
+  maxVisible?: number;
 }
 
-const { tags, active } = Astro.props;
+const { tags, active, maxVisible = 7 } = Astro.props;
+const visibleTags = tags.slice(0, maxVisible);
+const hasMoreTags = tags.length > maxVisible;
 ---
 
 <nav
@@ -14,7 +17,7 @@ const { tags, active } = Astro.props;
   aria-label="Filter posts by tag"
 >
   {
-    tags.map((tag) => {
+    visibleTags.map(({ tag }) => {
       const tagSlug = slugifyTag(tag);
       const isActive = tagSlug === active;
 
@@ -34,5 +37,16 @@ const { tags, active } = Astro.props;
         </a>
       );
     })
+  }
+  {
+    hasMoreTags && (
+      <a
+        href="/blog/tags"
+        class="badge badge-outline transition-colors duration-150 ease-in-out hover:badge-soft focus-visible:ring-1 focus-visible:ring-base-content focus-visible:outline-none"
+        data-astro-prefetch
+      >
+        +{tags.length - maxVisible} more
+      </a>
+    )
   }
 </nav>

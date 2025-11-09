@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+
+import { BASE_TITLE, pages } from "@/configs/pages";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageLayout from "@/layouts/PageLayout.astro";
+import { sortByPublishDate } from "@/utils/content";
+import { getAllTags, slugifyTag } from "@/utils/tag";
+
+const posts = (await getCollection("posts")).sort(sortByPublishDate);
+
+const tags = getAllTags(posts);
+---
+
+<BaseLayout
+  title={`All Tags | ${BASE_TITLE}`}
+  description="Browse all blog post tags"
+  keywords={["blog", "tags", "posts"]}
+>
+  <PageLayout heading="All Tags" back={{ title: "Blog", url: "/blog" }}>
+    <section class="not-prose">
+      <ul class="list">
+        {
+          tags.map(({ tag, count }) => (
+            <li class="list-row">
+              <a
+                href={`/blog/tags/${slugifyTag(tag)}`}
+                class="list-col-grow link font-medium link-hover"
+                data-astro-prefetch
+              >
+                {tag}
+              </a>
+              <span class="text-muted tabular-nums">{count}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </PageLayout>
+</BaseLayout>

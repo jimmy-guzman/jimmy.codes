@@ -41,6 +41,7 @@ const dateModified = updatedDate ?? datePublished;
 const timeRequired = `PT${Math.max(1, Math.round(minutes))}M`;
 const description = post.data.description;
 const keywords = post.data.keywords;
+const tags = post.data.tags.map((tag) => ({ tag, count: 1 }));
 
 const jsonLd = {
   "@type": "BlogPosting",
@@ -71,7 +72,7 @@ const heading = shortTitle(post);
   <PageLayout heading={heading} back={{ title: "Blog", url: "/blog" }}>
     <ContentLayout
       title={heading}
-      tags={post.data.tags}
+      tags={tags}
       publishDate={datePublished}
       updatedDate={updatedDate}
       minutes={minutes}
