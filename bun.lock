@@ -16,7 +16,7 @@
         "@commitlint/types": "20.0.0",
         "@iconify-json/logos": "1.2.10",
         "@iconify-json/lucide": "1.2.72",
-        "@iconify-json/simple-icons": "1.2.57",
+        "@iconify-json/simple-icons": "1.2.58",
         "@iconify/tailwind4": "1.1.0",
         "@playwright/test": "1.56.1",
         "@shikijs/colorized-brackets": "3.15.0",
@@ -241,7 +241,7 @@
 
     "@iconify-json/lucide": ["@iconify-json/lucide@1.2.72", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-kq/ZDUtCdBfjGxIMaUI+Ctt3dC/0sHmrUyTU1i04+8ehlo3/PUGKqrJd4C9J/kQl1jfcHpaUPqGUFvgZ9orhQg=="],
 
-    "@iconify-json/simple-icons": ["@iconify-json/simple-icons@1.2.57", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-/yWbO502M6WfvmcV5OjEgA4uoPN/76nrn7Hri/8g9L4GiNQ6VMgXWE9vFp4tDsmGMAe4ZCov3NbH6vJCgXZ1hA=="],
+    "@iconify-json/simple-icons": ["@iconify-json/simple-icons@1.2.58", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-XtXEoRALqztdNc9ujYBj2tTCPKdIPKJBdLNDebFF46VV1aOAwTbAYMgNsK5GMCpTJupLCmpBWDn+gX5SpECorQ=="],
 
     "@iconify/tailwind4": ["@iconify/tailwind4@1.1.0", "", { "dependencies": { "@iconify/tools": "^4.1.4", "@iconify/types": "^2.0.0", "@iconify/utils": "^2.3.0" }, "peerDependencies": { "tailwindcss": ">= 4.0.0" } }, "sha512-HqgAYtYk4eFtLvdYfhQrBRT9ohToh+VJJVhHtJ7B4Qhw+J+mRPvGC9Wr6Cgtb36YbIWqBxWuBaAUw9TE/8m2/w=="],
 
