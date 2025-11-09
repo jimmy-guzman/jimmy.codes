@@ -33,7 +33,7 @@ describe("slugifyTag", () => {
 });
 
 describe("getAllTags", () => {
-  it("should return tags sorted by popularity (descending)", () => {
+  it("should return tags sorted by popularity (descending), then alphabetically", () => {
     const posts = [
       { data: { tags: ["react", "typescript"] } },
       { data: { tags: ["react", "node"] } },
@@ -42,9 +42,9 @@ describe("getAllTags", () => {
 
     expect(getAllTags(posts)).toEqual([
       { tag: "react", count: 2 },
-      { tag: "typescript", count: 1 },
-      { tag: "node", count: 1 },
       { tag: "design", count: 1 },
+      { tag: "node", count: 1 },
+      { tag: "typescript", count: 1 },
     ]);
   });
 
@@ -59,6 +59,16 @@ describe("getAllTags", () => {
       { tag: "b", count: 3 },
       { tag: "a", count: 2 },
       { tag: "c", count: 1 },
+    ]);
+  });
+
+  it("should sort alphabetically when tags have the same count", () => {
+    const posts = [{ data: { tags: ["zebra", "apple", "banana"] } }];
+
+    expect(getAllTags(posts)).toEqual([
+      { tag: "apple", count: 1 },
+      { tag: "banana", count: 1 },
+      { tag: "zebra", count: 1 },
     ]);
   });
 
