@@ -3,16 +3,17 @@ import { execSync } from "node:child_process";
 import getReadingTime from "reading-time";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  day: "numeric",
+  month: "short",
   timeZone: "UTC",
   year: "numeric",
-  month: "short",
-  day: "numeric",
 });
 
 /**
  * Format a date as a pretty string in "MMM dd, yyyy" format.
  *
  * @param date The date to format
+ *
  * @returns The formatted date string
  */
 export function prettyDate(date: Date) {
@@ -29,6 +30,7 @@ const TWOSLASH_DIRECTIVE_REGEX = /^\s*\/\/\s+@[\w-].*$/gm;
  * Removes twoslash setup code, annotations, and directives.
  *
  * @param markdown The markdown content to process
+ *
  * @returns Cleaned markdown content
  */
 export const cleanMarkdownForReadingTime = (markdown: string) => {
@@ -42,6 +44,7 @@ export const cleanMarkdownForReadingTime = (markdown: string) => {
  * Estimate reading time for a given text.
  *
  * @param text The text to estimate reading time for
+ *
  * @returns Estimated reading time in minutes. Minimum is 1 minute for non-empty text, 0 for empty text.
  */
 export const readingTime = (text: string) => {
@@ -56,12 +59,22 @@ export const readingTime = (text: string) => {
  * Sort posts by their publish date in descending order.
  *
  * @param a First post
+ *
+ * @param a.data The post data
+ *
+ * @param a.data.publishDate The publish date of the first post
+ *
  * @param b Second post
+ *
+ * @param b.data The post data
+ *
+ * @param b.data.publishDate The publish date of the second post
+ *
  * @returns Negative if b is newer, positive if a is newer, zero if equal
  */
-export const sortByPublishDate = (
-  a: { data: { publishDate: Date } },
-  b: { data: { publishDate: Date } },
+export const sortByPublishDate = <T extends { data: { publishDate: Date } }>(
+  a: T,
+  b: T,
 ) => {
   return b.data.publishDate.getTime() - a.data.publishDate.getTime();
 };
@@ -70,6 +83,7 @@ export const sortByPublishDate = (
  * Get the last modified date of a file using git.
  *
  * @param filePath The path to the file
+ *
  * @returns The last modified date or undefined if not available
  */
 export const lastModified = (filePath: string) => {

@@ -1,9 +1,10 @@
 import type { InferEntrySchema } from "astro:content";
+
 import { shortTitle } from "./post";
 
 interface Post {
-  slug: string;
   data: InferEntrySchema<"posts">;
+  slug: string;
 }
 
 const normalizeTag = (tag: string) => tag.toLowerCase();
@@ -16,7 +17,9 @@ const filterUsableTags = (tags: string[], stop: Set<string>) => {
  * Compute the frequency of each tag across all posts, excluding stop tags.
  *
  * @param allPosts All posts to analyze
+ *
  * @param stopTags Tags to ignore when counting frequencies
+ *
  * @returns A map of tag to its frequency count
  */
 const getTagFrequencies = (allPosts: Post[], stopTags: Set<string>) => {
@@ -38,10 +41,6 @@ const getTagFrequencies = (allPosts: Post[], stopTags: Set<string>) => {
 interface RelatedOptions {
   limit?: number;
   /**
-   * Tags to ignore when calculating related posts.
-   */
-  stopTags?: InferEntrySchema<"posts">["tags"];
-  /**
    * Minimum number of shared tags required for a post to be considered related.
    */
   minimumSharedTags?: number;
@@ -50,13 +49,19 @@ interface RelatedOptions {
    * Higher values create stronger hyperbolic decay favoring recent content.
    */
   recencyWeight?: number;
+  /**
+   * Tags to ignore when calculating related posts.
+   */
+  stopTags?: InferEntrySchema<"posts">["tags"];
 }
 
 /**
  * Find related posts based on shared tags.
  *
  * @param allPosts All posts to consider for relatedness
+ *
  * @param currentPost The current post to find related posts for
+ *
  * @param options Optional parameters to customize relatedness calculation
  *
  * @returns An array of related posts with their slug and title
@@ -124,9 +129,9 @@ export const getRelatedByTags = (
 
       if (postTags.size === 0) return null;
 
-      const sharedTags = [...postTags].filter((tag) => {
-        return currentPostTags.has(tag);
-      });
+      const sharedTags = [...postTags].filter((tag) =>
+        currentPostTags.has(tag),
+      );
 
       const tagScore = sharedTags.reduce(
         (sum, tag) => sum + getTagWeight(tag),
@@ -146,15 +151,15 @@ export const getRelatedByTags = (
 
       return {
         post,
-        sharedTagCount: sharedTags.length,
         score: tagScore * recencyDecay,
+        sharedTagCount: sharedTags.length,
       };
     })
-    .filter((result): result is NonNullable<typeof result> => !!result)
+    .filter(Boolean)
     .filter((result) => {
       return result.sharedTagCount >= minimumSharedTags && result.score > 0;
     })
-    .sort((a, b) => {
+    .toSorted((a, b) => {
       if (b.score !== a.score) return b.score - a.score;
       if (+b.post.data.publishDate !== +a.post.data.publishDate) {
         return +b.post.data.publishDate - +a.post.data.publishDate;

@@ -1,11 +1,11 @@
 ---
 import { getCollection } from "astro:content";
 
-import { BASE_TITLE, pages } from "@/configs/pages";
+import { BASE_TITLE } from "@/configs/pages";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { sortByPublishDate } from "@/utils/content";
-import { getAllTags, slugifyTag } from "@/utils/tag";
+import { getAllTags, slugifyTag } from "@/utils/tags";
 
 const posts = (await getCollection("posts")).sort(sortByPublishDate);
 

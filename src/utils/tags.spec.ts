@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getAllTags, guessMaxVisible, slugifyTag } from "./tag";
+import { getAllTags, guessMaxVisible, slugifyTag } from "./tags";
 
 describe("slugifyTag", () => {
   it("should lowercase the input", () => {
