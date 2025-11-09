@@ -28,10 +28,10 @@ const postsByYear = getPostByYear(posts);
       {
         postsByYear.map(([year, posts = []]) => (
           <div class="mb-8">
-            <h2 class="mb-4 text-xl font-light text-muted">{year}</h2>
-            <ul class="flex flex-col gap-y-4">
+            <h2 class="mb-4 text-xl text-muted">{year}</h2>
+            <ul class="flex flex-col gap-y-6">
               {posts.map((post) => (
-                <li class="space-y-0.5">
+                <li class="flex flex-col gap-y-2">
                   <a
                     href={`/blog/${post.slug}`}
                     class="link link-hover"
@@ -41,7 +41,7 @@ const postsByYear = getPostByYear(posts);
                     {shortTitle(post)}
                   </a>
                   <MetaLine
-                    class="text-sm font-light text-muted"
+                    class="text-sm text-muted"
                     publishDate={post.data.publishDate}
                     minutes={readingTime(post.body)}
                     filePath={post.filePath}
