@@ -33,3 +33,27 @@ export const getAllTags = (posts: { data: { tags?: string[] } }[]) => {
     })
     .map(([tag, count]) => ({ count, tag }));
 };
+
+/**
+ *  Estimate the maximum number of visible tags based on their lengths.
+ *
+ * @param tags Array of tags with their counts
+ *
+ * @returns
+ */
+export const guessMaxVisible = (tags: { count: number; tag: string }[]) => {
+  const avgCharsPerLine = 40;
+  const maxLines = 2;
+  const targetChars = avgCharsPerLine * maxLines;
+  const paddingPerTag = 4;
+
+  let charCount = 0;
+
+  const visibleCount = tags.findIndex(({ tag }) => {
+    charCount += tag.length + paddingPerTag;
+
+    return charCount > targetChars;
+  });
+
+  return Math.max(visibleCount === -1 ? tags.length : visibleCount, 3);
+};

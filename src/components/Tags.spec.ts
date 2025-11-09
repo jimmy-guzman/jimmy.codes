@@ -231,23 +231,6 @@ describe("Tags", () => {
     expect(html).toContain("+3 more");
   });
 
-  it("should use default maxVisible of 7 when not provided", async () => {
-    const tags = Array.from({ length: 10 }, (_, i) => ({
-      tag: `Tag${i + 1}`,
-      count: 10 - i,
-    }));
-
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(Tags, {
-      props: { tags },
-    });
-
-    expect(html).toContain("> Tag1 </a>");
-    expect(html).toContain("> Tag7 </a>");
-    expect(html).not.toContain("> Tag8 </a>");
-    expect(html).toContain("+3 more");
-  });
-
   it("should link more link to /blog/tags", async () => {
     const tags = Array.from({ length: 10 }, (_, i) => ({
       tag: `Tag${i + 1}`,
