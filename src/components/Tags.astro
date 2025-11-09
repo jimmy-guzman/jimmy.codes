@@ -14,7 +14,7 @@ const { tags, active } = Astro.props;
   aria-label="Filter posts by tag"
 >
   {
-    tags.sort().map((tag) => {
+    tags.map((tag) => {
       const tagSlug = slugifyTag(tag);
       const isActive = tagSlug === active;
 

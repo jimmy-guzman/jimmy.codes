@@ -19,7 +19,7 @@ describe("Tags", () => {
     expect(html).toContain("> Testing </a>");
   });
 
-  it("should sort tags alphabetically", async () => {
+  it("should preserve the order of tags as provided", async () => {
     const tags = ["Zebra", "Apple", "Mango"];
 
     const container = await AstroContainer.create();
@@ -27,12 +27,13 @@ describe("Tags", () => {
       props: { tags },
     });
 
+    const zebraIndex = html.indexOf("> Zebra </a>");
     const appleIndex = html.indexOf("> Apple </a>");
     const mangoIndex = html.indexOf("> Mango </a>");
-    const zebraIndex = html.indexOf("> Zebra </a>");
 
-    expect(appleIndex).toBeLessThan(mangoIndex);
-    expect(mangoIndex).toBeLessThan(zebraIndex);
+    expect(zebraIndex).toBeGreaterThan(-1);
+    expect(appleIndex).toBeGreaterThan(zebraIndex);
+    expect(mangoIndex).toBeGreaterThan(appleIndex);
   });
 
   it("should generate correct href for each tag", async () => {

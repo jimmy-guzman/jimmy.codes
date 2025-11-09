@@ -33,7 +33,7 @@ describe("slugifyTag", () => {
 });
 
 describe("getAllTags", () => {
-  it("should return unique tags across posts", () => {
+  it("should return tags sorted by popularity (descending)", () => {
     const posts = [
       { data: { tags: ["react", "typescript"] } },
       { data: { tags: ["react", "node"] } },
@@ -41,26 +41,37 @@ describe("getAllTags", () => {
     ];
 
     expect(getAllTags(posts)).toEqual([
-      "react",
-      "typescript",
-      "node",
-      "design",
+      "react", // 2 occurrences
+      "typescript", // 1 occurrence
+      "node", // 1 occurrence
+      "design", // 1 occurrence
     ]);
   });
 
-  it("should preserve first-seen order", () => {
+  it("should sort by frequency with most popular first", () => {
     const posts = [
-      { data: { tags: ["b", "a"] } },
-      { data: { tags: ["a", "c", "b"] } },
+      { data: { tags: ["a", "b"] } },
+      { data: { tags: ["c", "b", "a"] } },
+      { data: { tags: ["b"] } },
     ];
 
-    expect(getAllTags(posts)).toEqual(["b", "a", "c"]);
+    expect(getAllTags(posts)).toEqual([
+      "b", // 3 occurrences
+      "a", // 2 occurrences
+      "c", // 1 occurrence
+    ]);
   });
 
-  it("should de-duplicate within a single post", () => {
-    const posts = [{ data: { tags: ["react", "react", "node"] } }];
+  it("should count duplicate tags within a single post only once", () => {
+    const posts = [
+      { data: { tags: ["react", "react", "node"] } },
+      { data: { tags: ["react"] } },
+    ];
 
-    expect(getAllTags(posts)).toEqual(["react", "node"]);
+    expect(getAllTags(posts)).toEqual([
+      "react", // 2 posts
+      "node", // 1 post
+    ]);
   });
 
   it("should ignore posts without tags", () => {
@@ -74,8 +85,11 @@ describe("getAllTags", () => {
   });
 
   it("should not transform tag values (no slugify/case-change)", () => {
-    const posts = [{ data: { tags: ["React Router"] } }];
+    const posts = [
+      { data: { tags: ["React Router"] } },
+      { data: { tags: ["TypeScript"] } },
+    ];
 
-    expect(getAllTags(posts)).toEqual(["React Router"]);
+    expect(getAllTags(posts)).toEqual(["React Router", "TypeScript"]);
   });
 });
