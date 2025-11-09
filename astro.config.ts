@@ -44,7 +44,7 @@ export default defineConfig({
         name: "Satoshi",
         provider: fontProviders.fontshare(),
         cssVariable: "--font-satoshi",
-        weights: [300, 400, 600, 700],
+        weights: [400, 600, 700],
         styles: ["normal", "italic"],
         display: "optional",
       },
