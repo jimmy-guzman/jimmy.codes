@@ -55,10 +55,10 @@ describe("Tags", () => {
       props: { tags, active: "typescript" },
     });
 
-    expect(html).toContain("text-primary-content badge-primary");
+    expect(html).toContain("badge-primary");
   });
 
-  it("should apply outline styles to non-active tags", async () => {
+  it("should apply badge soft styles to non-active tags", async () => {
     const tags = ["TypeScript", "React"];
 
     const container = await AstroContainer.create();
@@ -66,8 +66,7 @@ describe("Tags", () => {
       props: { tags, active: "typescript" },
     });
 
-    expect(html).toContain("badge-outline");
-    expect(html).toContain("hover:border-base-300");
+    expect(html).toContain("hover:badge-soft");
   });
 
   it("should set aria-label with 'Current tag:' for active tag", async () => {
@@ -78,7 +77,7 @@ describe("Tags", () => {
       props: { tags, active: "typescript" },
     });
 
-    expect(html).toContain('aria-label="Current tag: TypeScript"');
+    expect(html).toContain('aria-label="Current: TypeScript"');
   });
 
   it("should set aria-label with 'Filter by' for non-active tags", async () => {
@@ -150,7 +149,7 @@ describe("Tags", () => {
     });
 
     expect(html).toContain("badge transition-colors");
-    expect(html).toContain("focus-visible:ring-2");
+    expect(html).toContain("focus-visible:ring-1");
     expect(html).toContain("focus-visible:ring-base-content");
     expect(html).toContain("focus-visible:outline-none");
   });
