@@ -21,15 +21,13 @@ const { tags, active } = Astro.props;
       return (
         <a
           href={`/blog/tags/${tagSlug}`}
-          aria-label={`${isActive ? "Current tag: " : "Filter by "}${tag}`}
+          aria-label={isActive ? `Current: ${tag}` : `Filter by ${tag}`}
           aria-current={isActive ? "page" : undefined}
           data-astro-prefetch
           class:list={[
-            "badge transition-colors",
-            "focus-visible:ring-2 focus-visible:ring-base-content focus-visible:outline-none",
-            isActive
-              ? "text-primary-content badge-primary"
-              : "badge-outline hover:border-base-300 hover:bg-base-300/50",
+            "badge transition-colors duration-150 ease-in-out",
+            "focus-visible:ring-1 focus-visible:ring-base-content focus-visible:outline-none",
+            isActive ? "badge-primary" : "hover:badge-soft",
           ]}
         >
           {tag}
