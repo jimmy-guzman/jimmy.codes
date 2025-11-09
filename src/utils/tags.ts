@@ -39,13 +39,28 @@ export const getAllTags = (posts: { data: { tags?: string[] } }[]) => {
  *
  * @param tags Array of tags with their counts
  *
- * @returns
+ * @param options  Optional settings for the estimation
+ *
+ * @param options.avgCharsPerLine Average characters per line (default: 40)
+ *
+ * @param options.maxLines Maximum number of lines (default: 2)
+ *
+ * @param options.paddingPerTag Padding added per tag (default: 4)
+ *
+ * @returns Estimated maximum number of visible tags
  */
-export const guessMaxVisible = (tags: { count: number; tag: string }[]) => {
-  const avgCharsPerLine = 40;
-  const maxLines = 2;
+export const guessMaxVisible = (
+  tags: { count: number; tag: string }[],
+  options?: {
+    avgCharsPerLine?: number;
+    maxLines?: number;
+    paddingPerTag?: number;
+  },
+) => {
+  const avgCharsPerLine = options?.avgCharsPerLine ?? 40;
+  const maxLines = options?.maxLines ?? 2;
   const targetChars = avgCharsPerLine * maxLines;
-  const paddingPerTag = 4;
+  const paddingPerTag = options?.paddingPerTag ?? 4;
 
   let charCount = 0;
 

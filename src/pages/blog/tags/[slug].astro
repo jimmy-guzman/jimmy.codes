@@ -10,7 +10,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { readingTime, sortByPublishDate } from "@/utils/content";
 import { shortTitle } from "@/utils/post";
-import { getAllTags, slugifyTag } from "@/utils/tag";
+import { getAllTags, slugifyTag } from "@/utils/tags";
 
 export const getStaticPaths = (async () => {
   const allPosts = await getCollection("posts");
