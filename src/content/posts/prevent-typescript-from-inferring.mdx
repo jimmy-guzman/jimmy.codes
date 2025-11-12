@@ -208,7 +208,13 @@ This is where `NoInfer` comes in. TypeScript 5.4 introduced this utility type sp
 By wrapping the callback's `values` parameter with `NoInfer<T>`, we tell TypeScript: "Don't infer `T` from here, use the type inferred from elsewhere."
 
 > [!TIP]
-> Use `NoInfer` when TypeScript infers from the wrong parameter. It blocks inference at specific positions while preserving type checking.
+> If you're on TypeScript versions before 5.4, you can create a similar effect with:
+>
+> ```ts
+> type NoInfer<T> = [T][T extends any ? 0 : never]
+> ```
+>
+> This uses tuple indexing to create a barrier that blocks inference while preserving the underlying type.
 
 ```tsx twoslash
 // @jsx: react-jsx
@@ -278,23 +284,21 @@ function App() {
 
 ## Behind the Scenes of `NoInfer`
 
-If you're curious how this actually works under the hood, the `NoInfer` type is surprisingly simple. Here's how it's defined in TypeScript's standard library:
+If you're curious how this actually works under the hood, `NoInfer` is implemented as an **intrinsic type** in TypeScript. Here's how it's defined in TypeScript's standard library:
 
 ```ts
-type NoInfer<T> = T & { [K in keyof T]: T[K] };
+type NoInfer<T> = intrinsic;
 ```
 
-At first glance, this looks like it does nothing. It intersects `T` with a mapped type that produces the exact same shape. But that's exactly the point.
+Unlike regular utility types that are built using TypeScript's type system, intrinsic types are special primitives that are implemented directly in the TypeScript compiler itself. The behavior of `NoInfer` is handled at the compiler level rather than through type manipulation.
 
-TypeScript's inference algorithm doesn't infer through mapped types or intersections the same way it does through direct references. This seemingly redundant wrapper creates a barrier that blocks inference at that position.
+When TypeScript sees `NoInfer<T>` during type inference:
 
-When TypeScript sees `NoInfer<T>`:
-
-1. It recognizes `T` is wrapped in a non-trivial type operation
+1. The compiler recognizes it as an intrinsic that blocks inference
 2. It skips this position when collecting inference candidates
 3. It uses the type inferred from other positions instead
 
-**The result**: a type that's structurally identical to `T` but invisible to TypeScript's inference, giving you precise control over where inference happens.
+**The result**: a type that's structurally identical to `T` but invisible to TypeScript's inference algorithm, giving you precise control over where inference happens.
 
 ## Conclusion
 
