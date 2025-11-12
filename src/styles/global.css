@@ -4,6 +4,7 @@
 
 @plugin "daisyui" {
   logs: false;
+  exclude: properties; /* https://github.com/saadeghi/daisyui/issues/3882 */
 }
 
 @plugin "daisyui/theme" {
@@ -86,14 +87,6 @@
     var(--color-base-content) var(--muted-strength),
     transparent
   );
-}
-
-.prose {
-  --tw-prose-body: var(--color-base-content);
-  --tw-prose-headings: var(--color-base-content);
-  --tw-prose-links: var(--color-primary);
-  --tw-prose-bold: var(--color-base-content);
-  --tw-prose-quotes: var(--color-muted);
 }
 
 @plugin "@iconify/tailwind4";
