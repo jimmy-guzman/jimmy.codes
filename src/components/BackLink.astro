@@ -7,7 +7,11 @@ interface Props {
 const { url, title } = Astro.props;
 ---
 
-<a href={url} class="inline-flex items-center gap-1 text-muted" rel="up">
+<a
+  href={url}
+  class="inline-flex items-center gap-1 text-sm text-muted"
+  rel="up"
+>
   <span class="icon-[lucide--arrow-left]" aria-hidden="true"></span>
   Back to {title}
 </a>
