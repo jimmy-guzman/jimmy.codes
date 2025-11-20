@@ -38,23 +38,17 @@ export default defineConfig({
     },
   },
   experimental: {
+    svgo: true,
     clientPrerender: true,
     fonts: [
       {
         name: "Satoshi",
         provider: fontProviders.fontshare(),
         cssVariable: "--font-satoshi",
-        weights: [400, 700],
-        styles: ["normal"],
-        display: "swap",
-      },
-      {
-        name: "Satoshi",
-        provider: fontProviders.fontshare(),
-        cssVariable: "--font-satoshi",
-        weights: [400],
-        styles: ["italic"],
-        display: "swap",
+        weights: [400, 500, 700],
+        styles: ["normal", "italic"],
+        display: "optional",
+        fallbacks: ["system-ui", "sans-serif"],
       },
     ],
   },
