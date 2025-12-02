@@ -40,17 +40,21 @@ export default defineConfig({
   experimental: {
     svgo: true,
     clientPrerender: true,
-    fonts: [
-      {
-        name: "Satoshi",
-        provider: fontProviders.fontshare(),
-        cssVariable: "--font-satoshi",
-        weights: [400, 500, 700],
-        styles: ["normal", "italic"],
-        display: "optional",
-        fallbacks: ["system-ui", "sans-serif"],
-      },
-    ],
+    fonts:
+      // Disable fonts during vitest due to "require is not defined" error
+      process.env.TEST === "true"
+        ? []
+        : [
+            {
+              name: "Satoshi",
+              provider: fontProviders.fontshare(),
+              cssVariable: "--font-satoshi",
+              weights: [400, 500, 700],
+              styles: ["normal", "italic"],
+              display: "optional",
+              fallbacks: ["system-ui", "sans-serif"],
+            },
+          ],
   },
   adapter: vercel(),
   trailingSlash: "never",
