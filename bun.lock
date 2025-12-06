@@ -30,7 +30,7 @@
         "astro": "5.16.3",
         "astro-expressive-code": "0.41.3",
         "astro-favicons": "3.1.5",
-        "daisyui": "5.5.5",
+        "daisyui": "5.5.8",
         "expressive-code-twoslash": "0.5.3",
         "gitzy": "6.5.6",
         "hastscript": "9.0.1",
@@ -720,7 +720,7 @@
 
     "csstype": ["csstype@3.2.3", "", {}, "sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ=="],
 
-    "daisyui": ["daisyui@5.5.5", "", {}, "sha512-ekvI93ZkWIJoCOtDl0D2QMxnWvTejk9V5nWBqRv+7t0xjiBXqAK5U6o6JE2RPvlIC3EqwNyUoIZSdHX9MZK3nw=="],
+    "daisyui": ["daisyui@5.5.8", "", {}, "sha512-6psL9jIEOFOw68V10j/BKCWcRgx8dh81mmNxShr+g7HDM6UHNoPharlp9zq/PQkHNuGU1ZQsajR3HgpvavbRKQ=="],
 
     "dargs": ["dargs@8.1.0", "", {}, "sha512-wAV9QHOsNbwnWdNW2FYvE1P56wtgSbM+3SZcdGiWQILwVjACCXDCI3Ai8QlCjMDB8YK5zySiXZYBiwGmNY3lnw=="],
 
