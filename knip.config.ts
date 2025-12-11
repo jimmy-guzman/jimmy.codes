@@ -1,6 +1,7 @@
 import type { KnipConfig } from "knip";
 
 export default {
+  ignoreBinaries: ["pandoc"],
   ignoreDependencies: [
     "@iconify-json/*",
     "gitzy",
@@ -8,5 +9,4 @@ export default {
     "markdownlint",
     "@types/react", // used only for type declarations within twoslash code blocks
   ],
-  ignoreBinaries: ["pandoc"],
 } satisfies KnipConfig;

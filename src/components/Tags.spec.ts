@@ -8,9 +8,9 @@ import Tags from "./Tags.astro";
 describe("Tags", () => {
   it("should render all tags as links", async () => {
     const tags = [
-      { tag: "TypeScript", count: 5 },
-      { tag: "React", count: 3 },
-      { tag: "Testing", count: 2 },
+      { count: 5, tag: "TypeScript" },
+      { count: 3, tag: "React" },
+      { count: 2, tag: "Testing" },
     ];
 
     const container = await AstroContainer.create();
@@ -25,9 +25,9 @@ describe("Tags", () => {
 
   it("should preserve the order of tags as provided", async () => {
     const tags = [
-      { tag: "Zebra", count: 1 },
-      { tag: "Apple", count: 2 },
-      { tag: "Mango", count: 3 },
+      { count: 1, tag: "Zebra" },
+      { count: 2, tag: "Apple" },
+      { count: 3, tag: "Mango" },
     ];
 
     const container = await AstroContainer.create();
@@ -46,8 +46,8 @@ describe("Tags", () => {
 
   it("should generate correct href for each tag", async () => {
     const tags = [
-      { tag: "TypeScript", count: 5 },
-      { tag: "Unit Testing", count: 3 },
+      { count: 5, tag: "TypeScript" },
+      { count: 3, tag: "Unit Testing" },
     ];
 
     const container = await AstroContainer.create();
@@ -61,13 +61,13 @@ describe("Tags", () => {
 
   it("should apply active styles when tag matches active prop", async () => {
     const tags = [
-      { tag: "TypeScript", count: 5 },
-      { tag: "React", count: 3 },
+      { count: 5, tag: "TypeScript" },
+      { count: 3, tag: "React" },
     ];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { tags, active: "typescript" },
+      props: { active: "typescript", tags },
     });
 
     expect(html).toContain("badge-primary");
@@ -75,57 +75,57 @@ describe("Tags", () => {
 
   it("should apply badge soft styles to non-active tags", async () => {
     const tags = [
-      { tag: "TypeScript", count: 5 },
-      { tag: "React", count: 3 },
+      { count: 5, tag: "TypeScript" },
+      { count: 3, tag: "React" },
     ];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { tags, active: "typescript" },
+      props: { active: "typescript", tags },
     });
 
     expect(html).toContain("hover:badge-soft");
   });
 
   it("should set aria-label with 'Current tag:' for active tag", async () => {
-    const tags = [{ tag: "TypeScript", count: 5 }];
+    const tags = [{ count: 5, tag: "TypeScript" }];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { tags, active: "typescript" },
+      props: { active: "typescript", tags },
     });
 
     expect(html).toContain('aria-label="Current: TypeScript"');
   });
 
   it("should set aria-label with 'Filter by' for non-active tags", async () => {
-    const tags = [{ tag: "React", count: 3 }];
+    const tags = [{ count: 3, tag: "React" }];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { tags, active: "typescript" },
+      props: { active: "typescript", tags },
     });
 
     expect(html).toContain('aria-label="Filter by React"');
   });
 
   it("should set aria-current='page' for active tag", async () => {
-    const tags = [{ tag: "TypeScript", count: 5 }];
+    const tags = [{ count: 5, tag: "TypeScript" }];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { tags, active: "typescript" },
+      props: { active: "typescript", tags },
     });
 
     expect(html).toContain('aria-current="page"');
   });
 
   it("should not set aria-current for non-active tags", async () => {
-    const tags = [{ tag: "React", count: 3 }];
+    const tags = [{ count: 3, tag: "React" }];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { tags, active: "typescript" },
+      props: { active: "typescript", tags },
     });
 
     // Check that the React link doesn't have aria-current
@@ -137,7 +137,7 @@ describe("Tags", () => {
   });
 
   it("should include data-astro-prefetch attribute", async () => {
-    const tags = [{ tag: "TypeScript", count: 5 }];
+    const tags = [{ count: 5, tag: "TypeScript" }];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
@@ -148,7 +148,7 @@ describe("Tags", () => {
   });
 
   it("should include proper navigation aria-label", async () => {
-    const tags = [{ tag: "TypeScript", count: 5 }];
+    const tags = [{ count: 5, tag: "TypeScript" }];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
@@ -159,7 +159,7 @@ describe("Tags", () => {
   });
 
   it("should apply base badge and focus styles to all tags", async () => {
-    const tags = [{ tag: "TypeScript", count: 5 }];
+    const tags = [{ count: 5, tag: "TypeScript" }];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
@@ -174,8 +174,8 @@ describe("Tags", () => {
 
   it("should handle tags with special characters in slugification", async () => {
     const tags = [
-      { tag: "C++", count: 2 },
-      { tag: "Node.js", count: 4 },
+      { count: 2, tag: "C++" },
+      { count: 4, tag: "Node.js" },
     ];
 
     const container = await AstroContainer.create();
@@ -191,14 +191,14 @@ describe("Tags", () => {
 
   it("should show all tags when count is less than maxVisible", async () => {
     const tags = [
-      { tag: "TypeScript", count: 5 },
-      { tag: "React", count: 3 },
-      { tag: "Testing", count: 2 },
+      { count: 5, tag: "TypeScript" },
+      { count: 3, tag: "React" },
+      { count: 2, tag: "Testing" },
     ];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { tags, maxVisible: 5 },
+      props: { maxVisible: 5, tags },
     });
 
     expect(html).toContain("> TypeScript </a>");
@@ -209,17 +209,17 @@ describe("Tags", () => {
 
   it("should truncate tags and show more link when exceeding maxVisible", async () => {
     const tags = [
-      { tag: "TypeScript", count: 10 },
-      { tag: "React", count: 8 },
-      { tag: "Testing", count: 6 },
-      { tag: "Node.js", count: 5 },
-      { tag: "Python", count: 4 },
-      { tag: "Go", count: 3 },
+      { count: 10, tag: "TypeScript" },
+      { count: 8, tag: "React" },
+      { count: 6, tag: "Testing" },
+      { count: 5, tag: "Node.js" },
+      { count: 4, tag: "Python" },
+      { count: 3, tag: "Go" },
     ];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { tags, maxVisible: 3 },
+      props: { maxVisible: 3, tags },
     });
 
     expect(html).toContain("> TypeScript </a>");
@@ -233,13 +233,13 @@ describe("Tags", () => {
 
   it("should link more link to /blog/tags", async () => {
     const tags = Array.from({ length: 10 }, (_, i) => ({
-      tag: `Tag${i + 1}`,
       count: 10 - i,
+      tag: `Tag${i + 1}`,
     }));
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { tags, maxVisible: 5 },
+      props: { maxVisible: 5, tags },
     });
 
     expect(html).toContain('href="/blog/tags"');
@@ -248,13 +248,13 @@ describe("Tags", () => {
 
   it("should apply badge-outline style to more link", async () => {
     const tags = Array.from({ length: 10 }, (_, i) => ({
-      tag: `Tag${i + 1}`,
       count: 10 - i,
+      tag: `Tag${i + 1}`,
     }));
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { tags, maxVisible: 5 },
+      props: { maxVisible: 5, tags },
     });
 
     const moreLinkMatch = html.match(

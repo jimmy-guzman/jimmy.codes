@@ -1,5 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "commitMessageAction": "bump",
+  "commitMessagePrefix": "chore: 🤖 ",
+  "commitMessageTopic": "`{{depName}}`",
   "extends": [
     ":dependencyDashboard",
     ":ignoreModulesAndTests",
@@ -8,10 +11,7 @@
     "replacements:all",
     "workarounds:all"
   ],
-  "semanticCommits": "enabled",
   "reviewers": ["@jimmy-guzman"],
-  "commitMessageAction": "bump",
-  "commitMessagePrefix": "chore: 🤖 ",
-  "commitMessageTopic": "`{{depName}}`",
-  "schedule": ["every weekend"]
+  "schedule": ["every weekend"],
+  "semanticCommits": "enabled"
 }

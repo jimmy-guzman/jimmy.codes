@@ -1,6 +1,6 @@
 export const urls = {
-  site: "https://jimmy.codes",
-  LinkedIn: "https://www.linkedin.com/in/jimmy-guzman-moreno",
-  GitHub: "https://github.com/jimmy-guzman",
   email: "mailto:hi@jimmy.codes",
+  GitHub: "https://github.com/jimmy-guzman",
+  LinkedIn: "https://www.linkedin.com/in/jimmy-guzman-moreno",
+  site: "https://jimmy.codes",
 } satisfies Record<string, `https://${string}` | `mailto:${string}@${string}`>;

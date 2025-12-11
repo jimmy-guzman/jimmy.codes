@@ -8,19 +8,19 @@ test.describe("Primary journeys", () => {
       "Hi, I'm Jimmy",
     );
 
-    await page.getByRole("link", { name: "About", exact: true }).click();
+    await page.getByRole("link", { exact: true, name: "About" }).click();
     await expect(page).toHaveURL("/about");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
       "About Me",
     );
 
-    await page.getByRole("link", { name: "Blog", exact: true }).click();
+    await page.getByRole("link", { exact: true, name: "Blog" }).click();
     await expect(page).toHaveURL("/blog");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Blog");
   });
 
   test("should open mobile menu and navigate", async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 812 });
+    await page.setViewportSize({ height: 812, width: 375 });
 
     await page.goto("/");
 

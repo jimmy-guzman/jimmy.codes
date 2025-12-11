@@ -22,21 +22,21 @@ const tags = z.enum([
 
 const posts = defineCollection({
   schema: z.object({
-    title: z.string().min(1, "Title is required"),
+    description: z.string().min(1, "Description is required"),
+    keywords: z
+      .array(z.string().min(1, "Keywords must contain at least one character"))
+      .min(1, "At least one keyword is required"),
+    publishDate: z.date(),
     shortTitle: z
       .string()
       .max(40, "Short Title must be 40 characters or less")
       .optional(),
-    description: z.string().min(1, "Description is required"),
-    publishDate: z.date(),
-    updatedDate: z.date().optional(),
-    keywords: z
-      .array(z.string().min(1, "Keywords must contain at least one character"))
-      .min(1, "At least one keyword is required"),
     tags: z
       .array(tags)
       .min(1, "At least one tag is required")
       .max(5, "No more than five tags allowed"),
+    title: z.string().min(1, "Title is required"),
+    updatedDate: z.date().optional(),
   }),
 });
 

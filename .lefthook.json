@@ -1,7 +1,18 @@
 {
   "$schema": "https://json.schemastore.org/lefthook.json",
+  "commit-msg": {
+    "commands": {
+      "commitlint": {
+        "run": "bunx commitlint --edit {1}"
+      }
+    }
+  },
   "pre-commit": {
     "commands": {
+      "case-police": {
+        "run": "bunx case-police {staged_files}",
+        "stage_fixed": true
+      },
       "check": {
         "glob": "*.{ts,mjs,json,md,mdx,astro}",
         "run": "bunx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}",
@@ -10,9 +21,9 @@
       "knip": {
         "run": "bunx knip"
       },
-      "sort-package-json": {
-        "glob": "package.json",
-        "run": "bunx sort-package-json {staged_files}",
+      "markdownlint": {
+        "glob": "*.{md,mdx}",
+        "run": "bunx markdownlint --fix {staged_files}",
         "stage_fixed": true
       },
       "prettier:astro-md": {
@@ -20,21 +31,10 @@
         "run": "bunx prettier --experimental-cli --write --ignore-path .gitignore {staged_files}",
         "stage_fixed": true
       },
-      "case-police": {
-        "run": "bunx case-police {staged_files}",
+      "sort-package-json": {
+        "glob": "package.json",
+        "run": "bunx sort-package-json {staged_files}",
         "stage_fixed": true
-      },
-      "markdownlint": {
-        "glob": "*.{md,mdx}",
-        "run": "bunx markdownlint --fix {staged_files}",
-        "stage_fixed": true
-      }
-    }
-  },
-  "commit-msg": {
-    "commands": {
-      "commitlint": {
-        "run": "bunx commitlint --edit {1}"
       }
     }
   }

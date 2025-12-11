@@ -4,7 +4,7 @@ import Logo from "./Logo.astro";
 import ThemeController from "./ThemeController.astro";
 
 const ext = (link: { external?: boolean }) => {
-  return link.external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+  return link.external ? { rel: "noopener noreferrer", target: "_blank" } : {};
 };
 
 const { mobilePrimary = [], mobileDropdown = [] } = Object.groupBy(

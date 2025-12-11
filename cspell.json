@@ -1,4 +1,5 @@
 {
+  "ignorePaths": ["pnpm-lock.yaml", ".gitignore", ".vscode"],
   "version": "0.2",
   "words": [
     "Apachekafka",
@@ -110,6 +111,5 @@
     "wagoid",
     "xelatex",
     "xpress"
-  ],
-  "ignorePaths": ["pnpm-lock.yaml", ".gitignore", ".vscode"]
+  ]
 }
