@@ -23,79 +23,84 @@ import PageLayout from "@/layouts/PageLayout.astro";
       </p>
     </section>
 
-    <section class="space-y-4">
-      <p>
-        <span>{titles.love}:</span>
-        {
-          techLove.flatMap((tech, index) => [
-            <a
-              href={tech.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex link items-center gap-1"
-            >
-              <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
-              {tech.title}
-            </a>,
-            index < techLove.length - 1 && ", ",
-          ])
-        }.
-      </p>
+    <section class="space-y-2">
+      <details class="collapse-arrow collapse border border-base-200">
+        <summary class="collapse-title">{titles.love}</summary>
+        <div class="collapse-content">
+          <p>
+            {
+              techLove.flatMap((tech, index) => [
+                <a
+                  href={tech.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex link items-center gap-1"
+                >
+                  <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
+                  {tech.title}
+                </a>,
+                index < techLove.length - 1 && ", ",
+              ])
+            }
+          </p>
+        </div>
+      </details>
 
-      <p>
-        <span>{titles.daily}:</span>
-        {
-          techDaily.flatMap((tech, index) => [
-            <a
-              href={tech.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1"
-            >
-              <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
-              {tech.title}
-            </a>,
-            index < techDaily.length - 1 && ", ",
-          ])
-        }.
-      </p>
+      <details class="collapse-arrow collapse border border-base-200">
+        <summary class="collapse-title">{titles.daily}</summary>
+        <div class="collapse-content">
+          <p>
+            {
+              techDaily.flatMap((tech, index) => [
+                <a
+                  href={tech.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1"
+                >
+                  <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
+                  {tech.title}
+                </a>,
+                index < techDaily.length - 1 && ", ",
+              ])
+            }
+          </p>
+        </div>
+      </details>
 
-      <p>
-        <span>{titles.learning}:</span>
-        {
-          techLearning.flatMap((tech, index) => [
-            <a
-              href={tech.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1"
-            >
-              <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
-              {tech.title}
-            </a>,
-            index < techLearning.length - 1 && ", ",
-          ])
-        }.
-      </p>
+      <details class="collapse-arrow collapse border border-base-200">
+        <summary class="collapse-title">{titles.learning}</summary>
+        <div class="collapse-content">
+          <p>
+            {
+              techLearning.flatMap((tech, index) => [
+                <a
+                  href={tech.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1"
+                >
+                  <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
+                  {tech.title}
+                </a>,
+                index < techLearning.length - 1 && ", ",
+              ])
+            }
+          </p>
+        </div>
+      </details>
     </section>
 
     <section class="space-y-6">
       <p>
-        Find me on <a
-          href={urls.GitHub}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        Find me on
+        <a href={urls.GitHub} target="_blank" rel="noopener noreferrer">
           GitHub</a
         > and <a href={urls.LinkedIn} target="_blank" rel="noopener noreferrer"
           >LinkedIn</a
-        >. Or email me at <a href={urls.email}>hi@jimmy.codes</a>.
-      </p>
-
-      <p>
-        Read <a href="/blog">my blog</a>, learn more <a href="/about"
-          >about me</a
-        >, or take a look at <a href="/resume.pdf" download>my resume</a>.
+        >, email me at <a href={urls.email}>hi@jimmy.codes</a>, or check out my <a
+          href="/blog">blog</a
+        >.
       </p>
     </section>
   </PageLayout>
