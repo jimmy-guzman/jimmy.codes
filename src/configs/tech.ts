@@ -46,6 +46,11 @@ export const techDaily = [
     icon: "icon-[logos--postgresql]",
   },
   {
+    link: "https://www.prisma.io/",
+    title: "Prisma",
+    icon: "icon-[simple-icons--prisma]",
+  },
+  {
     link: "https://kafka.apache.org/",
     title: "Kafka",
     icon: "icon-[simple-icons--apachekafka]",
@@ -109,19 +114,19 @@ export const techLearning = [
     icon: "icon-[simple-icons--langchain]",
   },
   {
-    link: "https://workers.cloudflare.com/",
-    title: "Cloudflare Workers",
-    icon: "icon-[logos--cloudflare-workers-icon]",
-  },
-  {
     link: "https://www.rust-lang.org/",
     title: "Rust",
     icon: "icon-[simple-icons--rust]",
   },
   {
-    link: "https://expo.dev/",
-    title: "Expo",
-    icon: "icon-[simple-icons--expo]",
+    title: "Go",
+    link: "https://go.dev/",
+    icon: "icon-[logos--go]",
+  },
+  {
+    link: "https://workers.cloudflare.com/",
+    title: "Cloudflare Workers",
+    icon: "icon-[logos--cloudflare-workers-icon]",
   },
 ] satisfies Tech[];
 
@@ -139,12 +144,12 @@ export const techLove = [
   {
     link: "https://nextjs.org/",
     title: "Next.js",
-    icon: "icon-[simple-icons--nextdotjs]",
+    icon: "icon-[logos--nextjs-icon]",
   },
   {
     link: "https://biomejs.dev/",
     title: "Biome",
-    icon: "icon-[simple-icons--biome]",
+    icon: "icon-[logos--biomejs-icon]",
   },
   {
     link: "https://tailwindcss.com/",
