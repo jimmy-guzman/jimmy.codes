@@ -1,21 +1,21 @@
 export default {
-  plugins: ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
-  tailwindStylesheet: "./src/styles/global.css",
+  arrowParens: "always",
+  jsxSingleQuote: false,
   overrides: [
     {
       files: "*.astro",
       options: {
-        parser: "astro",
         astroAllowShorthand: false,
         astroSkipFrontmatter: false,
+        parser: "astro",
       },
     },
   ],
+  plugins: ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
+  printWidth: 80,
+  quoteProps: "consistent",
   semi: true,
   singleQuote: false,
-  printWidth: 80,
-  jsxSingleQuote: false,
-  arrowParens: "always",
+  tailwindStylesheet: "./src/styles/global.css",
   trailingComma: "all",
-  quoteProps: "consistent",
 };

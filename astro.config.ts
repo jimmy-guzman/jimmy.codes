@@ -18,27 +18,17 @@ const vercelUrl = process.env.VERCEL_URL;
 const vercelEnv = process.env.VERCEL_ENV;
 
 export default defineConfig({
-  prefetch: true,
-  site:
-    vercelEnv === "production"
-      ? "https://jimmy.codes"
-      : vercelUrl
-        ? `https://${vercelUrl}`
-        : "http://localhost:4321",
-  vite: {
-    plugins: [tailwindcss()],
-  },
+  adapter: vercel(),
   env: {
     schema: {
       FATHOM_SITE_ID: envField.string({
-        context: "client",
         access: "public",
+        context: "client",
         optional: true,
       }),
     },
   },
   experimental: {
-    svgo: true,
     clientPrerender: true,
     fonts:
       // Disable fonts during vitest due to "require is not defined" error
@@ -46,22 +36,69 @@ export default defineConfig({
         ? []
         : [
             {
-              name: "Satoshi",
-              provider: fontProviders.fontshare(),
               cssVariable: "--font-satoshi",
-              weights: [400, 500, 700],
-              styles: ["normal", "italic"],
               display: "optional",
               fallbacks: ["system-ui", "sans-serif"],
+              name: "Satoshi",
+              provider: fontProviders.fontshare(),
+              styles: ["normal", "italic"],
+              weights: [400, 500, 700],
             },
           ],
+    svgo: true,
   },
-  adapter: vercel(),
-  trailingSlash: "never",
+  integrations: [
+    expressiveCode({
+      plugins: [expressiveCodeTwoSlash()],
+      shiki: { transformers: [transformerColorizedBrackets()] },
+      themeCssSelector: (theme) => {
+        if (theme.type === "light") return `[data-theme='light']`;
+
+        return `[data-theme='dark']`;
+      },
+      themes: ["kanagawa-dragon", "kanagawa-lotus"],
+      useDarkModeMediaQuery: false,
+    }),
+    mdx(),
+    sitemap(),
+    favicons({
+      cacheBustingQueryParam: "v3",
+      icons: {
+        android: [
+          "android-chrome-192x192.png",
+          {
+            name: "android-chrome-512x512.png",
+            offset: 13,
+            purpose: "maskable",
+            rotate: false,
+            sizes: [{ height: 512, width: 512 }],
+            transparent: true,
+          },
+        ],
+        appleIcon: [
+          "apple-touch-icon.png",
+          "apple-touch-icon-precomposed.png",
+          "safari-pinned-tab.svg",
+        ],
+        appleStartup: false,
+        favicons: [
+          "favicon.svg",
+          "favicon-16x16.png",
+          "favicon-32x32.png",
+          "favicon-48x48.png",
+        ],
+        windows: true,
+        yandex: true,
+      },
+      name: "jimmy.codes",
+      short_name: "JGM",
+      themes: ["#1a1a1a", "#e5e5e5"],
+    }),
+  ],
   markdown: {
     gfm: true,
     rehypePlugins: [
-      [rehypeExternalLinks, { target: "_blank", rel: "noopener" }],
+      [rehypeExternalLinks, { rel: "noopener", target: "_blank" }],
       rehypeSlug,
       [
         rehypeAutolinkHeadings,
@@ -86,61 +123,24 @@ export default defineConfig({
       [
         rehypeCallouts,
         {
-          theme: "obsidian",
           props: {
             containerProps: { class: "my-[1.25rem] callout" },
             titleProps: { class: "callout-title items-center!" },
           },
+          theme: "obsidian",
         },
       ],
     ],
   },
-  integrations: [
-    expressiveCode({
-      themes: ["kanagawa-dragon", "kanagawa-lotus"],
-      themeCssSelector: (theme) => {
-        if (theme.type === "light") return `[data-theme='light']`;
-
-        return `[data-theme='dark']`;
-      },
-      useDarkModeMediaQuery: false,
-      shiki: { transformers: [transformerColorizedBrackets()] },
-      plugins: [expressiveCodeTwoSlash()],
-    }),
-    mdx(),
-    sitemap(),
-    favicons({
-      themes: ["#1a1a1a", "#e5e5e5"],
-      cacheBustingQueryParam: "v3",
-      name: "jimmy.codes",
-      short_name: "JGM",
-      icons: {
-        favicons: [
-          "favicon.svg",
-          "favicon-16x16.png",
-          "favicon-32x32.png",
-          "favicon-48x48.png",
-        ],
-        appleStartup: false,
-        yandex: true,
-        windows: true,
-        android: [
-          "android-chrome-192x192.png",
-          {
-            name: "android-chrome-512x512.png",
-            sizes: [{ width: 512, height: 512 }],
-            purpose: "maskable",
-            transparent: true,
-            rotate: false,
-            offset: 13,
-          },
-        ],
-        appleIcon: [
-          "apple-touch-icon.png",
-          "apple-touch-icon-precomposed.png",
-          "safari-pinned-tab.svg",
-        ],
-      },
-    }),
-  ],
+  prefetch: true,
+  site:
+    vercelEnv === "production"
+      ? "https://jimmy.codes"
+      : vercelUrl
+        ? `https://${vercelUrl}`
+        : "http://localhost:4321",
+  trailingSlash: "never",
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

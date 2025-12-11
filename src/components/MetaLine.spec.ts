@@ -22,8 +22,8 @@ describe("MetaLine", () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(MetaLine, {
       props: {
-        publishDate: new Date("2024-01-05T00:00:00Z"),
         minutes: 5,
+        publishDate: new Date("2024-01-05T00:00:00Z"),
       },
     });
 
@@ -35,8 +35,8 @@ describe("MetaLine", () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(MetaLine, {
       props: {
-        publishDate: new Date("2024-01-05T00:00:00Z"),
         filePath,
+        publishDate: new Date("2024-01-05T00:00:00Z"),
       },
     });
 
@@ -63,8 +63,8 @@ describe("MetaLine", () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(MetaLine, {
       props: {
-        publishDate: new Date("2024-01-05T00:00:00Z"),
         class: "mt-2",
+        publishDate: new Date("2024-01-05T00:00:00Z"),
       },
     });
 

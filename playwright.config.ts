@@ -26,9 +26,9 @@ export default defineConfig({
   use: { baseURL, trace: "on-first-retry" },
   webServer: {
     command: "astro preview",
-    url: baseURL,
-    timeout: 10 * 1000,
     reuseExistingServer: isCI,
+    timeout: 10 * 1000,
+    url: baseURL,
   },
   ...(isCI && { workers: 1 }),
 });

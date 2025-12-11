@@ -8,15 +8,15 @@ export async function GET(context: { site: string }) {
   const blog = await getCollection("posts");
 
   return rss({
-    title: pages.rss.title,
     description: pages.rss.description,
-    site: context.site,
     items: blog.map((post) => ({
-      title: post.data.title,
-      pubDate: post.data.publishDate,
+      categories: post.data.tags,
       description: post.data.description,
       link: `/blog/${post.slug}/`,
-      categories: post.data.tags,
+      pubDate: post.data.publishDate,
+      title: post.data.title,
     })),
+    site: context.site,
+    title: pages.rss.title,
   });
 }

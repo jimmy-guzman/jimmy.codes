@@ -24,8 +24,8 @@ export async function getStaticPaths() {
       params: { slug: post.slug },
       props: {
         post,
-        updatedDate,
         relatedPosts,
+        updatedDate,
       },
     };
   });
@@ -41,23 +41,23 @@ const dateModified = updatedDate ?? datePublished;
 const timeRequired = `PT${Math.max(1, Math.round(minutes))}M`;
 const description = post.data.description;
 const keywords = post.data.keywords;
-const tags = post.data.tags.map((tag) => ({ tag, count: 1 }));
+const tags = post.data.tags.map((tag) => ({ count: 1, tag }));
 
 const jsonLd = {
-  "@type": "BlogPosting",
   "@id": `${postUrl}#article`,
-  "inLanguage": "en-US",
-  "headline": post.data.title,
-  description,
+  "@type": "BlogPosting",
   "author": { "@id": `${urls.site}/#person` },
-  "publisher": { "@id": `${urls.site}/#person` },
-  datePublished,
   dateModified,
-  "url": postUrl,
-  "mainEntityOfPage": { "@id": `${postUrl}#webpage` },
-  keywords,
+  datePublished,
+  description,
+  "headline": post.data.title,
+  "inLanguage": "en-US",
   "isAccessibleForFree": true,
+  keywords,
+  "mainEntityOfPage": { "@id": `${postUrl}#webpage` },
+  "publisher": { "@id": `${urls.site}/#person` },
   timeRequired,
+  "url": postUrl,
 };
 
 const heading = shortTitle(post);

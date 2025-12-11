@@ -19,9 +19,9 @@ export const getStaticPaths = (async () => {
   return allTags.map(({ tag: originalTag }) => ({
     params: { slug: slugifyTag(originalTag) },
     props: {
-      originalTag,
       allPosts,
       allTags,
+      originalTag,
     },
   }));
 }) satisfies GetStaticPaths;

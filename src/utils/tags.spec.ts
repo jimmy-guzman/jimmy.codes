@@ -41,10 +41,10 @@ describe("getAllTags", () => {
     ];
 
     expect(getAllTags(posts)).toEqual([
-      { tag: "react", count: 2 },
-      { tag: "design", count: 1 },
-      { tag: "node", count: 1 },
-      { tag: "typescript", count: 1 },
+      { count: 2, tag: "react" },
+      { count: 1, tag: "design" },
+      { count: 1, tag: "node" },
+      { count: 1, tag: "typescript" },
     ]);
   });
 
@@ -56,9 +56,9 @@ describe("getAllTags", () => {
     ];
 
     expect(getAllTags(posts)).toEqual([
-      { tag: "b", count: 3 },
-      { tag: "a", count: 2 },
-      { tag: "c", count: 1 },
+      { count: 3, tag: "b" },
+      { count: 2, tag: "a" },
+      { count: 1, tag: "c" },
     ]);
   });
 
@@ -66,9 +66,9 @@ describe("getAllTags", () => {
     const posts = [{ data: { tags: ["zebra", "apple", "banana"] } }];
 
     expect(getAllTags(posts)).toEqual([
-      { tag: "apple", count: 1 },
-      { tag: "banana", count: 1 },
-      { tag: "zebra", count: 1 },
+      { count: 1, tag: "apple" },
+      { count: 1, tag: "banana" },
+      { count: 1, tag: "zebra" },
     ]);
   });
 
@@ -79,8 +79,8 @@ describe("getAllTags", () => {
     ];
 
     expect(getAllTags(posts)).toEqual([
-      { tag: "react", count: 2 },
-      { tag: "node", count: 1 },
+      { count: 2, tag: "react" },
+      { count: 1, tag: "node" },
     ]);
   });
 
@@ -101,8 +101,8 @@ describe("getAllTags", () => {
     ];
 
     expect(getAllTags(posts)).toEqual([
-      { tag: "React Router", count: 1 },
-      { tag: "TypeScript", count: 1 },
+      { count: 1, tag: "React Router" },
+      { count: 1, tag: "TypeScript" },
     ]);
   });
 });
@@ -110,9 +110,9 @@ describe("getAllTags", () => {
 describe("guessMaxVisible", () => {
   it("should return all tags when total characters are under the target", () => {
     const tags = [
-      { tag: "CSS", count: 2 },
-      { tag: "CLI", count: 1 },
-      { tag: "A11y", count: 1 },
+      { count: 2, tag: "CSS" },
+      { count: 1, tag: "CLI" },
+      { count: 1, tag: "A11y" },
     ];
 
     expect(guessMaxVisible(tags)).toBe(3);
@@ -120,14 +120,14 @@ describe("guessMaxVisible", () => {
 
   it("should cut off when character count exceeds target", () => {
     const tags = [
-      { tag: "Frontend", count: 3 },
-      { tag: "TypeScript", count: 3 },
-      { tag: "Astro", count: 2 },
-      { tag: "CSS", count: 2 },
-      { tag: "Markdown", count: 2 },
-      { tag: "Node.js", count: 2 },
-      { tag: "A11y", count: 1 },
-      { tag: "Analytics", count: 1 },
+      { count: 3, tag: "Frontend" },
+      { count: 3, tag: "TypeScript" },
+      { count: 2, tag: "Astro" },
+      { count: 2, tag: "CSS" },
+      { count: 2, tag: "Markdown" },
+      { count: 2, tag: "Node.js" },
+      { count: 1, tag: "A11y" },
+      { count: 1, tag: "Analytics" },
     ];
 
     // With targetChars=80 (40 chars/line × 2 lines) and padding=4 per tag:
@@ -139,8 +139,8 @@ describe("guessMaxVisible", () => {
 
   it("should return minimum of 3 even with very long tag names", () => {
     const tags = [
-      { tag: "VeryLongTagNameThatExceedsTargetImmediately", count: 1 },
-      { tag: "AnotherLongOne", count: 1 },
+      { count: 1, tag: "VeryLongTagNameThatExceedsTargetImmediately" },
+      { count: 1, tag: "AnotherLongOne" },
     ];
 
     expect(guessMaxVisible(tags)).toBe(3);
@@ -151,16 +151,16 @@ describe("guessMaxVisible", () => {
   });
 
   it("should return minimum of 3 with single tag", () => {
-    const tags = [{ tag: "React", count: 5 }];
+    const tags = [{ count: 5, tag: "React" }];
 
     expect(guessMaxVisible(tags)).toBe(3);
   });
 
   it("should account for padding in character calculation", () => {
     const tags = [
-      { tag: "A", count: 1 }, // 1+4=5
-      { tag: "B", count: 1 }, // 1+4=5, total=10
-      { tag: "C", count: 1 }, // 1+4=5, total=15
+      { count: 1, tag: "A" }, // 1+4=5
+      { count: 1, tag: "B" }, // 1+4=5, total=10
+      { count: 1, tag: "C" }, // 1+4=5, total=15
     ];
 
     expect(guessMaxVisible(tags)).toBe(3);
@@ -168,9 +168,9 @@ describe("guessMaxVisible", () => {
 
   it("should handle tags with special characters and spaces", () => {
     const tags = [
-      { tag: "Next.js", count: 1 },
-      { tag: "CI/CD", count: 1 },
-      { tag: "Node.js", count: 1 },
+      { count: 1, tag: "Next.js" },
+      { count: 1, tag: "CI/CD" },
+      { count: 1, tag: "Node.js" },
     ];
 
     expect(guessMaxVisible(tags)).toBe(3);
@@ -178,15 +178,15 @@ describe("guessMaxVisible", () => {
 
   it("should break at the correct position with mixed tag lengths", () => {
     const tags = [
-      { tag: "A", count: 1 }, // 5
-      { tag: "BB", count: 1 }, // 6, total=11
-      { tag: "CCC", count: 1 }, // 7, total=18
-      { tag: "DDDD", count: 1 }, // 8, total=26
-      { tag: "EEEEE", count: 1 }, // 9, total=35
-      { tag: "FFFFFF", count: 1 }, // 10, total=45
-      { tag: "GGGGGGG", count: 1 }, // 11, total=56
-      { tag: "HHHHHHHH", count: 1 }, // 12, total=68
-      { tag: "IIIIIIIII", count: 1 }, // 13, total=81 -> exceeds 80
+      { count: 1, tag: "A" }, // 5
+      { count: 1, tag: "BB" }, // 6, total=11
+      { count: 1, tag: "CCC" }, // 7, total=18
+      { count: 1, tag: "DDDD" }, // 8, total=26
+      { count: 1, tag: "EEEEE" }, // 9, total=35
+      { count: 1, tag: "FFFFFF" }, // 10, total=45
+      { count: 1, tag: "GGGGGGG" }, // 11, total=56
+      { count: 1, tag: "HHHHHHHH" }, // 12, total=68
+      { count: 1, tag: "IIIIIIIII" }, // 13, total=81 -> exceeds 80
     ];
 
     expect(guessMaxVisible(tags)).toBe(8);

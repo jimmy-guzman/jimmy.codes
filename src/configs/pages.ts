@@ -1,16 +1,52 @@
 export const BASE_TITLE = "Jimmy Guzman Moreno";
 
 export const pages = {
-  site: {
-    title: "Jimmy Guzman Moreno's blogfolio",
+  about: {
     description:
-      "Jimmy Guzman Moreno's blogfolio — exploring software engineering, scalable systems, and developer experience.",
+      "Lead Engineer with 9+ years of experience delivering high-performance systems and scalable platforms. Engineering leader focused on mentorship, technical strategy, and improving developer experience.",
+    heading: "About Me",
+    keywords: [
+      "jimmy guzman",
+      "lead engineer",
+      "software engineering leadership",
+      "scalable systems",
+      "developer experience",
+      "mentorship",
+      "technical strategy",
+      "target",
+      "ameriprise",
+    ],
+    title: `About Me | ${BASE_TITLE}`,
+  },
+
+  blog: {
+    description:
+      "Articles on building software, system design, architecture, and developer experience.",
+    heading: "Blog",
+    keywords: [
+      "jimmy guzman blog",
+      "software engineering articles",
+      "system design",
+      "software architecture",
+      "developer experience",
+      "typescript",
+      "react",
+      "astro",
+      "web development",
+    ],
+    title: `Blog | ${BASE_TITLE}`,
+  },
+
+  bookmarks: {
+    description: "A personal running list of saved links and references.",
+    heading: "Bookmarks",
+    keywords: ["bookmarks", "saved links", "references"],
+    title: `Bookmarks | ${BASE_TITLE}`,
   },
   home: {
-    title: BASE_TITLE,
-    heading: "Hi, I'm Jimmy",
     description:
       "Lead Engineer focused on high-performance systems, scalable architecture, and great developer experience. I enjoy mentoring, technical strategy, and building modern software.",
+    heading: "Hi, I'm Jimmy",
     keywords: [
       "jimmy guzman",
       "lead engineer",
@@ -24,49 +60,13 @@ export const pages = {
       "frontend",
       "backend",
     ],
-  },
-
-  about: {
-    title: `About Me | ${BASE_TITLE}`,
-    heading: "About Me",
-    description:
-      "Lead Engineer with 9+ years of experience delivering high-performance systems and scalable platforms. Engineering leader focused on mentorship, technical strategy, and improving developer experience.",
-    keywords: [
-      "jimmy guzman",
-      "lead engineer",
-      "software engineering leadership",
-      "scalable systems",
-      "developer experience",
-      "mentorship",
-      "technical strategy",
-      "target",
-      "ameriprise",
-    ],
-  },
-
-  blog: {
-    title: `Blog | ${BASE_TITLE}`,
-    heading: "Blog",
-    description:
-      "Articles on building software, system design, architecture, and developer experience.",
-    keywords: [
-      "jimmy guzman blog",
-      "software engineering articles",
-      "system design",
-      "software architecture",
-      "developer experience",
-      "typescript",
-      "react",
-      "astro",
-      "web development",
-    ],
+    title: BASE_TITLE,
   },
 
   notes: {
-    title: `Notes | ${BASE_TITLE}`,
-    heading: "Notes",
     description:
       "Quick notes and references on software, architecture, code, and developer experience.",
+    heading: "Notes",
     keywords: [
       "jimmy guzman notes",
       "technical notes",
@@ -74,25 +74,24 @@ export const pages = {
       "developer experience",
       "web development",
     ],
-  },
-
-  bookmarks: {
-    title: `Bookmarks | ${BASE_TITLE}`,
-    heading: "Bookmarks",
-    description: "A personal running list of saved links and references.",
-    keywords: ["bookmarks", "saved links", "references"],
-  },
-
-  rss: {
-    title: `RSS | ${BASE_TITLE}`,
-    description:
-      "Articles and notes on building software, system design, architecture, and developer experience.",
+    title: `Notes | ${BASE_TITLE}`,
   },
 
   notFound: {
-    title: `404 | ${BASE_TITLE}`,
-    heading: "404",
     description: "The page you're looking for does not exist.",
+    heading: "404",
     keywords: ["404", "not found", "error"],
+    title: `404 | ${BASE_TITLE}`,
+  },
+
+  rss: {
+    description:
+      "Articles and notes on building software, system design, architecture, and developer experience.",
+    title: `RSS | ${BASE_TITLE}`,
+  },
+  site: {
+    description:
+      "Jimmy Guzman Moreno's blogfolio — exploring software engineering, scalable systems, and developer experience.",
+    title: "Jimmy Guzman Moreno's blogfolio",
   },
 } as const;
