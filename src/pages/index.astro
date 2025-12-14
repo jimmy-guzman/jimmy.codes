@@ -24,7 +24,7 @@ import PageLayout from "@/layouts/PageLayout.astro";
     </section>
 
     <section class="space-y-2">
-      <details class="collapse-arrow collapse border border-base-200">
+      <details class="collapse-plus collapse">
         <summary class="collapse-title">{titles.love}</summary>
         <div class="collapse-content">
           <p>
@@ -36,7 +36,7 @@ import PageLayout from "@/layouts/PageLayout.astro";
                   rel="noopener noreferrer"
                   class="inline-flex link items-center gap-1"
                 >
-                  <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
+                  <span class:list={[tech.icon, "hidden h-5 w-5 sm:inline"]} />
                   {tech.title}
                 </a>,
                 index < techLove.length - 1 && ", ",
@@ -46,7 +46,7 @@ import PageLayout from "@/layouts/PageLayout.astro";
         </div>
       </details>
 
-      <details class="collapse-arrow collapse border border-base-200">
+      <details class="collapse-plus collapse">
         <summary class="collapse-title">{titles.daily}</summary>
         <div class="collapse-content">
           <p>
@@ -58,7 +58,7 @@ import PageLayout from "@/layouts/PageLayout.astro";
                   rel="noopener noreferrer"
                   class="inline-flex items-center gap-1"
                 >
-                  <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
+                  <span class:list={[tech.icon, "hidden h-5 w-5 sm:inline"]} />
                   {tech.title}
                 </a>,
                 index < techDaily.length - 1 && ", ",
@@ -68,7 +68,7 @@ import PageLayout from "@/layouts/PageLayout.astro";
         </div>
       </details>
 
-      <details class="collapse-arrow collapse border border-base-200">
+      <details class="collapse-plus collapse">
         <summary class="collapse-title">{titles.learning}</summary>
         <div class="collapse-content">
           <p>
@@ -80,7 +80,7 @@ import PageLayout from "@/layouts/PageLayout.astro";
                   rel="noopener noreferrer"
                   class="inline-flex items-center gap-1"
                 >
-                  <span class:list={[tech.icon, "hidden h-4 w-5 sm:inline"]} />
+                  <span class:list={[tech.icon, "hidden h-5 w-5 sm:inline"]} />
                   {tech.title}
                 </a>,
                 index < techLearning.length - 1 && ", ",
