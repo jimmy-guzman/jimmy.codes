@@ -2,7 +2,7 @@
 
 Minneapolis, MN | [hi@jimmy.codes](mailto:hi@jimmy.codes) | [jimmy.codes](https://jimmy.codes)
 
-### **Engineering Leader** | **React, TypeScript, Node.js** | **Scalable Frontend & System Design**
+**Engineering Leader** | **React, TypeScript, Node.js** | **Scalable Frontend & System Design**
 
 Technical leader with deep expertise in **frontend architecture** and **full-stack systems**. Proven track record of **driving cross-team technical strategy**, **scaling engineering platforms**, and **elevating developer experience**. Skilled at **building products and platforms that accelerate teams** and deliver **meaningful business outcomes**, with a focus on **scalable, modern frontend solutions**.
 
@@ -39,6 +39,7 @@ Technical leader with deep expertise in **frontend architecture** and **full-sta
 - **Orchestrated migration strategy from AngularJS to React** for supply chain systems, establishing patterns and best practices adopted across Target's supply chain engineering organization
 - **Designed full-stack platform solutions** supporting **high-volume inventory & fulfillment operations**, balancing performance, scalability, and developer experience
 - **Drove adoption of modern development practices** including TypeScript standards, reducing production bugs by **40%**
+- **Provided decisive technical leadership to a backend team building an internal AI platform**, redefining product direction and leading a rapid redesign from a fragile SPA to a server-rendered application with a modern UI. Set a clear technical roadmap, coached the team through a one-week recovery sprint, and stabilized delivery, saving the product and restoring stakeholder confidence.
 
 #### **Platform Engineering & Developer Experience**
 
@@ -54,6 +55,7 @@ Technical leader with deep expertise in **frontend architecture** and **full-sta
 - **Built backend proof of concept** solving **performance and scalability challenges** in retrieving item data from distributed systems
 - **Designed Key Activation Service**, accelerating mainframe decommissioning effort by **6 months** and reducing operational costs
 - **Developed Next.js adoption proof of concept**, implementing key requirements to enable **internal design system component library** support, including **App Router** compatibility
+- **Led delivery of a core Pre-Order Pickup capability in one month**, using architectural vision and scope control to enable inventory analyst-driven pre-order quantities through internal tooling, typed APIs, and event-driven workflows, supporting Target-wide rollout.
 
 #### **Engineering Leadership & Talent Development**
 
