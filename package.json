@@ -37,7 +37,7 @@
     "@commitlint/config-conventional": "20.2.0",
     "@commitlint/types": "20.2.0",
     "@iconify-json/logos": "1.2.10",
-    "@iconify-json/lucide": "1.2.81",
+    "@iconify-json/lucide": "1.2.82",
     "@iconify-json/simple-icons": "1.2.63",
     "@iconify/tailwind4": "1.2.0",
     "@playwright/test": "1.57.0",

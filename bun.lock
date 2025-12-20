@@ -15,7 +15,7 @@
         "@commitlint/config-conventional": "20.2.0",
         "@commitlint/types": "20.2.0",
         "@iconify-json/logos": "1.2.10",
-        "@iconify-json/lucide": "1.2.81",
+        "@iconify-json/lucide": "1.2.82",
         "@iconify-json/simple-icons": "1.2.63",
         "@iconify/tailwind4": "1.2.0",
         "@playwright/test": "1.57.0",
@@ -238,7 +238,7 @@
 
     "@iconify-json/logos": ["@iconify-json/logos@1.2.10", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-qxaXKJ6fu8jzTMPQdHtNxlfx6tBQ0jXRbHZIYy5Ilh8Lx9US9FsAdzZWUR8MXV8PnWTKGDFO4ZZee9VwerCyMA=="],
 
-    "@iconify-json/lucide": ["@iconify-json/lucide@1.2.81", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-6Kz/+SEuD5bkg0KImi0yFem9l6njKp4e1qF1LpQbgRfk7ngsJR/qjlB4y5rM8N1iKiDR/p19cqhmwZxyCWek+w=="],
+    "@iconify-json/lucide": ["@iconify-json/lucide@1.2.82", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-fHZWegspOZonl5GNTvOkHsjnTMdSslFh3EzpzUtRyLxO8bOonqk2OTU3hCl0k4VXzViMjqpRK3X1sotnuBXkFA=="],
 
     "@iconify-json/simple-icons": ["@iconify-json/simple-icons@1.2.63", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-xZl2UWCwE58VlqZ+pDPmaUhE2tq8MVSTJRr4/9nzzHlDdjJ0Ud1VxNXPrwTSgESKY29iCQw3S0r2nJTSNNngHw=="],
 
