@@ -1,0 +1,139 @@
+---
+title: Auto Apply Suggested Tailwind Canonical Classes
+publishDate: 2025-12-21
+description: Stop manually updating Tailwind classes. Learn how to use the official @tailwindcss/upgrade CLI to automatically convert your code to canonical syntax with a single command.
+keywords:
+  [
+    tailwindcss,
+    cli,
+    upgrade,
+    canonical classes,
+    developer tools,
+    automation,
+    vscode,
+    intellisense,
+    code quality,
+    refactoring,
+  ]
+tags: [Tailwind, Tooling]
+---
+
+If you're using Tailwind CSS with VS Code, you've probably seen these suggestions from the [Tailwind CSS IntelliSense extension](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss):
+
+![Tailwind IntelliSense suggesting canonical class syntax](/images/posts/tailwind-suggestion.png)
+
+The extension helpfully suggests converting your arbitrary selectors to more canonical syntax. For example:
+
+```diff
+- className="[&>[role=checkbox]]:translate-y-[2px]"
++ className="*:[[role=checkbox]]:translate-y-0.5"
+```
+
+This is great for learning Tailwind's modern syntax, but manually updating these across an entire codebase? That's tedious work and I'm lazy.
+
+## What is the Tailwind Upgrade CLI?
+
+Tailwind CSS has an [official upgrade tool](https://www.npmjs.com/package/@tailwindcss/upgrade) that automates this process:
+
+```bash
+pnpx @tailwindcss/upgrade
+```
+
+This command will:
+
+- Scan your entire project for Tailwind classes
+- Convert deprecated syntax to modern equivalents
+- Update to canonical class forms
+- Safely transform your codebase
+
+It does other stuff too like [upgrading between Tailwind versions](https://tailwindcss.com/docs/upgrade-guide#using-the-upgrade-tool), but we're benefiting from the canonical class conversion here.
+
+## How does it work?
+
+Here's what it looks like in action. Before running the upgrade:
+
+```tsx
+<div className="[&>[role=checkbox]]:translate-y-[2px]">
+  {/* content */}
+</div>
+```
+
+After running `pnpx @tailwindcss/upgrade`:
+
+```tsx
+<div className="*:[[role=checkbox]]:translate-y-0.5">
+  {/* content */}
+</div>
+```
+
+As you can see some transformations were applied:
+
+- The `*:` universal selector variant is cleaner and more idiomatic in modern Tailwind CSS.
+- The `0.5` value is the canonical way to express `2px` in Tailwind's spacing scale.
+
+The CLI analyzes your entire project and applies these transformations automatically.
+
+## Why use canonical syntax?
+
+Using canonical syntax isn't just about following conventions:
+
+- **Improves readability** - Standard patterns are easier for your team to understand and maintain.
+- **Better IntelliSense** - More reliable autocomplete and suggestions in your editor.
+- **Aligns with docs** - Your code matches official Tailwind documentation examples, making it easier to reference.
+- **Future-proofs** - Canonical syntax is less likely to need updates in future Tailwind versions.
+
+## When to run it
+
+I recommend running the upgrade CLI:
+
+- After upgrading Tailwind versions
+- When onboarding to a new project with older Tailwind code
+- Before major refactoring work
+- Periodically to keep your codebase modern
+- After using a code generator that outputs Tailwind classes like [shadcn](https://ui.shadcn.com/) or similar
+- After our robot friends generate code for us (like GitHub Copilot, Claude, ChatGPT etc)
+
+## Works with all major package managers
+
+```bash
+# pnpm
+pnpx @tailwindcss/upgrade
+# bun
+bunx @tailwindcss/upgrade
+# npm
+npx @tailwindcss/upgrade
+# yarn
+yarn dlx @tailwindcss/upgrade
+```
+
+## Bonus: Pair with Prettier or other formatters
+
+For the ultimate Tailwind class management, combine this with the [official Prettier plugin](https://github.com/tailwindlabs/prettier-plugin-tailwindcss):
+
+```bash
+pnpm add -D prettier-plugin-tailwindcss
+```
+
+Or with Biome's [use sorted classes rule](https://biomejs.dev/linter/rules/use-sorted-classes/)
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "nursery": {
+        "useSortedClasses": "error"
+      }
+    }
+  }
+}
+```
+
+This gives you automatic class sorting (Prettier plugin or Biome) and canonical syntax updates (upgrade CLI).
+
+Together, they keep your Tailwind code clean and modern with minimal effort.
+
+## Wrapping up
+
+The `@tailwindcss/upgrade` CLI is one of those tools I wish I'd known about sooner. It turns a tedious manual process into a single command.
+
+Next time VS Code suggests a canonical class format, remember: you don't have to update them one by one. Let the upgrade CLI handle it for you.
