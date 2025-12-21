@@ -24,19 +24,16 @@ If you're using Tailwind CSS with VS Code, you've probably seen these suggestion
 
 The extension helpfully suggests converting your arbitrary selectors to more canonical syntax. For example:
 
-```tsx
-// What you wrote
-className="[&>[role=checkbox]]:translate-y-[2px]"
-
-// What it suggests
-className="*:[[role=checkbox]]:translate-y-0.5"
+```diff
++ className="[&>[role=checkbox]]:translate-y-[2px]"
+- className="*:[[role=checkbox]]:translate-y-0.5"
 ```
 
-This is great for learning Tailwind's modern syntax, but manually updating these across an entire codebase? That's tedious work and i'm lazy.
+This is great for learning Tailwind's modern syntax, but manually updating these across an entire codebase? That's tedious work and I'm lazy.
 
 ## What is the Tailwind Upgrade CLI?
 
-Tailwind CSS has an official upgrade tool that automates this process:
+Tailwind CSS has an [official upgrade tool](https://www.npmjs.com/package/@tailwindcss/upgrade) that automates this process:
 
 ```bash
 pnpx @tailwindcss/upgrade
@@ -49,7 +46,7 @@ This command will:
 - Update to canonical class forms
 - Safely transform your codebase
 
-It does other stuff too like [upgrading between Tailwind versions](https://tailwindcss.com/docs/upgrade-guide#using-the-upgrade-tool), but were benefiting from the canonical class conversion here.
+It does other stuff too like [upgrading between Tailwind versions](https://tailwindcss.com/docs/upgrade-guide#using-the-upgrade-tool), but we're benefiting from the canonical class conversion here.
 
 ## How does it work?
 
@@ -96,9 +93,7 @@ I recommend running the upgrade CLI:
 - After using a code generator that outputs Tailwind classes like [shadcn](https://ui.shadcn.com/) or similar
 - After our robot friends generate code for us (like GitHub Copilot, Claude, ChatGPT etc)
 
-## Package manager support
-
-Works with all major package managers:
+## Works with all major package managers
 
 ```bash
 # pnpm
