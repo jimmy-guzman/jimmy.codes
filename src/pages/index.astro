@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import profileImage from "@/assets/images/profile.png";
 import { pages } from "@/configs/pages";
 import { techDaily, techLearning, techLove, titles } from "@/configs/tech";
 import { urls } from "@/configs/urls";
@@ -13,14 +15,27 @@ import PageLayout from "@/layouts/PageLayout.astro";
 >
   <PageLayout heading={pages.home.heading}>
     <section class="space-y-6">
-      <p>
-        I build high-performance, scalable systems that are a joy for engineers
-        to work with. I have a passion for the craft of creating software,
-        blending hands-on coding with technical strategy. Along the way, I guide
-        engineering teams, improve developer experience at scale, and design
-        modern architectures that make a lasting impact across teams and
-        products.
-      </p>
+      <div
+        class="flex flex-col items-center text-center sm:flex-row sm:gap-4 sm:text-left"
+      >
+        <Image
+          src={profileImage}
+          alt="Jimmy's Profile Picture"
+          width={164}
+          height={164}
+          loading="eager"
+          fetchpriority="high"
+          class="shrink-0 rounded bg-linear-to-br from-primary to-secondary"
+        />
+        <p>
+          I build high-performance, scalable systems that are a joy for
+          engineers to work with. I have a passion for the craft of creating
+          software, blending hands-on coding with technical strategy. Along the
+          way, I guide engineering teams, improve developer experience at scale,
+          and design modern architectures that make a lasting impact across
+          teams and products.
+        </p>
+      </div>
     </section>
 
     <section class="space-y-2">
@@ -34,7 +49,7 @@ import PageLayout from "@/layouts/PageLayout.astro";
                   href={tech.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex link items-center gap-1"
+                  class="inline-flex link items-center gap-1 link-primary"
                 >
                   <span class:list={[tech.icon, "hidden h-5 w-5 sm:inline"]} />
                   {tech.title}

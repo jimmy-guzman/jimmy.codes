@@ -7,36 +7,56 @@
   exclude: properties; /* https://github.com/saadeghi/daisyui/issues/3882 */
 }
 
+/* ---------------------------------------------
+   Themes
+--------------------------------------------- */
+
 @plugin "daisyui/theme" {
   name: "dark";
   default: true;
   prefersdark: true;
   color-scheme: "dark";
+
+  /* neutrals (keep minimal) */
   --color-base-100: oklch(18% 0.005 255);
   --color-base-200: oklch(22% 0.005 255);
   --color-base-300: oklch(26% 0.005 255);
   --color-base-content: oklch(94% 0.004 255);
-  --color-primary: oklch(86% 0.018 255);
-  --color-primary-content: oklch(18% 0.005 255);
-  --color-secondary: oklch(62% 0.008 255);
-  --color-secondary-content: oklch(18% 0.005 255);
-  --color-accent: oklch(78% 0.01 265);
-  --color-accent-content: oklch(18% 0.005 255);
+
+  /* outrun accents */
+  --color-primary: oklch(74% 0.28 330); /* neon magenta */
+  --color-primary-content: oklch(18% 0.01 255);
+
+  --color-secondary: oklch(78% 0.22 200); /* neon cyan */
+  --color-secondary-content: oklch(18% 0.01 255);
+
+  --color-accent: oklch(82% 0.2 70); /* synth yellow */
+  --color-accent-content: oklch(18% 0.01 255);
+
   --color-neutral: oklch(42% 0.004 255);
   --color-neutral-content: oklch(96% 0.003 255);
-  --color-info: oklch(68% 0.07 255);
-  --color-info-content: oklch(20% 0.02 255);
-  --color-success: oklch(62% 0.07 145);
+
+  /* status colors (keep readable + punchy) */
+  --color-info: oklch(70% 0.11 240);
+  --color-info-content: oklch(18% 0.02 240);
+
+  --color-success: oklch(66% 0.12 145);
   --color-success-content: oklch(18% 0.02 145);
-  --color-warning: oklch(72% 0.08 85);
+
+  --color-warning: oklch(76% 0.14 85);
   --color-warning-content: oklch(18% 0.02 85);
-  --color-error: oklch(66% 0.11 25);
-  --color-error-content: oklch(18% 0.025 25);
+
+  --color-error: oklch(68% 0.16 25);
+  --color-error-content: oklch(18% 0.03 25);
+
+  /* shape + density */
   --radius-selector: 0.5rem;
   --radius-field: 0.5rem;
   --radius-box: 0.75rem;
+
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
+
   --border-size: 0.0625rem;
   --depth: 0;
   --noise: 0;
@@ -49,37 +69,57 @@
   default: false;
   prefersdark: false;
   color-scheme: "light";
+
+  /* neutrals (clean, not neon) */
   --color-base-100: oklch(98% 0.003 255);
   --color-base-200: oklch(93% 0.004 255);
   --color-base-300: oklch(88% 0.005 255);
   --color-base-content: oklch(30% 0.01 255);
-  --color-primary: oklch(28% 0.02 255);
+
+  /* accents (subtle echoes of outrun, not full neon) */
+  --color-primary: oklch(42% 0.1 320); /* muted magenta */
   --color-primary-content: oklch(98% 0.003 255);
-  --color-secondary: oklch(46% 0.01 255);
+
+  --color-secondary: oklch(44% 0.08 210); /* muted cyan */
   --color-secondary-content: oklch(98% 0.003 255);
-  --color-accent: oklch(38% 0.015 265);
+
+  --color-accent: oklch(52% 0.08 80); /* muted synth yellow */
   --color-accent-content: oklch(98% 0.003 255);
+
   --color-neutral: oklch(55% 0.008 255);
   --color-neutral-content: oklch(99% 0.003 255);
-  --color-info: oklch(55% 0.075 255);
+
+  /* status colors */
+  --color-info: oklch(56% 0.1 240);
   --color-info-content: oklch(99% 0.02 255);
-  --color-success: oklch(55% 0.075 145);
+
+  --color-success: oklch(55% 0.1 145);
   --color-success-content: oklch(99% 0.02 145);
-  --color-warning: oklch(65% 0.085 85);
+
+  --color-warning: oklch(62% 0.11 85);
   --color-warning-content: oklch(99% 0.03 85);
-  --color-error: oklch(58% 0.115 25);
+
+  --color-error: oklch(56% 0.14 25);
   --color-error-content: oklch(99% 0.03 25);
+
+  /* shape + density */
   --radius-selector: 0.5rem;
   --radius-field: 0.5rem;
   --radius-box: 0.75rem;
+
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
+
   --border-size: 0.0625rem;
   --depth: 0;
   --noise: 0;
 
   --muted-strength: 68%;
 }
+
+/* ---------------------------------------------
+   Shared tokens
+--------------------------------------------- */
 
 @theme {
   --color-muted: color-mix(
@@ -94,6 +134,10 @@
 @theme inline {
   --font-sans: var(--font-satoshi);
 }
+
+/* ---------------------------------------------
+   View transitions
+--------------------------------------------- */
 
 @view-transition {
   navigation: auto;
