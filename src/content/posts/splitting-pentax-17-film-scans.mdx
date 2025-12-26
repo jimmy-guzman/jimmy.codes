@@ -15,6 +15,10 @@ keywords:
 tags: ["Node.js"]
 ---
 
+import { Image } from "astro:assets";
+import afterPhoto1 from "@/assets/images/after-photo-1.jpg";
+import afterPhoto2 from "@/assets/images/after-photo-2.jpg";
+
 I recently got into photography but I didn't make it easy on myself. I picked up the **Pentax 17**, a half-frame film camera that captures two 17x24 mm photos on a single 35 mm frame.
 
 Each scan from the lab comes back as a single image with both frames side by side, separated by a dark divider. Cropping them manually gets tedious fast: crop, save, repeat. After a few rolls, it's easy to make mistakes.
@@ -34,7 +38,7 @@ My local lab returns each film scan as a single JPEG. Each contains the followin
 - Slightly inconsistent frame dimensions
 - A need for consistent, high-quality output
 
-![Example of a raw Pentax 17 scan showing two frames side by side with a dark divider in the middle](/images/posts/before-photo.jpg)
+![Example of a raw Pentax 17 scan showing two frames side by side with a dark divider in the middle](@/assets/images/before-photo.jpg)
 
 The challenge was to detect the divider, extract both frames, and export them at uniform dimensions without unnecessary cropping or letterboxing.
 
@@ -323,8 +327,8 @@ Processing 112 images (224 frames) produced the following results:
 
 <div className="my-8 grid grid-cols-1 gap-4 md:grid-cols-2">
   <figure>
-    <img
-      src="/images/posts/after-photo-1.jpg"
+    <Image
+      src={afterPhoto1}
       alt="First extracted frame showing enhanced clarity and color correction"
       className="h-auto w-full"
       loading="lazy"
@@ -334,8 +338,8 @@ Processing 112 images (224 frames) produced the following results:
     </figcaption>
   </figure>
   <figure>
-    <img
-      src="/images/posts/after-photo-2.jpg"
+    <Image
+      src={afterPhoto2}
       alt="Second extracted frame demonstrating improved detail preservation"
       className="h-auto w-full"
       loading="lazy"
