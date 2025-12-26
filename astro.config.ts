@@ -61,39 +61,42 @@ export default defineConfig({
     }),
     mdx(),
     sitemap(),
-    favicons({
-      cacheBustingQueryParam: "v3",
-      icons: {
-        android: [
-          "android-chrome-192x192.png",
-          {
-            name: "android-chrome-512x512.png",
-            offset: 13,
-            purpose: "maskable",
-            rotate: false,
-            sizes: [{ height: 512, width: 512 }],
-            transparent: true,
+    // Disable favicons during knip analysis
+    process.env.KNIP === "true"
+      ? undefined
+      : favicons({
+          cacheBustingQueryParam: "v3",
+          icons: {
+            android: [
+              "android-chrome-192x192.png",
+              {
+                name: "android-chrome-512x512.png",
+                offset: 13,
+                purpose: "maskable",
+                rotate: false,
+                sizes: [{ height: 512, width: 512 }],
+                transparent: true,
+              },
+            ],
+            appleIcon: [
+              "apple-touch-icon.png",
+              "apple-touch-icon-precomposed.png",
+              "safari-pinned-tab.svg",
+            ],
+            appleStartup: false,
+            favicons: [
+              "favicon.svg",
+              "favicon-16x16.png",
+              "favicon-32x32.png",
+              "favicon-48x48.png",
+            ],
+            windows: true,
+            yandex: true,
           },
-        ],
-        appleIcon: [
-          "apple-touch-icon.png",
-          "apple-touch-icon-precomposed.png",
-          "safari-pinned-tab.svg",
-        ],
-        appleStartup: false,
-        favicons: [
-          "favicon.svg",
-          "favicon-16x16.png",
-          "favicon-32x32.png",
-          "favicon-48x48.png",
-        ],
-        windows: true,
-        yandex: true,
-      },
-      name: "jimmy.codes",
-      short_name: "JGM",
-      themes: ["#1a1a1a", "#e5e5e5"],
-    }),
+          name: "jimmy.codes",
+          short_name: "JGM",
+          themes: ["#1a1a1a", "#e5e5e5"],
+        }),
   ],
   markdown: {
     gfm: true,

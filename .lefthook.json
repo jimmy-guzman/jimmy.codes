@@ -19,7 +19,7 @@
         "stage_fixed": true
       },
       "knip": {
-        "run": "bunx knip"
+        "run": "KNIP=true bunx knip"
       },
       "markdownlint": {
         "glob": "*.{md,mdx}",

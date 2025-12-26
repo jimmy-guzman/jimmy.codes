@@ -132,6 +132,17 @@ This gives you automatic class sorting (Prettier plugin or Biome) and canonical 
 
 Together, they keep your Tailwind code clean and modern with minimal effort.
 
+## Another Bonus: Let ESLint plugins take care of this too
+
+[eslint-plugin-better-tailwindcss](https://github.com/schoero/eslint-plugin-better-tailwindcss/tree/v4)'s upcoming version 4 will offer [enforce-canonical-classes](https://github.com/schoero/eslint-plugin-better-tailwindcss/blob/v4/docs/rules/enforce-canonical-classes.md) which can enforce canonical class suggestions as part of your linting process.
+
+There are also other dedicated plugins that accomplish the same:
+
+- [eslint-plugin-tailwind-canonical-classes](https://github.com/MaisonnatM/eslint-plugin-tailwind-canonical-classes)
+- [eslint-plugin-tailwind-canonical](https://github.com/septem1997/eslint-plugin-tailwind-canonical)
+
+And if [[Feature request] Canonical class name rule](https://github.com/francoismassart/eslint-plugin-tailwindcss/issues/426) gets implemented, the popular [eslint-plugin-tailwindcss](https://github.com/francoismassart/eslint-plugin-tailwindcss) could also handle this in the future.
+
 ## Wrapping up
 
 The `@tailwindcss/upgrade` CLI is one of those tools I wish I'd known about sooner. It turns a tedious manual process into a single command.
