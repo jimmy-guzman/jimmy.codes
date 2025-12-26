@@ -21,9 +21,11 @@ import PageLayout from "@/layouts/PageLayout.astro";
         <Image
           src={profileImage}
           alt="Jimmy's Profile Picture"
-          width="164"
-          height="164"
-          class="rounded bg-linear-to-br from-primary to-secondary"
+          width={164}
+          height={164}
+          loading="eager"
+          fetchpriority="high"
+          class="shrink-0 rounded bg-linear-to-br from-primary to-secondary"
         />
         <p>
           I build high-performance, scalable systems that are a joy for
