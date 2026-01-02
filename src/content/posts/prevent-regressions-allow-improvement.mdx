@@ -1,0 +1,154 @@
+---
+title: "Prevent Regressions, Allow Improvement"
+publishDate: 2026-01-02
+description: "How to prevent regressions in your codebase without blocking incremental improvements."
+keywords:
+  [
+    "code quality",
+    "regressions",
+    "improvements",
+    "best practices",
+    "mejora",
+    "cli",
+    "developer tools",
+  ]
+tags: ["CLI", "Tooling", "Node.js"]
+---
+
+Some time ago, around 2021, I was looking for a way to raise code quality without freezing a project for weeks.
+
+The problem was never "we don't care about quality." The problem was the all-or-nothing tradeoff.
+
+Every attempt to raise standards came with an implicit requirement to fix everything up front. That is rarely realistic in long-lived, fast-moving codebases.
+
+After some research, I found a tool called [Betterer](https://phenomnominal.github.io/betterer/) ☀️. It worked well, and more importantly, it introduced an approach that actually matched how real teams work:
+
+- Accept the current state
+- Prevent things from getting worse
+- Improve incrementally over time
+
+I even gave a [lightning talk at Target](https://slides.com/comparto/deck-910a4f/scroll?chrome=hidden) about it.
+
+Over time, I started wanting something simpler. Lighter. Easier to understand and maintain. Betterer proved the model, but I wanted a tool focused on the core behavior without additional complexity.
+
+To alleviate my boredom and to satisfy my curiosity, I built a small CLI called [`mejora`](https://github.com/jimmy-guzman/mejora).
+
+## Table of Contents
+
+- [What is `mejora`?](#what-is-mejora)
+- [What this looks like in practice](#what-this-looks-like-in-practice)
+- [How `mejora` works](#how-mejora-works)
+- [Where `mejora` fits](#where-mejora-fits)
+- [How is this different from Betterer?](#how-is-this-different-from-betterer)
+
+## What is `mejora`?
+
+`mejora` enforces one rule:
+
+> Prevent regressions. Allow improvement.
+
+Think of it as drawing a line in the sand. You are not pretending existing issues do not exist. You are saying, "This is where we are today, and we are not going backwards."
+
+`mejora` runs your existing checks, compares their results against a committed baseline, and fails only when new issues are introduced. Existing issues are accepted as the baseline and can be cleaned up gradually over time.
+
+Everything above the line is the baseline. That is the state you are living with for now 😐
+
+If the line moves down, that is improvement 🙂
+
+If it stays the same, that is fine 😐
+
+If it moves up, that is a regression, and the run fails ☹️
+
+## What this looks like in practice
+
+Assuming you have `mejora` [installed](https://github.com/jimmy-guzman/mejora#installation) and [configured](https://github.com/jimmy-guzman/mejora?tab=readme-ov-file#configuration), here is what it looks like in a real project.
+
+Imagine adding it to an existing codebase with a few known issues.
+
+On the first run, you execute:
+
+```bash
+pnpm mejora
+```
+
+![Mejora initial run](@/assets/images/mejora-initial-run.png)
+
+This baseline represents the current accepted state of the codebase. Nothing fails. Nothing forces you to stop and clean everything up. The line is drawn.
+
+Now introduce a new issue, for example a new lint violation or type error, and run it again.
+
+![Mejora regressions run](@/assets/images/mejora-regressions-run.png)
+
+The run fails because something new appeared that was not part of the baseline. That is a regression.
+
+Next, fix one of the existing issues that was already in the baseline and run it again.
+
+![Mejora improvements run](@/assets/images/mejora-improvements-run.png)
+
+This is the happy path. No flags. No special modes. Improvements are accepted automatically.
+
+Over time, the baseline shrinks naturally as issues are cleaned up during normal development.
+
+Outside of `.mejora/baseline.json`, `mejora` also generates a Markdown file to help visualize the current state and navigate remaining issues.
+
+![Mejora markdown ESLint](@/assets/images/mejora-markdown-eslint.png)
+![Mejora markdown TypeScript](@/assets/images/mejora-markdown-ts.png)
+
+## How `mejora` works
+
+`mejora` is built around a baseline model.
+
+Your tools, such as [ESLint](https://eslint.org) and [TypeScript](https://www.typescriptlang.org), produce results. `mejora` treats those results as lists of items, assigns each item a stable identity, and compares them against a committed baseline.
+
+- New items mean a regression and the run fails ☹️
+- Removed items mean improvement and the run passes 🙂
+- No change means the run passes 😐
+
+The baseline is committed to the repository. It is deliberate and explicit. It represents the state the team has already agreed to live with.
+
+Using stable identities lets `mejora` focus on real changes, not issues that only moved due to refactors or unrelated changes, avoiding false positives from reordered output or shifting locations.
+
+> [!NOTE]
+> This approach is intentionally pragmatic, not perfect. In some cases, an issue may change enough to require a baseline update, even if a human might see it as the same underlying problem.
+>
+> When that happens, the change is explicit and reviewed like any other code change.
+
+Together, this makes it possible to introduce stricter rules without breaking everything. You can lock in the current state, tighten rules over time, and ensure no new issues are introduced while cleaning things up incrementally.
+
+## Where `mejora` fits
+
+`mejora` works best when you want to raise standards without blocking progress.
+
+A common scenario is that ESLint and TypeScript are already in place, but you want to tighten the rules. You might enable `no-explicit-any`, turn warnings into errors, or turn on `strictNullChecks`.
+
+The problem is that stricter rules surface hundreds of existing violations, and fixing them all up front is not realistic.
+
+A baseline approach solves this. Lock in the current state, tighten the rules, and prevent new violations while improving incrementally.
+
+`mejora` does not replace your tools. ESLint, TypeScript, and formatters still do the analysis. `mejora` sits on top and enforces one constraint: do not make things worse.
+
+If you want a clean slate or a hard quality gate from day one, this is not the right tool. If you want steady improvement in a real codebase with history, it is a good fit.
+
+## How is this different from Betterer?
+
+Conceptually, there is not much difference. Both tools use a baseline approach to prevent regressions while allowing improvement. The differences are mostly about focus and complexity.
+
+- It is intentionally simpler and single purpose
+- It has fewer dependencies and a smaller surface area
+- It is lighter weight and aligned with [ecosystem performance efforts](https://e18e.dev)
+- It targets modern JavaScript and TypeScript
+- It avoids extension systems and custom checks by design
+
+Both tools solve the same problem. `mejora` just does it with less.
+
+## Conclusion
+
+Raising code quality does not have to mean stopping everything to fix the world.
+
+`mejora` lets you draw a line in the sand, tighten your rules, and keep moving forward. The baseline shrinks naturally over time. No big rewrites. No blocked pull requests. Just steady progress.
+
+If you are tired of disabling strict rules because "we will fix it later" never comes, give it a try.
+
+All credit goes to the original idea from Betterer, which inspired this simpler implementation. Feedback and contributions are always welcome.
+
+Prevent regressions. Allow improvement. 🚀
