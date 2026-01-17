@@ -39,7 +39,7 @@
     "@iconify-json/logos": "1.2.10",
     "@iconify-json/lucide": "1.2.82",
     "@iconify-json/simple-icons": "1.2.65",
-    "@iconify/tailwind4": "1.2.0",
+    "@iconify/tailwind4": "1.2.1",
     "@playwright/test": "1.57.0",
     "@shikijs/colorized-brackets": "3.20.0",
     "@tailwindcss/typography": "0.5.19",
