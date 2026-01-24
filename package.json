@@ -49,7 +49,7 @@
     "@types/node": "24.10.9",
     "@types/react": "19.2.9",
     "@vitest/coverage-v8": "4.0.17",
-    "astro": "5.16.11",
+    "astro": "5.16.15",
     "astro-expressive-code": "0.41.6",
     "astro-favicons": "3.1.5",
     "daisyui": "5.5.14",
