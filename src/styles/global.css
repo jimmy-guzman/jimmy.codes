@@ -132,7 +132,7 @@
 @plugin "@iconify/tailwind4";
 
 @theme inline {
-  --font-sans: var(--font-satoshi);
+  --font-sans: var(--font-mono);
 }
 
 /* ---------------------------------------------
@@ -183,4 +183,10 @@
 
 html {
   scrollbar-gutter: stable;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 500;
 }

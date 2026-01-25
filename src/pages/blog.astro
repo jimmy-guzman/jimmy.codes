@@ -1,20 +1,16 @@
 ---
 import { getCollection } from "astro:content";
-
 import MetaLine from "@/components/MetaLine.astro";
 import Tags from "@/components/Tags.astro";
 import { pages } from "@/configs/pages";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { readingTime, sortByPublishDate } from "@/utils/content";
-import { getPostByYear, shortTitle } from "@/utils/post";
+import { shortTitle } from "@/utils/post";
 import { getAllTags } from "@/utils/tags";
 
 const posts = (await getCollection("posts")).sort(sortByPublishDate);
-
 const tags = getAllTags(posts);
-
-const postsByYear = getPostByYear(posts);
 ---
 
 <BaseLayout
@@ -24,34 +20,28 @@ const postsByYear = getPostByYear(posts);
 >
   <PageLayout heading={pages.blog.heading}>
     <Tags tags={tags} />
-    <section class="not-prose">
-      {
-        postsByYear.map(([year, posts = []]) => (
-          <div class="mb-8">
-            <h2 class="mb-4 text-xl text-muted">{year}</h2>
-            <ul class="flex flex-col gap-y-6">
-              {posts.map((post) => (
-                <li class="flex flex-col gap-y-2">
-                  <a
-                    href={`/blog/${post.slug}`}
-                    class="link link-hover"
-                    rel="bookmark"
-                    data-astro-prefetch
-                  >
-                    {shortTitle(post)}
-                  </a>
-                  <MetaLine
-                    class="text-sm text-muted"
-                    publishDate={post.data.publishDate}
-                    minutes={readingTime(post.body)}
-                    filePath={post.filePath}
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))
-      }
+    <section>
+      <ul class="flex flex-col ps-0">
+        {
+          posts.map((post) => (
+            <li class="flex flex-col gap-y-2">
+              <a
+                href={`/blog/${post.slug}`}
+                class="link link-hover"
+                rel="bookmark"
+                data-astro-prefetch
+              >
+                {shortTitle(post)}
+              </a>
+              <MetaLine
+                class="text-sm text-muted"
+                publishDate={post.data.publishDate}
+                minutes={readingTime(post.body)}
+              />
+            </li>
+          ))
+        }
+      </ul>
     </section>
     <section class="mt-8">
       <p class="text-center text-xs text-muted">

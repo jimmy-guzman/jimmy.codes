@@ -32,7 +32,7 @@ const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
 
 <section>
   <p class="text-sm text-muted">
-    <MetaLine publishDate={publishDate} minutes={minutes} filePath={filePath} />
+    <MetaLine publishDate={publishDate} minutes={minutes} />
   </p>
 </section>
 
@@ -85,7 +85,7 @@ const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
 {
   updatedDate && (
     <section class="mt-8 flex justify-end text-sm text-muted">
-      <LastModified updatedDate={updatedDate} />
+      <LastModified updatedDate={updatedDate} filePath={filePath} />
     </section>
   )
 }

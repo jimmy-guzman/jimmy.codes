@@ -13,7 +13,7 @@ const { heading, back } = Astro.props;
 ---
 
 <main
-  class="mx-auto prose w-full max-w-3xl flex-1 items-start space-y-6 px-4 py-12 [view-transition-name:main] xl:prose-lg prose-a:underline prose-a:decoration-neutral/64 prose-a:decoration-1 prose-a:underline-offset-[3px] [&_a]:transition-[text-decoration-color,text-decoration-thickness] [&_a]:duration-200 [&_a]:ease-in-out [&_a:hover]:decoration-base-content [&_a:hover]:decoration-[1.25px]"
+  class="mx-auto prose w-full max-w-3xl flex-1 items-start space-y-6 px-4 py-12 [view-transition-name:main] xl:prose-lg prose-a:underline prose-a:decoration-neutral/64 prose-a:decoration-dotted prose-a:decoration-1 prose-a:underline-offset-[3px] [&_a]:transition-[text-decoration-color,text-decoration-style] [&_a]:duration-200 [&_a]:ease-in-out [&_a:hover]:decoration-base-content [&_a:hover]:decoration-solid"
   aria-labelledby="page-title"
 >
   {back && <BackLink url={back.url} title={back.title} />}
