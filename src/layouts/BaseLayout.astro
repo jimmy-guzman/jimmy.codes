@@ -82,7 +82,10 @@ const jsonLd = JSON.stringify({
 
     <script type="application/ld+json" is:inline set:html={jsonLd} />
   </head>
-  <body class="flex min-h-dvh flex-col justify-between px-4" tabindex="-1">
+  <body
+    class="flex min-h-dvh-safe flex-col justify-between px-safe-or-4"
+    tabindex="-1"
+  >
     <Nav />
     <slot />
     <Footer />

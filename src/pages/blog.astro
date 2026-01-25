@@ -21,7 +21,7 @@ const tags = getAllTags(posts);
   <PageLayout heading={pages.blog.heading}>
     <Tags tags={tags} />
     <section>
-      <ul class="flex flex-col ps-0">
+      <ul class="flex flex-col gap-2 ps-0">
         {
           posts.map((post) => (
             <li class="flex flex-col gap-y-2">
