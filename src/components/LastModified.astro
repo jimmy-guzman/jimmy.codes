@@ -3,17 +3,38 @@ import { prettyDate } from "../utils/content";
 
 interface Props {
   updatedDate: Date;
+  filePath?: string;
 }
 
-const { updatedDate } = Astro.props;
+const { updatedDate, filePath } = Astro.props;
+
+const GITHUB_URL = filePath
+  ? `https://github.com/jimmy-guzman/jimmy.codes/blob/main/${filePath}`
+  : undefined;
 ---
 
 <span class="inline-flex items-center gap-1">
   Last updated on
-  <time
-    datetime={updatedDate.toISOString()}
-    title={`Last updated on ${prettyDate(updatedDate)}`}
-  >
-    {prettyDate(updatedDate)}
-  </time>
+  {
+    GITHUB_URL ? (
+      <a
+        href={GITHUB_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link link-hover"
+        title="View source and history on GitHub"
+      >
+        <time datetime={updatedDate.toISOString()}>
+          {prettyDate(updatedDate)}
+        </time>
+      </a>
+    ) : (
+      <time
+        datetime={updatedDate.toISOString()}
+        title={`Last updated on ${prettyDate(updatedDate)}`}
+      >
+        {prettyDate(updatedDate)}
+      </time>
+    )
+  }
 </span>

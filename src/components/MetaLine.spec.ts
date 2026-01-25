@@ -30,35 +30,6 @@ describe("MetaLine", () => {
     expect(html).toContain("5 min read");
   });
 
-  it("should render a GitHub link when filePath is provided", async () => {
-    const filePath = "posts/hello-world.mdx";
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(MetaLine, {
-      props: {
-        filePath,
-        publishDate: new Date("2024-01-05T00:00:00Z"),
-      },
-    });
-
-    const expected = `https://github.com/jimmy-guzman/jimmy.codes/blob/main/${filePath}`;
-    expect(html).toContain(`href="${expected}"`);
-    expect(html).toContain('data-tip="View on GitHub"');
-    expect(html).toContain(">View on GitHub</span>");
-    expect(html).toContain("icon-[lucide--github]");
-  });
-
-  it("should not render a GitHub link when filePath is absent", async () => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(MetaLine, {
-      props: { publishDate: new Date("2024-01-05T00:00:00Z") },
-    });
-
-    expect(html).not.toContain("View on GitHub");
-    expect(html).not.toContain("icon-[lucide--github]");
-    expect(html).not.toContain('data-tip="View on GitHub"');
-    expect(html).not.toContain("github.com/jimmy-guzman/jimmy.codes");
-  });
-
   it("should merge custom class with base layout classes", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(MetaLine, {

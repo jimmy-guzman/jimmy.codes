@@ -16,11 +16,3 @@ export const shortTitle = (post: {
 }) => {
   return post.data.shortTitle ?? post.data.title;
 };
-
-export const getPostByYear = <T extends { data: { publishDate: Date } }>(
-  posts: T[],
-) => {
-  return Object.entries(
-    Object.groupBy(posts, (post) => post.data.publishDate.getFullYear()),
-  ).toSorted(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10));
-};

@@ -31,26 +31,36 @@ export default defineConfig({
   experimental: {
     clientPrerender: true,
     fonts:
-      // Disable fonts during vitest due to "require is not defined" error
       process.env.TEST === "true"
         ? undefined
         : [
             {
-              cssVariable: "--font-satoshi",
-              display: "optional",
-              fallbacks: ["system-ui", "sans-serif"],
-              name: "Satoshi",
-              provider: fontProviders.fontshare(),
+              cssVariable: "--font-mono",
+              display: "swap",
+              fallbacks: [
+                "ui-monospace",
+                "SFMono-Regular",
+                "Menlo",
+                "Monaco",
+                "Consolas",
+                "monospace",
+              ],
+              name: "Commit Mono",
+              provider: fontProviders.fontsource(),
               styles: ["normal", "italic"],
-              weights: [400, 500, 700],
+              weights: [400, 500, 600],
             },
           ],
     svgo: true,
   },
+
   integrations: [
     expressiveCode({
       plugins: [expressiveCodeTwoSlash()],
       shiki: { transformers: [transformerColorizedBrackets()] },
+      styleOverrides: {
+        codeFontFamily: "var(--font-mono)",
+      },
       themeCssSelector: (theme) => {
         if (theme.type === "light") return `[data-theme='light']`;
 

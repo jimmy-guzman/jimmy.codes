@@ -3,14 +3,11 @@ import { prettyDate } from "../utils/content";
 
 interface Props {
   publishDate: Date;
-  filePath?: string;
   minutes: number;
   class?: string;
 }
 
-const { publishDate, minutes, filePath, class: className = "" } = Astro.props;
-
-const GITHUB_URL = `https://github.com/jimmy-guzman/jimmy.codes/blob/main/${filePath}`;
+const { publishDate, minutes, class: className = "" } = Astro.props;
 ---
 
 <span class:list={[className, "flex items-center justify-between"]}>
@@ -19,32 +16,4 @@ const GITHUB_URL = `https://github.com/jimmy-guzman/jimmy.codes/blob/main/${file
     <span aria-hidden="true">•</span>
     <span>{`${minutes} min read`}</span>
   </span>
-
-  {
-    filePath && (
-      // Stabilizes layout for icon-only GitHub button
-      <span class="w-12 shrink-0 md:w-auto">
-        <span class="tooltip md:hidden" data-tip="View on GitHub">
-          <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-circle btn-ghost btn-sm"
-          >
-            <span class="sr-only">View on GitHub</span>
-            <span class="icon-[lucide--github] h-4 w-4" aria-hidden="true" />
-          </a>
-        </span>
-
-        <a
-          href={GITHUB_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="not-prose hidden shrink-0 link whitespace-nowrap link-hover md:inline-flex"
-        >
-          View on GitHub
-        </a>
-      </span>
-    )
-  }
 </span>
