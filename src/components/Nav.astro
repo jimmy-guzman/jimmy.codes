@@ -1,6 +1,5 @@
 ---
 import { desktop, mobile } from "../configs/nav";
-import Logo from "./Logo.astro";
 import ThemeController from "./ThemeController.astro";
 
 const ext = (link: { external?: boolean }) => {
@@ -15,13 +14,12 @@ const { mobilePrimary = [], mobileDropdown = [] } = Object.groupBy(
 
 <nav class="navbar">
   <div class="flex-1">
-    <a href="/" class="btn gap-2 btn-ghost btn-sm lg:btn-md">
-      <Logo className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
-      <span
-        class="hidden font-normal md:inline md:text-base lg:hidden"
-        aria-hidden="true">JGM</span
+    <a href="/" class="btn gap-2 text-base btn-ghost btn-sm lg:btn-md">
+      <span class="icon-[lucide--terminal]" aria-hidden="true"></span>
+      <span class="hidden font-normal md:inline lg:hidden" aria-hidden="true"
+        >JGM</span
       >
-      <span class="hidden font-normal lg:inline lg:text-base" aria-hidden="true"
+      <span class="hidden font-normal lg:inline" aria-hidden="true"
         >Jimmy Guzman Moreno</span
       >
       <span class="sr-only">Jimmy Guzman Moreno</span>

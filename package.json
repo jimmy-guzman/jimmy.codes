@@ -27,9 +27,6 @@
     "up": "bunx npm-check-updates -ui"
   },
   "overrides": {
-    "favilib": {
-      "sharp": "$sharp"
-    },
     "sharp": "$sharp"
   },
   "devDependencies": {
@@ -77,6 +74,7 @@
     "rehype-unwrap-images": "1.0.0",
     "sharp": "0.34.5",
     "tailwindcss": "4.1.18",
+    "tailwindcss-safe-area": "1.3.0",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
   },
