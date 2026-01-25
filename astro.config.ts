@@ -33,7 +33,7 @@ export default defineConfig({
     fonts:
       // Disable fonts during vitest due to "require is not defined" error
       process.env.TEST === "true"
-        ? []
+        ? undefined
         : [
             {
               cssVariable: "--font-satoshi",
