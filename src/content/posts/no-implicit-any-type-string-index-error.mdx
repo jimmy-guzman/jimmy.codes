@@ -1,8 +1,8 @@
 ---
-title: How to Fix “Type 'string' Can't Be Used to Index Type” in TypeScript
+title: "TypeScript TS7053: “Element implicitly has an 'any' type” (Fix)"
 shortTitle: No Implicit Any Type String Index Error
 publishDate: 2025-07-22
-description: "An overview of the TypeScript error \"Error ts(7053) ― Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '\u007B name: string; type: string; \u007D'\" and different ways to resolve it."
+description: Learn why TypeScript throws TS7053 (“Element implicitly has an 'any' type”) and how to fix it using keyof, type guards, or index signatures.
 keywords: [typescript]
 tags: ["TypeScript"]
 ---
@@ -10,6 +10,16 @@ tags: ["TypeScript"]
 ## TL;DR
 
 TypeScript throws an error when you try to access an object with a dynamic key `string` without ensuring it's valid. Use `keyof`, type guards, or runtime checks to fix it safely.
+
+This error appears as: **“Element implicitly has an 'any' type because expression of type 'string' can't be used to index type”** and commonly shows up as TypeScript error **TS7053** when using dynamic string keys.
+
+### Quick Fix
+
+If you control the key, change the function to accept `keyof typeof item`.  
+If the key is dynamic, use a type guard or runtime check.  
+Avoid permissive index signatures unless the object is intentionally open-ended.
+
+Full examples below.
 
 ## Problem
 
