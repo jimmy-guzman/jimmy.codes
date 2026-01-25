@@ -29,7 +29,7 @@ const posts = defineCollection({
     publishDate: z.date(),
     shortTitle: z
       .string()
-      .max(40, "Short Title must be 40 characters or less")
+      .max(48, "Short Title must be 40 characters or less")
       .optional(),
     tags: z
       .array(tags)
