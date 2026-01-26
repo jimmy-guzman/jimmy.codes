@@ -1,0 +1,21 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  icon?: string;
+  class?: string;
+  withComma: boolean;
+}
+
+const { href, title, icon, class: className, withComma } = Astro.props;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="inline-flex link items-center gap-1 link-primary"
+>
+  <span class:list={[icon, "hidden h-5 w-5 sm:inline"]}></span>
+  {title}{withComma && ", "}
+</a>{withComma && " "}

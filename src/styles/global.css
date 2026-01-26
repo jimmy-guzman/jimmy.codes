@@ -179,6 +179,7 @@
   ::view-transition-group(*),
   ::view-transition-old(*),
   ::view-transition-new(*) {
+    /* biome-ignore lint/complexity/noImportantStyles: this is intentional */
     animation: none !important;
   }
 }

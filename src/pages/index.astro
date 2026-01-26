@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import profileImage from "@/assets/images/profile.png";
+import TechLink from "@/components/TechLink.astro";
 import { pages } from "@/configs/pages";
 import { techDaily, techLearning, techLove, titles } from "@/configs/tech";
 import { urls } from "@/configs/urls";
@@ -44,18 +45,14 @@ import PageLayout from "@/layouts/PageLayout.astro";
         <div class="collapse-content">
           <p>
             {
-              techLove.flatMap((tech, index) => [
-                <a
+              techLove.map((tech, index) => (
+                <TechLink
                   href={tech.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex link items-center gap-1 link-primary"
-                >
-                  <span class:list={[tech.icon, "hidden h-5 w-5 sm:inline"]} />
-                  {tech.title}
-                </a>,
-                index < techLove.length - 1 && ", ",
-              ])
+                  title={tech.title}
+                  icon={tech.icon}
+                  withComma={index < techLove.length - 1}
+                />
+              ))
             }
           </p>
         </div>
@@ -66,18 +63,14 @@ import PageLayout from "@/layouts/PageLayout.astro";
         <div class="collapse-content">
           <p>
             {
-              techDaily.flatMap((tech, index) => [
-                <a
+              techDaily.map((tech, index) => (
+                <TechLink
                   href={tech.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1"
-                >
-                  <span class:list={[tech.icon, "hidden h-5 w-5 sm:inline"]} />
-                  {tech.title}
-                </a>,
-                index < techDaily.length - 1 && ", ",
-              ])
+                  title={tech.title}
+                  icon={tech.icon}
+                  withComma={index < techDaily.length - 1}
+                />
+              ))
             }
           </p>
         </div>
@@ -88,18 +81,14 @@ import PageLayout from "@/layouts/PageLayout.astro";
         <div class="collapse-content">
           <p>
             {
-              techLearning.flatMap((tech, index) => [
-                <a
+              techLearning.map((tech, index) => (
+                <TechLink
                   href={tech.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1"
-                >
-                  <span class:list={[tech.icon, "hidden h-5 w-5 sm:inline"]} />
-                  {tech.title}
-                </a>,
-                index < techLearning.length - 1 && ", ",
-              ])
+                  title={tech.title}
+                  icon={tech.icon}
+                  withComma={index < techLearning.length - 1}
+                />
+              ))
             }
           </p>
         </div>
