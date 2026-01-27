@@ -206,7 +206,7 @@ function ok<T>(value: T): Result<T, never> {
 }
 // ---cut---
 // Parsing: validation with evidence
-function parseOrderItem(item: OrderItem): Result<ValidItem, string> {
+function parseOrderItem(item: OrderItem) {
   if (!item.quantity || item.quantity <= 0) {
     return err('quantity must be positive')
   }
@@ -262,7 +262,7 @@ The difference: these are truly optional in the domain.
 
 ## Fail at the boundary
 
-Catch bad data where it enters your system:
+Catch bad data where it enters your system with a schema validation library like [Zod](https://zod.dev):
 
 ```ts twoslash
 // @noErrors
@@ -299,7 +299,7 @@ Once data is defaulted, never trust it again.
 
 Sometimes parsing at the boundary isn't practical. Legacy code, third-party types, tight deadlines.
 
-In those cases, use assertions instead of defaults:
+In those cases, you can use assertion libraries like [`tiny-invariant`](https://github.com/alexreardon/tiny-invariant) instead of defaults:
 
 ```ts twoslash
 // @noErrors
