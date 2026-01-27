@@ -306,11 +306,16 @@ Once data is defaulted, never trust it again.
 
 Sometimes parsing at the boundary isn't practical. Legacy code, third-party types, tight deadlines.
 
-In those cases, you can use assertion libraries like [`tiny-invariant`](https://github.com/alexreardon/tiny-invariant) instead of defaults:
+In those cases, you can use assertion functions instead of defaults:
 
 ```ts twoslash
-// @noErrors
-import invariant from 'tiny-invariant'
+function assertPositiveNumber(
+  value: number | undefined
+): asserts value is number {
+  if (typeof value !== 'number' || value <= 0) {
+    throw new Error('value must be a positive number')
+  }
+}
 
 interface OrderItem {
   quantity?: number
@@ -318,11 +323,10 @@ interface OrderItem {
 }
 
 function processOrder(item: OrderItem) {
-  invariant(item.quantity, 'quantity is required')
-  invariant(item.quantity > 0, 'quantity must be positive')
-
-  // Now quantity is guaranteed non-zero
+  assertPositiveNumber(item.quantity)
+  // TypeScript knows quantity is number, not number | undefined
   const itemsPerBox = item.quantity / item.boxSize
+  //                      ^?
 }
 ```
 
@@ -342,27 +346,7 @@ function processOrder(item: OrderItem) {
 
 Assertions crash immediately with context. Defaults silently propagate bad data.
 
-For TypeScript, assertion functions narrow types:
-
-```ts twoslash
-function assertPositiveNumber(value: number | undefined): asserts value is number {
-  if (!value || value <= 0) {
-    throw new Error('value must be positive')
-  }
-}
-
-interface OrderItem {
-  quantity?: number
-  boxSize: number
-}
-
-function processOrder(item: OrderItem) {
-  assertPositiveNumber(item.quantity)
-  // TypeScript knows quantity is number, not number | undefined
-  const itemsPerBox = item.quantity / item.boxSize
-  //                      ^?
-}
-```
+For production code, libraries like [`tiny-invariant`](https://github.com/alexreardon/tiny-invariant) provide battle-tested assertion helpers that can be stripped in production builds for zero runtime cost.
 
 This isn't as good as parsing, but it's infinitely better than defaulting. You're still throwing exceptions mid-execution instead of failing at the boundary.
 
