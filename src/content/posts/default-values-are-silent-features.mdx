@@ -1,0 +1,370 @@
+---
+title: Default Values Are Silent Failures
+publishDate: 2026-01-27
+description: "Why using default values can lead to hidden bugs and how to avoid them."
+keywords:
+  [
+    "default values",
+    "TypeScript",
+    "error handling",
+    "data validation",
+    "best practices",
+  ]
+tags: ["TypeScript"]
+---
+
+Default values feel safe. They prevent crashes, keep builds green, make TypeScript happy.
+
+They're also where bugs go to hide.
+
+## The localStorage bug
+
+TypeScript's own docs show why defaults backfire:
+
+```ts twoslash
+function getVolume() {
+  return localStorage.volume || 0.5
+}
+```
+
+Looks defensive. Missing volume? Fall back to 50%.
+
+Except when the user sets volume to `0`, this returns `0.5`.
+
+The fix:
+
+```ts twoslash
+function getVolume() {
+  return localStorage.volume ?? 0.5
+}
+```
+
+Now `0` works. Problem solved?
+
+Not quite. We fixed a `||` bug and introduced a domain bug.
+
+## The real question
+
+Before writing `?? 0.5`, ask:
+
+**Is "no stored volume" the same as "50% volume"?**
+
+What if the user cleared their preferences? What if localStorage is disabled? What if there's a save bug?
+
+All of these now produce "50%."
+
+The default doesn't prevent an error—it masks different failure modes as identical.
+
+## Defaults hide assumptions
+
+Every default makes a claim about your domain:
+
+```ts twoslash
+declare const item: { quantity?: number }
+// ---cut---
+const quantity = item.quantity ?? 0
+```
+
+Claims: "missing quantity" = "zero items"
+
+```ts twoslash
+declare const user: { id?: string }
+// ---cut---
+const userId = user.id ?? ''
+```
+
+Claims: "missing user ID" = "empty string is valid"
+
+```ts twoslash
+declare const product: { price?: number }
+// ---cut---
+const price = product.price ?? 0
+```
+
+Claims: "unknown price" = "free"
+
+These aren't defensive. They're assertions that fail silently.
+
+## Example 1: The arithmetic bug
+
+```ts twoslash
+declare const item: { quantity?: number; boxSize?: number }
+// ---cut---
+const itemsPerBox =
+  item.quantity && item.boxSize
+    ? item.quantity / item.boxSize
+    : 0
+```
+
+Returns `0` for:
+
+- Zero items ordered
+- Missing quantity
+- Missing box size
+- Invalid box size
+
+Completely different scenarios. Identical output.
+
+If this feeds inventory or analytics, your numbers are confidently wrong.
+
+## Example 2: The invisible order
+
+```ts twoslash
+interface OrderItem {
+  productId?: string
+  quantity?: number
+  storeId?: number
+}
+// ---cut---
+function createOrderLine(item: OrderItem) {
+  return {
+    productId: item.productId ?? '',
+    quantity: item.quantity ?? 0,
+    storeId: item.storeId ?? 0
+  }
+}
+```
+
+This creates:
+
+- Orders with no product
+- Orders for zero items
+- Orders assigned to store `0` (which might not exist)
+
+Downstream systems process invalid data without crashing.
+
+## Example 3: The API garbage collector
+
+```ts twoslash
+declare const api: { post: (url: string, data: unknown) => Promise<void> }
+interface Order { id?: number }
+interface User { id?: string }
+declare const order: Order
+declare const user: User
+// ---cut---
+const payload = {
+  orderId: order.id?.toString() ?? '',
+  userId: user.id ?? ''
+}
+
+await api.post('/orders', payload)
+```
+
+If the API expects real IDs, empty strings don't make requests safer—they make failures impossible to debug.
+
+A rejected request tells you something broke. A silently accepted one tells you nothing.
+
+Until customers report phantom orders weeks later.
+
+## Parse, don't default
+
+In [Parse, don't validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/), Alexis King argues validation should produce typed evidence of correctness.
+
+Defaults do the opposite:
+
+- Accept invalid input
+- Pretend it's valid
+- Throw away all evidence
+
+Compare:
+
+```ts twoslash
+interface OrderItem { quantity?: number }
+// ---cut---
+// Defaulting: validation without evidence
+function processOrder(items: OrderItem[]) {
+  const quantity = items[0]?.quantity ?? 0
+  // quantity is a number, but is it real?
+}
+```
+
+```ts twoslash
+interface OrderItem { quantity?: number }
+interface ValidItem { quantity: number }
+type Result<T, E> = { ok: true; value: T } | { ok: false; error: E }
+function err<E>(error: E): Result<never, E> {
+  return { ok: false, error }
+}
+function ok<T>(value: T): Result<T, never> {
+  return { ok: true, value }
+}
+// ---cut---
+// Parsing: validation with evidence
+function parseOrderItem(item: OrderItem): Result<ValidItem, string> {
+  if (!item.quantity || item.quantity <= 0) {
+    return err('quantity must be positive')
+  }
+  return ok({ quantity: item.quantity })
+}
+```
+
+First approach: accept any `OrderItem`, invent data when missing.
+
+Second approach: refuse to proceed until data is proven valid.
+
+## The decision framework
+
+Before adding a default:
+
+1. **Is this value truly optional in the domain?**  
+   Can a product with no price be sold? Is an order with no items still an order?
+
+2. **Would the default mask a broken assumption?**  
+   Will `0` be indistinguishable from legitimate zero? Will `''` hide a missing ID?
+
+3. **Do I want silent failure or loud failure?**  
+   Catch this in development or debug it in production?
+
+If the value shouldn't exist, don't pretend it does.
+
+## When defaults are correct
+
+Sometimes they're legitimate:
+
+```ts twoslash
+declare const settings: { theme?: string }
+declare const config: { timeout?: number }
+declare const person: { middleName?: string | null }
+// ---cut---
+// User preference with genuine default
+const theme = settings.theme ?? 'light'
+
+// Optional config with fallback
+const timeout = config.timeout ?? 5000
+
+// Truly nullable data
+const middleName = person.middleName ?? null
+```
+
+The difference: these are truly optional in the domain.
+
+"No theme preference" means "use light theme."  
+"No timeout" means "use 5 seconds."  
+"No middle name" means null.
+
+## Fail at the boundary
+
+Catch bad data where it enters your system:
+
+```ts twoslash
+// @noErrors
+import { z } from 'zod'
+
+const orderSchema = z.object({
+  productId: z.string().min(1),
+  quantity: z.number().positive(),
+  storeId: z.number().positive()
+})
+
+declare const app: {
+  post: (path: string, handler: (req: any, res: any) => void) => void
+}
+
+app.post('/orders', (req, res) => {
+  const result = orderSchema.safeParse(req.body)
+
+  if (!result.success) {
+    return res.status(400).json({ errors: result.error })
+  }
+
+  createOrder(result.data) // ValidOrder, not OrderItem
+})
+
+declare function createOrder(data: z.infer<typeof orderSchema>): void
+```
+
+Once data is parsed, never check it again.
+
+Once data is defaulted, never trust it again.
+
+## If you can't parse, at least assert
+
+Sometimes parsing at the boundary isn't practical. Legacy code, third-party types, tight deadlines.
+
+In those cases, use assertions instead of defaults:
+
+```ts twoslash
+// @noErrors
+import invariant from 'tiny-invariant'
+
+interface OrderItem {
+  quantity?: number
+  boxSize: number
+}
+
+function processOrder(item: OrderItem) {
+  invariant(item.quantity, 'quantity is required')
+  invariant(item.quantity > 0, 'quantity must be positive')
+
+  // Now quantity is guaranteed non-zero
+  const itemsPerBox = item.quantity / item.boxSize
+}
+```
+
+Better than:
+
+```ts twoslash
+interface OrderItem {
+  quantity?: number
+  boxSize: number
+}
+// ---cut---
+function processOrder(item: OrderItem) {
+  const quantity = item.quantity ?? 0
+  const itemsPerBox = quantity / item.boxSize // might be 0 / boxSize
+}
+```
+
+Assertions crash immediately with context. Defaults silently propagate bad data.
+
+For TypeScript, assertion functions narrow types:
+
+```ts twoslash
+function assertPositive(value: number | undefined): asserts value is number {
+  if (!value || value <= 0) {
+    throw new Error('value must be positive')
+  }
+}
+
+interface OrderItem {
+  quantity?: number
+  boxSize: number
+}
+
+function processOrder(item: OrderItem) {
+  assertPositive(item.quantity)
+  // TypeScript knows quantity is number, not number | undefined
+  const itemsPerBox = item.quantity / item.boxSize
+  //                      ^?
+}
+```
+
+This isn't as good as parsing—you're still throwing exceptions mid-execution instead of failing at the boundary. But it's infinitely better than defaulting.
+
+> [!NOTE]
+> **Hierarchy of approaches:**
+>
+> 1. **Parse at the boundary** (best) - Fail before any processing happens
+> 2. **Assert on entry** (acceptable) - Fail immediately with clear error
+> 3. **Default silently** (worst) - Hide the problem and corrupt data
+>
+> If you can't do #1, do #2. Never do #3.
+
+## The cost of silence
+
+The most expensive bugs aren't crashes.
+
+They're weeks of incorrect inventory counts.  
+Analytics dashboards showing phantom revenue.  
+Customers charged $0 for orders that should have failed.
+
+Defaults don't reduce risk—they turn loud failures into quiet mistakes.
+
+---
+
+If you're adding `?? defaultValue`, ask: am I parsing or pretending?
+
+Parsing validates and preserves evidence.  
+Pretending validates nothing and hides everything.
+
+Only one scales.
