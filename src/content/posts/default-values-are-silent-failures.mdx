@@ -67,15 +67,13 @@ Before writing `?? 0.5`, ask:
 
 **Is "no stored volume" the same as "50% volume"?**
 
-What if the user cleared their preferences? What if localStorage is disabled? What if there's a save bug?
+What if the user cleared their preferences? What if `localStorage` is disabled? What if there's a save bug?
 
 All of these now produce "50%."
 
 The default doesn't prevent an error. It masks different failure modes as identical.
 
 ## Defaults hide assumptions
-
-A default is an implicit decision: “If I don't know, I will pretend I do.”
 
 Every default makes a claim about your domain:
 
@@ -124,9 +122,9 @@ Returns `0` for:
 - Missing box size
 - Invalid box size
 
-Completely different scenarios. Identical output.
+Four completely different scenarios. One number.
 
-If this feeds inventory or analytics, your numbers are confidently wrong.
+Feed this to analytics and you've reported zero demand for a product that's actually out of stock. Ship it to inventory and you've marked sold-out items as available. The downstream systems never crash, they just quietly make wrong decisions with confident data.
 
 ## Example 2: The invisible order
 
@@ -350,14 +348,13 @@ For production code, libraries like [`tiny-invariant`](https://github.com/alexre
 
 This isn't as good as parsing, but it's infinitely better than defaulting. You're still throwing exceptions mid-execution instead of failing at the boundary.
 
-> [!NOTE]
-> **Hierarchy of approaches:**
->
-> 1. **Parse at the boundary** (best) - Fail before any processing happens
-> 2. **Assert on entry** (acceptable) - Fail immediately with clear error
-> 3. **Default silently** (worst) - Hide the problem and corrupt data
->
-> If you can't do #1, do #2. Never do #3.
+## Hierarchy of approaches
+
+1. **Parse at the boundary** (best) - Fail before any processing happens
+2. **Assert on entry** (acceptable) - Fail immediately with clear error
+3. **Default silently** (worst) - Hide the problem and corrupt data
+
+If you can't do #1, do #2. Never do #3.
 
 ## The cost of silence
 
