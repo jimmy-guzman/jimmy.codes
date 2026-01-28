@@ -45,7 +45,7 @@ function getVolume() {
 
 Looks defensive. Missing volume? Fall back to 50%.
 
-Except when the user sets volume to `0`, this returns `0.5`.
+Except when the stored value is valid but falsy, such as an empty string or a value that becomes `0` once parsed, this returns `0.5`.
 
 The fix:
 
@@ -57,9 +57,11 @@ function getVolume() {
 }
 ```
 
-Now `0` works. Problem solved?
+Now valid falsy values are preserved. Problem solved?
 
 Not quite. We fixed a `||` bug and quietly introduced a domain bug.
+
+`localStorage` always returns strings, which makes this kind of bug easy to miss once parsing is involved.
 
 ## The real question
 
