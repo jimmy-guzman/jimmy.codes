@@ -17,9 +17,17 @@ interface Props {
   keywords: readonly string[];
   noIndex?: boolean;
   extraLd?: Record<string, unknown>[];
+  ogImage?: string;
 }
 
-const { title, description, keywords, noIndex, extraLd = [] } = Astro.props;
+const {
+  title,
+  description,
+  keywords,
+  noIndex,
+  extraLd = [],
+  ogImage,
+} = Astro.props;
 
 const canonical = Astro.url.href.replace(/\/$/, "");
 
@@ -64,6 +72,7 @@ const jsonLd = JSON.stringify({
       description={description}
       keywords={keywords}
       noIndex={noIndex}
+      ogImage={ogImage}
     />
 
     <ThemeScript />
