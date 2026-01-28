@@ -17,7 +17,7 @@ interface Props {
   minutes: number;
   filePath?: string;
   relatedPosts: { slug: string; title: string }[];
-  coverImage?: string;
+  slug: string;
 }
 
 const {
@@ -28,7 +28,7 @@ const {
   filePath,
   tags,
   relatedPosts,
-  coverImage,
+  slug,
 } = Astro.props;
 
 const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
@@ -37,9 +37,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/images/*",
   { eager: true },
 );
-const srcImage = coverImage
-  ? images[`/src/assets/images/${coverImage}`]?.default
-  : null;
+const srcImage = images[`/src/assets/images/${slug}.png`]?.default;
 ---
 
 <section>
