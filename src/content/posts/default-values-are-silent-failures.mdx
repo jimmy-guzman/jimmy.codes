@@ -61,7 +61,8 @@ Now valid falsy values are preserved. Problem solved?
 
 Not quite. We fixed a `||` bug and quietly introduced a domain bug.
 
-`localStorage` always returns strings, which makes this kind of bug easy to miss once parsing is involved.
+> [!NOTE]
+> `localStorage` always returns strings, which makes this kind of bug easy to miss once parsing is involved.
 
 ## The real question
 
