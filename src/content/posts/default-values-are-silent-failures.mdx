@@ -11,21 +11,8 @@ keywords:
     "best practices",
   ]
 tags: ["TypeScript"]
+coverImage: "this-is-fine-pixel.png"
 ---
-
-import { Image } from "astro:assets";
-
-import thisIsFinePhoto from "@/assets/images/this-is-fine-pixel.png";
-
-<figure>
-  <Image
-    src={thisIsFinePhoto}
-    alt="This is fine"
-    className="h-auto w-full"
-    loading="lazy"
-  />
-  <figcaption>Image crafted by robots</figcaption>
-</figure>
 
 Default values feel safe. They prevent crashes, keep builds <span class="text-success">green</span>, make TypeScript happy.
 

@@ -42,6 +42,7 @@ const timeRequired = `PT${Math.max(1, Math.round(minutes))}M`;
 const description = post.data.description;
 const keywords = post.data.keywords;
 const tags = post.data.tags.map((tag) => ({ count: 1, tag }));
+const coverImage = post.data.coverImage;
 
 const jsonLd = {
   "@id": `${postUrl}#article`,
@@ -78,6 +79,7 @@ const heading = shortTitle(post);
       minutes={minutes}
       filePath={post.filePath}
       relatedPosts={relatedPosts}
+      coverImage={coverImage}
     >
       <Content />
     </ContentLayout>

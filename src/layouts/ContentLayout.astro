@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import BackLink from "@/components/BackLink.astro";
 import LastModified from "@/components/LastModified.astro";
 import MetaLine from "@/components/MetaLine.astro";
@@ -15,6 +17,7 @@ interface Props {
   minutes: number;
   filePath?: string;
   relatedPosts: { slug: string; title: string }[];
+  coverImage?: string;
 }
 
 const {
@@ -25,9 +28,18 @@ const {
   filePath,
   tags,
   relatedPosts,
+  coverImage,
 } = Astro.props;
 
 const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/*",
+  { eager: true },
+);
+const srcImage = coverImage
+  ? images[`/src/assets/images/${coverImage}`]?.default
+  : null;
 ---
 
 <section>
@@ -38,11 +50,22 @@ const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
 
 <div class="divider" aria-hidden="true" role="presentation"></div>
 
-<section>
-  <article>
-    <slot />
-  </article>
-</section>
+<article>
+  {
+    srcImage && (
+      <figure>
+        <Image
+          src={srcImage}
+          alt={`Cover image for ${title}`}
+          class="h-auto w-full"
+          loading="lazy"
+        />
+        <figcaption>Image crafted by robots</figcaption>
+      </figure>
+    )
+  }
+  <slot />
+</article>
 
 <section class="mt-8">
   <Tags tags={tags} />
