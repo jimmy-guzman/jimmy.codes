@@ -1,7 +1,7 @@
 interface Tech {
   link: `https://${string}.${string}`;
   title: string;
-  icon: `icon-[${"logos" | "simple-icons"}--${string}]`;
+  icon: `icon-[${"logos" | "simple-icons" | "skill-icons"}--${string}]`;
 }
 
 export const techDaily = [
@@ -39,6 +39,11 @@ export const techDaily = [
     icon: "icon-[logos--kotlin-icon]",
     link: "https://kotlinlang.org/",
     title: "Kotlin",
+  },
+  {
+    icon: "icon-[logos--ktor-icon]",
+    link: "https://ktor.io/",
+    title: "Ktor",
   },
   {
     icon: "icon-[logos--postgresql]",
@@ -137,19 +142,29 @@ export const techLove = [
     title: "Astro",
   },
   {
-    icon: "icon-[logos--qwik-icon]",
-    link: "https://qwik.builder.io/",
-    title: "Qwik",
-  },
-  {
     icon: "icon-[logos--nextjs-icon]",
     link: "https://nextjs.org/",
     title: "Next.js",
   },
   {
+    icon: "icon-[logos--hono]",
+    link: "https://hono.dev/",
+    title: "Hono",
+  },
+  {
+    icon: "icon-[skill-icons--elysia-dark]",
+    link: "https://elysiajs.com/",
+    title: "Elysia",
+  },
+  {
     icon: "icon-[logos--biomejs-icon]",
     link: "https://biomejs.dev/",
     title: "Biome",
+  },
+  {
+    icon: "icon-[simple-icons--oxc]",
+    link: "https://oxc.rs/",
+    title: "OXC",
   },
   {
     icon: "icon-[logos--tailwindcss-icon]",
