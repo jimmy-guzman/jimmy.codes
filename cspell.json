@@ -28,6 +28,7 @@
     "daisyui",
     "Dass",
     "eact",
+    "elysia",
     "EXIF",
     "Fastify",
     "favicons",
@@ -45,6 +46,7 @@
     "jquery",
     "kanagawa",
     "knip",
+    "Ktor",
     "lanczos",
     "langchain",
     "lcov",
@@ -75,6 +77,7 @@
     "nums",
     "nvmrc",
     "octocat",
+    "oklch",
     "Ollama",
     "ongo",
     "Pageview",
@@ -115,7 +118,6 @@
     "vitest",
     "wagoid",
     "xelatex",
-    "xpress",
-    "oklch"
+    "xpress"
   ]
 }
