@@ -4,13 +4,16 @@ interface Props {
   description: string;
   keywords: readonly string[];
   noIndex?: boolean;
+  ogImage?: string;
 }
 
-const { title, description, keywords, noIndex } = Astro.props;
+const { title, description, keywords, noIndex, ogImage } = Astro.props;
 
 const site = Astro.site;
 const url = new URL(Astro.url, site).toString();
-const ogImage = new URL("/og/default.png", site).toString();
+const ogImageUrl = ogImage
+  ? new URL(ogImage, site).toString()
+  : new URL("/og/default.png", site).toString();
 const ogAlt = "jimmy.codes - Jimmy Guzman Moreno";
 ---
 
@@ -29,7 +32,7 @@ const ogAlt = "jimmy.codes - Jimmy Guzman Moreno";
 <meta property="og:url" content={url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={ogImage} />
+<meta property="og:image" content={ogImageUrl} />
 <meta property="og:image:alt" content={ogAlt} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -39,7 +42,7 @@ const ogAlt = "jimmy.codes - Jimmy Guzman Moreno";
 <meta name="twitter:url" content={url} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image" content={ogImageUrl} />
 <meta name="twitter:image:alt" content={ogAlt} />
 
 <link rel="canonical" href={url} />

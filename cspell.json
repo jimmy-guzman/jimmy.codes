@@ -115,6 +115,7 @@
     "vitest",
     "wagoid",
     "xelatex",
-    "xpress"
+    "xpress",
+    "oklch"
   ]
 }
