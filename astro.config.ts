@@ -123,11 +123,11 @@ export default defineConfig({
               class:
                 "icon-[lucide--link] absolute left-0 top-1/2 -translate-y-1/2 " +
                 "opacity-0 group-hover:opacity-100 transition-opacity duration-150 " +
-                "text-muted h-[1em] w-[1em]",
+                "text-muted h-[1em] w-[1em] max-h-4 max-w-4",
             }),
           ],
           properties: {
-            className: "group relative block pl-[1.5em] -ml-[1.5em]",
+            className: "group relative block pl-5 -ml-5",
             tabindex: "-1",
           },
         },
