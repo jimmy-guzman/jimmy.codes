@@ -65,7 +65,7 @@ export default function OgImage({ title, coverImage, logo }: OgImageProps) {
             color: colors.text,
             fontFamily: "JetBrains Mono",
             fontSize: 64,
-            fontWeight: 700,
+            fontWeight: 400,
             letterSpacing: "-0.02em",
             lineHeight: 1.1,
             maxWidth: 900,

@@ -30,7 +30,7 @@ export const GET: APIRoute = async ({ params, props }) => {
   const faviconBase64 = `data:image/svg+xml;base64,${Buffer.from(faviconBuffer).toString("base64")}`;
 
   try {
-    const data = fontData["--font-og"];
+    const [{ src: fontSource }] = fontData["--font-og"];
     const imageBuffer = await fs.readFile(imagePath);
     const coverImageBase64 = `data:image/png;base64,${imageBuffer.toString("base64")}`;
 
@@ -39,7 +39,7 @@ export const GET: APIRoute = async ({ params, props }) => {
       {
         fonts: [
           {
-            data: await getFontBuffer(data[0].src[0].url),
+            data: await getFontBuffer(fontSource[0].url),
             name: "JetBrains Mono",
             style: "normal",
             weight: 400,
