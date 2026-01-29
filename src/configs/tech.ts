@@ -16,6 +16,11 @@ export const techDaily = [
     title: "TypeScript",
   },
   {
+    icon: "icon-[simple-icons--tanstack]",
+    link: "https://tanstack.com/",
+    title: "TanStack",
+  },
+  {
     icon: "icon-[logos--react-router]",
     link: "https://reactrouter.com/",
     title: "React Router",
@@ -109,6 +114,11 @@ export const techLearning = [
     title: "OpenAI",
   },
   {
+    icon: "icon-[simple-icons--anthropic]",
+    link: "https://www.anthropic.com/",
+    title: "Anthropic",
+  },
+  {
     icon: "icon-[simple-icons--ollama]",
     link: "https://ollama.com/",
     title: "Ollama",
@@ -132,6 +142,11 @@ export const techLearning = [
     icon: "icon-[logos--cloudflare-workers-icon]",
     link: "https://workers.cloudflare.com/",
     title: "Cloudflare Workers",
+  },
+  {
+    icon: "icon-[simple-icons--temporal]",
+    link: "https://temporal.io/",
+    title: "Temporal",
   },
 ] satisfies Tech[];
 
