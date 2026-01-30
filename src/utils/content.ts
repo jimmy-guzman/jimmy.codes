@@ -24,7 +24,6 @@ const TWOSLASH_SETUP_REGEX =
   /```(tsx?)\s+twoslash\n[\s\S]*?\/\/\s*---cut---\n/g;
 const TWOSLASH_ANNOTATION_REGEX = /^\s*\/\/\s*\^[?|]\s*$/gm;
 const TWOSLASH_DIRECTIVE_REGEX = /^\s*\/\/\s+@[\w-].*$/gm;
-const FRONTMATTER_REGEX = /^---\n[\s\S]*?\n---\n+/;
 
 /**
  * Clean markdown content for accurate reading time calculation.
@@ -35,10 +34,7 @@ const FRONTMATTER_REGEX = /^---\n[\s\S]*?\n---\n+/;
  * @returns Cleaned markdown content
  */
 export const cleanMarkdownForReadingTime = (markdown: string) => {
-  const normalized = markdown.replaceAll("\r\n", "\n");
-
-  return normalized
-    .replace(FRONTMATTER_REGEX, "")
+  return markdown
     .replaceAll(TWOSLASH_SETUP_REGEX, "```$1\n")
     .replaceAll(TWOSLASH_ANNOTATION_REGEX, "")
     .replaceAll(TWOSLASH_DIRECTIVE_REGEX, "");

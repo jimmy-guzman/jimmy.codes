@@ -257,12 +257,11 @@ And leaks spread.
 
 ---
 
-If you find yourself checking conditions before calling a function, ask why that check isn't inside it.
+If you find yourself checking conditions before calling a function, question the boundary.
 
-If your function returns special values to signal "wrong path," ask whether it's doing hidden routing.
+If a function returns special values to signal a “wrong path,” question the routing.
 
-If callers need to know internal rules to use your function safely, those rules leaked.
+If callers need internal rules to use it safely, the abstraction leaked.
 
-Think API always.
-
-Even for code only you're supposed to see.
+Everything is an API.  
+Even code you're “just supposed to know.”
