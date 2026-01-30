@@ -135,33 +135,6 @@ That rule lives inside `getFruit`, but it affects every caller downstream.
 
 ---
 
-## Why this is a design problem, not a null problem
-
-The issue is not that the function returns `null`.
-
-The issue is that callers must understand **why** it returns `null` in order to use it correctly.
-
-```ts
-const fruit = await getFruit(name)
-
-if (fruit === null) {
-  // apple case
-}
-```
-
-That check is now required everywhere.
-
-Every caller must know:
-
-- Apples exist
-- Apples are special
-- `null` means “apple”
-- What to do next
-
-Those are business rules, and they escaped the function.
-
----
-
 ## Single Responsibility, but sharper
 
 This is often framed as a Single Responsibility Principle violation, but that framing is too soft.
