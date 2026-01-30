@@ -48,7 +48,7 @@ export const GET: APIRoute = async ({ params, props }) => {
   try {
     const imagePath = path.join(
       process.cwd(),
-      "src/assets/images",
+      "src/assets/images/posts",
       `${slug}.png`,
     );
     const imageBuffer = await fs.readFile(imagePath);

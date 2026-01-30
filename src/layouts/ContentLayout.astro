@@ -34,10 +34,10 @@ const {
 const emailSubject = encodeURIComponent(`Feedback on "${title}"`);
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/*",
+  "/src/assets/images/posts/*",
   { eager: true },
 );
-const srcImage = images[`/src/assets/images/${slug}.png`]?.default;
+const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
 ---
 
 <section>
@@ -56,9 +56,15 @@ const srcImage = images[`/src/assets/images/${slug}.png`]?.default;
           src={srcImage}
           alt={`Cover image for ${title}`}
           class="h-auto w-full"
-          loading="lazy"
+          loading="eager"
+          fetchpriority="high"
+          widths={[400, 696, 1392]}
+          sizes="(max-width: 768px) 400px, (min-resolution: 2dppx) 1392px, 696px"
+          format="webp"
         />
-        <figcaption>Image crafted by robots</figcaption>
+        <figcaption class="text-base-content/70">
+          Image crafted by robots
+        </figcaption>
       </figure>
     )
   }
