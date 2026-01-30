@@ -22,8 +22,10 @@
     "Commitlint",
     "commitlintrc",
     "comparto",
+    "compatiblelicenses",
     "Consolas",
     "crawlable",
+    "creativecommons",
     "crème",
     "daisyui",
     "Dass",
@@ -101,6 +103,7 @@
     "shikijs",
     "slugification",
     "slugified",
+    "sublicensable",
     "subsampling",
     "tailwindcss",
     "tauri",
@@ -118,6 +121,7 @@
     "vite",
     "vitest",
     "wagoid",
+    "waivable",
     "xelatex",
     "xpress"
   ]
