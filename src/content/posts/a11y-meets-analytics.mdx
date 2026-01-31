@@ -6,15 +6,25 @@ keywords: [accessibility, analytics, react, javascript, dom-accessibility-api]
 tags: [Accessibility, Analytics, Frontend]
 ---
 
-I've seen analytics setups that rely on data attributes like `data-track-name` or plain IDs. They're brittle, break during refactors, and require tedious upkeep, which is a constant source of pain for developers. In one project, we were also on a mission to improve accessibility, so I wanted a solution that aligned with that goal.
+Analytics has a habit of leaking implementation details.
 
-That's when I discovered a better way. While writing tests using [Testing Library](https://testing-library.com/), I wondered if we could leverage the same principles for analytics. After some research, I found the `dom-accessibility-api` library, which can compute **accessible names** for any DOM element.
+You ship `data-track-name`.
+You ship `btn-324`.
+You ship “modal-close-x”.
 
-This approach has transformed how we handle click tracking. Here's how it works and why it's a game-changer.
+Then someone refactors the UI and your events turn into archaeology.
 
-## The Problem
+I ran into this while working on click tracking. At the same time, we were pushing hard on accessibility. I wanted one approach that helped both goals.
 
-Typical click tracking looks something like this:
+That is when I found a better primitive.
+
+Use the same thing assistive tech uses.
+
+Use the **accessible name**.
+
+## The problem
+
+Typical click tracking reaches for IDs or custom attributes.
 
 ```js
 window.addEventListener("click", (event) => {
@@ -22,13 +32,13 @@ window.addEventListener("click", (event) => {
 });
 ```
 
-or with [fathom analytics](https://usefathom.com/):
+Or it hardcodes selectors and event names.
 
 ```html
 <script>
-  window.addEventListener("load", (event) => {
+  window.addEventListener("load", () => {
     document.querySelectorAll(".download-link").forEach((item) => {
-      item.addEventListener("click", (event) => {
+      item.addEventListener("click", () => {
         fathom.trackEvent("file download");
       });
     });
@@ -36,38 +46,47 @@ or with [fathom analytics](https://usefathom.com/):
 </script>
 ```
 
-or with [Plausible](https://plausible.io/docs/custom-event-goals):
+Or it bakes analytics into markup.
 
 ```html
 <button class="plausible-event-name=Button+Click">Click Me</button>
 ```
 
-This works, but it tells you very little about what the user did. IDs and custom properties often change during refactors, and they don't always match what's visible on screen. Analytics ends up filled with mystery strings that don't help product teams understand real behavior. This also puts the burden on developers to maintain these attributes, which can lead to inconsistencies and errors.
+All of these “work”.
 
-Lastly, it doesn't encourage good accessibility practices, since there's no connection between what's tracked and what users actually experience.
+They also create the same long term failure mode.
 
-Compare these analytics results:
+- IDs change during refactors
+- attributes get out of sync with the UI
+- event names describe code, not intent
+- developers carry the maintenance burden forever
+
+Look at the difference in logs.
 
 ```diff
 - "btn-324", "modal-close-x", "nav-item-2", "cta-primary"
 + "Search products", "Close dialog", "About us", "Start free trial"
 ```
 
-The difference is immediately clear: one reveals code internals, the other captures user intent.
+One tells you how the UI is built.
 
-So how do we make analytics match what users actually experience? The answer lies in the **accessibility tree**.
+The other tells you what the user did.
 
----
+So how do you get the second set without hand-labeling everything twice?
 
-## Leveraging Accessible Names
+## The better source of truth
 
-[Accessible names](https://w3c.github.io/accname/) come from the [accessibility tree](https://developer.mozilla.org/en-US/docs/Glossary/Accessibility_tree), which is built for assistive technologies like screen readers. They follow a clear set of rules, pulling labels from:
+Accessible names come from the accessibility tree.
+
+Screen readers use them. Testing Library uses them. They come from standard rules, not your naming conventions.
+
+Accessible names are computed from places like:
 
 - `aria-label`
 - `aria-labelledby`
 - `<label>` elements
 - visible text content
-- `alt` attributes on images
+- `alt` attributes
 
 Example:
 
@@ -77,27 +96,45 @@ Example:
 </button>
 ```
 
-Would result in a computed accessible name of `Search the site`. This name is **reliable**, **descriptive**, and **already present** in your UI.
+The computed accessible name is `Search the site`.
 
-Testing Library promotes:
+That name is:
+
+- user-facing
+- stable across refactors
+- already part of the UI contract
+
+Testing Library has a line that stuck with me:
 
 > The more your tests resemble the way your software is used, the more confidence they can give you.
 
-To accomplish this, it provides queries such as `getByRole` that use accessible names to find elements. The same logic applies perfectly to analytics.
+Analytics should follow the same principle.
 
-Behind the scenes, Testing Library uses the [`dom-accessibility-api`](https://github.com/eps1lon/dom-accessibility-api) library to compute these names. The library follows W3C's rules for computing accessible names, the same logic that assistive technologies like screen readers rely on.
+If a user clicks “Search”, your analytics should say “Search”.
 
-`dom-accessibility-api` provides a `computeAccessibleName` function that takes a DOM element and returns its accessible name as a string. That is exactly what we need for meaningful analytics.
+Not “btn-324”.
 
----
+## The missing piece
+
+Testing Library computes accessible names using [`dom-accessibility-api`](https://github.com/eps1lon/dom-accessibility-api).
+
+That library exposes what we need:
+
+`computeAccessibleName(element) -> string`
+
+So the approach is simple:
+
+1. Listen for clicks
+2. Compute the accessible name for the clicked element
+3. Send that string to your analytics tool
 
 ## Examples
 
-Since `dom-accessibility-api` works in any environment, you can use it with plain JavaScript, React, Vue, Svelte, or whatever you prefer.
+This works with anything. Vanilla JS, React, Astro, Vue, Svelte.
+
+It is not framework-specific. It is DOM-specific.
 
 ### React
-
-Here's the bare minimum example using React:
 
 ```tsx
 import { useEffect } from "react";
@@ -106,18 +143,15 @@ import { computeAccessibleName } from "dom-accessibility-api";
 export default function App() {
   useEffect(() => {
     function handleClick(event: MouseEvent) {
-      if (event.target instanceof Element) {
-        const name = computeAccessibleName(event.target);
+      if (!(event.target instanceof Element)) return;
 
-        if (name) {
-          // or your analytics provider of choice
-          fathom.trackEvent(`${name} clicked`);
-        }
-      }
+      const name = computeAccessibleName(event.target);
+      if (!name) return;
+
+      fathom.trackEvent(`${name} clicked`);
     }
 
     window.addEventListener("click", handleClick);
-
     return () => window.removeEventListener("click", handleClick);
   }, []);
 
@@ -137,53 +171,80 @@ import { computeAccessibleName } from "dom-accessibility-api";
     <script>
       window.addEventListener("load", () => {
         function handleClick(event) {
-          if (event.target instanceof Element) {
-            const name = computeAccessibleName(event.target);
+          if (!(event.target instanceof Element)) return;
 
-            if (name) {
-              // or your analytics provider of choice
-              fathom.trackEvent(`${name} clicked`);
-            }
-          }
+          const name = computeAccessibleName(event.target);
+          if (!name) return;
+
+          fathom.trackEvent(`${name} clicked`);
         }
 
         window.addEventListener("click", handleClick);
       });
     </script>
   </head>
+  <body>
+    <button>Search</button>
+  </body>
 </html>
-<body>
-  <button>Search</button>
-</body>
 ```
 
-This only requires a few lines of code and works across your entire app. You can easily adapt it to log events to your analytics provider of choice.
-
 > [!NOTE]
-> This approach only works if we're following good accessibility practices. If a button has no label, it will log an empty string, which is a clear sign of an issue that needs to be fixed.
+> This only works if your UI is labeled. If `computeAccessibleName` returns an empty string, that is not an analytics bug. That is an accessibility bug.
 
-Before diving into the broader benefits, let's address a common concern: performance.
+That is part of the point.
 
-## Performance Considerations
+## Performance
 
-In practice, `computeAccessibleName` is lightweight since it's only called on user interactions, not continuously. The function performs DOM traversals to compute names, but this happens infrequently compared to other operations in a typical web app. For high-traffic applications, you could implement simple optimizations like caching results for identical elements or debouncing rapid clicks.
+This looks scary until you remember when it runs.
 
----
+It runs on clicks.
 
-## Why This Approach Matters
+Not on render. Not on scroll. Not on a timer.
 
-- **Resilient**: Built on accessibility standards, not brittle DOM selectors.
-- **User-focused**: Matches what people actually perceive and interact with.
-- **Universal**: Compatible with any framework or vanilla JavaScript.
-- **Self-auditing**: Surfaces missing or incorrect labels, driving better accessibility.
-- **Contextual analytics**: Event logs become instantly understandable.
-- **Improved developer experience**: Simple to implement and resistant to UI changes.
-- **Enhanced collaboration**: Designers, PMs, and Engineers all see data in familiar, user-facing language.
+In practice, `computeAccessibleName` does some DOM traversal, then returns a string. That cost is usually noise compared to the rest of an interaction.
 
-In production, this approach has not only improved our analytics quality but also surfaced accessibility issues we didn't know existed. Buttons with empty accessible names immediately showed up in our click data as empty strings. We also discovered duplicate names, like multiple “Submit” buttons, and missing labels in dynamically loaded content, which made it clear where improvements were needed.
+If you do have a high-volume UI with rapid repeated clicks, you can add small optimizations:
 
-For example, we had multiple "Edit" buttons across different sections that all logged the same name, making it impossible to distinguish which content was being edited. This pushed us to use `aria-labelledby` to reference section headings, creating unique names like "Edit Project Alpha" and "Edit User Profile".
+- cache by element reference
+- ignore empty names
+- avoid tracking clicks that bubble from non-interactive targets
+- normalize names and cap length
 
----
+You probably do not need any of that on day one.
 
-By aligning analytics with accessibility, you gain accurate, meaningful data while improving user experiences. It's a rare win-win for modern web development.
+## Why this approach matters
+
+This gives you benefits that are hard to get any other way.
+
+- **Resilient**: You track UI semantics, not selectors.
+- **User-focused**: Your data matches what people see.
+- **Framework-agnostic**: Anything that renders DOM works.
+- **Self-auditing**: Missing labels show up as missing events.
+- **Better collaboration**: PMs and designers can read the logs without a decoder ring.
+
+It also surfaces real issues.
+
+If your click logs show empty strings, you have unlabeled controls.
+
+If your logs show five different “Submit” clicks, you have duplicate names that need context.
+
+One fix is `aria-labelledby` tied to nearby content.
+
+Instead of “Edit”, you can get “Edit Project Alpha” or “Edit User Profile”.
+
+Now your analytics becomes precise without inventing tracking names.
+
+## Closing
+
+Analytics should tell you what users did.
+
+Accessibility already defines the language for that.
+
+So stop tracking implementation details.
+
+Track the accessible name.
+
+You get cleaner data, fewer refactor breakages, and a UI that is harder to ship unlabeled.
+
+That is a real win-win.
