@@ -7,18 +7,24 @@ keywords:
 tags: ["TypeScript"]
 ---
 
-I recently ran into an interesting TypeScript problem while refactoring a component at work. TypeScript's type inference usually makes our lives easier, but sometimes it can be _too_ helpful and infer from the wrong places.
+Type inference is usually a win.
 
-In this post, I'll walk through a simple form component, show how generics improve type safety, and then tackle what happens when inference goes too far. We'll use [the `NoInfer` utility type introduced in TypeScript 5.4](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-4.html#the-noinfer-utility-type) to fix it.
+It removes boilerplate. It keeps APIs ergonomic. It makes generics feel invisible.
+
+It also has a failure mode.
+
+Sometimes TypeScript infers from a place you did not intend.
+
+This post shows a common way that happens with generics and callbacks, then fixes it with `NoInfer`.
 
 > [!NOTE]
-> This uses a form as a simplified example, but the pattern applies to any API with generics and callbacks.
+> I use a form component as a concrete example. The pattern shows up anywhere you have generics plus callbacks.
 
----
+## Step 0: `any` breaks the type link
 
-## Missing Type Links with `any`
+Start with a simple form component.
 
-Let's start with a simple form component that accepts `initialValues` and an `onSubmit` callback:
+It accepts `initialValues` and an `onSubmit` callback.
 
 ```tsx twoslash
 // @jsx: react-jsx
@@ -32,7 +38,9 @@ function Form({ initialValues, onSubmit }: FormProps) {
 }
 ```
 
-This works, but when we use the component, we don't get any type safety for the `values` parameter:
+This compiles, but it gives you nothing.
+
+The `values` parameter is `any`, so TypeScript cannot protect you.
 
 ```tsx twoslash
 // @jsx: react-jsx
@@ -58,15 +66,11 @@ function App() {
 }
 ```
 
-The `values` parameter is typed as `any`, so if the form shape changes or we mistype a property, TypeScript won't catch it.
+If the form shape changes or you mistype a property, TypeScript stays quiet.
 
-So let's improve this by letting TypeScript infer the right types from the initial values we pass in.
+## Step 1: make the component generic
 
----
-
-## Let TypeScript Infer Types
-
-To make TypeScript infer the `values` type automatically, we can make our `Form` component generic. This way, the initial values type becomes the source of truth for everything else.
+The obvious fix is to make `Form` generic and let `initialValues` drive the type.
 
 ```tsx twoslash
 // @jsx: react-jsx
@@ -80,7 +84,9 @@ function Form<T>({ initialValues, onSubmit }: FormProps<T>) {
 }
 ```
 
-Now TypeScript will infer types based on the initial values we pass to the component:
+Now `initialValues` becomes the source of truth.
+
+TypeScript infers `T` from what you pass in.
 
 ```tsx twoslash
 // @jsx: react-jsx
@@ -108,9 +114,9 @@ function App() {
 }
 ```
 
-The `values` parameter now has the accurate inferred type, which gives us autocomplete and type safety.
+You get autocomplete and type safety.
 
-TypeScript will catch errors if we try to access a property that doesn't exist:
+And if you access a property that does not exist, TypeScript catches it.
 
 ```tsx twoslash
 // @errors: 2339
@@ -136,13 +142,17 @@ function App() {
 }
 ```
 
-We now have reliable type safety driven by the initial values we provide. But this power comes with a catch. Sometimes TypeScript infers too much.
+So far this looks perfect.
 
----
+Then refactors happen.
 
-## When Inference Goes Too Far
+## Step 2: inference can come from the wrong place
 
-So here's where things got interesting during our refactor. We had a `Form` component with no generics, which meant developers had to manually type the callback parameters:
+Here is the scenario that bites.
+
+Before generics, people often “fixed” the callback by annotating it manually.
+
+That was the only way to get types.
 
 ```tsx twoslash
 // @jsx: react-jsx
@@ -169,7 +179,7 @@ function App() {
 }
 ```
 
-When we added generics to get type safety, those manual annotations became a problem:
+Then you add generics.
 
 ```tsx twoslash
 // @jsx: react-jsx
@@ -197,24 +207,31 @@ function App() {
 }
 ```
 
-Because `initialValues` is `any`, TypeScript infers `T` from the callback annotation instead. Now `T` is `{ name: string; email: string }`, even though the actual initial values might have a different shape.
+Here is what just happened.
 
-The inference happened, but from the wrong place. The callback annotation is now driving the types instead of the initial values. We needed a way to tell TypeScript: "Only infer `T` from `initialValues`, ignore the callback annotation."
+Because `initialValues` is `any`, it provides no useful signal for inference.
 
-## Stop Unwanted Inference with `NoInfer`
+So TypeScript looks elsewhere.
 
-This is where `NoInfer` comes in. TypeScript 5.4 introduced this utility type specifically to handle situations like this. It tells TypeScript not to infer a type from specific positions, letting us control where inference comes from.
+It sees the annotated callback and infers `T` from that instead.
 
-By wrapping the callback's `values` parameter with `NoInfer<T>`, we tell TypeScript: "Don't infer `T` from here, use the type inferred from elsewhere."
+That means your callback annotation becomes the source of truth.
 
-> [!TIP]
-> If you're on TypeScript versions before 5.4, you can create a similar effect with:
->
-> ```ts
-> type NoInfer<T> = [T][T extends any ? 0 : never]
-> ```
->
-> This uses tuple indexing to create a barrier that blocks inference while preserving the underlying type.
+Not `initialValues`.
+
+That is backwards.
+
+This is the bug.
+
+You wanted inference to come from the values.
+
+TypeScript inferred from the callback.
+
+## Step 3: tell TypeScript where not to infer
+
+This is what `NoInfer` is for.
+
+Wrap the callback parameter in `NoInfer<T>`.
 
 ```tsx twoslash
 // @jsx: react-jsx
@@ -228,7 +245,11 @@ function Form<T>({ initialValues, onSubmit }: FormProps<T>) {
 }
 ```
 
-Now when we use the component, TypeScript infers `T` only from `initialValues`, not from the callback:
+Read that as:
+
+“`values` is `T`, but do not use this position to infer `T`.”
+
+Now inference must come from `initialValues`.
 
 ```tsx twoslash
 // @jsx: react-jsx
@@ -254,7 +275,7 @@ function App() {
 }
 ```
 
-The callback's `values` parameter now has the correct type inferred from `initialValues`. If we try to add a manual annotation that doesn't match, TypeScript will catch it:
+And if someone keeps an old annotation that does not match, TypeScript stops them.
 
 ```tsx twoslash
 // @errors: 2322
@@ -280,28 +301,56 @@ function App() {
 }
 ```
 
-`NoInfer` ensures that `initialValues` remains the source of truth for our types, even during refactoring when old manual annotations might still be present.
+That is exactly what you want during a refactor.
 
-## Behind the Scenes of `NoInfer`
+Old annotations should not silently redefine your generic.
 
-If you're curious how this actually works under the hood, `NoInfer` is implemented as an **intrinsic type** in TypeScript. Here's how it's defined in TypeScript's standard library:
+## If you are not on TypeScript 5.4
+
+`NoInfer` shipped in TypeScript 5.4.
+
+If you are stuck on an older version, you can approximate the behavior with a type trick:
+
+```ts
+type NoInfer<T> = [T][T extends any ? 0 : never]
+```
+
+It creates an inference barrier while preserving the underlying structure of `T`.
+
+Once you upgrade, prefer the built-in `NoInfer`.
+
+## Behind the scenes
+
+In lib.d.ts, `NoInfer` is defined like this:
 
 ```ts
 type NoInfer<T> = intrinsic;
 ```
 
-Unlike regular utility types that are built using TypeScript's type system, intrinsic types are special primitives that are implemented directly in the TypeScript compiler itself. The behavior of `NoInfer` is handled at the compiler level rather than through type manipulation.
+That “intrinsic” part matters.
 
-When TypeScript sees `NoInfer<T>` during type inference:
+It means the compiler implements the behavior directly.
 
-1. The compiler recognizes it as an intrinsic that blocks inference
-2. It skips this position when collecting inference candidates
-3. It uses the type inferred from other positions instead
+TypeScript treats `NoInfer<T>` as “this is `T`, but do not collect inference candidates from here.”
 
-**The result**: a type that's structurally identical to `T` but invisible to TypeScript's inference algorithm, giving you precise control over where inference happens.
+So the type stays the same, but inference ignores that position.
 
-## Conclusion
+## Recap
 
-We started with a form component that lost type safety because of `any`. By making the component generic, we let TypeScript infer types automatically from `initialValues`. But we also saw how inference can sometimes go too far, picking up types from the wrong place.
+Inference is not magic. It is a set of rules.
 
-With the `NoInfer` utility type from TypeScript 5.4, we can control exactly where inference comes from, keeping `initialValues` as the single source of truth and maintaining consistent, predictable types.
+When a generic appears in multiple positions, TypeScript can infer from any of them.
+
+Sometimes that is helpful.
+
+Sometimes it picks the wrong source.
+
+Use `NoInfer<T>` when:
+
+- You want inference to come from one argument
+- You want callbacks to follow that inferred type
+- You do not want parameter annotations to redefine your generic during refactors
+
+This keeps your generics predictable.
+
+And it keeps the “source of truth” where you intended it to be.

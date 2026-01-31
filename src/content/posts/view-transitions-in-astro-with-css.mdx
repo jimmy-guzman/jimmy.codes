@@ -13,26 +13,34 @@ keywords:
 tags: [Astro, CSS, Frontend]
 ---
 
-The [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API) has been on my radar for a while. I finally decided to see how it would work in practice on my [Astro](https://astro.build) site using **Tailwind v4**, without adding any extra JavaScript.
+The [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API) has been on my radar for a while. I finally tried it on my [Astro](https://astro.build) site with **Tailwind v4**, and I wanted a hard constraint.
 
-It turns out you can get smooth, page-to-page transitions with only CSS.
+No router.
+No extra JavaScript.
+
+Turns out you can get smooth page-to-page transitions with only CSS.
 
 ---
 
 ## Why I Tried This
 
-Astro already makes navigation feel instant by streaming pages as static HTML. I wanted something more: a subtle fade that connects pages without feeling flashy.
+Astro already feels fast. Pages stream as static HTML and navigation is snappy.
 
-With the View Transitions API now supporting **cross-document navigation**, browsers can animate between full page loads automatically. If I could enable it globally, Astro's static pages could feel even smoother without a router or hydration.
+But “fast” and “connected” are different feelings.
 
-That worked better than I expected.
+I wanted a subtle fade that makes navigation feel continuous without looking like an animation demo.
+
+Cross-document view transitions make that possible. The browser can animate between full page loads. If I could enable it globally, the whole site would pick up that polish without hydration.
+
+It worked better than I expected.
 
 ---
 
 ## The Core Idea
 
-The browser can detect when you move between same-origin pages (for example, going from `/blog` to `/about` on `jimmy.codes`) and automatically animate the visual change.
-You only need a single rule:
+When you navigate between same-origin pages, the browser can animate the visual change automatically.
+
+You start with one rule:
 
 ```css
 @view-transition {
@@ -40,28 +48,27 @@ You only need a single rule:
 }
 ```
 
-That single rule enables transitions across your site. From there, you can define how different parts of the page animate.
+That enables transitions across the site.
 
-Everything comes down to two layers working together:
+After that, you decide what participates by naming elements with `view-transition-name`.
 
-- The **global CSS** that defines the transition behavior
-- The **HTML structure** that tells the browser which elements to animate between pages
+Two layers make this work:
 
-Here is how I put those pieces together.
+- Global CSS that defines timing and easing
+- Consistent HTML structure that names the same elements on every page
 
 ---
 
 ## Implementation
 
-The setup has two moving parts: CSS for the animation itself, and the layout that declares which elements should participate. Together, they create smooth, natural transitions with minimal effort.
+There are two moving parts.
 
-I started with the global CSS layer since that controls how everything feels.
+CSS defines what the transition looks like.
+Markup defines what the browser should “carry over” between pages.
 
 ### CSS
 
-The CSS does all the work. It defines how the page fades, how the title moves, and how long each layer lasts.
-
-Here is the full setup:
+This is the full setup I used:
 
 ```css
 @view-transition {
@@ -99,6 +106,7 @@ Here is the full setup:
   @view-transition {
     navigation: none;
   }
+
   ::view-transition-group(*),
   ::view-transition-old(*),
   ::view-transition-new(*) {
@@ -107,40 +115,40 @@ Here is the full setup:
 }
 ```
 
-Let's unpack it.
+What each part does:
 
-- **`@view-transition { navigation: auto; }`**
-  Enables cross-document transitions for same-origin navigation. No scripts or routers required.
+- **Enable navigation transitions**
+  - `@view-transition { navigation: auto; }`
+  - This turns on cross-document transitions for same-origin navigation.
 
-- **`@theme` variables**
-  - `--view-transition` defines the base duration for most elements.
-  - `--view-transition-title` is slightly shorter, so the title leads the motion.
-  - `--ease` provides a soft, responsive curve that starts smoothly and ends cleanly.
+- **Define timing in one place**
+  - `--view-transition` is the base duration.
+  - `--view-transition-title` is shorter so the title leads.
+  - `--ease` gives the motion a soft start and clean finish.
 
-- **Groups**
-  Each `::view-transition-group()` selector targets a specific part of the page.
-  - `root` handles the full-page fade with a simple ease-out.
-  - `main` uses the custom easing for a more natural rhythm.
-  - `title` runs faster and starts 25 milliseconds earlier, keeping hierarchy clear.
+- **Target groups**
+  - `root` controls the overall page fade.
+  - `main` controls the main content.
+  - `title` moves faster and starts slightly earlier.
 
-- **`will-change: transform, opacity`**
-  Tells the browser to optimize rendering for these properties ahead of time. This helps prevent subpixel blur, the slight fuzziness that can occur when elements are moved by fractions of a pixel during transitions.
+- **Hint what will animate**
+  - `will-change: transform, opacity;`
+  - This helps the browser prepare for movement and opacity changes.
 
-- **Reduced motion**
-  The `prefers-reduced-motion` query turns everything off for users who opt out of animation. It also disables navigation transitions entirely to avoid any motion between pages.
+- **Respect reduced motion**
+  - If a user opts out, do not animate between pages.
+  - Also strip animation from all groups to avoid partial motion.
 
-The result is quiet and deliberate. The page fades gently, the title glides into place just ahead of the main content, and the transition feels like part of the document rather than an effect layered on top.
-
----
+The result is subtle. The page fades. The title shifts first. The rest follows.
 
 ### Layout
 
-The next step is telling the browser which elements should carry over between pages.
-That is done with the `view-transition-name` property:
+CSS alone is not enough. You need consistent names across pages.
+
+That is what `view-transition-name` gives you.
 
 ```html
 <body>
-  <!-- body is treated as "root" automatically -->
   <main class="[view-transition-name:main]">
     <h1 class="[view-transition-name:title]">Page Title</h1>
     <slot />
@@ -148,27 +156,49 @@ That is done with the `view-transition-name` property:
 </body>
 ```
 
-Use one `main` and one `title` per page.
-The `body` tag is reserved for the root animation. Other elements like `main` and `title` can be named to animate consistently between pages.
+Rules I follow:
 
-Each matching name creates a bridge between pages. When both the old and new page share that name, the browser transitions the element instead of redrawing it instantly.
+- Do not name the `body`. The browser treats it as `root`.
+- Use one `main` and one `title` per page.
+- Names must match exactly on both pages.
+
+When the browser sees the same name on the old and new document, it animates between them instead of snapping.
 
 ---
 
 ## What I Learned
 
-Here are a few takeaways after testing this in Astro:
+A few practical notes after testing:
 
-- **Do not name the `body`.** It is already the root.
-- **Keep your rule global.** The `@view-transition` at-rule must live in CSS that loads on every page.
-- **Only same-origin, user-triggered navigation animates.** Reloads or new tabs will not.
-- **Names must match exactly.** Use one element per name on each page.
-- **Avoid overflow.** Named elements clip their contents, so skip naming dropdowns or tooltips.
-- **Short transitions feel better.** Around 180 ms is a good balance, with titles a bit faster.
-- **Respect reduced motion.** Disable navigation transitions in the media query and remove animations on the groups.
-- **You can opt out.** Use `class="[view-transition-name:none]"` to exclude an element.
+- **Keep the rule global**
+  - `@view-transition` must load on every page, not just a single route.
 
-For navigation bars, I prefer leaving them unnamed so they fade naturally with the rest of the layout. If you want them pinned during transitions, add:
+- **Only same-origin, user-triggered navigation animates**
+  - Full reloads and opening a new tab do not count.
+
+- **Names must be unique per page**
+  - One element per name per document.
+
+- **Avoid naming overlays**
+  - Named elements can clip their contents. Skip dropdowns, tooltips, and menus.
+
+- **Short durations feel best**
+  - Around 180ms keeps it snappy.
+  - Make the title slightly faster if you want hierarchy.
+
+- **Reduced motion is not optional**
+  - Disable navigation transitions and remove group animations.
+
+- **Opt out per element**
+  - Use `class="[view-transition-name:none]"` to exclude something.
+
+### A note on nav
+
+I leave nav unnamed.
+
+It fades naturally with the rest of the page, which looks intentional and keeps markup simple.
+
+If you want nav to feel “pinned” during transitions, disable its group:
 
 ```css
 ::view-transition-group(nav) {
@@ -180,9 +210,10 @@ For navigation bars, I prefer leaving them unnamed so they fade naturally with t
 
 ## Debugging
 
-If transitions are not working:
+If nothing animates, do the boring checks first.
 
-1. Temporarily increase the duration to confirm the effect:
+1. **Slow it down**
+   - If you cannot see it, you cannot debug it.
 
    ```css
    ::view-transition-group(root) {
@@ -190,17 +221,22 @@ If transitions are not working:
    }
    ```
 
-2. In Chrome DevTools, open [the **Animations** panel](https://developer.chrome.com/docs/devtools/animations/) (`Command+Shift+P` → "Show Animations").
+2. **Use DevTools**
+   - In Chrome, open the **Animations** panel.
+   - `Command+Shift+P` then “Show Animations”.
 
-3. Confirm the CSS is global and pages are same-origin.
+3. **Confirm the basics**
+   - CSS loads globally
+   - Navigation is same-origin
+   - Names exist on both pages and match exactly
 
 ---
 
 ## Timing and Rhythm
 
-Small timing changes can completely shift how a transition feels.
+Small timing changes matter.
 
-**Leading with the title:**
+### Lead with the title
 
 ```css
 ::view-transition-group(title) {
@@ -214,9 +250,9 @@ Small timing changes can completely shift how a transition feels.
 }
 ```
 
-The title finishes first, drawing the eye before content settles.
+The title finishes first. Your eye tracks it. Then content settles.
 
-**Synchronized motion:**
+### Move together
 
 ```css
 ::view-transition-group(title),
@@ -226,17 +262,21 @@ The title finishes first, drawing the eye before content settles.
 }
 ```
 
-Everything moves together. Simpler, but with less hierarchy.
+Everything stays synchronized. It feels simpler, but flatter.
 
-These 30–50 ms differences are subtle but shape whether motion feels intentional or mechanical.
+Those 25ms gaps decide whether motion feels designed or accidental.
 
 ---
 
 ## Final Thoughts
 
-This experiment reminded me how capable the modern web has become. What started as curiosity about a browser API turned into one of the simplest ways to make static sites feel alive.
+This is one of those features that feels like it should require a framework.
 
-Astro's static output pairs well with the View Transitions API. No hydration. No scripts. Just a better experience powered by CSS.
+It does not.
+
+Astro gives you fast static navigation. The View Transitions API adds continuity. CSS handles the whole thing.
+
+No router. No scripts. Just better page-to-page feel.
 
 ---
 
