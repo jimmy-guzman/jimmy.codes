@@ -32,12 +32,7 @@ const { mobilePrimary = [], mobileDropdown = [] } = Object.groupBy(
     <div class="flex items-center gap-1 md:hidden">
       {
         mobilePrimary.map((link) => (
-          <a
-            href={link.href}
-            class="btn btn-ghost btn-sm"
-            {...ext(link)}
-            download={link.download}
-          >
+          <a href={link.href} class="btn btn-ghost btn-sm" {...ext(link)}>
             <span class="sr-only">{link.label}</span>
             <span class:list={[link.icon, "h-4", "w-4"]} aria-hidden="true" />
           </a>
@@ -58,7 +53,7 @@ const { mobilePrimary = [], mobileDropdown = [] } = Object.groupBy(
           {
             mobileDropdown.map((link) => (
               <li>
-                <a href={link.href} {...ext(link)} download={link.download}>
+                <a href={link.href} {...ext(link)}>
                   <span
                     class:list={[link.icon, "h-4 w-4"]}
                     aria-hidden="true"
@@ -79,7 +74,6 @@ const { mobilePrimary = [], mobileDropdown = [] } = Object.groupBy(
             href={link.href}
             class="btn font-normal btn-ghost btn-sm lg:btn-md"
             {...ext(link)}
-            download={link.download}
           >
             <span class:list={["sr-only", { "lg:not-sr-only": link.primary }]}>
               {link.label}
