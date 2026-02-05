@@ -2,7 +2,7 @@ import { urls } from "./urls";
 
 interface Link {
   href: `/${string}` | `mailto:${string}` | `https://${string}`;
-  label: string;
+  label: Capitalize<string>;
   icon: `icon-[lucide--${string}]`;
   external?: boolean;
   primary?: boolean;
