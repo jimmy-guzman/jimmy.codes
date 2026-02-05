@@ -1,0 +1,416 @@
+---
+title: How I Rebuilt This Site with Astro
+publishDate: 2026-02-05
+description: From Next.js to Astro—a deep dive into rebuilding jimmy.codes with modern tooling, content collections, and developer experience improvements.
+keywords:
+  [
+    astro,
+    nextjs,
+    typescript,
+    mdx,
+    vercel,
+    bun,
+    biome,
+    playwright,
+    content-collections,
+    og-images,
+    rss,
+    developer-experience,
+    twoslash,
+  ]
+tags: [Astro, TypeScript, Performance, Tooling]
+---
+
+Back in 2022, I wrote about [building this site with Next.js](/blog/how-i-built-simple-blogfolio). I ended that post with: "Still, I'm very optimistic about Astro's future and who knows, I might refactor this site to use Astro in the future."
+
+That future is now. This is the story of that rebuild—not just a framework swap, but a complete rethinking of how a content-first site should work.
+
+## Why Rebuild?
+
+The Next.js version worked. It was fast, tested, and deployed reliably. So why change it?
+
+**Content-first architecture**: Next.js excels at applications. But for a blogfolio? It felt like using a Formula 1 car for grocery runs. Astro is built specifically for content sites—and that difference shows everywhere.
+
+**Astro matured significantly**: In 2022, Astro was in beta. By 2024, it shipped stable, had an incredible ecosystem, and solved the exact problems I had mentioned as blockers.
+
+**Developer experience**: The new JavaScript tooling ecosystem (Bun, Biome, Playwright) made the rebuild an opportunity to modernize the entire stack, not just the framework.
+
+The rebuild wasn't about Next.js being bad. It was about using the right tool for the job.
+
+## What Actually Changed
+
+### Core Stack Evolution
+
+**Before (Next.js era)**:
+- Next.js 12
+- React
+- pnpm
+- ESLint + Prettier
+- Jest + Testing Library
+- Cypress
+
+**After (Astro era)**:
+- Astro 5
+- TypeScript everywhere
+- Bun (runtime + package manager)
+- Biome (linting + formatting)
+- Vitest (unit tests)
+- Playwright (e2e tests)
+- Tailwind CSS v4
+
+The theme: **faster, simpler, more focused**.
+
+### Content Collections: Type-Safe Content Management
+
+This is the killer feature. In Next.js, I manually parsed frontmatter and managed content. In Astro, Content Collections give you compile-time validation and type safety for free.
+
+```typescript name=src/content.config.ts url=https://github.com/jimmy-guzman/jimmy.codes/blob/main/src/content.config.ts
+import { defineCollection, z } from "astro:content";
+
+const posts = defineCollection({
+  schema: z.object({
+    title: z.string().min(1, "Title is required"),
+    publishDate: z.date(),
+    description: z.string().min(1, "Description is required"),
+    keywords: z.array(z.string()).min(1, "At least one keyword is required"),
+    tags: z.array(tags).min(1).max(5),
+    shortTitle: z.string().max(48).optional(),
+    updatedDate: z.date().optional(),
+  }),
+});
+
+export const collections = { posts };
+```
+
+Now accessing content is fully typed:
+
+```typescript
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("posts");
+// posts[0].data.title ✅ typed
+// posts[0].data.invalidField ❌ TypeScript error
+```
+
+No runtime errors from typos in frontmatter. No manual validation. Just type-safe content.
+
+### Native MDX Support with Enhanced Code Blocks
+
+Instead of custom `react-markdown` component wiring, Astro handles MDX natively with the unified ecosystem:
+
+```typescript name=astro.config.ts url=https://github.com/jimmy-guzman/jimmy.codes/blob/main/astro.config.ts#L56-L69
+export default defineConfig({
+  markdown: {
+    rehypePlugins: [
+      [rehypeExternalLinks, { rel: "noopener", target: "_blank" }],
+      rehypeSlug,
+      [rehypeAutolinkHeadings, { behavior: "wrap" /* ... */ }],
+      rehypeUnwrapImages,
+      rehypeCallouts,
+    ],
+  },
+  integrations: [
+    expressiveCode({
+      plugins: [expressiveCodeTwoSlash()],
+      shiki: { transformers: [transformerColorizedBrackets()] },
+      themes: ["kanagawa-dragon", "kanagawa-lotus"],
+    }),
+    mdx(),
+  ],
+});
+```
+
+Features I get:
+- **GitHub-style callouts** via `rehype-callouts`
+- **Auto-linked headings** with hover icons
+- **Expressive Code** for beautiful syntax highlighting
+- **TypeScript twoslash** for inline type hints and hover information
+- **Colorized brackets** for better readability
+- **External link handling** automatically
+
+The twoslash integration is particularly powerful. Now I can write TypeScript examples with inline type information:
+
+```typescript twoslash
+const user = { name: "Jimmy", role: "Lead Engineer" };
+//    ^?
+user.name;
+//    ^?
+```
+
+The `^?` comments show type information on hover in the rendered code blocks—perfect for technical blog posts.
+
+### Built-in Image Optimization
+
+Remember the custom Next.js Image wrapper? Gone.
+
+```astro name=src/layouts/ContentLayout.astro url=https://github.com/jimmy-guzman/jimmy.codes/blob/main/src/layouts/ContentLayout.astro#L40-L67
+---
+import { Image } from "astro:assets";
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/posts/*",
+  { eager: true }
+);
+const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
+---
+
+{srcImage && (
+  <Image
+    src={srcImage}
+    alt={`Cover image for ${title}`}
+    loading="eager"
+    fetchpriority="high"
+    widths={[400, 696, 1392]}
+    sizes="(max-width: 768px) 400px, (min-resolution: 2dppx) 1392px, 696px"
+    format="webp"
+  />
+)}
+```
+
+Astro handles:
+- WebP conversion
+- Responsive srcset generation
+- Lazy loading
+- Type-safe imports
+
+No Cloudinary needed for basic optimization. It's all build-time with Sharp.
+
+### Dynamic OG Image Generation
+
+One of my favorite additions: **per-post OG images** using `@vercel/og`:
+
+```typescript name=src/pages/og/blog/[slug].png.ts url=https://github.com/jimmy-guzman/jimmy.codes/blob/main/src/pages/og/blog/[slug].png.ts
+export const GET: APIRoute = async ({ params, props }) => {
+  const { slug } = params;
+  const { title } = props;
+
+  try {
+    const imagePath = path.join(
+      process.cwd(),
+      "src/assets/images/posts",
+      `${slug}.png`
+    );
+    const imageBuffer = await fs.readFile(imagePath);
+    const coverImageBase64 = `data:image/png;base64,${imageBuffer.toString("base64")}`;
+
+    return new ImageResponse(
+      OgImage({ coverImage: coverImageBase64, logo: faviconBase64, title }),
+      {
+        fonts: [{ data: await getFontData(), name: "JetBrains Mono" }],
+        height: 630,
+        width: 1200,
+      }
+    );
+  } catch {
+    return new ImageResponse(OgImage({ logo: faviconBase64, title }), {
+      height: 630,
+      width: 1200,
+    });
+  }
+};
+```
+
+Every blog post gets a custom OG image with:
+- Post cover image (if available)
+- Title overlay
+- Brand consistency
+- Proper social media sizing (1200x630)
+
+### Related Posts by Tags
+
+Content Collections make tag-based relationships trivial:
+
+```typescript name=src/utils/related.ts
+export function getRelatedByTags(
+  allPosts: CollectionEntry<"posts">[],
+  currentPost: CollectionEntry<"posts">
+) {
+  return allPosts
+    .filter((post) => {
+      if (post.slug === currentPost.slug) return false;
+      return post.data.tags.some((tag) =>
+        currentPost.data.tags.includes(tag)
+      );
+    })
+    .slice(0, 3);
+}
+```
+
+Posts automatically show related content based on shared tags—no manual curation needed.
+
+### RSS Feed
+
+Built with Astro's official RSS integration:
+
+```typescript name=src/pages/blog/rss.xml.ts url=https://github.com/jimmy-guzman/jimmy.codes/blob/main/src/pages/blog/rss.xml.ts
+import rss from "@astrojs/rss";
+
+export async function GET(context: { site: string }) {
+  const blog = await getCollection("posts");
+
+  return rss({
+    title: "Jimmy Guzman Moreno's Blog",
+    description: "Articles on building software...",
+    items: blog.map((post) => ({
+      title: post.data.title,
+      description: post.data.description,
+      pubDate: post.data.publishDate,
+      link: `/blog/${post.slug}/`,
+      categories: post.data.tags,
+    })),
+    site: context.site,
+  });
+}
+```
+
+Readers can subscribe via `/blog/rss.xml`.
+
+### Tag System
+
+Dynamic tag pages with proper filtering and counts:
+
+```astro name=src/pages/blog/tags/[slug].astro url=https://github.com/jimmy-guzman/jimmy.codes/blob/main/src/pages/blog/tags/[slug].astro
+export const getStaticPaths = (async () => {
+  const allPosts = await getCollection("posts");
+  const allTags = getAllTags(allPosts);
+
+  return allTags.map(({ tag: originalTag }) => ({
+    params: { slug: slugifyTag(originalTag) },
+    props: { allPosts, allTags, originalTag },
+  }));
+}) satisfies GetStaticPaths;
+```
+
+Every tag gets:
+- Dedicated page (`/blog/tags/typescript`)
+- Post count
+- Filtered post list
+- Breadcrumb navigation
+
+## Developer Experience Wins
+
+### Bun: Instant Everything
+
+Switching from pnpm to Bun made a noticeable difference:
+
+```json name=package.json
+{
+  "scripts": {
+    "dev": "bunx --bun astro dev",
+    "build": "astro build",
+    "test": "vitest",
+    "e2e": "playwright test"
+  }
+}
+```
+
+Install times went from ~15s to ~2s. Test runs are faster. The runtime is faster. It just works.
+
+### Biome: One Tool for Linting + Formatting
+
+Replaced ESLint + Prettier with Biome:
+
+```json name=biome.json
+{
+  "linter": {
+    "enabled": true,
+    "rules": { "recommended": true }
+  },
+  "formatter": {
+    "enabled": true
+  }
+}
+```
+
+**Results**:
+- Linting: **10x faster**
+- Formatting: **20x faster**
+- Configuration: **90% simpler**
+
+### Playwright > Cypress
+
+Cleaner API, faster execution, no dashboard subscription needed:
+
+```typescript name=e2e/app.spec.ts url=https://github.com/jimmy-guzman/jimmy.codes/blob/main/e2e/app.spec.ts
+test("should browse home to about to blog", async ({ page }) => {
+  await page.goto("/");
+  await expect(page).toHaveTitle("Jimmy Guzman Moreno");
+
+  await page.getByRole("link", { exact: true, name: "About" }).click();
+  await expect(page).toHaveURL("/about");
+
+  await page.getByRole("link", { exact: true, name: "Blog" }).click();
+  await expect(page).toHaveURL("/blog");
+});
+```
+
+Tests run against deployed URLs via GitHub Actions, just like before—but with better ergonomics.
+
+## What Stayed the Same
+
+Not everything changed:
+
+- **Vercel deployment**: Still the best DX for shipping
+- **GitHub Actions CI/CD**: Same quality gates, same workflow
+- **Lighthouse performance checks**: Still validated on every deploy
+- **Fathom analytics**: Privacy-focused, simple script tag
+- **Tailwind CSS**: Upgraded to v4, but same utility-first approach
+- **TypeScript everywhere**: Non-negotiable
+
+The core philosophy didn't change: **ship fast, stay simple, prioritize performance**.
+
+## Performance Impact
+
+Before (Next.js):
+- Lighthouse score: **95-100**
+- JS shipped: **~80KB gzipped**
+- Build time: **~45s**
+
+After (Astro):
+- Lighthouse score: **100 consistently**
+- JS shipped: **~5KB gzipped** (static pages have zero JS)
+- Build time: **~25s**
+
+The difference? **Astro ships zero JS by default**. Only interactive components (like theme toggle) load client-side JavaScript.
+
+## Migration Learnings
+
+### What Was Easy
+
+- **Content migration**: Markdown files worked as-is with minor frontmatter adjustments
+- **Styling**: Tailwind classes transferred directly
+- **Deployment**: Vercel adapter made it seamless
+
+### What Required Rethinking
+
+- **Component architecture**: Astro components aren't React components. The mental model shift took adjustment.
+- **Data fetching**: From `getStaticProps` to `getCollection` and `getStaticPaths`
+- **Image optimization**: Had to embrace build-time optimization vs. runtime
+
+### Unexpected Wins
+
+- **Faster builds**: Astro's build process is noticeably faster
+- **Better SEO**: Structured data via Content Collections made schema.org JSON-LD trivial
+- **Simpler deployments**: Less runtime complexity means fewer edge cases
+- **Twoslash integration**: Interactive TypeScript examples became effortless
+
+## Would I Do It Again?
+
+**Absolutely.**
+
+The payoff:
+- **Simpler codebase**: 30% less code
+- **Faster builds**: 40% reduction in build time
+- **Better performance**: Consistent 100 Lighthouse scores
+- **Improved DX**: Bun + Biome + Playwright = joy
+- **Better content authoring**: Twoslash makes technical writing more interactive
+
+Astro proved to be exactly what I hoped it would be in 2022: **a content-first framework that gets out of your way**.
+
+If you're running a content site on Next.js (or Gatsby, or anything else), give Astro a serious look. It's not hype—it's just really good at what it does.
+
+---
+
+The code is open source at [github.com/jimmy-guzman/jimmy.codes](https://github.com/jimmy-guzman/jimmy.codes). Explore the implementation, steal the patterns, or just poke around.
+
+And if you're curious about specific features (like the OG image generation, Content Collections setup, or twoslash integration), let me know—I'd love to write deep dives on those too.
