@@ -5,7 +5,6 @@ interface Link {
   label: string;
   icon: `icon-[lucide--${string}]`;
   external?: boolean;
-  download?: boolean;
   primary?: boolean;
 }
 
@@ -34,7 +33,6 @@ export const mobile: Link[] = [
     label: "Home",
   },
   {
-    download: true,
     href: "/resume.pdf",
     icon: "icon-[lucide--file-user]",
     label: "Resume",
@@ -78,7 +76,6 @@ export const desktop: Link[] = [
     primary: true,
   },
   {
-    download: true,
     href: "/resume.pdf",
     icon: "icon-[lucide--file-user]",
     label: "Resume",
