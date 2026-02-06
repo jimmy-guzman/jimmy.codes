@@ -2,7 +2,7 @@
 
 Minneapolis, MN | [hi@jimmy.codes](mailto:hi@jimmy.codes) | [jimmy.codes](https://jimmy.codes)
 
-Engineering Leader | React, TypeScript, Node.js | Scalable Frontend & System Design
+Engineering Leader | 10+ Years | React, TypeScript, Node.js | Scalable Frontend & System Design
 
 Technical leader with deep expertise in **frontend architecture** and **full-stack systems**. Proven track record of **driving cross-team technical strategy**, **scaling engineering platforms**, and **elevating developer experience**. Skilled at **building products and platforms that accelerate teams** and deliver **meaningful business outcomes**, with a focus on **scalable, modern frontend solutions**.
 
