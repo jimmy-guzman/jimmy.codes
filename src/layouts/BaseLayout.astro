@@ -81,11 +81,16 @@ const jsonLd = JSON.stringify({
 
     <meta name="generator" content={Astro.generator} />
 
-    <script
-      is:inline
-      src="https://cdn.usefathom.com/script.js"
-      data-site={FATHOM_SITE_ID}
-      defer></script>
+    {
+      FATHOM_SITE_ID && (
+        <script
+          is:inline
+          src="https://cdn.usefathom.com/script.js"
+          data-site={FATHOM_SITE_ID}
+          defer
+        />
+      )
+    }
 
     <Font cssVariable="--font-mono" preload={[{ style: "normal" }]} />
 
