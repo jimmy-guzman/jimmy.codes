@@ -41,7 +41,7 @@
     "@commitlint/types": "20.4.0",
     "@iconify-json/logos": "1.2.10",
     "@iconify-json/lucide": "1.2.89",
-    "@iconify-json/simple-icons": "1.2.69",
+    "@iconify-json/simple-icons": "1.2.70",
     "@iconify-json/skill-icons": "1.2.3",
     "@iconify/tailwind4": "1.2.1",
     "@playwright/test": "1.58.2",
