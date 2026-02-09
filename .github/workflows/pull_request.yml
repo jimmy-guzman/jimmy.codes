@@ -15,19 +15,19 @@ jobs:
         uses: ./.github/actions/install
 
       - name: knip
-        run: bun knip
+        run: bun run knip
 
       - name: lint
-        run: bun lint
+        run: bun run lint
 
       - name: build
         run: bun run build
 
       - name: typecheck
-        run: bun typecheck
+        run: bun run typecheck
 
       - name: coverage
-        run: bun coverage
+        run: bun run coverage
 
   commit_check:
     runs-on: ubuntu-latest
