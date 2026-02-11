@@ -1,96 +1,104 @@
 # Jimmy Guzman Moreno
 
-Minneapolis, MN | [hi@jimmy.codes](mailto:hi@jimmy.codes) | [jimmy.codes](https://jimmy.codes)
+Minneapolis, MN | [hi@jimmy.codes](mailto:hi@jimmy.codes) | jimmy.codes
 
-Engineering Leader | 10+ Years | React, TypeScript, Node.js | Scalable Frontend & System Design
+Staff Engineer | Full-Stack Architecture & Distributed Systems | React, TypeScript, Node.js
 
-Technical leader with deep expertise in **frontend architecture** and **full-stack systems**. Proven track record of **driving cross-team technical strategy**, **scaling engineering platforms**, and **elevating developer experience**. Skilled at **building products and platforms that accelerate teams** and deliver **meaningful business outcomes**, with a focus on **scalable, modern frontend solutions**.
+Staff-level engineer specializing in full-stack architecture, distributed systems, and platform design at enterprise scale. Experienced in shaping cross-team technical direction, modernizing legacy systems, and building developer platforms that enable high-performing engineering organizations.
 
-## **Key Strengths & Strategic Impact**
+## Key Strengths & Strategic Impact
 
-- **Platform Engineering Leadership** – Built **NX monorepos and Turborepo architectures** supporting **15+ teams** across frontend and backend services, enabling independent deployments and reducing development friction
-- **Cross-Team Technical Strategy** – Partnered with Principal Engineers and Directors to **define company-wide hiring standards** and technical evaluation processes.
-- **System Modernization at Scale** – Orchestrated **AngularJS → React transformation**, leveraging the migration to eliminate waterfall data-loading and modernize routing architecture, achieving 75% faster load times without disrupting operations
-- **Developer Platform Optimization** – Reduced **CI/CD build times by 83%** (_30+ min → 5 min_), accelerating delivery across multiple product teams
-- **Enterprise Standards & Design Systems** – Created **enterprise component library** and **engineering standards** adopted by **15+ teams**, improving code quality and velocity
-- **Scaling Engineering Talent** – Mentored **50+ engineers**, fostering growth into **Senior and Lead roles** and strengthening organizational technical capability
-- **Full-Stack Performance Engineering** – Achieved **70% API latency reduction** and **75% faster frontend rendering** through backend optimization and modern React patterns
+- **Platform Architecture** – Designed and implemented NX and Turborepo monorepo architectures supporting 15+ teams across frontend and backend services, enabling independent deployments and reducing cross-team friction
+- **Cross-Organizational Technical Strategy** – Partnered with Principal Engineers and Directors to define company-wide hiring standards and technical evaluation frameworks
+- **Large-Scale System Modernization** – Led AngularJS to React transformation across supply chain systems, eliminating waterfall data-loading patterns and improving load times by 75 percent without service disruption
+- **Developer Platform Optimization** – Re-architected CI/CD pipelines, reducing build times by 83 percent (30+ minutes to 5 minutes) and accelerating delivery across product teams
+- **Enterprise Standards & Design Systems** – Built an enterprise React component library and engineering standards adopted by 15+ teams
+- **Distributed Performance Engineering** – Reduced API latency by 70 percent and improved frontend rendering performance by 75 percent through architectural and backend optimizations
+- **Technical Mentorship & Organizational Leverage** – Mentored 50+ engineers across teams, with multiple promotions to Senior and Lead roles
 
-## **Technical Skills**
+## Technical Skills
 
-- **Frontend Platforms:** React, SolidJS, Next.js, Astro, React Router
+- **Frontend:** React, SolidJS, Next.js, Astro, React Router
 - **Languages:** TypeScript, JavaScript, Java, Kotlin, Groovy
-- **Backend & APIs:** Node.js (Express, Fastify), bun, GraphQL, REST, Kafka, PostgreSQL, MongoDB, Redis, Prisma, Drizzle
-- **Platform Engineering:** Vite, Turborepo, NX, webpack, Rollup, GitHub Actions, Jenkins, Docker, Infrastructure as Code (IaC)
+- **Backend & APIs:** Node.js (Express, Fastify), Bun, GraphQL, REST, Kafka, PostgreSQL, MongoDB, Redis, Prisma, Drizzle
+- **Platform Engineering:** Vite, Turborepo, NX, webpack, Rollup, GitHub Actions, Jenkins, Docker, Infrastructure as Code
 - **Testing & Observability:** Vitest, Playwright, Jest, Cypress, Testing Library, Mock Service Worker, OpenTelemetry, Grafana
-- **Developer Experience:** Monorepo Architecture, Build Optimization, Static Analysis, Performance Engineering, Feature Flagging
+- **Developer Experience:** Monorepo architecture, build optimization, static analysis, performance engineering, feature flagging
 
-## **Professional Experience**
+## Professional Experience
 
-### **Lead Engineer – Supply Chain Technology** – Target _(Jan 2021 – Present)_
+### Lead Engineer, Supply Chain Technology
 
-#### **Technical Strategy & Cross-Organizational Leadership**
+Target | Jan 2021 – Present
 
-- **Key contributor to company-wide technical hiring strategy** through **Tech Case Study Working Group**, collaborating with Principal Engineers & Directors to shape hiring standards and technical evaluation processes
-- **Orchestrated migration strategy from AngularJS to React** for supply chain systems, establishing patterns and best practices adopted across Target's supply chain engineering organization
-- **Designed full-stack platform solutions** supporting **high-volume inventory & fulfillment operations**, balancing performance, scalability, and developer experience
-- **Drove adoption of modern development practices** including TypeScript standards, reducing production bugs by **40%**
+### Technical Strategy & Architectural Leadership
 
-#### **Platform Engineering & Developer Experience**
+- Owned multi-year technical roadmap for a large supply chain domain spanning numerous capabilities, sequencing modernization and architectural evolution across a broad surface area
+- Contributed to company-wide technical hiring strategy through the Tech Case Study Working Group, collaborating with Principal Engineers and Directors
+- Defined modernization strategy for AngularJS to React migration across supply chain systems, establishing architectural patterns adopted organization-wide
+- Designed full-stack distributed systems supporting high-volume inventory and fulfillment operations
+- Drove adoption of TypeScript standards and modern development practices, reducing production defects by 40 percent
 
-- **Re-architected CI/CD pipelines** cutting build times by **83%** (30+ min → 5 min), improving developer velocity
-- **Implemented Turborepo monorepo architecture**, enabling **independent deployments** and **shared libraries** across frontend applications and backend services
-- **Migrated dependency management to PNPM**, resolving version conflicts and reducing install times
+### Platform Engineering & Developer Experience
 
-#### **System Architecture & Performance**
+- Re-architected CI/CD pipelines, reducing build times by 83 percent and improving developer velocity
+- Implemented Turborepo-based monorepo architecture enabling independent deployments and shared libraries across frontend and backend services
+- Migrated dependency management to PNPM, resolving version conflicts and improving installation performance
+- Re-architected frontend build and testing toolchain to accelerate feedback loops, introducing modern bundling, testing, and static analysis infrastructure that improved developer velocity and reduced CI friction
+- Drove documentation strategy at the platform level by building centralized engineering knowledge system capturing architectural decisions, design artifacts, and technical investigations, strengthening institutional memory and onboarding efficiency
+- Established component-driven development as the default frontend architecture, leveraging Storybook to codify reusable UI patterns and significantly reduce time to market
 
-- **Led end-to-end design and delivery of an enterprise capability for pre-order pickup**, enabling rapid Target-wide adoption and launch within one month
-- **Re-architected frontend routing and data-loading during React Router adoption**, eliminating waterfall patterns and reducing load times by 75% with full backward compatibility
-- **Built batch query APIs**, reduced response times by **70%** and improved application responsiveness
-- **Led migration from Sequelize to Prisma**, improving **database performance, type safety, and developer experience** across backend services
-- **Built backend proof of concept** solving **performance and scalability challenges** in retrieving item data from distributed systems
-- **Designed Key Activation Service**, accelerating mainframe decommissioning effort by **6 months** and reducing operational costs
-- **Developed Next.js adoption proof of concept**, implementing key requirements to enable **internal design system component library** support, including **App Router** compatibility
+### System Architecture & Enterprise Delivery
 
-#### **Engineering Leadership & Talent Development**
+- Architected and delivered a distributed pre-order pickup capability integrating REST APIs and event-driven workflows, enabling Target-wide adoption within one month
+- Re-designed frontend routing and data-loading architecture during React Router migration, eliminating waterfall patterns and reducing load times by 75 percent
+- Designed batch query APIs reducing response times by 70 percent and improving system responsiveness
+- Led migration from Sequelize to Prisma, improving database performance, type safety, and maintainability
+- Built proof-of-concept backend architecture addressing scalability challenges in distributed item data retrieval
+- Designed Key Activation Service accelerating mainframe decommissioning by six months
+- Developed Next.js proof of concept enabling internal design system compatibility with App Router
+- Defined and built microservice platform architecture enabling UI teams to rapidly deliver APIs through standardized service scaffolding, shared patterns, and integrated CI/CD workflows
 
-- **Led full-stack engineering team** overseeing multiple frontend applications, APIs, and databases with **direct impact on Target's supply chain operations**
-- **Mentored 15+ engineers** across multiple teams, leading to **multiple promotions to Senior & Lead** roles
-- **Improved engineering hiring** as **Talent Captain**, leading technical interviews and establishing case study evaluation frameworks
-- **Partnered with UX teams** to establish **design system & component library**, ensuring UI/UX consistency across supply chain applications
-- **Enabled rapid development of AI Platform** UI rebuild using **Next.js and React**, accelerating time-to-market for stores AI agent tools
+### Organizational Impact
 
-### **Senior Lead Engineer** – Ameriprise _(2018–2021)_
+- Led full-stack engineering team supporting multiple applications, APIs, and databases critical to supply chain operations
+- Mentored engineers across teams, resulting in multiple promotions to Senior and Lead roles
+- Led technical interviews and contributed to evaluation frameworks as Talent Captain
+- Partnered with UX to establish a scalable design system across supply chain applications
+- Enabled rapid AI platform UI rebuild using Next.js and React
+- Partnered with leadership to transition team from Scrum to Kanban, improving delivery flow, reducing work-in-progress, and increasing predictability
 
-#### **Platform Engineering & Organizational Architecture**
+### Senior Lead Engineer
 
-- **Led full-stack team for guest access platform**, delivering new guest access to Ameriprise.com features using **Java and React**, setting the stage for the new guest access platform
-- **Built and launched enterprise React component library**, standardizing UI development for **15+ engineering teams**
-- **Built NX monorepo architecture**, enabling **multiple applications with independent deployments** and **optimized CI/CD pipeline to deploy only affected projects**, improving deployment efficiency and reducing build times
-- **Led Engineering Standards Committee**, defining and implementing best practices adopted across **all frontend teams** in the organization
-- **Owned Create React App-like tooling platform**, standardizing frontend builds and reducing project setup time by **75%**
+Ameriprise | 2018 – 2021
 
-#### **Technical Leadership & System Modernization**
+### Platform Architecture & Organizational Modernization
 
-- **Led frontend modernization initiative**, transitioning legacy applications to **React & TypeScript** while maintaining business continuity
-- **Built API-driven application architecture**, improved **frontend-backend integration and system scalability**
-- **Architected scalable CI/CD pipelines**, accelerating deployments and improving release confidence across multiple product teams
+- Led full-stack development for guest access platform using Java and React
+- Led frontend engineering team through CMS transition, establishing architectural standards and delivery practices
+- Built enterprise React component library adopted across 15+ teams
+- Architected NX monorepo enabling independent deployments and optimized CI/CD pipelines
+- Led Engineering Standards Committee defining frontend best practices organization-wide
+- Built internal tooling platform standardizing frontend builds and reducing setup time by 75 percent
+- Pioneered organization-wide end-to-end testing strategy using TestCafe, integrating automated E2E coverage into CI/CD pipelines and improving release confidence across frontend teams
+- Partnered in organization-wide Agile transformation, co-defining engineering maturity model to align delivery standards, technical quality, and team scalability
 
-#### **Engineering Culture & Talent Development**
+### System Modernization & Delivery
 
-- **Mentored 25+ engineers** across multiple teams, driving **multiple promotions to Senior roles** and establishing technical mentorship frameworks
-- **Accelerated engineer onboarding by 75%** through standardized developer tools
-- **Established technical interview processes** and evaluation criteria for frontend engineering roles
+- Led transition of legacy applications to React and TypeScript while maintaining operational continuity
+- Architected a GraphQL Node.js backend-for-frontend proof of concept to evaluate service composition, reduce client-side data complexity, and inform long-term API strategy
+- Designed API-driven application architecture improving frontend-backend integration and scalability
+- Architected CI/CD pipelines improving release confidence across product teams
 
-### **Freelance Web Developer** _(2016–2018)_
+### Freelance Web Developer
 
-- **Architected and built responsive web applications** for small businesses, implementing modern frontend best practices and performance optimization
-- **Improved client conversion rates** through **fast, accessible, and mobile-friendly UI design**, reducing page load times and enhancing user experience
-- **Implemented SEO optimization strategies**, improving search rankings and organic traffic for client businesses
+2016 – 2018
 
-## **Education & Professional Development**
+- Architected and delivered responsive web applications for small businesses
+- Improved performance and accessibility, increasing conversion rates
+- Implemented SEO strategies improving search visibility and organic traffic
 
-- **California State University, Fresno** – Computer Engineering _(2007–2010)_
-- **Treehouse** – Front End Techdegree, Computer Science _(2017–2018)_
+## Education
 
-Passionate about **building scalable frontend platforms, driving technical strategy across organizations, and developing high-impact engineering teams** that deliver world-class software experiences.
+California State University, Fresno – Computer Engineering
+Treehouse – Front End Techdegree
