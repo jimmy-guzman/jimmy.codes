@@ -152,14 +152,24 @@ export const techLearning = [
 
 export const techLove = [
   {
-    icon: "icon-[simple-icons--astro]",
-    link: "https://astro.build/",
-    title: "Astro",
-  },
-  {
     icon: "icon-[logos--nextjs-icon]",
     link: "https://nextjs.org/",
     title: "Next.js",
+  },
+  {
+    icon: "icon-[logos--nuxt-icon]",
+    link: "https://nuxt.com/",
+    title: "Nuxt",
+  },
+  {
+    icon: "icon-[logos--vue]",
+    link: "https://vuejs.org/",
+    title: "Vue",
+  },
+  {
+    icon: "icon-[simple-icons--astro]",
+    link: "https://astro.build/",
+    title: "Astro",
   },
   {
     icon: "icon-[logos--hono]",
@@ -220,6 +230,11 @@ export const techLove = [
     icon: "icon-[logos--github-actions]",
     link: "https://github.com/features/actions",
     title: "GitHub Actions",
+  },
+  {
+    icon: "icon-[logos--kubernetes]",
+    link: "https://kubernetes.io/",
+    title: "Kubernetes",
   },
 ] satisfies Tech[];
 

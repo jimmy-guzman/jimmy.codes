@@ -26,7 +26,8 @@ import PageLayout from "@/layouts/PageLayout.astro";
           height={164}
           loading="eager"
           fetchpriority="high"
-          class="shrink-0 rounded bg-linear-to-br from-primary to-secondary"
+          class="shrink-0 rounded bg-linear-to-br from-primary to-secondary contrast-110 [image-rendering:pixelated]"
+          style="image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"
         />
         <p>
           I build high-performance, scalable systems that are a joy for
@@ -97,14 +98,15 @@ import PageLayout from "@/layouts/PageLayout.astro";
 
     <section class="space-y-6">
       <p>
-        Find me on
-        <a href={urls.GitHub} target="_blank" rel="noopener noreferrer">
-          GitHub</a
-        > and <a href={urls.LinkedIn} target="_blank" rel="noopener noreferrer"
+        Connect via <a
+          href={urls.GitHub}
+          target="_blank"
+          rel="noopener noreferrer">GitHub</a
+        >, <a href={urls.LinkedIn} target="_blank" rel="noopener noreferrer"
           >LinkedIn</a
-        >, email me at <a href={urls.email}>hi@jimmy.codes</a>, or check out my <a
-          href="/blog">blog</a
-        >.
+        >, or <a href={urls.email}>email</a>. Check out my <a href="/blog"
+          >blog</a
+        > too.
       </p>
     </section>
   </PageLayout>
