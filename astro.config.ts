@@ -137,7 +137,7 @@ export default defineConfig({
         rehypeCallouts,
         {
           props: {
-            containerProps: { class: "my-[1.25rem] callout" },
+            containerProps: { class: "my-5 callout" },
             titleProps: { class: "callout-title items-center!" },
           },
           theme: "obsidian",
