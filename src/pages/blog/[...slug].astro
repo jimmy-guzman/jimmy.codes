@@ -9,11 +9,12 @@ import PageLayout from "@/layouts/PageLayout.astro";
 import { lastModified, readingTime } from "@/utils/content";
 import { shortTitle } from "@/utils/post";
 import { getRelatedByTags } from "@/utils/related";
+import { toRawMarkdown } from "@/utils/serializers";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
 
-  return posts.map((post) => {
+  return posts.flatMap((post) => {
     const updatedDate =
       post.data.updatedDate ??
       (post.filePath ? lastModified(post.filePath) : undefined);
@@ -22,19 +23,25 @@ export async function getStaticPaths() {
       limit: 3,
       recencyWeight: 0.02,
     });
+    const base = { post, relatedPosts, updatedDate };
 
-    return {
-      params: { slug: post.id },
-      props: {
-        post,
-        relatedPosts,
-        updatedDate,
+    return [
+      { params: { slug: post.id }, props: base },
+      {
+        params: { slug: `${post.id}.md` },
+        props: { ...base, isRawMd: true },
       },
-    };
+    ];
   });
 }
 
-const { post, relatedPosts, updatedDate } = Astro.props;
+const { post, relatedPosts, updatedDate, isRawMd } = Astro.props;
+
+if (isRawMd && post.body)
+  return new Response(toRawMarkdown(post), {
+    headers: { "Content-Type": "text/markdown; charset=utf-8" },
+  });
+
 const { Content } = await render(post);
 
 const postUrl = `${urls.site}/blog/${post.id}`;
@@ -75,6 +82,7 @@ const backOptions = { title: "blog" as const, url: "/blog" };
   keywords={keywords}
   extraLd={[jsonLd]}
   ogImage={ogImage}
+  alternates={[{ type: "text/markdown", path: `/blog/${post.slug}.md` }]}
 >
   <PageLayout heading={heading} back={backOptions}>
     <ContentLayout
