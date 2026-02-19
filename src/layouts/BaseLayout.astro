@@ -18,6 +18,7 @@ interface Props {
   noIndex?: boolean;
   extraLd?: Record<string, unknown>[];
   ogImage?: string;
+  alternates?: { type: string; path: string }[];
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   noIndex,
   extraLd = [],
   ogImage,
+  alternates = [],
 } = Astro.props;
 
 const canonical = Astro.url.href.replace(/\/$/, "");
@@ -78,6 +80,12 @@ const jsonLd = JSON.stringify({
     <ThemeScript />
 
     <link rel="sitemap" href="/sitemap-index.xml" />
+
+    {
+      alternates.map(({ type, path }) => (
+        <link rel="alternate" type={type} href={`${urls.site}${path}`} />
+      ))
+    }
 
     <meta name="generator" content={Astro.generator} />
 
