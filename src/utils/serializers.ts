@@ -1,7 +1,6 @@
-export function toRawMarkdown(post: {
-  data: Record<string, unknown>;
-  body: string;
-}) {
+import type { CollectionEntry } from "astro:content";
+
+export function toRawMarkdown(post: CollectionEntry<"posts">) {
   const frontmatter = Object.entries(post.data)
     .map(([key, value]) => {
       if (value instanceof Date) {

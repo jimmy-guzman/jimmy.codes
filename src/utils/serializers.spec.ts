@@ -1,3 +1,4 @@
+import type { CollectionEntry } from "astro:content";
 import { describe, expect, it } from "vitest";
 import { toRawMarkdown } from "./serializers";
 
@@ -5,8 +6,14 @@ describe("toRawMarkdown", () => {
   it("should wrap content in frontmatter delimiters", () => {
     const result = toRawMarkdown({
       body: "Body text",
-      data: { title: "Hello" },
-    });
+      data: {
+        description: "Test description",
+        keywords: ["test"],
+        publishDate: new Date("2024-01-01"),
+        tags: ["TypeScript"],
+        title: "Hello",
+      },
+    } as CollectionEntry<"posts">);
 
     expect(result).toMatch(/^---\n/);
     expect(result).toContain("\n---\n\nBody text");
@@ -15,8 +22,14 @@ describe("toRawMarkdown", () => {
   it("should output string values as-is", () => {
     const result = toRawMarkdown({
       body: "",
-      data: { title: "My Post" },
-    });
+      data: {
+        description: "Test description",
+        keywords: ["test"],
+        publishDate: new Date("2024-01-01"),
+        tags: ["TypeScript"],
+        title: "My Post",
+      },
+    } as CollectionEntry<"posts">);
 
     expect(result).toContain("title: My Post");
   });
@@ -24,39 +37,63 @@ describe("toRawMarkdown", () => {
   it("should format Date values as YYYY-MM-DD", () => {
     const result = toRawMarkdown({
       body: "",
-      data: { date: new Date("2024-03-15T12:00:00Z") },
-    });
+      data: {
+        description: "Test description",
+        keywords: ["test"],
+        publishDate: new Date("2024-03-15T12:00:00Z"),
+        tags: ["TypeScript"],
+        title: "Test",
+      },
+    } as CollectionEntry<"posts">);
 
-    expect(result).toContain("date: 2024-03-15");
+    expect(result).toContain("publishDate: 2024-03-15");
     expect(result).not.toContain("T12:00");
   });
 
   it("should serialize array values as JSON", () => {
     const result = toRawMarkdown({
       body: "",
-      data: { tags: ["a", "b"] },
-    });
+      data: {
+        description: "Test description",
+        keywords: ["a", "b"],
+        publishDate: new Date("2024-01-01"),
+        tags: ["TypeScript"],
+        title: "Test",
+      },
+    } as CollectionEntry<"posts">);
 
-    expect(result).toContain('tags: ["a","b"]');
+    expect(result).toContain('keywords: ["a","b"]');
   });
 
   it("should handle multiple frontmatter fields", () => {
     const result = toRawMarkdown({
       body: "",
-      data: { draft: true, tags: ["x"], title: "Post" },
-    });
+      data: {
+        description: "Test description",
+        keywords: ["x"],
+        publishDate: new Date("2024-01-01"),
+        tags: ["TypeScript"],
+        title: "Post",
+      },
+    } as CollectionEntry<"posts">);
 
     expect(result).toContain("title: Post");
-    expect(result).toContain("draft: true");
-    expect(result).toContain('tags: ["x"]');
+    expect(result).toContain('tags: ["TypeScript"]');
   });
 
   it("should handle an empty body", () => {
     const result = toRawMarkdown({
       body: "",
-      data: { title: "No Body" },
-    });
+      data: {
+        description: "Test description",
+        keywords: ["test"],
+        publishDate: new Date("2024-01-01"),
+        tags: ["TypeScript"],
+        title: "No Body",
+      },
+    } as CollectionEntry<"posts">);
 
-    expect(result).toBe("---\ntitle: No Body\n---\n\n");
+    expect(result).toContain("title: No Body");
+    expect(result).toMatch(/^---\n[\s\S]*---\n\n$/);
   });
 });
