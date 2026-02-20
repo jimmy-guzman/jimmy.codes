@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "destination": "/blog/:slug.md",
+      "has": [
+        { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
+      ],
+      "source": "/blog/:slug"
+    }
+  ]
+}
