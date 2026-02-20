@@ -1,5 +1,4 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
       "destination": "/blog/:slug.md",
@@ -7,7 +6,7 @@
         { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
       ],
       "permanent": false,
-      "source": "/blog/:slug"
+      "source": "/blog/:slug((?!.*\\.md$).*)"
     }
   ]
 }
