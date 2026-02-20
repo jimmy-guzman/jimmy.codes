@@ -9,12 +9,11 @@ import PageLayout from "@/layouts/PageLayout.astro";
 import { lastModified, readingTime } from "@/utils/content";
 import { shortTitle } from "@/utils/post";
 import { getRelatedByTags } from "@/utils/related";
-import { toRawMarkdown } from "@/utils/serializers";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
 
-  return posts.flatMap((post) => {
+  return posts.map((post) => {
     const updatedDate =
       post.data.updatedDate ??
       (post.filePath ? lastModified(post.filePath) : undefined);
@@ -22,22 +21,11 @@ export async function getStaticPaths() {
     const relatedPosts = getRelatedByTags(posts, post);
     const base = { post, relatedPosts, updatedDate };
 
-    return [
-      { params: { slug: post.slug }, props: base },
-      {
-        params: { slug: `${post.slug}.md` },
-        props: { ...base, isRawMd: true },
-      },
-    ];
+    return { params: { slug: post.slug }, props: base };
   });
 }
 
-const { post, relatedPosts, updatedDate, isRawMd } = Astro.props;
-
-if (isRawMd)
-  return new Response(toRawMarkdown(post), {
-    headers: { "Content-Type": "text/markdown; charset=utf-8" },
-  });
+const { post, relatedPosts, updatedDate } = Astro.props;
 
 const { Content } = await render(post);
 
