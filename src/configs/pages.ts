@@ -63,20 +63,6 @@ export const pages = {
     title: BASE_TITLE,
   },
 
-  notes: {
-    description:
-      "Quick notes and references on software, architecture, code, and developer experience.",
-    heading: "Notes",
-    keywords: [
-      "jimmy guzman notes",
-      "technical notes",
-      "software engineering",
-      "developer experience",
-      "web development",
-    ],
-    title: `Notes | ${BASE_TITLE}`,
-  },
-
   notFound: {
     description: "The page you're looking for does not exist.",
     heading: "404",
@@ -93,5 +79,12 @@ export const pages = {
     description:
       "Jimmy Guzman Moreno's blogfolio — exploring software engineering, scalable systems, and developer experience.",
     title: "Jimmy Guzman Moreno's blogfolio",
+  },
+
+  uses: {
+    description: "Tech I love, use daily, and am currently learning.",
+    heading: "Uses",
+    keywords: ["tech stack", "tools", "uses", "typescript", "react", "astro"],
+    title: "Uses | jimmy.codes",
   },
 } as const;
