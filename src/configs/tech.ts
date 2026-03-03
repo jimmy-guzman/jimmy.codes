@@ -63,6 +63,12 @@ export const techFullStack = sortByUsage([
     usage: "daily",
   },
   {
+    icon: "icon-[simple-icons--tanstack]",
+    link: "https://tanstack.com/start",
+    title: "TanStack Start",
+    usage: "daily",
+  },
+  {
     icon: "icon-[logos--nuxt-icon]",
     link: "https://nuxt.com/",
     title: "Nuxt",
@@ -72,7 +78,7 @@ export const techFullStack = sortByUsage([
     icon: "icon-[simple-icons--astro]",
     link: "https://astro.build/",
     title: "Astro",
-    usage: "love",
+    usage: "daily",
   },
 ] satisfies Tech[]);
 
@@ -97,8 +103,8 @@ export const techFrontend = sortByUsage([
   },
   {
     icon: "icon-[simple-icons--tanstack]",
-    link: "https://tanstack.com/",
-    title: "TanStack",
+    link: "https://tanstack.com/query",
+    title: "TanStack Query",
     usage: "daily",
   },
   {
@@ -111,13 +117,13 @@ export const techFrontend = sortByUsage([
     icon: "icon-[simple-icons--shadcnui]",
     link: "https://ui.shadcn.com/",
     title: "shadcn/ui",
-    usage: "love",
+    usage: "daily",
   },
   {
     icon: "icon-[logos--daisyui-icon]",
     link: "https://daisyui.com/",
     title: "daisyUI",
-    usage: "love",
+    usage: "daily",
   },
 ] satisfies Tech[]);
 
