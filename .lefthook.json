@@ -10,7 +10,7 @@
   "pre-commit": {
     "commands": {
       "case-police": {
-        "run": "bunx case-police {staged_files}",
+        "run": "bunx case-police --fix {staged_files}",
         "stage_fixed": true
       },
       "check": {
