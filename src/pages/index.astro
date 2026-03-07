@@ -1,8 +1,15 @@
 ---
+import { getCollection } from "astro:content";
 import { pages } from "@/configs/pages";
 import { urls } from "@/configs/urls";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
+import { sortByPublishDate } from "@/utils/content";
+import { shortTitle } from "@/utils/post";
+
+const posts = await getCollection("posts");
+
+const latestPost = posts.sort(sortByPublishDate)[0];
 ---
 
 <BaseLayout
@@ -20,24 +27,24 @@ import PageLayout from "@/layouts/PageLayout.astro";
 
     <section>
       <p>
-        I've worked across enough of the stack to know which parts are easy to
-        get wrong and worth getting right.
+        <a href="/about">Learn about me</a>, see what I <a href="/uses">use</a>,
+        or check out my <a href="/blog">blog</a>, starting with <a
+          href={`/blog/${latestPost.slug}`}
+          rel="bookmark"
+          data-astro-prefetch>{shortTitle(latestPost)}</a
+        >.
       </p>
     </section>
 
-    <section class="space-y-6">
+    <section>
       <p>
-        <a href="/about">Learn about me</a> or see what I <a href="/uses">use</a
-        > or check out my <a href="/blog">blog</a>.
-      </p>
-      <p>
-        Connect via <a
+        Reach me on <a
           href={urls.GitHub}
           target="_blank"
           rel="noopener noreferrer">GitHub</a
         >, <a href={urls.LinkedIn} target="_blank" rel="noopener noreferrer"
           >LinkedIn</a
-        >, or <a href={urls.email}>email</a>.
+        >, or by <a href={urls.email}>email</a>.
       </p>
     </section>
   </PageLayout>
