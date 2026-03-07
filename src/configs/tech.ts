@@ -3,6 +3,7 @@ type Usage = "daily" | "love" | "learning" | "fluent";
 interface Tech {
   link: `https://${string}.${string}`;
   title: string;
+  ariaLabel?: string;
   icon: `icon-[${"logos" | "simple-icons" | "skill-icons"}--${string}]`;
   usage: Usage;
 }
@@ -43,6 +44,7 @@ export const techLanguages = sortByUsage([
     usage: "learning",
   },
   {
+    ariaLabel: "Go programming language",
     icon: "icon-[logos--go]",
     link: "https://go.dev/",
     title: "Go",
