@@ -1,4 +1,4 @@
-type Usage = "daily" | "love" | "learning";
+type Usage = "daily" | "love" | "learning" | "fluent";
 
 interface Tech {
   link: `https://${string}.${string}`;
@@ -7,11 +7,21 @@ interface Tech {
   usage: Usage;
 }
 
-const usageOrder = { daily: 0, learning: 2, love: 1 };
+const usageOrder = { daily: 0, fluent: 2, learning: 3, love: 1 };
 
 function sortByUsage(items: Tech[]) {
   return [...items].sort((a, b) => usageOrder[a.usage] - usageOrder[b.usage]);
 }
+
+export const usageBadge: Record<
+  Usage,
+  { label: string; class: string; dot: string }
+> = {
+  daily: { class: "badge-info", dot: "bg-info", label: "Daily" },
+  fluent: { class: "badge-warning", dot: "bg-warning", label: "Fluent" },
+  learning: { class: "badge-success", dot: "bg-success", label: "Learning" },
+  love: { class: "badge-error", dot: "bg-error", label: "Love" },
+};
 
 export const techLanguages = sortByUsage([
   {
@@ -99,7 +109,7 @@ export const techFrontend = sortByUsage([
     icon: "icon-[logos--react-router]",
     link: "https://reactrouter.com/",
     title: "React Router",
-    usage: "daily",
+    usage: "fluent",
   },
   {
     icon: "icon-[simple-icons--tanstack]",
@@ -188,6 +198,24 @@ export const techTooling = sortByUsage([
     title: "Storybook",
     usage: "daily",
   },
+  {
+    icon: "icon-[logos--jest]",
+    link: "https://jestjs.io/",
+    title: "Jest",
+    usage: "fluent",
+  },
+  {
+    icon: "icon-[logos--eslint]",
+    link: "https://eslint.org/",
+    title: "ESLint",
+    usage: "fluent",
+  },
+  {
+    icon: "icon-[logos--webpack]",
+    link: "https://webpack.js.org/",
+    title: "webpack",
+    usage: "fluent",
+  },
 ] satisfies Tech[]);
 
 export const techBackend = sortByUsage([
@@ -195,7 +223,7 @@ export const techBackend = sortByUsage([
     icon: "icon-[logos--hono]",
     link: "https://hono.dev/",
     title: "Hono",
-    usage: "love",
+    usage: "daily",
   },
   {
     icon: "icon-[skill-icons--elysia-dark]",
@@ -213,6 +241,12 @@ export const techBackend = sortByUsage([
     icon: "icon-[simple-icons--express]",
     link: "https://expressjs.com/",
     title: "Express",
+    usage: "fluent",
+  },
+  {
+    icon: "icon-[simple-icons--effect]",
+    link: "https://effect.website/",
+    title: "Effect",
     usage: "daily",
   },
   {
