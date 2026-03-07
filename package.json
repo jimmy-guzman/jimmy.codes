@@ -45,7 +45,7 @@
     "@iconify-json/lucide": "1.2.95",
     "@iconify-json/simple-icons": "1.2.72",
     "@iconify-json/skill-icons": "1.2.4",
-    "@iconify/tailwind4": "1.2.1",
+    "@iconify/tailwind4": "1.2.3",
     "@playwright/test": "1.58.2",
     "@shikijs/colorized-brackets": "4.0.1",
     "@tailwindcss/typography": "0.5.19",
