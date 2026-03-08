@@ -35,9 +35,7 @@ Miss a few pixels. Notice later. Sigh.
 
 So I built a pipeline with **Node.js** and **Sharp** that splits each scan into two frames automatically, then exports them at consistent, high-quality dimensions.
 
-This post is the deep dive. Not just the “here is the code” version.
-
----
+This post is the deep dive. Not just the "here is the code" version.
 
 ## The Problem
 
@@ -61,15 +59,13 @@ The job is:
 > [!NOTE]
 > _Letterboxing_ adds black bars to match a target size. It preserves content but wastes pixels and lowers effective resolution.
 
----
-
 ## The Approach
 
 I went with a **two-pass pipeline**.
 
 Why two passes?
 
-Because “pick a target size” is not a guess. It is something you can measure.
+Because "pick a target size" is not a guess. It is something you can measure.
 
 ### Pass 1: Analyze
 
@@ -84,8 +80,6 @@ Because “pick a target size” is not a guess. It is something you can measure
 - Encode with settings that preserve scan quality
 
 This adapts to scan variation instead of relying on fixed coordinates.
-
----
 
 ## Image Processing Pipeline
 
@@ -103,21 +97,19 @@ Why grayscale?
 - Dividers are dark regardless of color
 - Less sensitivity to weird color casts from scanning
 
-Sharp’s `.grayscale()` uses a luminance formula (BT.709):
+Sharp's `.grayscale()` uses a luminance formula (BT.709):
 
 ```log
 Y = 0.2126 R + 0.7152 G + 0.0722 B
 ```
 
-That matches human perception pretty well, which matters when you are trying to find “the dark thing” in a scan.
+That matches human perception pretty well, which matters when you are trying to find "the dark thing" in a scan.
 
 `.raw()` gives you an uncompressed byte buffer:
 
 - one byte per pixel (0 to 255)
 - row-major order
 - direct access, no decoding overhead
-
----
 
 ### 2. Compute column intensity
 
@@ -149,8 +141,6 @@ Why vertical averaging?
 - Averaging removes horizontal texture and grain noise
 - You get a clean profile: bright frame, dark divider, bright frame
 
----
-
 ### 3. Smooth the signal
 
 Film grain and scan artifacts make the curve noisy.
@@ -179,8 +169,6 @@ Why a 15 px window?
 - Small enough to keep the divider edges sharp
 
 After smoothing, the divider shows up as a valley you can trust.
-
----
 
 ### 4. Detect divider boundaries
 
@@ -222,9 +210,7 @@ if (dividerEnd - dividerStart < 10) {
 }
 ```
 
-This avoids weird “divider is one column wide” failures.
-
----
+This avoids weird "divider is one column wide" failures.
 
 ### 5. Compute crop regions
 
@@ -251,15 +237,13 @@ Because it guarantees symmetry even if the scan is shifted.
 
 Why the 6 px bleed?
 
-Because “crop too tight” is worse than “include a few dark pixels”.
+Because "crop too tight" is worse than "include a few dark pixels".
 
 I also store aspect ratios for the next step:
 
 ```ts
 aspectRatio: cropWidth / cropHeight;
 ```
-
----
 
 ### 6. Two-pass optimization
 
@@ -287,7 +271,7 @@ Why median?
 
 - outliers exist
 - median ignores them
-- it represents the “typical” scan
+- it represents the "typical" scan
 
 In practice this landed around **900x1300 px**.
 
@@ -307,8 +291,6 @@ That gave me:
 - **6%** small bars
 
 That is exactly the tradeoff I wanted.
-
----
 
 ### 7. Extract and resize
 
@@ -340,8 +322,6 @@ Key settings:
 - `position: "attention"` uses saliency detection to preserve important features
 - `kernel: lanczos3` gives high-quality resampling with low aliasing
 
----
-
 ### 8. JPEG re-encoding choices
 
 The lab already delivered JPEGs.
@@ -362,8 +342,6 @@ I kept re-encoding as gentle as possible:
 - **progressive**: nicer perceived loading behavior
 - **4:4:4 chroma**: full color detail, which matters for film texture and subtle gradients
 
----
-
 ### 9. Parallel processing
 
 Each scan yields two outputs.
@@ -377,8 +355,6 @@ await Promise.all([processLeftFrame(), processRightFrame()]);
 It is a small change with an obvious win.
 
 More throughput, less waiting.
-
----
 
 ## Results
 
@@ -415,8 +391,6 @@ On a batch of **112 images** (224 frames):
   </figure>
 </div>
 
----
-
 ## Edge Cases
 
 **Very narrow dividers (10 to 16 px)**
@@ -428,11 +402,9 @@ Usually double exposures or scan errors. Detected and flagged for review.
 **Invalid crop geometry**
 Zero or negative crop sizes are skipped automatically.
 
----
-
 ## Conclusion
 
-This started as “I do not want to crop these by hand.”
+This started as "I do not want to crop these by hand."
 
 It turned into a compact image-processing pipeline:
 
@@ -447,7 +419,5 @@ The two-pass approach is the big win.
 Analyze first. Then process with confidence.
 
 If you shoot half-frame, this saves hours. It also makes the output consistent enough that you stop thinking about the scans and start thinking about the photos.
-
----
 
 _[Full source code](https://gist.github.com/jimmy-guzman/2a14ba5b2928050e28712bbdbd1582b9) is available as a reference implementation for automated film scan splitting._

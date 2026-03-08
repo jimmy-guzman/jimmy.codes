@@ -10,7 +10,7 @@ Analytics has a habit of leaking implementation details.
 
 You ship `data-track-name`.
 You ship `btn-324`.
-You ship “modal-close-x”.
+You ship "modal-close-x".
 
 Then someone refactors the UI and your events turn into archaeology.
 
@@ -52,7 +52,7 @@ Or it bakes analytics into markup.
 <button class="plausible-event-name=Button+Click">Click Me</button>
 ```
 
-All of these “work”.
+All of these "work".
 
 They also create the same long term failure mode.
 
@@ -110,9 +110,9 @@ Testing Library has a line that stuck with me:
 
 Analytics should follow the same principle.
 
-If a user clicks “Search”, your analytics should say “Search”.
+If a user clicks "Search", your analytics should say "Search".
 
-Not “btn-324”.
+Not "btn-324".
 
 ## The missing piece
 
@@ -227,11 +227,11 @@ It also surfaces real issues.
 
 If your click logs show empty strings, you have unlabeled controls.
 
-If your logs show five different “Submit” clicks, you have duplicate names that need context.
+If your logs show five different "Submit" clicks, you have duplicate names that need context.
 
 One fix is `aria-labelledby` tied to nearby content.
 
-Instead of “Edit”, you can get “Edit Project Alpha” or “Edit User Profile”.
+Instead of "Edit", you can get "Edit Project Alpha" or "Edit User Profile".
 
 Now your analytics becomes precise without inventing tracking names.
 

@@ -23,8 +23,6 @@ _hover to reveal a link icon for deep-linking to that heading_.
 After reading [`rehype-autolink-headings`](https://github.com/rehypejs/rehype-autolink-headings)' docs on using [`hastscript`](https://github.com/syntax-tree/hastscript),  
 I realized I could replicate the effect with some [`tailwindcss`](https://tailwindcss.com) magic.
 
----
-
 ## Before and after
 
 Here's how it looked before and after adding the configuration.
@@ -33,14 +31,10 @@ Without any changes, hovering over a heading does nothing. There's no visual cue
 
 ![Screenshot of Astro heading without hover link](@/assets/images/before-heading.png)
 
----
-
 Now when you hover over a heading, a subtle link icon appears.  
 Clicking it jumps directly to that heading's URL.
 
 ![Screenshot of Astro heading with hover link icon](@/assets/images/after-heading.png)
-
----
 
 ## How it works
 
@@ -48,8 +42,6 @@ Clicking it jumps directly to that heading's URL.
 - [`rehype-autolink-headings`](https://github.com/rehypejs/rehype-autolink-headings) wraps them in links.
 - [`hastscript`](https://github.com/syntax-tree/hastscript) builds the icon element.
 - Tailwind's [`group-hover`](https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-parent-state) fades the icon in.
-
----
 
 ## Example configuration
 
@@ -64,7 +56,7 @@ const autoLinkHeadingOpts = {
   content: [
     h("span", {
       "aria-hidden": "true",
-      class:
+      "class":
         "icon-[lucide--link] absolute left-0 top-1/2 -translate-y-1/2 " +
         "opacity-0 group-hover:opacity-100 transition-opacity duration-150 " +
         "text-base-content/50 h-[1em] w-[1em]",
@@ -83,8 +75,6 @@ export default defineConfig({
   },
 });
 ```
-
----
 
 ## Breaking down the configuration
 
@@ -112,8 +102,6 @@ content: [
 - `text-base-content/50` makes the icon a muted, theme-aware color. In this case [daisyUI](https://daisyui.com/docs/colors/#list-of-all-daisyui-color-names) is being used.
 - `h-[1em] w-[1em]` sizes the icon to match the heading's font size.
 
----
-
 ### `properties`
 
 ```ts
@@ -128,8 +116,6 @@ properties: {
 - `block` ensures consistent spacing and padding behavior.
 - `pl-[1.5em] -ml-[1.5em]` adds space for the icon while keeping the text aligned with other elements.
 - `tabindex="-1"` removes the link from the tab order so keyboard navigation focuses on the heading text instead.
-
----
 
 ## Note on icons
 
@@ -149,8 +135,6 @@ bun add -D @iconify/tailwind4 @iconify-json/lucide
 
 Swap `lucide--link` for any other Lucide icon or from another installed Iconify collection.
 Or, use your own icon setup such as SVGs, React components, or any approach you prefer.
-
----
 
 ## Wrapping up
 

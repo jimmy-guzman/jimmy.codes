@@ -150,7 +150,7 @@ Then refactors happen.
 
 Here is the scenario that bites.
 
-Before generics, people often “fixed” the callback by annotating it manually.
+Before generics, people often "fixed" the callback by annotating it manually.
 
 That was the only way to get types.
 
@@ -247,7 +247,7 @@ function Form<T>({ initialValues, onSubmit }: FormProps<T>) {
 
 Read that as:
 
-“`values` is `T`, but do not use this position to infer `T`.”
+"`values` is `T`, but do not use this position to infer `T`."
 
 Now inference must come from `initialValues`.
 
@@ -327,11 +327,11 @@ In lib.d.ts, `NoInfer` is defined like this:
 type NoInfer<T> = intrinsic;
 ```
 
-That “intrinsic” part matters.
+That "intrinsic" part matters.
 
 It means the compiler implements the behavior directly.
 
-TypeScript treats `NoInfer<T>` as “this is `T`, but do not collect inference candidates from here.”
+TypeScript treats `NoInfer<T>` as "this is `T`, but do not collect inference candidates from here."
 
 So the type stays the same, but inference ignores that position.
 
@@ -353,4 +353,4 @@ Use `NoInfer<T>` when:
 
 This keeps your generics predictable.
 
-And it keeps the “source of truth” where you intended it to be.
+And it keeps the "source of truth" where you intended it to be.

@@ -20,21 +20,17 @@ No extra JavaScript.
 
 Turns out you can get smooth page-to-page transitions with only CSS.
 
----
-
 ## Why I Tried This
 
 Astro already feels fast. Pages stream as static HTML and navigation is snappy.
 
-But “fast” and “connected” are different feelings.
+But "fast" and "connected" are different feelings.
 
 I wanted a subtle fade that makes navigation feel continuous without looking like an animation demo.
 
 Cross-document view transitions make that possible. The browser can animate between full page loads. If I could enable it globally, the whole site would pick up that polish without hydration.
 
 It worked better than I expected.
-
----
 
 ## The Core Idea
 
@@ -57,14 +53,12 @@ Two layers make this work:
 - Global CSS that defines timing and easing
 - Consistent HTML structure that names the same elements on every page
 
----
-
 ## Implementation
 
 There are two moving parts.
 
 CSS defines what the transition looks like.
-Markup defines what the browser should “carry over” between pages.
+Markup defines what the browser should "carry over" between pages.
 
 ### CSS
 
@@ -164,8 +158,6 @@ Rules I follow:
 
 When the browser sees the same name on the old and new document, it animates between them instead of snapping.
 
----
-
 ## What I Learned
 
 A few practical notes after testing:
@@ -198,15 +190,13 @@ I leave nav unnamed.
 
 It fades naturally with the rest of the page, which looks intentional and keeps markup simple.
 
-If you want nav to feel “pinned” during transitions, disable its group:
+If you want nav to feel "pinned" during transitions, disable its group:
 
 ```css
 ::view-transition-group(nav) {
   animation: none;
 }
 ```
-
----
 
 ## Debugging
 
@@ -223,14 +213,12 @@ If nothing animates, do the boring checks first.
 
 2. **Use DevTools**
    - In Chrome, open the **Animations** panel.
-   - `Command+Shift+P` then “Show Animations”.
+   - `Command+Shift+P` then "Show Animations".
 
 3. **Confirm the basics**
    - CSS loads globally
    - Navigation is same-origin
    - Names exist on both pages and match exactly
-
----
 
 ## Timing and Rhythm
 
@@ -266,8 +254,6 @@ Everything stays synchronized. It feels simpler, but flatter.
 
 Those 25ms gaps decide whether motion feels designed or accidental.
 
----
-
 ## Final Thoughts
 
 This is one of those features that feels like it should require a framework.
@@ -277,8 +263,6 @@ It does not.
 Astro gives you fast static navigation. The View Transitions API adds continuity. CSS handles the whole thing.
 
 No router. No scripts. Just better page-to-page feel.
-
----
 
 ## References
 
