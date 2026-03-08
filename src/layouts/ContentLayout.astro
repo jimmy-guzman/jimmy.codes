@@ -76,11 +76,15 @@ const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
 {
   relatedPosts.length > 0 && (
     <aside class="mt-8" aria-labelledby="related-heading">
-      <h2 id="related-heading">Related Posts</h2>
+      <h2 id="related-heading" class="text-sm text-muted">
+        Related Posts
+      </h2>
       <ul>
         {relatedPosts.map((post) => (
           <li>
-            <a href={`/blog/${post.slug}`}>{post.title}</a>
+            <a class="text-sm" href={`/blog/${post.slug}`}>
+              {post.title}
+            </a>
           </li>
         ))}
       </ul>
@@ -89,8 +93,8 @@ const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
 }
 
 <section class="mt-8" aria-labelledby="discuss-heading">
-  <h2 id="discuss-heading">Let's Discuss</h2>
-  <p>
+  <h2 id="discuss-heading" class="text-sm text-muted">Let's Discuss</h2>
+  <p class="text-sm">
     Questions or feedback? <a href={`${urls.email}?subject=${emailSubject}`}
       >Send me an email</a
     >.
