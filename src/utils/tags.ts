@@ -57,7 +57,7 @@ export const guessMaxVisible = (
     paddingPerTag?: number;
   },
 ) => {
-  const avgCharsPerLine = options?.avgCharsPerLine ?? 40;
+  const avgCharsPerLine = options?.avgCharsPerLine ?? 34;
   const maxLines = options?.maxLines ?? 2;
   const targetChars = avgCharsPerLine * maxLines;
   const paddingPerTag = options?.paddingPerTag ?? 4;

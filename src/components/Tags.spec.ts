@@ -189,7 +189,7 @@ describe("Tags", () => {
     expect(html).toContain("> Node.js </a>");
   });
 
-  it("should show all tags when count is less than maxVisible", async () => {
+  it("should show all tags when count is less than guessMaxVisible", async () => {
     const tags = [
       { count: 5, tag: "TypeScript" },
       { count: 3, tag: "React" },
@@ -198,7 +198,7 @@ describe("Tags", () => {
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { maxVisible: 5, tags },
+      props: { tags },
     });
 
     expect(html).toContain("> TypeScript </a>");
@@ -207,58 +207,70 @@ describe("Tags", () => {
     expect(html).not.toContain("more");
   });
 
-  it("should truncate tags and show more link when exceeding maxVisible", async () => {
+  it("should truncate tags and show more link when exceeding guessMaxVisible", async () => {
+    // With targetChars=68 and paddingPerTag=4:
+    // LongTagOne(10+4=14), LongTagTwo(10+4=14, total=28), LongTagThree(12+4=16, total=44)
+    // LongTagFour(11+4=15, total=59), LongTagFive(11+4=15, total=74) -> exceeds 68
     const tags = [
-      { count: 10, tag: "TypeScript" },
-      { count: 8, tag: "React" },
-      { count: 6, tag: "Testing" },
-      { count: 5, tag: "Node.js" },
-      { count: 4, tag: "Python" },
-      { count: 3, tag: "Go" },
+      { count: 5, tag: "LongTagOne" },
+      { count: 4, tag: "LongTagTwo" },
+      { count: 3, tag: "LongTagThree" },
+      { count: 2, tag: "LongTagFour" },
+      { count: 1, tag: "LongTagFive" },
+      { count: 1, tag: "LongTagSix" },
     ];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { maxVisible: 3, tags },
+      props: { tags },
     });
 
-    expect(html).toContain("> TypeScript </a>");
-    expect(html).toContain("> React </a>");
-    expect(html).toContain("> Testing </a>");
-    expect(html).not.toContain("> Node.js </a>");
-    expect(html).not.toContain("> Python </a>");
-    expect(html).not.toContain("> Go </a>");
-    expect(html).toContain("+3 more");
+    expect(html).toContain("> LongTagOne </a>");
+    expect(html).toContain("> LongTagTwo </a>");
+    expect(html).toContain("> LongTagThree </a>");
+    expect(html).toContain("> LongTagFour </a>");
+    expect(html).not.toContain("> LongTagFive </a>");
+    expect(html).not.toContain("> LongTagSix </a>");
+    expect(html).toContain("+2 more");
   });
 
   it("should link more link to /blog/tags", async () => {
-    const tags = Array.from({ length: 10 }, (_, i) => ({
-      count: 10 - i,
-      tag: `Tag${i + 1}`,
-    }));
+    // Same data as above — triggers truncation via guessMaxVisible
+    const tags = [
+      { count: 5, tag: "LongTagOne" },
+      { count: 4, tag: "LongTagTwo" },
+      { count: 3, tag: "LongTagThree" },
+      { count: 2, tag: "LongTagFour" },
+      { count: 1, tag: "LongTagFive" },
+      { count: 1, tag: "LongTagSix" },
+    ];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { maxVisible: 5, tags },
+      props: { tags },
     });
 
     expect(html).toContain('href="/blog/tags"');
-    expect(html).toContain("+5 more");
+    expect(html).toContain("+2 more");
   });
 
   it("should apply badge-outline style to more link", async () => {
-    const tags = Array.from({ length: 10 }, (_, i) => ({
-      count: 10 - i,
-      tag: `Tag${i + 1}`,
-    }));
+    const tags = [
+      { count: 5, tag: "LongTagOne" },
+      { count: 4, tag: "LongTagTwo" },
+      { count: 3, tag: "LongTagThree" },
+      { count: 2, tag: "LongTagFour" },
+      { count: 1, tag: "LongTagFive" },
+      { count: 1, tag: "LongTagSix" },
+    ];
 
     const container = await AstroContainer.create();
     const html = await container.renderToString(Tags, {
-      props: { maxVisible: 5, tags },
+      props: { tags },
     });
 
     const moreLinkMatch = html.match(
-      /<a[^>]*href="\/blog\/tags"[^>]*>.*?\+5 more.*?<\/a>/s,
+      /<a[^>]*href="\/blog\/tags"[^>]*>.*?\+2 more.*?<\/a>/s,
     );
     expect(moreLinkMatch).toBeTruthy();
     expect(moreLinkMatch?.[0]).toContain("badge-outline");

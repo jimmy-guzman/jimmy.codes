@@ -4,12 +4,11 @@ import { guessMaxVisible, slugifyTag } from "@/utils/tags";
 interface Props {
   tags: { tag: string; count: number }[];
   active?: string;
-  maxVisible?: number;
 }
 
-const { tags, active, maxVisible } = Astro.props;
+const { tags, active } = Astro.props;
 
-const visible = maxVisible ?? guessMaxVisible(tags);
+const visible = guessMaxVisible(tags);
 const visibleTags = tags.slice(0, visible);
 const hasMoreTags = tags.length > visible;
 ---
