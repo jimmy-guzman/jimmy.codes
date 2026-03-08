@@ -130,11 +130,11 @@ describe("guessMaxVisible", () => {
       { count: 1, tag: "Analytics" },
     ];
 
-    // With targetChars=80 (40 chars/line × 2 lines) and padding=4 per tag:
+    // With targetChars=68 (34 chars/line × 2 lines) and padding=4 per tag:
     // Frontend(8+4=12), TypeScript(10+4=14, total=26), Astro(5+4=9, total=35)
     // CSS(3+4=7, total=42), Markdown(8+4=12, total=54), Node.js(7+4=11, total=65)
-    // A11y(4+4=8, total=73), Analytics(9+4=13, total=86) -> exceeds 80!
-    expect(guessMaxVisible(tags)).toBe(7);
+    // A11y(4+4=8, total=73) -> exceeds 68!
+    expect(guessMaxVisible(tags)).toBe(6);
   });
 
   it("should return minimum of 3 even with very long tag names", () => {
