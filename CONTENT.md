@@ -16,7 +16,7 @@ Exception: `---` is fine as a thematic break when there is no heading on either 
 
 ## No curly/smart quotes in prose
 
-Use straight quotes (`"`) not curly quotes (`"` / `"`).
+Use straight quotes (`"`) not curly quotes (U+201C `\u201C` / U+201D `\u201D`).
 
 Curly quotes are inconsistent across editors and tools, and can cause subtle encoding issues. Straight quotes are unambiguous.
 
