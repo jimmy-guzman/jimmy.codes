@@ -1,0 +1,135 @@
+---
+title: Per-Page CSS in Tailwind v4
+publishDate: 2026-03-08
+description: "How to keep heavy, page-specific utility CSS out of your shared bundle with Tailwind v4."
+keywords:
+  [
+    "tailwind",
+    "css",
+    "performance",
+    "per-page css",
+    "source(none)",
+    "iconify",
+    "css splitting",
+    "tailwind v4",
+  ]
+tags: ["Tailwind", "CSS", "Performance"]
+---
+
+You add a CSS-based icon library like [Iconify](https://iconify.design). Then you open DevTools on your homepage and notice the CSS bundle is huge, mostly icon rules for a page you're not even on.
+
+Tailwind v4 gives you the primitives to fix this. This post shows how to combine them into a working pattern, and what breaks if you don't.
+
+## How Tailwind generates CSS
+
+Tailwind v4 scans your source files for class names and generates CSS only for what it finds. If you use `icon-[logos--react]`, you get that one rule. If you never use it, you don't.
+
+The catch: **scanning is global by default**. Every CSS file that imports Tailwind scans your entire project. So if one page uses 55 brand icons, those 55 rules end up in whatever CSS file your shared layout imports, and every page pays for them.
+
+Many bundlers extract CSS shared across pages into a common chunk, so route-specific utilities can end up shipped to every page.
+
+## The key insight
+
+In Tailwind v4, each Tailwind stylesheet is compiled independently. `@import "tailwindcss"` doesn't just pull in styles; it spins up a full pipeline: scanner, plugin resolution, CSS generation.
+
+You can have **multiple Tailwind stylesheets that don't know about each other**. Each one can scan different files and generate different output.
+
+This is what makes per-page CSS possible.
+
+## Building the split
+
+Say you have a page with 55 brand icons, and a shared `global.css` that every page loads. The goal: get the icon CSS off the shared bundle entirely.
+
+### Step 1 - Create a scoped stylesheet for the icons
+
+```css title="icons.css"
+@import "tailwindcss/utilities" source(none);
+@source "../path/to/page";
+@source "../path/to/icon-data";
+@plugin "@iconify/tailwind4";
+```
+
+Three things:
+
+- `@import "tailwindcss/utilities"` - imports only the utilities layer. No base reset, no theme variables. Just utility CSS.
+- `source(none)` - turns off automatic scanning entirely. Tailwind won't crawl your project.
+- `@source` - points the scanner at specific files. Only classes found in these files get generated.
+
+This stylesheet contains **only** the icon rules needed by that page. Nothing else.
+
+### Step 2 - Load it only on the page that needs it
+
+Import the stylesheet directly in the page, route component, or route entry. Most frameworks and bundlers support this; a JS/TS import is enough:
+
+```ts
+import "./styles/icons.css";
+```
+
+The bundler injects it only on routes that import it.
+
+### Step 3 - Exclude the file from the shared bundle
+
+```css title="global.css"
+@import "tailwindcss";
+@source not "../path/to/icon-data";
+@plugin "@iconify/tailwind4";
+```
+
+`@source not` punches a hole in the default scan. Tailwind still crawls everything else, but that file is skipped. The icon plugin in `global.css` will never see those icon classes, so it won't generate rules for them.
+
+## The gotcha
+
+`@source not` excludes the entire file, not just the icon class names.
+
+If that file also contains regular utility classes, those disappear from the shared bundle too. Any page that relies on them breaks.
+
+Use `@source inline()` to hand class names directly to the compiler, bypassing the file scanner:
+
+```css title="global.css"
+@import "tailwindcss";
+@source not "../path/to/icon-data";
+@source inline("class-a class-b class-c");
+@plugin "@iconify/tailwind4";
+```
+
+Think of it as a safelist you control directly in CSS. Those classes are always generated regardless of what files are scanned.
+
+## The result
+
+Before the split, everything lands in one shared stylesheet.
+
+After the split:
+
+`global.css`
+
+- Scans everything except your icon source file
+- Preserves any non-icon utilities via `@source inline()`
+- Loads on every page
+
+`icons.css`
+
+- Scans only your route-specific icon source
+- Loads only on the pages that need it
+
+The shared bundle shrinks by however much the icon CSS weighed. Every other page gets that back for free.
+
+## When is this worth it?
+
+The pattern pays off whenever a page-specific dependency generates significant CSS:
+
+- Icon libraries (especially brand/logo sets)
+- Heavy component libraries used on one route
+- A page with a large set of dynamic utility classes not used anywhere else
+
+It's not worth it for a handful of utilities. The benefit scales with the size of what you're moving.
+
+## Quick reference
+
+| Directive                     | What it does                                                        |
+| ----------------------------- | ------------------------------------------------------------------- |
+| `source(none)`                | Disables automatic scanning. You control exactly what gets scanned. |
+| `@source "../path"`           | Adds a specific file or directory to the scanner.                   |
+| `@source not "../path"`       | Removes a file or directory from the default scan.                  |
+| `@source inline("cls1 cls2")` | Generates specific classes without scanning any file.               |
+
+All four are Tailwind v4, no bundler-specific behavior, no config files. Just CSS.
