@@ -313,9 +313,10 @@ describe("getRelatedByTags", () => {
     const withoutJaccard = getRelatedByTags(all, current, { jaccardWeight: 0 });
     const withJaccard = getRelatedByTags(all, current, { jaccardWeight: 0.5 });
 
-    // Both orderings should rank two-shared first (more IDF score),
-    // but the Jaccard case boosts two-shared further because its union is 4 (jaccard=2/4=0.5)
-    // vs one-shared jaccard=1/2=0.5 — actually same jaccard here. Both still put two-shared first.
+    // Both orderings rank two-shared first because it has a higher IDF score (two
+    // shared tags vs one). With jaccardWeight=0.5, both candidates happen to have
+    // the same Jaccard value (two-shared: 2/4=0.5, one-shared: 1/2=0.5), so the
+    // Jaccard boost is equal and the IDF advantage still determines the order.
     expect(withoutJaccard.map((r) => r.slug)).toEqual([
       "two-shared",
       "one-shared",

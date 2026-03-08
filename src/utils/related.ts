@@ -13,6 +13,15 @@ const filterUsableTags = (tags: string[], stop: Set<string>) => {
   return tags.map(normalizeTag).filter((tag) => !stop.has(tag));
 };
 
+const normalizeNonNegative = (
+  value: number | undefined,
+  defaultValue: number,
+) => {
+  const v = value ?? defaultValue;
+
+  return Number.isFinite(v) ? Math.max(0, v) : Math.max(0, defaultValue);
+};
+
 const getTagFrequencies = (allPosts: Post[], stopTags: Set<string>) => {
   const tagCounts = new Map<string, number>();
 
@@ -62,7 +71,7 @@ interface RelatedOptions {
  * Scores candidates using IDF-weighted tag overlap blended with Jaccard
  * similarity, so posts that share a high proportion of their tag space rank
  * above posts with only an incidental single-tag match. An optional recency
- * decay can further favour newer content.
+ * decay can further favor newer content.
  */
 export const getRelatedByTags = (
   allPosts: Post[],
@@ -71,8 +80,8 @@ export const getRelatedByTags = (
 ) => {
   const limit = options.limit ?? 5;
   const minimumSharedTags = options.minimumSharedTags ?? 1;
-  const recencyWeight = Math.max(0, options.recencyWeight ?? 0);
-  const jaccardWeight = Math.max(0, options.jaccardWeight ?? 0.5);
+  const recencyWeight = normalizeNonNegative(options.recencyWeight, 0);
+  const jaccardWeight = normalizeNonNegative(options.jaccardWeight, 0.5);
   const stopTags = new Set((options.stopTags ?? []).map(normalizeTag));
 
   const currentPostTags = new Set(
@@ -126,9 +135,15 @@ export const getRelatedByTags = (
        * involved, penalizing incidental single-tag matches between posts with
        * otherwise disjoint topic spaces.
        */
-      const unionSize = new Set([...currentPostTags, ...postTags]).size;
-      const jaccard = unionSize > 0 ? sharedTags.length / unionSize : 0;
-      const jaccardBoost = 1 + jaccardWeight * jaccard;
+      let jaccardBoost = 1;
+
+      if (jaccardWeight) {
+        const unionSize =
+          currentPostTags.size + postTags.size - sharedTags.length;
+        const jaccard = unionSize > 0 ? sharedTags.length / unionSize : 0;
+
+        jaccardBoost = 1 + jaccardWeight * jaccard;
+      }
 
       const monthsOld = calculateMonthsSince(post.data.publishDate);
 
