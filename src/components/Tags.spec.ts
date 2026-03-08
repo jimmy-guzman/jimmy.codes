@@ -70,7 +70,7 @@ describe("Tags", () => {
       props: { active: "typescript", tags },
     });
 
-    expect(html).toContain("badge-primary");
+    expect(html).toContain("badge-neutral");
   });
 
   it("should apply badge soft styles to non-active tags", async () => {

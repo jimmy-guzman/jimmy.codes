@@ -133,8 +133,8 @@
 
 @plugin "@iconify/tailwind4";
 
-/* tech.ts is excluded from scanning so brand icons stay out of the shared bundle.
-   The non-icon utility classes it contains are safelisted explicitly below. */
+/* tech.ts is excluded from scanning so brand icons stay out of the shared bundle;
+   the non-icon utility classes it exports are listed inline below. */
 @source not "../configs/tech.ts";
 @source inline("bg-info bg-error bg-warning bg-success");
 
