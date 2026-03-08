@@ -228,10 +228,10 @@ describe("Tags", () => {
     expect(html).toContain("> LongTagOne </a>");
     expect(html).toContain("> LongTagTwo </a>");
     expect(html).toContain("> LongTagThree </a>");
-    expect(html).toContain("> LongTagFour </a>");
+    expect(html).not.toContain("> LongTagFour </a>");
     expect(html).not.toContain("> LongTagFive </a>");
     expect(html).not.toContain("> LongTagSix </a>");
-    expect(html).toContain("+2 more");
+    expect(html).toContain("+3 more");
   });
 
   it("should link more link to /blog/tags", async () => {
@@ -251,7 +251,7 @@ describe("Tags", () => {
     });
 
     expect(html).toContain('href="/blog/tags"');
-    expect(html).toContain("+2 more");
+    expect(html).toContain("+3 more");
   });
 
   it("should apply badge-outline style to more link", async () => {
@@ -270,7 +270,7 @@ describe("Tags", () => {
     });
 
     const moreLinkMatch = html.match(
-      /<a[^>]*href="\/blog\/tags"[^>]*>.*?\+2 more.*?<\/a>/s,
+      /<a[^>]*href="\/blog\/tags"[^>]*>.*?\+3 more.*?<\/a>/s,
     );
     expect(moreLinkMatch).toBeTruthy();
     expect(moreLinkMatch?.[0]).toContain("badge-outline");

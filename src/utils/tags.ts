@@ -34,41 +34,104 @@ export const getAllTags = (posts: { data: { tags?: string[] } }[]) => {
     .map(([tag, count]) => ({ count, tag }));
 };
 
+interface Options {
+  avgCharsPerLine?: number;
+  maxLines?: number;
+  overflowBadgeWidth?: number;
+  paddingPerTag?: number;
+}
+
+const DEFAULT_OPTIONS = {
+  avgCharsPerLine: 34,
+  maxLines: 2,
+  overflowBadgeWidth: 11,
+  paddingPerTag: 3,
+} satisfies Required<Options>;
+
 /**
- *  Estimate the maximum number of visible tags based on their lengths.
+ * Estimate the maximum number of visible tags by simulating row wrapping.
+ *
+ * Tags are placed left-to-right onto rows. When a tag would overflow the
+ * current row, it starts a new row. Once the number of rows exceeds
+ * `maxLines`, the tag that caused the overflow (and everything after) is
+ * hidden. This mirrors how a `flex-wrap` layout actually behaves.
+ *
+ * When truncation occurs a "+N more" overflow badge is rendered after the
+ * visible tags. The simulation reserves space for it on the last line —
+ * if it wouldn't fit, tags are removed one-by-one until it does. The
+ * returned count is always in the range [0, tags.length] and never
+ * exceeds the `maxLines` constraint.
  *
  * @param tags Array of tags with their counts
  *
- * @param options  Optional settings for the estimation
+ * @param options Optional settings for the estimation
  *
- * @param options.avgCharsPerLine Average characters per line (default: 40)
+ * @param options.avgCharsPerLine Average characters that fit per row (default: 34)
  *
- * @param options.maxLines Maximum number of lines (default: 2)
+ * @param options.maxLines Maximum number of lines before truncating (default: 2)
  *
- * @param options.paddingPerTag Padding added per tag (default: 4)
+ * @param options.paddingPerTag Horizontal padding/gap overhead per tag in chars (default: 3)
+ *
+ * @param options.overflowBadgeWidth Width in chars of the "+N more" overflow badge (default: 11)
  *
  * @returns Estimated maximum number of visible tags
  */
 export const guessMaxVisible = (
   tags: { count: number; tag: string }[],
-  options?: {
-    avgCharsPerLine?: number;
-    maxLines?: number;
-    paddingPerTag?: number;
-  },
+  options?: Options,
 ) => {
-  const avgCharsPerLine = options?.avgCharsPerLine ?? 34;
-  const maxLines = options?.maxLines ?? 2;
-  const targetChars = avgCharsPerLine * maxLines;
-  const paddingPerTag = options?.paddingPerTag ?? 4;
+  const { avgCharsPerLine, maxLines, paddingPerTag, overflowBadgeWidth } = {
+    ...DEFAULT_OPTIONS,
+    ...options,
+  };
 
-  let charCount = 0;
+  let lineChars = 0;
+  let prevLineChars = 0;
+  let lines = 1;
 
   const visibleCount = tags.findIndex(({ tag }) => {
-    charCount += tag.length + paddingPerTag;
+    const tagWidth = tag.length + paddingPerTag;
+    const wraps = lineChars + tagWidth > avgCharsPerLine;
 
-    return charCount > targetChars;
+    if (wraps) {
+      lines++;
+      prevLineChars = lineChars;
+      lineChars = tagWidth;
+    } else {
+      lineChars += tagWidth;
+    }
+
+    return lines > maxLines;
   });
 
-  return Math.max(visibleCount === -1 ? tags.length : visibleCount, 3);
+  const truncated = visibleCount !== -1;
+  const count = truncated ? visibleCount : tags.length;
+
+  if (count < tags.length) {
+    const lastLineChars =
+      truncated && lines > maxLines ? prevLineChars : lineChars;
+    const badgeOverflows = lastLineChars + overflowBadgeWidth > avgCharsPerLine;
+
+    if (badgeOverflows) {
+      // Re-simulate with fewer tags until the overflow badge fits on the last line.
+      // A single tag removal may be insufficient when the last line is densely packed.
+      for (let n = count - 1; n >= 0; n--) {
+        let lc = 0;
+        for (let i = 0; i < n; i++) {
+          const w = tags[i].tag.length + paddingPerTag;
+          if (lc + w > avgCharsPerLine) {
+            lc = w;
+          } else {
+            lc += w;
+          }
+        }
+        if (lc + overflowBadgeWidth <= avgCharsPerLine) {
+          return n;
+        }
+      }
+      return 0;
+    }
+  }
+
+  return count;
 };
