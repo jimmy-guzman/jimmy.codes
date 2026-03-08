@@ -1,0 +1,5 @@
+/* Page-specific icon CSS for /uses — only scans tech.ts so brand/logo icons
+   are excluded from the shared global bundle */
+@import "tailwindcss/utilities" source(none);
+@source "../configs/tech.ts";
+@plugin "@iconify/tailwind4";
