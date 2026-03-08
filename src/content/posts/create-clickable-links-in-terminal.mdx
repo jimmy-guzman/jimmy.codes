@@ -11,8 +11,6 @@ I was recently looking at a CLI I wrote that prints file paths directly to the t
 
 Turns out there's a simple solution: you can make terminal output clickable like HTML links using a special ANSI escape sequence called [**OSC 8**](https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda).
 
----
-
 ## Why This Matters
 
 There's a few drawbacks to printing raw URLs or file paths like this:
@@ -29,8 +27,6 @@ They do the job, but:
 - Users need to copy and paste manually.
 
 Luckily, there's a better way.
-
----
 
 ## The Solution: OSC 8 Hyperlinks
 
@@ -53,8 +49,6 @@ If your terminal supports OSC 8:
 ![Screenshot of clickable links in terminal](@/assets/images/clickable-links-terminal.png)
 
 If not supported, it just shows plain text.
-
----
 
 ## How it works
 
@@ -81,14 +75,10 @@ Most modern terminals support this:
 - Use `CMD+Click` on macOS.
 - Use `CTRL+Click` on Linux and Windows.
 
----
-
 ## Resources
 
 - [OSC 8 Adoption List](https://github.com/Alhadis/OSC8-Adoption)
 - [OSC 8 Hyperlink Proposal](https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda)
-
----
 
 ## Final Thoughts
 
