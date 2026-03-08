@@ -34,14 +34,19 @@ export const getAllTags = (posts: { data: { tags?: string[] } }[]) => {
     .map(([tag, count]) => ({ count, tag }));
 };
 
+interface Options {
+  avgCharsPerLine?: number;
+  maxLines?: number;
+  overflowBadgeWidth?: number;
+  paddingPerTag?: number;
+}
+
 const DEFAULT_OPTIONS = {
   avgCharsPerLine: 34,
   maxLines: 2,
   overflowBadgeWidth: 11,
   paddingPerTag: 3,
-} as const;
-
-type Options = Partial<typeof DEFAULT_OPTIONS>;
+} satisfies Required<Options>;
 
 /**
  * Estimate the maximum number of visible tags by simulating row wrapping.
@@ -53,7 +58,9 @@ type Options = Partial<typeof DEFAULT_OPTIONS>;
  *
  * When truncation occurs a "+N more" overflow badge is rendered after the
  * visible tags. The simulation reserves space for it on the last line —
- * if it wouldn't fit, one additional tag is hidden to make room.
+ * if it wouldn't fit, tags are removed one-by-one until it does. The
+ * returned count is always in the range [0, tags.length] and never
+ * exceeds the `maxLines` constraint.
  *
  * @param tags Array of tags with their counts
  *
@@ -99,17 +106,32 @@ export const guessMaxVisible = (
 
   const truncated = visibleCount !== -1;
   const count = truncated ? visibleCount : tags.length;
-  const clamped = Math.min(Math.max(count, 3), tags.length);
 
-  if (clamped < tags.length) {
+  if (count < tags.length) {
     const lastLineChars =
       truncated && lines > maxLines ? prevLineChars : lineChars;
     const badgeOverflows = lastLineChars + overflowBadgeWidth > avgCharsPerLine;
 
     if (badgeOverflows) {
-      return Math.min(Math.max(clamped - 1, 3), tags.length);
+      // Re-simulate with fewer tags until the overflow badge fits on the last line.
+      // A single tag removal may be insufficient when the last line is densely packed.
+      for (let n = count - 1; n >= 0; n--) {
+        let lc = 0;
+        for (let i = 0; i < n; i++) {
+          const w = tags[i].tag.length + paddingPerTag;
+          if (lc + w > avgCharsPerLine) {
+            lc = w;
+          } else {
+            lc += w;
+          }
+        }
+        if (lc + overflowBadgeWidth <= avgCharsPerLine) {
+          return n;
+        }
+      }
+      return 0;
     }
   }
 
-  return clamped;
+  return count;
 };
