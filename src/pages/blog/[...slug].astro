@@ -18,7 +18,10 @@ export async function getStaticPaths() {
       post.data.updatedDate ??
       (post.filePath ? lastModified(post.filePath) : undefined);
 
-    const relatedPosts = getRelatedByTags(posts, post);
+    const relatedPosts = getRelatedByTags(posts, post, {
+      limit: 3,
+      recencyWeight: 0.02,
+    });
 
     return {
       params: { slug: post.slug },

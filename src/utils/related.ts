@@ -13,15 +13,6 @@ const filterUsableTags = (tags: string[], stop: Set<string>) => {
   return tags.map(normalizeTag).filter((tag) => !stop.has(tag));
 };
 
-/**
- * Compute the frequency of each tag across all posts, excluding stop tags.
- *
- * @param allPosts All posts to analyze
- *
- * @param stopTags Tags to ignore when counting frequencies
- *
- * @returns A map of tag to its frequency count
- */
 const getTagFrequencies = (allPosts: Post[], stopTags: Set<string>) => {
   const tagCounts = new Map<string, number>();
 
@@ -53,18 +44,25 @@ interface RelatedOptions {
    * Tags to ignore when calculating related posts.
    */
   stopTags?: InferEntrySchema<"posts">["tags"];
+  /**
+   * How strongly to blend Jaccard similarity into the score.
+   * Jaccard = |shared| / |union| — rewards posts where shared tags represent a
+   * large fraction of all tags involved, penalizing incidental single-tag matches
+   * between posts with otherwise disjoint topic spaces.
+   *
+   * 0 disables Jaccard blending entirely.
+   * Default is 0.5 — Jaccard can add up to +50% when overlap is perfect (jaccard = 1).
+   */
+  jaccardWeight?: number;
 }
 
 /**
- * Find related posts based on shared tags.
+ * Find related posts for a given post based on shared tags.
  *
- * @param allPosts All posts to consider for relatedness
- *
- * @param currentPost The current post to find related posts for
- *
- * @param options Optional parameters to customize relatedness calculation
- *
- * @returns An array of related posts with their slug and title
+ * Scores candidates using IDF-weighted tag overlap blended with Jaccard
+ * similarity, so posts that share a high proportion of their tag space rank
+ * above posts with only an incidental single-tag match. An optional recency
+ * decay can further favour newer content.
  */
 export const getRelatedByTags = (
   allPosts: Post[],
@@ -74,6 +72,7 @@ export const getRelatedByTags = (
   const limit = options.limit ?? 5;
   const minimumSharedTags = options.minimumSharedTags ?? 1;
   const recencyWeight = Math.max(0, options.recencyWeight ?? 0);
+  const jaccardWeight = Math.max(0, options.jaccardWeight ?? 0.5);
   const stopTags = new Set((options.stopTags ?? []).map(normalizeTag));
 
   const currentPostTags = new Set(
@@ -84,39 +83,22 @@ export const getRelatedByTags = (
 
   const tagCounts = getTagFrequencies(allPosts, stopTags);
 
-  /**
-   * Calculate tag weight using inverse frequency weighting.
-   * Rare tags get higher weights, making them more significant for relatedness.
-   */
   const getTagWeight = (tag: string) => {
-    /**
-     * Ensures every tag has a minimum weight, even if common.
-     */
     const TAG_WEIGHT_BASELINE = 1;
-    /**
-     * Prevents division by zero and smooths the weighting curve.
-     */
     const TAG_WEIGHT_LOG_OFFSET = 1;
 
     const count = tagCounts.get(tag);
 
-    if (!count) return 0; // unseen/filtered tags have no weight
+    if (!count) return 0;
 
     return TAG_WEIGHT_BASELINE + 1 / Math.log(TAG_WEIGHT_LOG_OFFSET + count);
   };
 
   const now = Date.now();
 
-  /**
-   * Calculate months elapsed since publication date.
-   * Used for recency decay in scoring algorithm.
-   */
   const calculateMonthsSince = (date: Date) => {
     const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
-    /**
-     * Using average month length of 30.44 days (365.25 days / 12 months)
-     */
-    const DAYS_PER_MONTH = 30.44;
+    const DAYS_PER_MONTH = 30.44; // 365.25 / 12
     const MILLISECONDS_PER_MONTH = MILLISECONDS_PER_DAY * DAYS_PER_MONTH;
 
     return Math.max(0, (now - +date) / MILLISECONDS_PER_MONTH);
@@ -138,12 +120,21 @@ export const getRelatedByTags = (
         0,
       );
 
+      /**
+       * Jaccard similarity: |shared| / |union|
+       * Rewards posts where shared tags cover a large fraction of all tags
+       * involved, penalizing incidental single-tag matches between posts with
+       * otherwise disjoint topic spaces.
+       */
+      const unionSize = new Set([...currentPostTags, ...postTags]).size;
+      const jaccard = unionSize > 0 ? sharedTags.length / unionSize : 0;
+      const jaccardBoost = 1 + jaccardWeight * jaccard;
+
       const monthsOld = calculateMonthsSince(post.data.publishDate);
 
       /**
-       * Apply hyperbolic recency decay: 1 / (1 + recencyWeight * monthsOld)
-       * - recencyWeight = 0 → no decay (1)
-       * - Larger weights favor newer content more strongly
+       * Hyperbolic recency decay: 1 / (1 + recencyWeight * monthsOld)
+       * recencyWeight = 0 → no decay; larger values favor newer content more strongly.
        */
       const recencyDecay = recencyWeight
         ? 1 / (1 + recencyWeight * monthsOld)
@@ -151,7 +142,7 @@ export const getRelatedByTags = (
 
       return {
         post,
-        score: tagScore * recencyDecay,
+        score: tagScore * jaccardBoost * recencyDecay,
         sharedTagCount: sharedTags.length,
       };
     })
@@ -177,7 +168,7 @@ export const getRelatedByTags = (
 
       return a.post.slug.localeCompare(b.post.slug, "en", {
         sensitivity: "base",
-      }); // deterministic
+      });
     })
     .slice(0, limit)
     .map((result) => ({
