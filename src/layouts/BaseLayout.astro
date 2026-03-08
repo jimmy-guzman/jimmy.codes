@@ -92,7 +92,10 @@ const jsonLd = JSON.stringify({
       )
     }
 
-    <Font cssVariable="--font-mono" preload={[{ style: "normal" }]} />
+    <Font
+      cssVariable="--font-mono"
+      preload={[{ style: "normal", weight: 400 }]}
+    />
 
     <script type="application/ld+json" is:inline set:html={jsonLd} />
   </head>

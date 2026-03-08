@@ -105,7 +105,7 @@ export default defineConfig({
           },
           name: "jimmy.codes",
           short_name: "JGM",
-          themes: ["#1a1a1a", "#e5e5e5"],
+          themes: ["#f9f9fb", "#1a1a1a"],
         }),
   ],
   markdown: {

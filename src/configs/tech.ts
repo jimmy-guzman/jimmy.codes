@@ -14,10 +14,7 @@ function sortByUsage(items: Tech[]) {
   return [...items].sort((a, b) => usageOrder[a.usage] - usageOrder[b.usage]);
 }
 
-export const usageBadge: Record<
-  Usage,
-  { label: string; class: string; dot: string }
-> = {
+export const usageBadge = {
   daily: { class: "badge-info", dot: "bg-info", label: "Daily" },
   fluent: { class: "badge-warning", dot: "bg-warning", label: "Fluent" },
   learning: { class: "badge-success", dot: "bg-success", label: "Learning" },
