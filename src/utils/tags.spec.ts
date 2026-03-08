@@ -130,37 +130,38 @@ describe("guessMaxVisible", () => {
       { count: 1, tag: "Analytics" },
     ];
 
-    // With targetChars=68 (34 chars/line × 2 lines) and padding=4 per tag:
-    // Frontend(8+4=12), TypeScript(10+4=14, total=26), Astro(5+4=9, total=35)
-    // CSS(3+4=7, total=42), Markdown(8+4=12, total=54), Node.js(7+4=11, total=65)
-    // A11y(4+4=8, total=73) -> exceeds 68!
+    // Row-wrap simulation (avgCharsPerLine=34, paddingPerTag=3):
+    // Line 1: Frontend(11) + TypeScript(13)=24 + Astro(8)=32 + CSS(6)=38 > 34 → wrap
+    // Line 2: CSS(6) + Markdown(11)=17 + Node.js(10)=27 + A11y(7)=34 → Analytics(12): 34+12=46 > 34 → wrap
+    // Line 3: lines(3) > maxLines(2) → cut at Analytics (index 7), lineChars=34
+    // Overflow badge: lineChars(34) + overflowBadgeWidth(11) = 45 > 34 → backtrack → 6
     expect(guessMaxVisible(tags)).toBe(6);
   });
 
-  it("should return minimum of 3 even with very long tag names", () => {
+  it("should return actual count when fewer than 3 tags exist", () => {
     const tags = [
       { count: 1, tag: "VeryLongTagNameThatExceedsTargetImmediately" },
       { count: 1, tag: "AnotherLongOne" },
     ];
 
-    expect(guessMaxVisible(tags)).toBe(3);
+    expect(guessMaxVisible(tags)).toBe(2);
   });
 
-  it("should return minimum of 3 with empty array", () => {
-    expect(guessMaxVisible([])).toBe(3);
+  it("should return 0 with empty array", () => {
+    expect(guessMaxVisible([])).toBe(0);
   });
 
-  it("should return minimum of 3 with single tag", () => {
+  it("should return 1 with single tag", () => {
     const tags = [{ count: 5, tag: "React" }];
 
-    expect(guessMaxVisible(tags)).toBe(3);
+    expect(guessMaxVisible(tags)).toBe(1);
   });
 
   it("should account for padding in character calculation", () => {
     const tags = [
-      { count: 1, tag: "A" }, // 1+4=5
-      { count: 1, tag: "B" }, // 1+4=5, total=10
-      { count: 1, tag: "C" }, // 1+4=5, total=15
+      { count: 1, tag: "A" }, // 1+3=4
+      { count: 1, tag: "B" }, // 1+3=4, total=8
+      { count: 1, tag: "C" }, // 1+3=4, total=12
     ];
 
     expect(guessMaxVisible(tags)).toBe(3);
@@ -178,17 +179,66 @@ describe("guessMaxVisible", () => {
 
   it("should break at the correct position with mixed tag lengths", () => {
     const tags = [
-      { count: 1, tag: "A" }, // 5
-      { count: 1, tag: "BB" }, // 6, total=11
-      { count: 1, tag: "CCC" }, // 7, total=18
-      { count: 1, tag: "DDDD" }, // 8, total=26
-      { count: 1, tag: "EEEEE" }, // 9, total=35
-      { count: 1, tag: "FFFFFF" }, // 10, total=45
-      { count: 1, tag: "GGGGGGG" }, // 11, total=56
-      { count: 1, tag: "HHHHHHHH" }, // 12, total=68
-      { count: 1, tag: "IIIIIIIII" }, // 13, total=81 -> exceeds 80
+      { count: 1, tag: "A" }, // width=4,  line1=4
+      { count: 1, tag: "BB" }, // width=5,  line1=9
+      { count: 1, tag: "CCC" }, // width=6,  line1=15
+      { count: 1, tag: "DDDD" }, // width=7,  line1=22
+      { count: 1, tag: "EEEEE" }, // width=8,  line1=30
+      { count: 1, tag: "FFFFFF" }, // width=9,  30+9=39 > 34 → wrap, line2=9
+      { count: 1, tag: "GGGGGGG" }, // width=10, line2=19
+      { count: 1, tag: "HHHHHHHH" }, // width=11, line2=30
+      { count: 1, tag: "IIIIIIIII" }, // width=12, 30+12=42 > 34 → wrap, lines=3 > 2 → cut (index 8), prevLineChars=30
     ];
 
-    expect(guessMaxVisible(tags)).toBe(8);
+    // Overflow badge: prevLineChars(30) + overflowBadgeWidth(11) = 41 > 34 → backtrack → 7
+    expect(guessMaxVisible(tags)).toBe(7);
+  });
+
+  it("should account for row wrapping caused by wide tags", () => {
+    // A wide tag that doesn't fit on the current line starts a new row.
+    // avgCharsPerLine=34, paddingPerTag=3
+    // "Short"=5 chars → width=8, "Accessibility"=13 chars → width=16
+    // Line 1: Short(8)+Short(8)=16+Short(8)=24+Short(8)=32 → Accessibility(16): 32+16=48 > 34 → wrap
+    // Line 2: Accessibility(16)+Short(8)=24+Short(8)=32 → Short(8): 32+8=40 > 34 → wrap, lines=3 > 2 → cut (index 7), lineChars=32
+    // Overflow badge: lineChars(32) + overflowBadgeWidth(11) = 43 > 34 → backtrack → 6
+    const tags = [
+      { count: 1, tag: "Short" }, // width=8,  line1=8
+      { count: 1, tag: "Short" }, // width=8,  line1=16
+      { count: 1, tag: "Short" }, // width=8,  line1=24
+      { count: 1, tag: "Short" }, // width=8,  line1=32
+      { count: 1, tag: "Accessibility" }, // width=16, 32+16=48 > 34 → wrap, line2=16
+      { count: 1, tag: "Short" }, // width=8,  line2=24
+      { count: 1, tag: "Short" }, // width=8,  line2=32
+      { count: 1, tag: "Short" }, // width=8,  32+8=40 > 34 → wrap, lines=3 > 2 → cut (index 7)
+    ];
+
+    expect(guessMaxVisible(tags)).toBe(6);
+  });
+
+  it("should reserve space for the overflow badge on the last line", () => {
+    // After simulation, if the "+N more" badge (width=11) doesn't fit on the
+    // last line alongside lineChars, one tag is hidden to make room.
+    // avgCharsPerLine=34, paddingPerTag=3, overflowBadgeWidth=11
+    // Line 1: AAAAA(8)+AAAAA(8)=16+AAAAA(8)=24 → BBBBBBBBBBBBBBBBBBBBB(24): 24+24=48 > 34 → wrap, line2=24
+    // findIndex never exceeds maxLines=2 → count=tags.length=5, lineChars=24+AAAAA(8)=32
+    // No truncation (count === tags.length) → no overflow badge → return 5
+    const noTruncationTags = [
+      { count: 1, tag: "AAAAA" }, // width=8, line1=8
+      { count: 1, tag: "AAAAA" }, // width=8, line1=16
+      { count: 1, tag: "AAAAA" }, // width=8, line1=24
+      { count: 1, tag: "BBBBBBBBBBBBBBBBBBBBB" }, // width=24, 24+24=48 > 34 → wrap, line2=24
+      { count: 1, tag: "AAAAA" }, // width=8, line2=32
+    ];
+    expect(guessMaxVisible(noTruncationTags)).toBe(5);
+
+    // Now add one more tag that causes truncation.
+    // The 5 tags above fit in 2 lines with lineChars=32.
+    // Adding a 6th tag: AAAAA(8), 32+8=40 > 34 → wrap, lines=3 > 2 → cut at index 5, lineChars=32
+    // Overflow badge: lineChars(32) + overflowBadgeWidth(11) = 43 > 34 → backtrack → 4
+    const truncationTags = [
+      ...noTruncationTags,
+      { count: 1, tag: "AAAAA" }, // triggers the cut
+    ];
+    expect(guessMaxVisible(truncationTags)).toBe(4);
   });
 });
