@@ -51,9 +51,9 @@ describe("getRelatedByTags", () => {
     const current = makePost({ data: { tags: ["React"] }, slug: "a" });
     const all = [
       current,
-      makePost({ data: { tags: [] }, slug: "b" }), // zero tags
-      makePost({ data: { tags: ["TIL"] }, slug: "c" }), // will be stopped
-      makePost({ data: { tags: ["React"] }, slug: "d" }), // valid
+      makePost({ data: { tags: [] }, slug: "b" }),
+      makePost({ data: { tags: ["TIL"] }, slug: "c" }),
+      makePost({ data: { tags: ["React"] }, slug: "d" }),
     ];
     const results = getRelatedByTags(all, current, { stopTags: ["TIL"] });
 
@@ -82,9 +82,9 @@ describe("getRelatedByTags", () => {
     });
     const all = [
       current,
-      makePost({ data: { tags: ["React"] }, slug: "b" }), // 1 shared
-      makePost({ data: { tags: ["Node.js"] }, slug: "c" }), // 1 shared
-      makePost({ data: { tags: ["React", "Node.js"] }, slug: "d" }), // 2 shared
+      makePost({ data: { tags: ["React"] }, slug: "b" }),
+      makePost({ data: { tags: ["Node.js"] }, slug: "c" }),
+      makePost({ data: { tags: ["React", "Node.js"] }, slug: "d" }),
     ];
     const results = getRelatedByTags(all, current, { minimumSharedTags: 2 });
 
@@ -95,7 +95,7 @@ describe("getRelatedByTags", () => {
     const date = new Date("2024-01-01T00:00:00Z");
     const current = makePost({ data: { tags: ["React"] }, slug: "a" });
 
-    // Same score (share one tag), same date; title tie requires slug tiebreaker
+    // Same score and date — title tie falls through to slug tiebreaker
     const b = makePost({
       data: { publishDate: date, tags: ["React"], title: "Same" },
       slug: "b",
@@ -147,7 +147,7 @@ describe("getRelatedByTags", () => {
     expect(withoutBias.map((r) => r.slug)).toEqual([
       "more-recent",
       "less-recent",
-    ]); // date tiebreaker already favors newer
+    ]);
 
     const withBias = getRelatedByTags(all, current, { recencyWeight: 0.03 });
 
@@ -171,7 +171,7 @@ describe("getRelatedByTags", () => {
     const date = new Date("2024-01-01T00:00:00Z");
     const current = makePost({ data: { tags: ["React"] }, slug: "a" });
 
-    // Same score (share one tag), same date, but DIFFERENT titles
+    // Same score and date, different titles
     const zebra = makePost({
       data: { publishDate: date, tags: ["React"], title: "Zebra Title" },
       slug: "zebra-slug",
@@ -184,7 +184,6 @@ describe("getRelatedByTags", () => {
     const all = [current, zebra, alpha];
     const results = getRelatedByTags(all, current);
 
-    // Should sort by title: "Alpha Title" comes before "Zebra Title"
     expect(results.map((r) => r.slug)).toEqual(["alpha-slug", "zebra-slug"]);
   });
 
@@ -231,5 +230,100 @@ describe("getRelatedByTags", () => {
       slug: "candidate",
       title: "Only Title",
     });
+  });
+
+  it("should rank a post with perfect tag overlap above one with incidental single-tag overlap", () => {
+    const date = new Date("2024-01-01T00:00:00Z");
+
+    // current: React + TypeScript
+    const current = makePost({
+      data: { publishDate: date, tags: ["React", "TypeScript"] },
+      slug: "current",
+    });
+
+    // perfect: shares both React + TypeScript — jaccard = 2/2 = 1.0
+    const perfect = makePost({
+      data: { publishDate: date, tags: ["React", "TypeScript"] },
+      slug: "perfect",
+    });
+
+    // incidental: shares only React but has many unrelated tags — jaccard = 1/5 = 0.2
+    const incidental = makePost({
+      data: {
+        publishDate: date,
+        tags: ["React", "Node.js", "Tailwind", "CSS", "Performance"],
+      },
+      slug: "incidental",
+    });
+
+    const all = [current, perfect, incidental];
+    const results = getRelatedByTags(all, current);
+
+    expect(results.map((r) => r.slug)).toEqual(["perfect", "incidental"]);
+  });
+
+  it("should produce equal scores when all candidates have the same jaccard (jaccardWeight parity)", () => {
+    const date = new Date("2024-01-01T00:00:00Z");
+
+    const current = makePost({
+      data: { publishDate: date, tags: ["TypeScript"] },
+      slug: "current",
+    });
+
+    // both candidates share the single tag with the same jaccard = 1/1 = 1.0
+    const a = makePost({
+      data: { publishDate: date, tags: ["TypeScript"], title: "A Post" },
+      slug: "a-post",
+    });
+    const b = makePost({
+      data: { publishDate: date, tags: ["TypeScript"], title: "B Post" },
+      slug: "b-post",
+    });
+
+    const all = [current, a, b];
+    const results = getRelatedByTags(all, current);
+
+    expect(results.map((r) => r.slug)).toEqual(["a-post", "b-post"]);
+  });
+
+  it("should disable Jaccard blending when jaccardWeight is 0", () => {
+    const date = new Date("2024-01-01T00:00:00Z");
+
+    const current = makePost({
+      data: { publishDate: date, tags: ["React", "TypeScript"] },
+      slug: "current",
+    });
+
+    // With jaccardWeight=0, scores are pure IDF. Both share React; neither gets a
+    // Jaccard boost, so the one with more shared tags (also has TypeScript) wins purely on IDF.
+    const twoShared = makePost({
+      data: {
+        publishDate: date,
+        tags: ["React", "TypeScript", "Node.js", "Tailwind"],
+      },
+      slug: "two-shared",
+    });
+    const oneShared = makePost({
+      data: { publishDate: date, tags: ["React"] },
+      slug: "one-shared",
+    });
+
+    const all = [current, twoShared, oneShared];
+
+    const withoutJaccard = getRelatedByTags(all, current, { jaccardWeight: 0 });
+    const withJaccard = getRelatedByTags(all, current, { jaccardWeight: 0.5 });
+
+    // Both orderings rank two-shared first because it has a higher IDF score (two
+    // shared tags vs one). With jaccardWeight=0.5, both candidates happen to have
+    // the same Jaccard value (two-shared: 2/4=0.5, one-shared: 1/2=0.5), so the
+    // Jaccard boost is equal and the IDF advantage still determines the order.
+    expect(withoutJaccard.map((r) => r.slug)).toEqual([
+      "two-shared",
+      "one-shared",
+    ]);
+    expect(withJaccard.map((r) => r.slug)).toEqual([
+      "two-shared",
+      "one-shared",
+    ]);
   });
 });
