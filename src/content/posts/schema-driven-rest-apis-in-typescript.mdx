@@ -33,7 +33,10 @@ The storage schema defines how data lives in the database. The contract schema d
 
 ### The table
 
-The table describes how data is stored. Not how callers interact with it. Imports throughout this guide use a `@/*` path alias pointing to `src/`.
+The table describes how data is stored. Not how callers interact with it.
+
+> [!NOTE]
+> Imports throughout this guide use a `@/*` path alias pointing to `src/`.
 
 ```ts title="src/db/schemas/posts.ts"
 import { sql } from "drizzle-orm";
