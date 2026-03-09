@@ -14,7 +14,7 @@ keywords:
     "zod",
     "typed errors",
   ]
-tags: [TypeScript, Backend]
+tags: [TypeScript, Backend, Node.js]
 ---
 
 Most REST APIs promise a clean contract but deliver a router file, a global `db` import, and `catch (e: unknown)`. The API stops being a contract and becomes a dressed-up query layer. Internal column names leak into responses. Errors are strings. The surface looks typed, but the behavior is still ad hoc.
@@ -58,6 +58,7 @@ export const postsTable = sqliteTable("posts", (t) => ({
 }));
 ```
 
+{/*cspell:disable-next-line*/}
 IDs use [TypeID](https://github.com/jetify-com/typeid-js): `typeid("post")` produces `post_01h2xcejqtf2nbrexx3vqjhp41`. Type-prefixed and sortable.
 
 ### The contract
@@ -67,6 +68,8 @@ This is where most APIs go wrong. They expose the table directly. Callers can se
 Never let callers set server-owned fields. Restrict update inputs to the fields callers own. `drizzle-orm` derives a starting point from the table. Those `.pick()`, `.omit()`, and `.partial()` calls make the contract explicit. Derivation gets you started. Those shaping calls are the actual design.
 
 Start with the response shape and the creation input:
+
+{/*cspell:disable*/}
 
 ```ts title="src/posts/posts.schema.ts"
 import { z } from "@hono/zod-openapi";
@@ -98,6 +101,8 @@ export const NewPostBody = createInsertSchema(postsTable, {
 
 export type NewPostBody = z.infer<typeof NewPostBody>;
 ```
+
+{/*cspell:enable*/}
 
 Updates use the same owned fields, but all optional. A caller can update just the title without touching the body. And define a shared error shape for every failure response:
 
@@ -147,6 +152,8 @@ export class DatabaseError extends Data.TaggedError("DatabaseError")<{
 
 The route definition is where contract schemas, error shapes, and HTTP behavior meet. A GET route declares the param it expects, every response it can return, and the schemas for each:
 
+{/*cspell:disable*/}
+
 ```ts title="src/posts/posts.api.ts"
 import { createRoute, z } from "@hono/zod-openapi";
 
@@ -185,6 +192,8 @@ export const GetPostRoute = createRoute({
   tags: ["Posts"],
 });
 ```
+
+{/*cspell:enable*/}
 
 The POST route follows the same pattern: `NewPostBody` for input, `Post` for the 201 response, and `ApiError` for 422 and 500 failures. Return a status code not declared in `responses` and TypeScript tells you. Hono's `defaultHook` handles all validation failures with a consistent 422.
 
@@ -372,7 +381,7 @@ describe("postsRepo", () => {
   test("fails with PostNotFoundError when id does not exist", async () => {
     const result = await Effect.runPromise(
       postsRepo
-        .findById("post_doesnotexist")
+        .findById("post_does_not_exist")
         .pipe(Effect.provide(DbTest), Effect.either),
     );
 

@@ -10,7 +10,6 @@ const tags = z.enum([
   "CLI",
   "CSS",
   "Frontend",
-  "JavaScript",
   "Markdown",
   "Next.js",
   "Node.js",
