@@ -1,0 +1,404 @@
+---
+title: Schema-Driven REST APIs in TypeScript
+publishDate: 2026-03-08
+description: "Schema-driven REST APIs in TypeScript: typed errors, explicit dependencies, and OpenAPI generated from the same contract."
+keywords:
+  [
+    "schema-driven",
+    "typescript",
+    "rest api",
+    "openapi",
+    "hono",
+    "effect-ts",
+    "drizzle-orm",
+    "zod",
+    "typed errors",
+  ]
+tags: [TypeScript, Backend]
+---
+
+Most REST APIs promise a clean contract but deliver a router file, a global `db` import, and `catch (e: unknown)`. The API stops being a contract and becomes a dressed-up query layer. Internal column names leak into responses. Errors are strings. The surface looks typed, but the behavior is still ad hoc.
+
+Your callers don't care about your columns. They care about the contract: what fields belong to them, what the server owns, and what can go wrong. That distinction has to be deliberate. A machine-readable spec makes the contract tangible for humans, generated clients, and LLMs alike. But a spec is only as honest as its implementation.
+
+This approach is schema-driven. Schemas define the API contract and drive validation, types, and OpenAPI output, even when parts of those schemas are derived from the database model. Making the contract honest takes three things:
+
+- Schema-driven route definitions ([Hono](https://hono.dev/) + [@hono/zod-openapi](https://hono.dev/examples/zod-openapi))
+- Typed errors and dependency injection ([Effect](https://effect.website/))
+- Database-derived Zod schemas ([Drizzle ORM](https://orm.drizzle.team/) + [drizzle-orm/zod](https://orm.drizzle.team/docs/zod))
+
+## Schemas
+
+The storage schema defines how data lives in the database. The contract schema defines what callers see. The route schema ties both to HTTP. Get this right and validation, types, and documentation follow from the same contract. Error shapes become explicit too.
+
+### The table
+
+The table describes how data is stored. Not how callers interact with it. Imports throughout this guide use a `@/*` path alias pointing to `src/`.
+
+```ts title="src/db/schemas/posts.ts"
+import { sql } from "drizzle-orm";
+import { sqliteTable } from "drizzle-orm/sqlite-core";
+import { typeid } from "typeid-js";
+
+export const postsTable = sqliteTable("posts", (t) => ({
+  createdAt: t
+    .integer({ mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+  id: t
+    .text()
+    .primaryKey()
+    .$defaultFn(() => typeid("post").toString()),
+  body: t.text().notNull(),
+  title: t.text().notNull(),
+  updatedAt: t
+    .integer({ mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+}));
+```
+
+IDs use [TypeID](https://github.com/jetify-com/typeid-js): `typeid("post")` produces `post_01h2xcejqtf2nbrexx3vqjhp41`. Type-prefixed and sortable.
+
+### The contract
+
+This is where most APIs go wrong. They expose the table directly. Callers can send `id`, `createdAt`, `updatedAt`. A column rename can ripple through every client.
+
+Never let callers set server-owned fields. Restrict update inputs to the fields callers own. `drizzle-orm` derives a starting point from the table. Those `.pick()`, `.omit()`, and `.partial()` calls make the contract explicit. Derivation gets you started. Those shaping calls are the actual design.
+
+Start with the response shape and the creation input:
+
+```ts title="src/posts/posts.schema.ts"
+import { z } from "@hono/zod-openapi";
+import { createSchemaFactory } from "drizzle-orm/zod";
+
+import { postsTable } from "@/db/schemas/posts";
+
+const { createInsertSchema, createSelectSchema, createUpdateSchema } =
+  createSchemaFactory({ zodInstance: z });
+
+export const Post = createSelectSchema(postsTable, {
+  body: z.string().openapi({
+    example: "Drizzle derives Zod. Zod drives OpenAPI. Types follow for free.",
+  }),
+  id: z.string().openapi({ example: "post_01h2xcejqtf2nbrexx3vqjhp41" }),
+  title: z.string().openapi({ example: "Schema-Driven APIs" }),
+}).openapi("Post");
+
+export type Post = z.infer<typeof Post>;
+
+export const NewPostBody = createInsertSchema(postsTable, {
+  body: z.string().min(1).openapi({
+    example: "Drizzle derives Zod. Zod drives OpenAPI. Types follow for free.",
+  }),
+  title: z.string().min(1).openapi({ example: "Schema-Driven APIs" }),
+})
+  .pick({ body: true, title: true })
+  .openapi("NewPostBody");
+
+export type NewPostBody = z.infer<typeof NewPostBody>;
+```
+
+Updates use the same owned fields, but all optional. A caller can update just the title without touching the body. And define a shared error shape for every failure response:
+
+```ts
+export const UpdatePostBody = createUpdateSchema(postsTable, {
+  body: z.string().min(1).openapi({ example: "Updated body." }),
+  title: z.string().min(1).openapi({ example: "Updated title" }),
+})
+  .pick({ body: true, title: true })
+  .partial()
+  .openapi("UpdatePostBody");
+
+export type UpdatePostBody = z.infer<typeof UpdatePostBody>;
+
+export const ApiError = z
+  .object({
+    details: z.unknown().optional(),
+    message: z
+      .string()
+      .openapi({ example: "Your request did not match the expected schema." }),
+    status: z.number().int().min(100).max(599).openapi({ example: 422 }),
+  })
+  .openapi("ApiError");
+```
+
+The data flow: Drizzle table → `drizzle-orm/zod` → Zod schemas → `.openapi()` registers them into the spec → Zod infers TypeScript types. Change the table, and the derived schemas move with it. But the `.pick()` calls are still yours to own. They're the contract, and they don't change just because the table does.
+
+### The errors
+
+The contract also includes failure modes. Your spec promises a 404 with an `ApiError` body. A 500 with a message. Without typed representations, those promises live in comments or nowhere at all.
+
+```ts title="src/posts/posts.errors.ts"
+import { Data } from "effect";
+
+export class PostNotFoundError extends Data.TaggedError("PostNotFoundError")<{
+  postId: string;
+}> {}
+
+export class DatabaseError extends Data.TaggedError("DatabaseError")<{
+  cause: unknown;
+}> {}
+```
+
+`Data.TaggedError` gives each error a `_tag` string literal in its TypeScript type. The compiler tells you if you forget to handle one.
+
+### The routes
+
+The route definition is where contract schemas, error shapes, and HTTP behavior meet. A GET route declares the param it expects, every response it can return, and the schemas for each:
+
+```ts title="src/posts/posts.api.ts"
+import { createRoute, z } from "@hono/zod-openapi";
+
+import { ApiError, NewPostBody, Post } from "./posts.schema";
+
+const PostIdParam = z
+  .object({
+    postId: z.string().openapi({ example: "post_01h2xcejqtf2nbrexx3vqjhp41" }),
+  })
+  .openapi("PostIdParam");
+
+export const GetPostRoute = createRoute({
+  description: "Retrieve a specific post by its ID.",
+  method: "get",
+  path: "/posts/{postId}",
+  request: { params: PostIdParam },
+  responses: {
+    200: {
+      content: { "application/json": { schema: Post } },
+      description: "The requested post.",
+    },
+    404: {
+      content: { "application/json": { schema: ApiError } },
+      description: "Post not found.",
+    },
+    422: {
+      content: { "application/json": { schema: ApiError } },
+      description: "Validation error.",
+    },
+    500: {
+      content: { "application/json": { schema: ApiError } },
+      description: "Internal server error.",
+    },
+  },
+  summary: "Get post by ID",
+  tags: ["Posts"],
+});
+```
+
+The POST route follows the same pattern: `NewPostBody` for input, `Post` for the 201 response, and `ApiError` for 422 and 500 failures. Return a status code not declared in `responses` and TypeScript tells you. Hono's `defaultHook` handles all validation failures with a consistent 422.
+
+At this point the HTTP contract is fully described. Every input shape, output shape, and error shape is defined, validated, and registered into an OpenAPI spec. But nothing stops you from ignoring all of it in the implementation. You could import the database directly, swallow errors with `try/catch`, return a 404 with the wrong body. The contract needs enforcement.
+
+## Layers
+
+This is where most schema-driven API posts stop. The route contract is defined, but nothing forces the implementation to respect it.
+
+Most TypeScript backends type data shapes at the edges, but not the things that actually cause drift: failure paths, dependency boundaries, and translation into HTTP behavior. Hono and Zod define the HTTP surface well. They don't, by themselves, make thrown exceptions or hidden infrastructure dependencies part of the contract.
+
+Effect solves this. Layers make dependencies explicit, errors typed, and implementations swappable. The contract stops being a suggestion and becomes something the compiler checks.
+
+### The database as a dependency
+
+A global `db` import works until you need to test without a database, or swap to a different backend, or trace where your queries come from. Declare a `DbService` tag instead:
+
+```ts title="src/db/client.ts"
+import { Database } from "bun:sqlite";
+import { drizzle } from "drizzle-orm/bun-sqlite";
+import { Config, Context, Effect, Layer, Redacted } from "effect";
+
+type DrizzleClient = ReturnType<typeof drizzle>;
+
+export class DbService extends Context.Tag("DbService")
+  DbService,
+  { readonly db: DrizzleClient }
+>() {}
+
+export const DbLive = Layer.effect(
+  DbService,
+  Effect.gen(function* () {
+    const databaseUrl = yield* Config.redacted("DATABASE_URL");
+    const sqlite = new Database(Redacted.value(databaseUrl));
+
+    return { db: drizzle({ client: sqlite }) };
+  }),
+);
+```
+
+`DbLive` satisfies the tag with a real SQLite file. For tests, `DbTest` satisfies it with an in-memory database. Same interface, no mocks:
+
+```ts
+export const DbTest = Layer.effect(
+  DbService,
+  Effect.sync(() => {
+    const sqlite = new Database(":memory:");
+
+    sqlite.run(`
+      CREATE TABLE IF NOT EXISTS posts (
+        id TEXT PRIMARY KEY,
+        title TEXT NOT NULL,
+        body TEXT NOT NULL,
+        "createdAt" INTEGER NOT NULL DEFAULT (unixepoch()),
+        "updatedAt" INTEGER NOT NULL DEFAULT (unixepoch())
+      )
+    `);
+
+    return { db: drizzle({ client: sqlite }) };
+  }),
+);
+```
+
+All code depends on `DbService`, not on `DbLive` or `DbTest`. The call site decides which runs. This matters in a moment.
+
+### The repository
+
+The repo connects domain rules to the database. When `findById` returns zero rows, it doesn't hand back `undefined`. It fails with a typed `PostNotFoundError`, the same error the contract promises as a 404.
+
+```ts title="src/posts/posts.repo.ts"
+import { eq } from "drizzle-orm";
+import { Effect } from "effect";
+
+import { DbService } from "@/db/client";
+import { postsTable } from "@/db/schemas/posts";
+import { DatabaseError, PostNotFoundError } from "./posts.errors";
+import type { NewPostBody } from "./posts.schema";
+
+export const findById = (id: string) => {
+  return Effect.gen(function* () {
+    const { db } = yield* DbService;
+
+    const [post] = yield* Effect.tryPromise({
+      catch: (cause) => new DatabaseError({ cause }),
+      try: () =>
+        db.select().from(postsTable).where(eq(postsTable.id, id)).limit(1),
+    });
+
+    if (!post) {
+      return yield* Effect.fail(new PostNotFoundError({ postId: id }));
+    }
+
+    return post;
+  });
+};
+```
+
+No `try/catch` anywhere. `yield* DbService` declares a dependency the type system tracks until a layer satisfies it. `Effect.tryPromise` wraps thrown exceptions into typed `DatabaseError`. `Effect.fail` produces a typed failure that propagates up cleanly. Creation follows the same pattern: wrap the insert in `Effect.tryPromise`, fail with `DatabaseError` if anything goes wrong.
+
+### The HTTP translation
+
+The last step: translate domain outcomes into the HTTP responses the contract declared. `GetPostRoute` already defined a 200, 404, and 500. The handler matches those exactly:
+
+```ts title="src/posts/posts.http.ts"
+import { Effect, Either } from "effect";
+
+import { DbLive } from "@/db/client";
+import { hono } from "@/lib/hono";
+import { CreatePostRoute, GetPostRoute } from "./posts.api";
+import * as postsRepo from "./posts.repo";
+
+const app = hono();
+
+app.openapi(GetPostRoute, async (c) => {
+  const { postId } = c.req.valid("param");
+
+  const result = await Effect.runPromise(
+    postsRepo.findById(postId).pipe(Effect.provide(DbLive), Effect.either),
+  );
+
+  if (Either.isLeft(result)) {
+    const err = result.left;
+
+    if (err._tag === "PostNotFoundError") {
+      return c.json({ message: `Post ${postId} not found`, status: 404 }, 404);
+    }
+
+    return c.json({ message: "Internal server error", status: 500 }, 500);
+  }
+
+  return c.json(result.right, 200);
+});
+```
+
+`Effect.provide(DbLive)` injects the production database. `Effect.either` converts the failure channel into an inspectable value. `PostNotFoundError` becomes a 404. `DatabaseError` becomes a 500. The create handler is simpler since there's no `PostNotFoundError` to handle, just provide the layer, check for `Left`, and return a 201 on success.
+
+The contract schemas define these shapes, and the layers make the implementation honor them.
+
+## Payoff
+
+You did not write separate documentation. But every route used `createRoute`, every schema called `.openapi()`, and the spec is generated from the same contract. Once the spec is real, you can project it into different representations for humans, generated clients, and language models without maintaining separate truth:
+
+```ts
+const apiSchema = api.getOpenAPI31Document({
+  info: { title: "My API", version: "1.0.0" },
+  openapi: "3.1.1",
+});
+
+api.get("/docs", Scalar({ sources: [{ content: apiSchema }] }));
+api.get("/openapi.json", (c) => c.json(apiSchema));
+api.get("/llms.txt", (c) =>
+  c.text(await createMarkdownFromOpenApi(JSON.stringify(apiSchema))),
+);
+```
+
+Interactive [Scalar](https://scalar.com/) docs at `/docs`. A machine-readable spec at `/openapi.json`. LLM-readable Markdown at `/llms.txt`. Three endpoints, one source of truth, no documentation drift.
+
+### Tests without infrastructure
+
+Remember `DbTest`? This is where it pays off. Swap one layer and your tests run against in-memory SQLite with no mocking framework and no running database:
+
+```ts title="src/posts/posts.repo.test.ts"
+import { describe, expect, test } from "bun:test";
+import { Effect, Either } from "effect";
+
+import { DbTest } from "@/db/client";
+import * as postsRepo from "./posts.repo";
+
+describe("postsRepo", () => {
+  test("returns the post when it exists", async () => {
+    const result = await Effect.runPromise(
+      Effect.gen(function* () {
+        const created = yield* postsRepo.create({
+          body: "Drizzle derives Zod. Zod drives OpenAPI.",
+          title: "Schema-Driven APIs",
+        });
+
+        return yield* postsRepo.findById(created.id);
+      }).pipe(Effect.provide(DbTest)),
+    );
+
+    expect(result.title).toBe("Schema-Driven APIs");
+  });
+
+  test("fails with PostNotFoundError when id does not exist", async () => {
+    const result = await Effect.runPromise(
+      postsRepo
+        .findById("post_doesnotexist")
+        .pipe(Effect.provide(DbTest), Effect.either),
+    );
+
+    expect(Either.isLeft(result)).toBe(true);
+
+    if (Either.isLeft(result)) {
+      expect(result.left._tag).toBe("PostNotFoundError");
+    }
+  });
+});
+```
+
+The tests validate domain logic in the same typed dependency and error model the API uses in production. No migration files, no shared state between runs.
+
+### Adding a resource
+
+In this structure, a new resource usually means the same five pieces: errors, schema, routes, repo, and HTTP handler. Register with `api.route("/", resource)`. Each one gets typed errors, schema-driven validation, auto-generated docs, and testable domain logic without any extra setup.
+
+## Conclusion
+
+Schema-driven design only works when every layer enforces it. The storage schema defines persistence. The contract schema defines what callers see. The route schema defines the HTTP surface. Effect makes the compiler track both what your code can fail with and what it depends on. A contract is only real when the implementation cannot quietly drift away from it.
+
+To go deeper:
+
+- [Effect documentation](https://effect.website/docs) for the full dependency injection and error model
+- [Hono documentation](https://hono.dev/docs) for middleware and routing patterns
+- [@hono/zod-openapi](https://github.com/honojs/middleware/tree/main/packages/zod-openapi) for the full OpenAPI spec generation API
+
+To start from a working implementation, [hono-starter](https://github.com/jimmy-guzman/hono-starter) includes the full pattern from this post using a `tacos` resource as the reference.
