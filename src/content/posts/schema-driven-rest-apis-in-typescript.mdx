@@ -218,7 +218,7 @@ import { Config, Context, Effect, Layer, Redacted } from "effect";
 
 type DrizzleClient = ReturnType<typeof drizzle>;
 
-export class DbService extends Context.Tag("DbService")
+export class DbService extends Context.Tag("DbService")<
   DbService,
   { readonly db: DrizzleClient }
 >() {}
