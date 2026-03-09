@@ -21,3 +21,11 @@ Use straight quotes (`"`) not curly quotes (U+201C `\u201C` / U+201D `\u201D`).
 Curly quotes are inconsistent across editors and tools, and can cause subtle encoding issues. Straight quotes are unambiguous.
 
 Applies to prose only. Code blocks are verbatim and exempt.
+
+## Sentence case subheadings
+
+Write `## Like this` not `## Like This`.
+
+Subheadings are not titles. Sentence case reads more naturally in technical prose and avoids the stiffness of title case.
+
+Exception: proper nouns and acronyms follow their standard casing (e.g. `## Working with TypeScript`).
