@@ -1,4 +1,5 @@
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const tags = z.enum([
   "Accessibility",
@@ -21,6 +22,7 @@ const tags = z.enum([
 ]);
 
 const posts = defineCollection({
+  loader: glob({ base: "./src/content/posts", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     description: z.string().min(1, "Description is required"),
     keywords: z

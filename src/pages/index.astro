@@ -29,7 +29,7 @@ const latestPost = posts.sort(sortByPublishDate)[0];
       <p>
         <a href="/about">Learn about me</a>, see what I <a href="/uses">use</a>,
         or check out my <a href="/blog">blog</a>, starting with <a
-          href={`/blog/${latestPost.slug}`}
+          href={`/blog/${latestPost.id}`}
           rel="bookmark"
           data-astro-prefetch>{shortTitle(latestPost)}</a
         >.

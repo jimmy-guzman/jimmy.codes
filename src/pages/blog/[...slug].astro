@@ -24,7 +24,7 @@ export async function getStaticPaths() {
     });
 
     return {
-      params: { slug: post.slug },
+      params: { slug: post.id },
       props: {
         post,
         relatedPosts,
@@ -37,8 +37,8 @@ export async function getStaticPaths() {
 const { post, relatedPosts, updatedDate } = Astro.props;
 const { Content } = await render(post);
 
-const postUrl = `${urls.site}/blog/${post.slug}`;
-const minutes = readingTime(post.body);
+const postUrl = `${urls.site}/blog/${post.id}`;
+const minutes = readingTime(post.body ?? "");
 const datePublished = post.data.publishDate;
 const dateModified = updatedDate ?? datePublished;
 const timeRequired = `PT${Math.max(1, Math.round(minutes))}M`;
@@ -65,7 +65,7 @@ const jsonLd = {
 
 const heading = shortTitle(post);
 
-const ogImage = `/og/blog/${post.slug}.png`;
+const ogImage = `/og/blog/${post.id}.png`;
 ---
 
 <BaseLayout
@@ -84,7 +84,7 @@ const ogImage = `/og/blog/${post.slug}.png`;
       minutes={minutes}
       filePath={post.filePath}
       relatedPosts={relatedPosts}
-      slug={post.slug}
+      slug={post.id}
     >
       <Content />
     </ContentLayout>
