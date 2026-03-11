@@ -4,7 +4,7 @@ import { shortTitle } from "./post";
 
 interface Post {
   data: InferEntrySchema<"posts">;
-  slug: string;
+  id: string;
 }
 
 const normalizeTag = (tag: string) => tag.toLowerCase();
@@ -114,7 +114,7 @@ export const getRelatedByTags = (
   };
 
   return allPosts
-    .filter((post) => post.slug !== currentPost.slug)
+    .filter((post) => post.id !== currentPost.id)
     .map((post) => {
       const postTags = new Set(filterUsableTags(post.data.tags, stopTags));
 
@@ -181,13 +181,13 @@ export const getRelatedByTags = (
 
       if (titleComparison !== 0) return titleComparison;
 
-      return a.post.slug.localeCompare(b.post.slug, "en", {
+      return a.post.id.localeCompare(b.post.id, "en", {
         sensitivity: "base",
       });
     })
     .slice(0, limit)
     .map((result) => ({
-      slug: result.post.slug,
+      slug: result.post.id,
       title: shortTitle(result.post),
     }));
 };

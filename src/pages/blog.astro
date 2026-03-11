@@ -26,7 +26,7 @@ const tags = getAllTags(posts);
           posts.map((post) => (
             <li class="flex flex-col gap-y-2">
               <a
-                href={`/blog/${post.slug}`}
+                href={`/blog/${post.id}`}
                 class="link link-hover"
                 rel="bookmark"
                 data-astro-prefetch
@@ -36,7 +36,7 @@ const tags = getAllTags(posts);
               <MetaLine
                 class="text-sm text-muted"
                 publishDate={post.data.publishDate}
-                minutes={readingTime(post.body)}
+                minutes={readingTime(post.body ?? "")}
               />
             </li>
           ))

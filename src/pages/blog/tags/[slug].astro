@@ -53,7 +53,7 @@ const pageDescription = `All blog posts tagged with "${originalTag}"`;
             {posts.map((post) => (
               <li class="space-y-0.5">
                 <a
-                  href={`/blog/${post.slug}`}
+                  href={`/blog/${post.id}`}
                   class="link link-hover"
                   rel="bookmark"
                   data-astro-prefetch
@@ -63,7 +63,7 @@ const pageDescription = `All blog posts tagged with "${originalTag}"`;
                 <MetaLine
                   class="block text-sm text-muted"
                   publishDate={post.data.publishDate}
-                  minutes={readingTime(post.body)}
+                  minutes={readingTime(post.body ?? "")}
                 />
               </li>
             ))}

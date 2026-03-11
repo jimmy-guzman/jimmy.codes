@@ -30,29 +30,29 @@ export default defineConfig({
   },
   experimental: {
     clientPrerender: true,
-    fonts:
-      process.env.TEST === "true"
-        ? undefined
-        : [
-            {
-              cssVariable: "--font-mono",
-              display: "swap",
-              fallbacks: [
-                "ui-monospace",
-                "SFMono-Regular",
-                "Menlo",
-                "Monaco",
-                "Consolas",
-                "monospace",
-              ],
-              name: "Commit Mono",
-              provider: fontProviders.fontsource(),
-              styles: ["normal", "italic"],
-              weights: [400, 500, 600],
-            },
-          ],
     svgo: true,
   },
+  fonts:
+    process.env.TEST === "true"
+      ? undefined
+      : [
+          {
+            cssVariable: "--font-mono",
+            display: "swap",
+            fallbacks: [
+              "ui-monospace",
+              "SFMono-Regular",
+              "Menlo",
+              "Monaco",
+              "Consolas",
+              "monospace",
+            ],
+            name: "Commit Mono",
+            provider: fontProviders.fontsource(),
+            styles: ["normal", "italic"],
+            weights: [400, 500, 600],
+          },
+        ],
 
   integrations: [
     expressiveCode({

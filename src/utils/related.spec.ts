@@ -3,10 +3,7 @@ import { getRelatedByTags } from "./related";
 
 type Post = Parameters<typeof getRelatedByTags>[0][number];
 
-const makePost = (overrides: {
-  slug: string;
-  data?: Partial<Post["data"]>;
-}) => {
+const makePost = (overrides: { id: string; data?: Partial<Post["data"]> }) => {
   const base = {
     data: {
       description: "Desc",
@@ -16,12 +13,12 @@ const makePost = (overrides: {
       title: "Title",
       updatedDate: undefined,
     },
-    slug: "base",
+    id: "base",
   };
 
   return {
     data: { ...base.data, ...(overrides.data ?? {}) },
-    slug: overrides.slug,
+    id: overrides.id,
   };
 };
 
@@ -36,11 +33,11 @@ describe("getRelatedByTags", () => {
   });
 
   it("should return empty when current post has no usable tags (early exit)", () => {
-    const current = makePost({ data: { tags: ["TIL"] }, slug: "a" });
+    const current = makePost({ data: { tags: ["TIL"] }, id: "a" });
     const all = [
       current,
-      makePost({ data: { tags: ["TIL", "React"] }, slug: "b" }),
-      makePost({ data: { tags: ["TIL", "JavaScript"] }, slug: "c" }),
+      makePost({ data: { tags: ["TIL", "React"] }, id: "b" }),
+      makePost({ data: { tags: ["TIL", "JavaScript"] }, id: "c" }),
     ];
     const results = getRelatedByTags(all, current, { stopTags: ["TIL"] });
 
@@ -48,12 +45,12 @@ describe("getRelatedByTags", () => {
   });
 
   it("should skip candidates that have zero usable tags", () => {
-    const current = makePost({ data: { tags: ["React"] }, slug: "a" });
+    const current = makePost({ data: { tags: ["React"] }, id: "a" });
     const all = [
       current,
-      makePost({ data: { tags: [] }, slug: "b" }),
-      makePost({ data: { tags: ["TIL"] }, slug: "c" }),
-      makePost({ data: { tags: ["React"] }, slug: "d" }),
+      makePost({ data: { tags: [] }, id: "b" }),
+      makePost({ data: { tags: ["TIL"] }, id: "c" }),
+      makePost({ data: { tags: ["React"] }, id: "d" }),
     ];
     const results = getRelatedByTags(all, current, { stopTags: ["TIL"] });
 
@@ -61,13 +58,13 @@ describe("getRelatedByTags", () => {
   });
 
   it("should give zero weight to unseen/filtered tags (no accidental boost)", () => {
-    const current = makePost({ data: { tags: ["React"] }, slug: "a" });
+    const current = makePost({ data: { tags: ["React"] }, id: "a" });
     // "unknown" never appears in tagCounts because it is stopped everywhere
     const all = [
       current,
-      makePost({ data: { tags: ["React", "Tooling"] }, slug: "b" }),
-      makePost({ data: { tags: ["Tooling"] }, slug: "c" }),
-      makePost({ data: { tags: ["React"] }, slug: "d" }),
+      makePost({ data: { tags: ["React", "Tooling"] }, id: "b" }),
+      makePost({ data: { tags: ["Tooling"] }, id: "c" }),
+      makePost({ data: { tags: ["React"] }, id: "d" }),
     ];
     const results = getRelatedByTags(all, current, { stopTags: ["Tooling"] });
 
@@ -78,13 +75,13 @@ describe("getRelatedByTags", () => {
   it("should honor minimumSharedTags", () => {
     const current = makePost({
       data: { tags: ["React", "Node.js"] },
-      slug: "a",
+      id: "a",
     });
     const all = [
       current,
-      makePost({ data: { tags: ["React"] }, slug: "b" }),
-      makePost({ data: { tags: ["Node.js"] }, slug: "c" }),
-      makePost({ data: { tags: ["React", "Node.js"] }, slug: "d" }),
+      makePost({ data: { tags: ["React"] }, id: "b" }),
+      makePost({ data: { tags: ["Node.js"] }, id: "c" }),
+      makePost({ data: { tags: ["React", "Node.js"] }, id: "d" }),
     ];
     const results = getRelatedByTags(all, current, { minimumSharedTags: 2 });
 
@@ -93,16 +90,16 @@ describe("getRelatedByTags", () => {
 
   it("should break ties deterministically by title then slug", () => {
     const date = new Date("2024-01-01T00:00:00Z");
-    const current = makePost({ data: { tags: ["React"] }, slug: "a" });
+    const current = makePost({ data: { tags: ["React"] }, id: "a" });
 
     // Same score and date — title tie falls through to slug tiebreaker
     const b = makePost({
       data: { publishDate: date, tags: ["React"], title: "Same" },
-      slug: "b",
+      id: "b",
     });
     const c = makePost({
       data: { publishDate: date, tags: ["React"], title: "Same" },
-      slug: "c",
+      id: "c",
     });
 
     const all = [current, b, c];
@@ -112,14 +109,14 @@ describe("getRelatedByTags", () => {
   });
 
   it("should prefer newer publishDate when scores are equal", () => {
-    const current = makePost({ data: { tags: ["React"] }, slug: "a" });
+    const current = makePost({ data: { tags: ["React"] }, id: "a" });
     const older = makePost({
       data: { publishDate: new Date("2023-01-01T00:00:00Z"), tags: ["React"] },
-      slug: "older",
+      id: "older",
     });
     const newer = makePost({
       data: { publishDate: new Date("2024-01-01T00:00:00Z"), tags: ["React"] },
-      slug: "newer",
+      id: "newer",
     });
 
     const all = [current, older, newer];
@@ -129,16 +126,16 @@ describe("getRelatedByTags", () => {
   });
 
   it("should apply a subtle recency bias when recencyWeight is set", () => {
-    const current = makePost({ data: { tags: ["React"] }, slug: "a" });
+    const current = makePost({ data: { tags: ["React"] }, id: "a" });
 
     // Same tags, different ages. With weight, newer should rank first even if dates are close.
     const lessRecent = makePost({
       data: { publishDate: new Date("2024-01-01T00:00:00Z"), tags: ["React"] },
-      slug: "less-recent",
+      id: "less-recent",
     });
     const moreRecent = makePost({
       data: { publishDate: new Date("2024-12-01T00:00:00Z"), tags: ["React"] },
-      slug: "more-recent",
+      id: "more-recent",
     });
 
     const all = [current, lessRecent, moreRecent];
@@ -155,12 +152,12 @@ describe("getRelatedByTags", () => {
   });
 
   it("should cap results by the limit", () => {
-    const current = makePost({ data: { tags: ["React"] }, slug: "a" });
+    const current = makePost({ data: { tags: ["React"] }, id: "a" });
     const all = [
       current,
-      makePost({ data: { tags: ["React"] }, slug: "b" }),
-      makePost({ data: { tags: ["React"] }, slug: "c" }),
-      makePost({ data: { tags: ["React"] }, slug: "d" }),
+      makePost({ data: { tags: ["React"] }, id: "b" }),
+      makePost({ data: { tags: ["React"] }, id: "c" }),
+      makePost({ data: { tags: ["React"] }, id: "d" }),
     ];
     const results = getRelatedByTags(all, current, { limit: 2 });
 
@@ -169,16 +166,16 @@ describe("getRelatedByTags", () => {
 
   it("should break ties deterministically with different titles", () => {
     const date = new Date("2024-01-01T00:00:00Z");
-    const current = makePost({ data: { tags: ["React"] }, slug: "a" });
+    const current = makePost({ data: { tags: ["React"] }, id: "a" });
 
     // Same score and date, different titles
     const zebra = makePost({
       data: { publishDate: date, tags: ["React"], title: "Zebra Title" },
-      slug: "zebra-slug",
+      id: "zebra-slug",
     });
     const alpha = makePost({
       data: { publishDate: date, tags: ["React"], title: "Alpha Title" },
-      slug: "alpha-slug",
+      id: "alpha-slug",
     });
 
     const all = [current, zebra, alpha];
@@ -188,7 +185,7 @@ describe("getRelatedByTags", () => {
   });
 
   it("should prefer `heading` over `title` when available", () => {
-    const current = makePost({ data: { tags: ["React"] }, slug: "current" });
+    const current = makePost({ data: { tags: ["React"] }, id: "current" });
 
     const related = makePost({
       data: {
@@ -196,7 +193,7 @@ describe("getRelatedByTags", () => {
         tags: ["React"],
         title: "Fallback Title",
       },
-      slug: "candidate",
+      id: "candidate",
     });
 
     const all = [current, related];
@@ -211,14 +208,14 @@ describe("getRelatedByTags", () => {
   });
 
   it("should fall back to `title` when `heading` is not provided", () => {
-    const current = makePost({ data: { tags: ["React"] }, slug: "current" });
+    const current = makePost({ data: { tags: ["React"] }, id: "current" });
 
     const related = makePost({
       data: {
         tags: ["React"],
         title: "Only Title",
       },
-      slug: "candidate",
+      id: "candidate",
     });
 
     const all = [current, related];
@@ -238,13 +235,13 @@ describe("getRelatedByTags", () => {
     // current: React + TypeScript
     const current = makePost({
       data: { publishDate: date, tags: ["React", "TypeScript"] },
-      slug: "current",
+      id: "current",
     });
 
     // perfect: shares both React + TypeScript — jaccard = 2/2 = 1.0
     const perfect = makePost({
       data: { publishDate: date, tags: ["React", "TypeScript"] },
-      slug: "perfect",
+      id: "perfect",
     });
 
     // incidental: shares only React but has many unrelated tags — jaccard = 1/5 = 0.2
@@ -253,7 +250,7 @@ describe("getRelatedByTags", () => {
         publishDate: date,
         tags: ["React", "Node.js", "Tailwind", "CSS", "Performance"],
       },
-      slug: "incidental",
+      id: "incidental",
     });
 
     const all = [current, perfect, incidental];
@@ -267,17 +264,17 @@ describe("getRelatedByTags", () => {
 
     const current = makePost({
       data: { publishDate: date, tags: ["TypeScript"] },
-      slug: "current",
+      id: "current",
     });
 
     // both candidates share the single tag with the same jaccard = 1/1 = 1.0
     const a = makePost({
       data: { publishDate: date, tags: ["TypeScript"], title: "A Post" },
-      slug: "a-post",
+      id: "a-post",
     });
     const b = makePost({
       data: { publishDate: date, tags: ["TypeScript"], title: "B Post" },
-      slug: "b-post",
+      id: "b-post",
     });
 
     const all = [current, a, b];
@@ -291,7 +288,7 @@ describe("getRelatedByTags", () => {
 
     const current = makePost({
       data: { publishDate: date, tags: ["React", "TypeScript"] },
-      slug: "current",
+      id: "current",
     });
 
     // With jaccardWeight=0, scores are pure IDF. Both share React; neither gets a
@@ -301,11 +298,11 @@ describe("getRelatedByTags", () => {
         publishDate: date,
         tags: ["React", "TypeScript", "Node.js", "Tailwind"],
       },
-      slug: "two-shared",
+      id: "two-shared",
     });
     const oneShared = makePost({
       data: { publishDate: date, tags: ["React"] },
-      slug: "one-shared",
+      id: "one-shared",
     });
 
     const all = [current, twoShared, oneShared];
