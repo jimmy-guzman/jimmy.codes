@@ -5,10 +5,11 @@ const tags = z.enum([
   "Accessibility",
   "Analytics",
   "Astro",
+  "Backend",
   "CI/CD",
   "CLI",
+  "CSS",
   "Frontend",
-  "JavaScript",
   "Markdown",
   "Next.js",
   "Node.js",
@@ -18,7 +19,6 @@ const tags = z.enum([
   "TIL",
   "Tooling",
   "TypeScript",
-  "CSS",
 ]);
 
 const posts = defineCollection({

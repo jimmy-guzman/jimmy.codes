@@ -37,7 +37,7 @@ describe("getRelatedByTags", () => {
     const all = [
       current,
       makePost({ data: { tags: ["TIL", "React"] }, id: "b" }),
-      makePost({ data: { tags: ["TIL", "JavaScript"] }, id: "c" }),
+      makePost({ data: { tags: ["TIL", "TypeScript"] }, id: "c" }),
     ];
     const results = getRelatedByTags(all, current, { stopTags: ["TIL"] });
 
