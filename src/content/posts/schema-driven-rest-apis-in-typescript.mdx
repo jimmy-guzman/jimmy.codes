@@ -1,6 +1,6 @@
 ---
 title: Schema-Driven REST APIs in TypeScript
-publishDate: 2026-03-09
+publishDate: 2026-03-11
 description: "Schema-driven REST APIs in TypeScript: typed errors, explicit dependencies, and OpenAPI generated from the same contract."
 keywords:
   [
@@ -61,8 +61,7 @@ export const postsTable = sqliteTable("posts", (t) => ({
 }));
 ```
 
-{/*cspell:disable-next-line*/}
-IDs use [TypeID](https://github.com/jetify-com/typeid-js): `typeid("post")` produces `post_01h2xcejqtf2nbrexx3vqjhp41`. Type-prefixed and sortable.
+From here, define what callers actually see.
 
 ### The contract
 
