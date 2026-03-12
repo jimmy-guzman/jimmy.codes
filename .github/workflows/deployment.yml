@@ -34,9 +34,9 @@ jobs:
         uses: ./.github/actions/install
 
       - name: 📦 Install Playwright Deps
-        run: bunx playwright install --with-deps
+        run: bunx playwright install --no-shell chromium
 
       - name: 🧪 Run e2e Tests
-        run: bun e2e
+        run: bun e2e --project=chromium
         env:
           BASE_URL: ${{ github.event.deployment_status.environment_url }}
