@@ -10,6 +10,8 @@ import { getAllTags, slugifyTag } from "@/utils/tags";
 const posts = (await getCollection("posts")).sort(sortByPublishDate);
 
 const tags = getAllTags(posts);
+
+const backOptions = { title: "blog" as const, url: "/blog" };
 ---
 
 <BaseLayout
@@ -17,7 +19,7 @@ const tags = getAllTags(posts);
   description="Browse all blog post tags"
   keywords={["blog", "tags", "posts"]}
 >
-  <PageLayout heading="All Tags" back={{ title: "blog", url: "/blog" }}>
+  <PageLayout heading="All Tags" back={backOptions}>
     <section class="not-prose">
       <ul class="list">
         {

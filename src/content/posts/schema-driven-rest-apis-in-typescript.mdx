@@ -71,7 +71,7 @@ Never let callers set server-owned fields. Restrict update inputs to the fields 
 
 Start with the response shape and the creation input:
 
-{/*cspell:disable*/}
+{/* cspell:disable */}
 
 ```ts title="src/posts/posts.schema.ts"
 import { z } from "@hono/zod-openapi";
@@ -104,7 +104,7 @@ export const NewPostBody = createInsertSchema(postsTable, {
 export type NewPostBody = z.infer<typeof NewPostBody>;
 ```
 
-{/*cspell:enable*/}
+{/* cspell:enable */}
 
 Updates use the same owned fields, but all optional. A caller can update just the title without touching the body. And define a shared error shape for every failure response:
 
@@ -154,7 +154,7 @@ export class DatabaseError extends Data.TaggedError("DatabaseError")<{
 
 The route definition is where contract schemas, error shapes, and HTTP behavior meet. A GET route declares the param it expects, every response it can return, and the schemas for each:
 
-{/*cspell:disable*/}
+{/* cspell:disable */}
 
 ```ts title="src/posts/posts.api.ts"
 import { createRoute, z } from "@hono/zod-openapi";
@@ -195,7 +195,7 @@ export const GetPostRoute = createRoute({
 });
 ```
 
-{/*cspell:enable*/}
+{/* cspell:enable */}
 
 The POST route follows the same pattern: `NewPostBody` for input, `Post` for the 201 response, and `ApiError` for 422 and 500 failures. Return a status code not declared in `responses` and TypeScript tells you. Hono's `defaultHook` handles all validation failures with a consistent 422.
 

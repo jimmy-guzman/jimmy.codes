@@ -58,7 +58,7 @@ function App() {
     <Form
       initialValues={{ name: "", email: "" }}
       onSubmit={(values) => {
-//               ^?
+        //        ^?
         console.log(values.name, values.email);
       }}
     />
@@ -197,7 +197,7 @@ const initialValues: any = {};
 function App() {
   return (
     <Form
-//    ^?
+      //^?
       initialValues={initialValues}
       onSubmit={(values: { name: string; email: string }) => {
         console.log(values.name, values.email);
@@ -267,7 +267,7 @@ function App() {
     <Form
       initialValues={{ name: "", email: "" }}
       onSubmit={(values) => {
-//               ^?
+        //        ^?
         console.log(values.name, values.email);
       }}
     />
@@ -312,7 +312,7 @@ Old annotations should not silently redefine your generic.
 If you are stuck on an older version, you can approximate the behavior with a type trick:
 
 ```ts
-type NoInfer<T> = [T][T extends any ? 0 : never]
+type NoInfer<T> = [T][T extends any ? 0 : never];
 ```
 
 It creates an inference barrier while preserving the underlying structure of `T`.

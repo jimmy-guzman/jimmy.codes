@@ -1,10 +1,14 @@
 type Usage = "daily" | "love" | "learning" | "fluent";
 
+const placeholderIcon = "icon-[lucide--box]";
+
 interface Tech {
   link: `https://${string}.${string}`;
   title: string;
   ariaLabel?: string;
-  icon: `icon-[${"logos" | "simple-icons" | "skill-icons"}--${string}]`;
+  icon:
+    | `icon-[${"logos" | "simple-icons" | "skill-icons" | "devicon"}--${string}]`
+    | typeof placeholderIcon;
   usage: Usage;
 }
 
@@ -42,7 +46,7 @@ export const techLanguages = sortByUsage([
   },
   {
     ariaLabel: "Go programming language",
-    icon: "icon-[logos--go]",
+    icon: "icon-[logos--gopher]",
     link: "https://go.dev/",
     title: "Go",
     usage: "learning",
@@ -89,6 +93,18 @@ export const techFullStack = sortByUsage([
     title: "Astro",
     usage: "daily",
   },
+  {
+    icon: "icon-[logos--zod]",
+    link: "https://zod.dev/",
+    title: "Zod",
+    usage: "daily",
+  },
+  {
+    icon: placeholderIcon,
+    link: "https://better-auth.com/",
+    title: "Better Auth",
+    usage: "love",
+  },
 ] satisfies Tech[]);
 
 export const techFrontend = sortByUsage([
@@ -117,6 +133,12 @@ export const techFrontend = sortByUsage([
     usage: "daily",
   },
   {
+    icon: "icon-[simple-icons--tanstack]",
+    link: "https://tanstack.com/table",
+    title: "TanStack Table",
+    usage: "daily",
+  },
+  {
     icon: "icon-[logos--tailwindcss-icon]",
     link: "https://tailwindcss.com/",
     title: "TailwindCSS",
@@ -133,6 +155,30 @@ export const techFrontend = sortByUsage([
     link: "https://daisyui.com/",
     title: "daisyUI",
     usage: "daily",
+  },
+  {
+    icon: "icon-[logos--redux]",
+    link: "https://redux.js.org/",
+    title: "Redux",
+    usage: "fluent",
+  },
+  {
+    icon: "icon-[devicon--zustand]",
+    link: "https://zustand.docs.pmnd.rs/",
+    title: "Zustand",
+    usage: "daily",
+  },
+  {
+    icon: "icon-[simple-icons--reacthookform]",
+    link: "https://react-hook-form.com/",
+    title: "React Hook Form",
+    usage: "daily",
+  },
+  {
+    icon: "icon-[simple-icons--swr]",
+    link: "https://swr.vercel.app//",
+    title: "SWR",
+    usage: "love",
   },
 ] satisfies Tech[]);
 
@@ -346,12 +392,6 @@ export const techInfrastructure = sortByUsage([
     link: "https://github.com/features/actions",
     title: "GitHub Actions",
     usage: "daily",
-  },
-  {
-    icon: "icon-[simple-icons--temporal]",
-    link: "https://temporal.io/",
-    title: "Temporal",
-    usage: "learning",
   },
 ] satisfies Tech[]);
 
