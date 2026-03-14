@@ -54,17 +54,13 @@ It does other stuff too like [upgrading between Tailwind versions](https://tailw
 Here's what it looks like in action. Before running the upgrade:
 
 ```tsx
-<div className="[&>[role=checkbox]]:translate-y-[2px]">
-  {/* content */}
-</div>
+<div className="[&>[role=checkbox]]:translate-y-[2px]">{/* content */}</div>
 ```
 
 After running `pnpx @tailwindcss/upgrade`:
 
 ```tsx
-<div className="*:[[role=checkbox]]:translate-y-0.5">
-  {/* content */}
-</div>
+<div className="*:[[role=checkbox]]:translate-y-0.5">{/* content */}</div>
 ```
 
 As you can see some transformations were applied:

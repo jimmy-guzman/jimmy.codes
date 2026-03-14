@@ -66,6 +66,7 @@ const jsonLd = {
 const heading = shortTitle(post);
 
 const ogImage = `/og/blog/${post.id}.png`;
+const backOptions = { title: "blog" as const, url: "/blog" };
 ---
 
 <BaseLayout
@@ -75,7 +76,7 @@ const ogImage = `/og/blog/${post.id}.png`;
   extraLd={[jsonLd]}
   ogImage={ogImage}
 >
-  <PageLayout heading={heading} back={{ title: "blog", url: "/blog" }}>
+  <PageLayout heading={heading} back={backOptions}>
     <ContentLayout
       title={heading}
       tags={tags}

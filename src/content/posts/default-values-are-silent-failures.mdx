@@ -23,9 +23,9 @@ TypeScript's [own docs](https://www.typescriptlang.org/docs/handbook/release-not
 
 ```ts twoslash
 function getVolume() {
-  const volume = localStorage.getItem('volume')
+  const volume = localStorage.getItem("volume");
 
-  return volume || 0.5
+  return volume || 0.5;
 }
 ```
 
@@ -37,9 +37,9 @@ The fix:
 
 ```ts twoslash
 function getVolume() {
-  const volume = localStorage.getItem('volume')
+  const volume = localStorage.getItem("volume");
 
-  return volume ?? 0.5
+  return volume ?? 0.5;
 }
 ```
 
@@ -67,25 +67,25 @@ The default doesn't prevent an error. It masks different failure modes as identi
 Every default makes a claim about your domain:
 
 ```ts twoslash
-declare const item: { quantity?: number }
+declare const item: { quantity?: number };
 // ---cut---
-const quantity = item.quantity ?? 0
+const quantity = item.quantity ?? 0;
 ```
 
 Claims: "missing quantity" = "zero items"
 
 ```ts twoslash
-declare const user: { id?: string }
+declare const user: { id?: string };
 // ---cut---
-const userId = user.id ?? ''
+const userId = user.id ?? "";
 ```
 
 Claims: "missing user ID" = "empty string is valid"
 
 ```ts twoslash
-declare const product: { price?: number }
+declare const product: { price?: number };
 // ---cut---
-const price = product.price ?? 0
+const price = product.price ?? 0;
 ```
 
 Claims: "unknown price" = "free"
@@ -95,12 +95,10 @@ These aren't defensive. They're assertions that fail silently.
 ## Example 1: The arithmetic bug
 
 ```ts twoslash
-declare const item: { quantity?: number; boxSize?: number }
+declare const item: { quantity?: number; boxSize?: number };
 // ---cut---
 const itemsPerBox =
-  item.quantity && item.boxSize
-    ? item.quantity / item.boxSize
-    : 0
+  item.quantity && item.boxSize ? item.quantity / item.boxSize : 0;
 ```
 
 Returns `0` for:
@@ -119,17 +117,17 @@ Ship it to inventory: sold-out items marked available.
 
 ```ts twoslash
 interface OrderItem {
-  productId?: string
-  quantity?: number
-  storeId?: number
+  productId?: string;
+  quantity?: number;
+  storeId?: number;
 }
 // ---cut---
 function createOrderLine(item: OrderItem) {
   return {
-    productId: item.productId ?? '',
+    productId: item.productId ?? "",
     quantity: item.quantity ?? 0,
-    storeId: item.storeId ?? 0
-  }
+    storeId: item.storeId ?? 0,
+  };
 }
 ```
 
@@ -144,18 +142,22 @@ Downstream systems process invalid data without crashing.
 ## Example 3: The API garbage collector
 
 ```ts twoslash
-declare const api: { post: (url: string, data: unknown) => Promise<void> }
-interface Order { id?: number }
-interface User { id?: string }
-declare const order: Order
-declare const user: User
+declare const api: { post: (url: string, data: unknown) => Promise<void> };
+interface Order {
+  id?: number;
+}
+interface User {
+  id?: string;
+}
+declare const order: Order;
+declare const user: User;
 // ---cut---
 const payload = {
-  orderId: order.id?.toString() ?? '',
-  userId: user.id ?? ''
-}
+  orderId: order.id?.toString() ?? "",
+  userId: user.id ?? "",
+};
 
-await api.post('/orders', payload)
+await api.post("/orders", payload);
 ```
 
 If the API expects real IDs, empty strings don't make requests safer. They make failures impossible to debug.
@@ -177,33 +179,39 @@ Defaults do the opposite:
 Compare:
 
 ```ts twoslash
-interface OrderItem { quantity?: number }
+interface OrderItem {
+  quantity?: number;
+}
 // ---cut---
 function processOrder(items: OrderItem[]) {
-  const quantity = items[0]?.quantity ?? 0
-// @warn: quantity is a number, but is it real?
+  const quantity = items[0]?.quantity ?? 0;
+  // @warn: quantity is a number, but is it real?
 }
 ```
 
 With:
 
 ```ts twoslash
-interface OrderItem { quantity?: number }
-interface ValidItem { quantity: number }
-type Result<T, E> = { ok: true; value: T } | { ok: false; error: E }
+interface OrderItem {
+  quantity?: number;
+}
+interface ValidItem {
+  quantity: number;
+}
+type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
 function err<E>(error: E): Result<never, E> {
-  return { ok: false, error }
+  return { ok: false, error };
 }
 function ok<T>(value: T): Result<T, never> {
-  return { ok: true, value }
+  return { ok: true, value };
 }
 // ---cut---
 function parseOrderItem(item: OrderItem) {
-  if (typeof item.quantity !== 'number' || item.quantity <= 0) {
-    return err('quantity must be positive')
+  if (typeof item.quantity !== "number" || item.quantity <= 0) {
+    return err("quantity must be positive");
   }
 
-  return ok({ quantity: item.quantity })
+  return ok({ quantity: item.quantity });
 }
 ```
 
@@ -232,18 +240,18 @@ If the value shouldn't exist, don't pretend it does.
 Sometimes they're legitimate:
 
 ```ts twoslash
-declare const settings: { theme?: string }
-declare const config: { timeout?: number }
-declare const person: { middleName?: string | null }
+declare const settings: { theme?: string };
+declare const config: { timeout?: number };
+declare const person: { middleName?: string | null };
 // ---cut---
 // User preference with sensible default
-const theme = settings.theme ?? 'light'
+const theme = settings.theme ?? "light";
 
 // Optional config with fallback
-const timeout = config.timeout ?? 5000
+const timeout = config.timeout ?? 5000;
 
 // Truly nullable data
-const middleName = person.middleName ?? null
+const middleName = person.middleName ?? null;
 ```
 
 The difference: these are truly optional in the domain.
@@ -303,22 +311,22 @@ In those cases, you can use assertion functions instead of defaults:
 
 ```ts twoslash
 function assertPositiveNumber(
-  value: number | undefined
+  value: number | undefined,
 ): asserts value is number {
-  if (typeof value !== 'number' || value <= 0) {
-    throw new Error('value must be a positive number')
+  if (typeof value !== "number" || value <= 0) {
+    throw new Error("value must be a positive number");
   }
 }
 
 interface OrderItem {
-  quantity?: number
-  boxSize: number
+  quantity?: number;
+  boxSize: number;
 }
 
 function processOrder(item: OrderItem) {
-  assertPositiveNumber(item.quantity)
+  assertPositiveNumber(item.quantity);
 
-  const itemsPerBox = item.quantity / item.boxSize
+  const itemsPerBox = item.quantity / item.boxSize;
   //                        ^?
 }
 ```
@@ -329,14 +337,14 @@ Better than:
 
 ```ts twoslash
 interface OrderItem {
-  quantity?: number
-  boxSize: number
+  quantity?: number;
+  boxSize: number;
 }
 // ---cut---
 function processOrder(item: OrderItem) {
-  const quantity = item.quantity ?? 0
-  const itemsPerBox = quantity / item.boxSize
-// @warn: itemsPerBox might be 0 due to defaulted quantity
+  const quantity = item.quantity ?? 0;
+  const itemsPerBox = quantity / item.boxSize;
+  // @warn: itemsPerBox might be 0 due to defaulted quantity
 }
 ```
 

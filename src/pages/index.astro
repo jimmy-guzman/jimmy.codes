@@ -28,21 +28,20 @@ const latestPost = posts.sort(sortByPublishDate)[0];
     <section>
       <p>
         <a href="/about">Learn about me</a>, see what I <a href="/uses">use</a>,
-        or check out my <a href="/blog">blog</a>, starting with <a
-          href={`/blog/${latestPost.id}`}
-          rel="bookmark"
-          data-astro-prefetch>{shortTitle(latestPost)}</a
+        or check out my <a href="/blog">blog</a>, starting with
+        <a href={`/blog/${latestPost.id}`} rel="bookmark" data-astro-prefetch
+          >{shortTitle(latestPost)}</a
         >.
       </p>
     </section>
 
     <section>
       <p>
-        Reach me on <a
-          href={urls.GitHub}
-          target="_blank"
-          rel="noopener noreferrer">GitHub</a
-        >, <a href={urls.LinkedIn} target="_blank" rel="noopener noreferrer"
+        Reach me on
+        <a href={urls.GitHub} target="_blank" rel="noopener noreferrer"
+          >GitHub</a
+        >,
+        <a href={urls.LinkedIn} target="_blank" rel="noopener noreferrer"
           >LinkedIn</a
         >, or by <a href={urls.email}>email</a>.
       </p>

@@ -17,8 +17,6 @@ const { heading, back } = Astro.props;
   aria-labelledby="page-title"
 >
   {back && <BackLink url={back.url} title={back.title} />}
-  <h1 class="[view-transition-name:title]" id="page-title">
-    {heading}
-  </h1>
+  <h1 class="[view-transition-name:title]" id="page-title">{heading}</h1>
   <slot />
 </main>
