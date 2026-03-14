@@ -22,19 +22,14 @@ export async function getStaticPaths() {
       limit: 3,
       recencyWeight: 0.02,
     });
+    const base = { post, relatedPosts, updatedDate };
 
-    return {
-      params: { slug: post.id },
-      props: {
-        post,
-        relatedPosts,
-        updatedDate,
-      },
-    };
+    return { params: { slug: post.id }, props: base };
   });
 }
 
 const { post, relatedPosts, updatedDate } = Astro.props;
+
 const { Content } = await render(post);
 
 const postUrl = `${urls.site}/blog/${post.id}`;
@@ -75,6 +70,7 @@ const backOptions = { title: "blog" as const, url: "/blog" };
   keywords={keywords}
   extraLd={[jsonLd]}
   ogImage={ogImage}
+  alternates={[{ type: "text/markdown", path: `/blog/${post.id}.md` }]}
 >
   <PageLayout heading={heading} back={backOptions}>
     <ContentLayout

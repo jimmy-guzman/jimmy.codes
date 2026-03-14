@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    {
+      "destination": "/blog/:slug.md",
+      "has": [
+        { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
+      ],
+      "permanent": false,
+      "source": "/blog/:slug((?!.*\\.md$).*)"
+    }
+  ]
+}
