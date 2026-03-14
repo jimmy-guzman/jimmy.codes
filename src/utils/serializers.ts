@@ -1,17 +1,15 @@
 import type { CollectionEntry } from "astro:content";
+import { stringify } from "yaml";
 
 export function toRawMarkdown(post: CollectionEntry<"posts">) {
-  const frontmatter = Object.entries(post.data)
-    .map(([key, value]) => {
-      if (value instanceof Date) {
-        return `${key}: ${value.toISOString().split("T")[0]}`;
-      }
+  const data: Record<string, unknown> = {};
 
-      if (Array.isArray(value)) return `${key}: ${JSON.stringify(value)}`;
+  for (const [key, value] of Object.entries(post.data)) {
+    data[key] =
+      value instanceof Date ? value.toISOString().split("T")[0] : value;
+  }
 
-      return `${key}: ${value}`;
-    })
-    .join("\n");
+  const frontmatter = stringify(data).trimEnd();
 
   return `---\n${frontmatter}\n---\n\n${post.body}`;
 }
