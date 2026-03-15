@@ -1,6 +1,46 @@
 {
   "redirects": [
     {
+      "destination": "/index.md",
+      "has": [
+        { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
+      ],
+      "permanent": false,
+      "source": "/"
+    },
+    {
+      "destination": "/about.md",
+      "has": [
+        { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
+      ],
+      "permanent": false,
+      "source": "/about"
+    },
+    {
+      "destination": "/uses.md",
+      "has": [
+        { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
+      ],
+      "permanent": false,
+      "source": "/uses"
+    },
+    {
+      "destination": "/blog.md",
+      "has": [
+        { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
+      ],
+      "permanent": false,
+      "source": "/blog"
+    },
+    {
+      "destination": "/blog/tags.md",
+      "has": [
+        { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
+      ],
+      "permanent": false,
+      "source": "/blog/tags"
+    },
+    {
       "destination": "/blog/:slug.md",
       "has": [
         { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
