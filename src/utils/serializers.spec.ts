@@ -1,6 +1,12 @@
 import type { CollectionEntry } from "astro:content";
 import { describe, expect, it } from "vitest";
-import { toRawMarkdown } from "./serializers";
+import {
+  toBlogIndexMarkdown,
+  toRawMarkdown,
+  toRawPageMarkdown,
+  toTagsMarkdown,
+  toUsesMarkdown,
+} from "./serializers";
 
 describe("toRawMarkdown", () => {
   it("should wrap content in frontmatter delimiters", () => {
@@ -136,5 +142,227 @@ describe("toRawMarkdown", () => {
     expect(result).not.toContain("shortTitle:");
     expect(result).not.toContain("updatedDate:");
     expect(result).not.toContain("undefined");
+  });
+});
+
+describe("toRawPageMarkdown", () => {
+  it("should wrap content in frontmatter delimiters", () => {
+    const result = toRawPageMarkdown({
+      body: "Page body text",
+      data: {
+        description: "A page description",
+        heading: "My Heading",
+        keywords: ["test"],
+        title: "My Page",
+      },
+    } as CollectionEntry<"pages">);
+
+    expect(result).toMatch(/^---\n/);
+    expect(result).toContain("\n---\n\nPage body text");
+  });
+
+  it("should include all frontmatter fields", () => {
+    const result = toRawPageMarkdown({
+      body: "",
+      data: {
+        description: "A page description",
+        heading: "My Heading",
+        keywords: ["one", "two"],
+        title: "My Page Title",
+      },
+    } as CollectionEntry<"pages">);
+
+    expect(result).toContain("title: My Page Title");
+    expect(result).toContain("heading: My Heading");
+    expect(result).toContain("description: A page description");
+    expect(result).toContain("keywords:\n  - one\n  - two");
+  });
+
+  it("should handle an empty body", () => {
+    const result = toRawPageMarkdown({
+      body: "",
+      data: {
+        description: "desc",
+        heading: "H",
+        keywords: ["kw"],
+        title: "T",
+      },
+    } as CollectionEntry<"pages">);
+
+    expect(result).toMatch(/^---\n[\s\S]*---\n\n$/);
+  });
+});
+
+describe("toUsesMarkdown", () => {
+  it("should wrap content in frontmatter delimiters", () => {
+    const result = toUsesMarkdown();
+
+    expect(result).toMatch(/^---\n/);
+    expect(result).toContain("\n---\n\n");
+  });
+
+  it("should include frontmatter from pages.uses", () => {
+    const result = toUsesMarkdown();
+
+    expect(result).toContain("title:");
+    expect(result).toContain("heading: Uses");
+    expect(result).toContain("description:");
+    expect(result).toContain("keywords:");
+  });
+
+  it("should contain section headings for each tech category", () => {
+    const result = toUsesMarkdown();
+
+    expect(result).toContain("## Languages");
+    expect(result).toContain("## Runtimes");
+    expect(result).toContain("## Full Stack");
+    expect(result).toContain("## Frontend");
+    expect(result).toContain("## Tooling");
+    expect(result).toContain("## Backend");
+    expect(result).toContain("## Infrastructure");
+    expect(result).toContain("## AI");
+  });
+
+  it("should render tables with a Technology and Usage column", () => {
+    const result = toUsesMarkdown();
+
+    expect(result).toContain("| Technology | Usage |");
+    expect(result).toContain("|---|---|");
+  });
+
+  it("should include the hardware intro section", () => {
+    const result = toUsesMarkdown();
+
+    expect(result).toContain("**Editor**");
+    expect(result).toContain("**Terminal**");
+    expect(result).toContain("**Laptop**");
+  });
+
+  it("should render each tech item as a markdown table row with a link", () => {
+    const result = toUsesMarkdown();
+
+    // Every data row should follow the | [Title](url) | Label | pattern
+    const dataRows = result
+      .split("\n")
+      .filter((line) => line.startsWith("| ["));
+
+    expect(dataRows.length).toBeGreaterThan(0);
+    for (const row of dataRows) {
+      expect(row).toMatch(/^\| \[.+\]\(https:\/\/.+\) \| \w+ \|$/);
+    }
+  });
+});
+
+describe("toBlogIndexMarkdown", () => {
+  const makePost = (id: string, title: string, publishDate: Date) =>
+    ({
+      body: "",
+      data: {
+        description: "desc",
+        keywords: ["kw"],
+        publishDate,
+        tags: ["TypeScript"],
+        title,
+      },
+      id,
+    }) as CollectionEntry<"posts">;
+
+  it("should wrap content in frontmatter delimiters", () => {
+    const result = toBlogIndexMarkdown([]);
+
+    expect(result).toMatch(/^---\n/);
+    expect(result).toContain("\n---\n\n");
+  });
+
+  it("should include frontmatter from pages.blog", () => {
+    const result = toBlogIndexMarkdown([]);
+
+    expect(result).toContain("title:");
+    expect(result).toContain("heading: Blog");
+    expect(result).toContain("description:");
+    expect(result).toContain("keywords:");
+  });
+
+  it("should render each post as a list item with a link", () => {
+    const posts = [makePost("my-post", "My Post", new Date("2024-01-01"))];
+    const result = toBlogIndexMarkdown(posts);
+
+    expect(result).toContain("- [My Post](/blog/my-post)");
+  });
+
+  it("should sort posts newest first", () => {
+    const posts = [
+      makePost("older", "Older Post", new Date("2023-01-01")),
+      makePost("newer", "Newer Post", new Date("2024-06-01")),
+    ];
+    const result = toBlogIndexMarkdown(posts);
+
+    expect(result.indexOf("Newer Post")).toBeLessThan(
+      result.indexOf("Older Post"),
+    );
+  });
+
+  it("should include the publish date in each row", () => {
+    const posts = [makePost("a-post", "A Post", new Date("2024-03-15"))];
+    const result = toBlogIndexMarkdown(posts);
+
+    expect(result).toContain("2024-03-15");
+  });
+});
+
+describe("toTagsMarkdown", () => {
+  const makePost = (tags: CollectionEntry<"posts">["data"]["tags"]) =>
+    ({
+      body: "",
+      data: {
+        description: "desc",
+        keywords: ["kw"],
+        publishDate: new Date("2024-01-01"),
+        tags,
+        title: "Post",
+      },
+      id: "post",
+    }) as CollectionEntry<"posts">;
+
+  it("should wrap content in frontmatter delimiters", () => {
+    const result = toTagsMarkdown([]);
+
+    expect(result).toMatch(/^---\n/);
+    expect(result).toContain("\n---\n\n");
+  });
+
+  it("should include frontmatter from pages.tags", () => {
+    const result = toTagsMarkdown([]);
+
+    expect(result).toContain("title:");
+    expect(result).toContain("heading: All Tags");
+    expect(result).toContain("description:");
+    expect(result).toContain("keywords:");
+  });
+
+  it("should render each tag as a list item with a link", () => {
+    const posts = [makePost(["TypeScript", "React"])];
+    const result = toTagsMarkdown(posts);
+
+    expect(result).toContain("- [TypeScript](/blog/tags/typescript)");
+    expect(result).toContain("- [React](/blog/tags/react)");
+  });
+
+  it("should show singular 'post' for a tag with one post", () => {
+    const posts = [makePost(["TypeScript"])];
+    const result = toTagsMarkdown(posts);
+
+    expect(result).toContain("1 post");
+    expect(result).not.toContain("1 posts");
+  });
+
+  it("should show plural 'posts' for a tag with multiple posts", () => {
+    const posts = [
+      makePost(["TypeScript"]),
+      { ...makePost(["TypeScript"]), id: "post-2" } as CollectionEntry<"posts">,
+    ];
+    const result = toTagsMarkdown(posts);
+
+    expect(result).toContain("2 posts");
   });
 });

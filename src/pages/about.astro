@@ -1,104 +1,24 @@
 ---
-import BackLink from "@/components/BackLink.astro";
-import { pages } from "@/configs/pages";
-import { urls } from "@/configs/urls";
+import { getEntry, render } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
+
+const page = await getEntry("pages", "about");
+
+if (!page) throw new Error("Missing content: pages/about.md");
+
+const { Content } = await render(page);
 ---
 
 <BaseLayout
-  title={pages.about.title}
-  description={pages.about.description}
-  keywords={pages.about.keywords}
+  title={page.data.title}
+  description={page.data.description}
+  keywords={page.data.keywords}
+  alternates={[{ path: "/about.md", type: "text/markdown" }]}
 >
-  <PageLayout heading={pages.about.heading}>
+  <PageLayout heading={page.data.heading}>
     <section>
-      <p>
-        I'm Jimmy Guzman Moreno, a staff+ engineer with 10+ years of experience
-        in frontend, backend, and distributed systems. I have a passion for the
-        craft of creating software, blending hands-on coding with technical
-        strategy. I focus on mentorship, developer experience, and building
-        architecture that lasts.
-      </p>
-
-      <h2>Engineering wins</h2>
-      <ul>
-        <li>
-          Designed a Key Activation Service that sped up a mainframe
-          decommission by 6 months and reduced operational costs.
-        </li>
-        <li>
-          Built an Nx monorepo that enabled independent deployments for multiple
-          apps across 15+ teams.
-        </li>
-        <li>
-          Led a migration from AngularJS to React, modernizing the frontend for
-          scalability and maintainability.
-        </li>
-        <li>
-          Created a Next.js proof of concept with App Router support, enabling
-          our internal design system library.
-        </li>
-        <li>
-          Mentored engineers who went on to earn promotions to Senior Engineer
-          and Lead Engineer roles.
-        </li>
-      </ul>
-
-      <h2>My story</h2>
-      <p>
-        I'm currently a Lead Engineer at Target, where I design scalable supply
-        chain services and improve developer workflows. Before that, I was a
-        Senior Lead Engineer at Ameriprise, leading the guest access platform,
-        building an enterprise React component library, and implementing Nx
-        pipelines that only deploy affected projects.
-      </p>
-
-      <p>
-        My path into engineering wasn't traditional. I started in a call center,
-        studied during breaks using
-        <a
-          href="https://teamtreehouse.com/"
-          target="_blank"
-          rel="noopener noreferrer">Team Treehouse</a
-        >,
-        <a
-          href="https://www.freecodecamp.org"
-          target="_blank"
-          rel="noopener noreferrer">freeCodeCamp</a
-        >, and
-        <a
-          href="https://watchandcode.com"
-          target="_blank"
-          rel="noopener noreferrer">Watch and Code</a
-        >, and worked through <em>Clean Code</em> and
-        <em>You Don't Know JS Yet</em>. After months of self-learning, I became
-        a teaching assistant at a coding bootcamp, which led to my first
-        engineering role.
-      </p>
-
-      <p>
-        Over the years, I've specialized in high-performance systems, scalable
-        architecture, and developer experience. I've found that my best work
-        comes from helping teams ship faster and with confidence through clear
-        strategy and strong technical foundations.
-      </p>
-
-      <p>
-        Want to connect? Email me at
-        <a href={urls.email}>hi@jimmy.codes</a>
-        or find me on
-        <a href={urls.GitHub} target="_blank" rel="noopener noreferrer"
-          >GitHub</a
-        >
-        and
-        <a href={urls.LinkedIn} target="_blank" rel="noopener noreferrer"
-          >LinkedIn</a
-        >. You can also <a href="/resume.pdf" download>download my resume</a> or read
-        <a href="/blog">my blog</a>.
-      </p>
-
-      <p class="mt-8"><BackLink url="/" title="home" /></p>
+      <Content />
     </section>
   </PageLayout>
 </BaseLayout>

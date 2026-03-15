@@ -19,6 +19,7 @@
   },
   "css.lint.unknownAtRules": "ignore",
   "editor.codeActionsOnSave": {
+    "source.action.useSortedKeys.biome": "explicit",
     "source.fixAll.biome": "explicit"
   },
   "editor.defaultFormatter": "biomejs.biome",
