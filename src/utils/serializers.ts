@@ -13,6 +13,7 @@ import {
   titles,
   usageBadge,
 } from "@/configs/tech";
+import { urls } from "@/configs/urls";
 import { readingTime, sortByPublishDate } from "@/utils/content";
 import { getAllTags, slugifyTag } from "@/utils/tags";
 
@@ -102,4 +103,36 @@ export function toTagsMarkdown(posts: CollectionEntry<"posts">[]) {
     .join("\n");
 
   return `---\n${frontmatter}\n---\n\n# Tags\n\n${rows}`;
+}
+
+export function toLlmsTxtMarkdown(posts: CollectionEntry<"posts">[]) {
+  const base = urls.site;
+  const sorted = [...posts].sort(sortByPublishDate);
+
+  const postRows = sorted
+    .map(
+      (post) =>
+        `- [${post.data.title}](${base}/blog/${post.id}.md): ${post.data.description}`,
+    )
+    .join("\n");
+
+  return `# Jimmy Guzman Moreno
+
+> ${pages.site.description}
+
+## Pages
+
+- [Home](${base}/index.md): Personal introduction and site navigation
+- [About](${base}/about.md): Background, engineering wins, and career story
+- [Uses](${base}/uses.md): Tech stack, tools, and daily setup
+
+## Blog
+
+- [Blog](${base}/blog.md): Full list of all posts
+${postRows}
+
+## Optional
+
+- [All tags](${base}/blog/tags.md): Browse posts by tag
+- [RSS feed](${base}/blog/rss.xml): Syndication feed with post metadata`;
 }
