@@ -1,5 +1,18 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
+import { z } from "astro/zod";
+
+const pages = defineCollection({
+  loader: glob({ base: "./src/content/pages", pattern: "**/*.md" }),
+  schema: z.object({
+    description: z.string().min(1, "Description is required"),
+    heading: z.string().min(1, "Heading is required"),
+    keywords: z
+      .array(z.string().min(1, "Keywords must contain at least one character"))
+      .min(1, "At least one keyword is required"),
+    title: z.string().min(1, "Title is required"),
+  }),
+});
 
 const tags = z.enum([
   "Accessibility",
@@ -43,5 +56,6 @@ const posts = defineCollection({
 });
 
 export const collections = {
+  pages,
   posts,
 };

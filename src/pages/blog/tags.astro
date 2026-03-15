@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 
-import { BASE_TITLE } from "@/configs/pages";
+import { pages } from "@/configs/pages";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { sortByPublishDate } from "@/utils/content";
@@ -15,11 +15,12 @@ const backOptions = { title: "blog" as const, url: "/blog" };
 ---
 
 <BaseLayout
-  title={`All Tags | ${BASE_TITLE}`}
-  description="Browse all blog post tags"
-  keywords={["blog", "tags", "posts"]}
+  title={pages.tags.title}
+  description={pages.tags.description}
+  keywords={pages.tags.keywords}
+  alternates={[{ path: "/blog/tags.md", type: "text/markdown" }]}
 >
-  <PageLayout heading="All Tags" back={backOptions}>
+  <PageLayout heading={pages.tags.heading} back={backOptions}>
     <section class="not-prose">
       <ul class="list">
         {

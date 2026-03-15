@@ -1,24 +1,6 @@
 export const BASE_TITLE = "Jimmy Guzman Moreno";
 
 export const pages = {
-  about: {
-    description:
-      "Lead Engineer with 9+ years of experience delivering high-performance systems and scalable platforms. Engineering leader focused on mentorship, technical strategy, and improving developer experience.",
-    heading: "About Me",
-    keywords: [
-      "jimmy guzman",
-      "lead engineer",
-      "software engineering leadership",
-      "scalable systems",
-      "developer experience",
-      "mentorship",
-      "technical strategy",
-      "target",
-      "ameriprise",
-    ],
-    title: `About Me | ${BASE_TITLE}`,
-  },
-
   blog: {
     description:
       "Articles on building software, system design, architecture, and developer experience.",
@@ -35,32 +17,6 @@ export const pages = {
       "web development",
     ],
     title: `Blog | ${BASE_TITLE}`,
-  },
-
-  bookmarks: {
-    description: "A personal running list of saved links and references.",
-    heading: "Bookmarks",
-    keywords: ["bookmarks", "saved links", "references"],
-    title: `Bookmarks | ${BASE_TITLE}`,
-  },
-  home: {
-    description:
-      "Lead Engineer focused on high-performance systems, scalable architecture, and great developer experience. I enjoy mentoring, technical strategy, and building modern software.",
-    heading: "Hi, I'm Jimmy",
-    keywords: [
-      "jimmy guzman",
-      "lead engineer",
-      "software engineer",
-      "software architecture",
-      "developer experience",
-      "typescript",
-      "react",
-      "nextjs",
-      "astro",
-      "frontend",
-      "backend",
-    ],
-    title: BASE_TITLE,
   },
 
   notFound: {
@@ -81,10 +37,17 @@ export const pages = {
     title: "Jimmy Guzman Moreno's blogfolio",
   },
 
+  tags: {
+    description: "Browse all blog post tags",
+    heading: "All Tags",
+    keywords: ["blog", "tags", "posts"],
+    title: `All Tags | ${BASE_TITLE}`,
+  },
+
   uses: {
     description: "Tech I love, use daily, and am currently learning.",
     heading: "Uses",
     keywords: ["tech stack", "tools", "uses", "typescript", "react", "astro"],
-    title: "Uses | jimmy.codes",
+    title: `Uses | ${BASE_TITLE}`,
   },
 } as const;

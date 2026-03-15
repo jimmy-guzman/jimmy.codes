@@ -17,6 +17,7 @@ const tags = getAllTags(posts);
   title={pages.blog.title}
   description={pages.blog.description}
   keywords={pages.blog.keywords}
+  alternates={[{ path: "/blog.md", type: "text/markdown" }]}
 >
   <PageLayout heading={pages.blog.heading}>
     <Tags tags={tags} />

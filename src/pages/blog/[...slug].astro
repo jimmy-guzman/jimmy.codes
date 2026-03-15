@@ -70,7 +70,7 @@ const backOptions = { title: "blog" as const, url: "/blog" };
   keywords={keywords}
   extraLd={[jsonLd]}
   ogImage={ogImage}
-  alternates={[{ type: "text/markdown", path: `/blog/${post.id}.md` }]}
+  alternates={[{ path: `/blog/${post.id}.md`, type: "text/markdown" }]}
 >
   <PageLayout heading={heading} back={backOptions}>
     <ContentLayout
