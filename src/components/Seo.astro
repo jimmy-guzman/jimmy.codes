@@ -5,9 +5,23 @@ interface Props {
   keywords: readonly string[];
   noIndex?: boolean;
   ogImage?: string;
+  ogType?: "website" | "article";
+  article?: {
+    publishedTime: Date;
+    modifiedTime: Date;
+    tags: readonly string[];
+  };
 }
 
-const { title, description, keywords, noIndex, ogImage } = Astro.props;
+const {
+  title,
+  description,
+  keywords,
+  noIndex,
+  ogImage,
+  ogType = "website",
+  article,
+} = Astro.props;
 
 const site = Astro.site;
 const url = new URL(Astro.url, site).toString();
@@ -26,7 +40,7 @@ const ogAlt = "jimmy.codes - Jimmy Guzman Moreno";
 <meta name="keywords" content={keywords.join(", ")} />
 <meta name="author" content="Jimmy Guzman Moreno" />
 
-<meta property="og:type" content="website" />
+<meta property="og:type" content={ogType} />
 <meta property="og:site_name" content="jimmy.codes" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:url" content={url} />
@@ -37,6 +51,24 @@ const ogAlt = "jimmy.codes - Jimmy Guzman Moreno";
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:type" content="image/png" />
+
+{
+  article && (
+    <>
+      <meta
+        property="article:published_time"
+        content={article.publishedTime.toISOString()}
+      />
+      <meta
+        property="article:modified_time"
+        content={article.modifiedTime.toISOString()}
+      />
+      {article.tags.map((tag) => (
+        <meta property="article:tag" content={tag} />
+      ))}
+    </>
+  )
+}
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:url" content={url} />

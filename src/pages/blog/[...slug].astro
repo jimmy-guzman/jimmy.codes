@@ -40,7 +40,6 @@ const timeRequired = `PT${Math.max(1, Math.round(minutes))}M`;
 const description = post.data.description;
 const keywords = post.data.keywords;
 const tags = post.data.tags.map((tag) => ({ count: 1, tag }));
-
 const jsonLd = {
   "@id": `${postUrl}#article`,
   "@type": "BlogPosting",
@@ -57,11 +56,14 @@ const jsonLd = {
   timeRequired,
   "url": postUrl,
 };
-
 const heading = shortTitle(post);
-
 const ogImage = `/og/blog/${post.id}.png`;
 const backOptions = { title: "blog" as const, url: "/blog" };
+const article = {
+  modifiedTime: dateModified,
+  publishedTime: datePublished,
+  tags: post.data.tags,
+};
 ---
 
 <BaseLayout
@@ -70,6 +72,8 @@ const backOptions = { title: "blog" as const, url: "/blog" };
   keywords={keywords}
   extraLd={[jsonLd]}
   ogImage={ogImage}
+  ogType="article"
+  article={article}
   alternates={[{ path: `/blog/${post.id}.md`, type: "text/markdown" }]}
 >
   <PageLayout heading={heading} back={backOptions}>

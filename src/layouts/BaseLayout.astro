@@ -18,6 +18,12 @@ interface Props {
   noIndex?: boolean;
   extraLd?: Record<string, unknown>[];
   ogImage?: string;
+  ogType?: "website" | "article";
+  article?: {
+    publishedTime: Date;
+    modifiedTime: Date;
+    tags: readonly string[];
+  };
   alternates?: { type: string; path: string }[];
 }
 
@@ -28,6 +34,8 @@ const {
   noIndex,
   extraLd = [],
   ogImage,
+  ogType,
+  article,
   alternates = [],
 } = Astro.props;
 
@@ -75,6 +83,8 @@ const jsonLd = JSON.stringify({
       keywords={keywords}
       noIndex={noIndex}
       ogImage={ogImage}
+      ogType={ogType}
+      article={article}
     />
 
     <ThemeScript />
