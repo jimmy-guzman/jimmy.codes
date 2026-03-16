@@ -6,8 +6,16 @@ import { pages } from "@/configs/pages";
 
 export async function GET(context: { site: string }) {
   const blog = await getCollection("posts");
+  const latestTimestamp = Math.max(
+    ...blog.map(({ data: { publishDate } }) => publishDate.getTime()),
+  );
+  const lastBuildDate = new Date(latestTimestamp).toUTCString();
 
   return rss({
+    customData: [
+      `<atom:link href="${new URL("blog/rss.xml", context.site)}" rel="self" type="application/rss+xml" />`,
+      `<lastBuildDate>${lastBuildDate}</lastBuildDate>`,
+    ].join(""),
     description: pages.rss.description,
     items: blog.map((post) => ({
       categories: post.data.tags,
@@ -18,5 +26,7 @@ export async function GET(context: { site: string }) {
     })),
     site: context.site,
     title: pages.rss.title,
+    trailingSlash: false,
+    xmlns: { atom: "http://www.w3.org/2005/Atom" },
   });
 }
