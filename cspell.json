@@ -2,7 +2,9 @@
   "ignorePaths": ["pnpm-lock.yaml", ".gitignore", ".vscode"],
   "version": "0.2",
   "words": [
+    "Amazonbot",
     "Apachekafka",
+    "Applebot",
     "APPO",
     "architecting",
     "astro",

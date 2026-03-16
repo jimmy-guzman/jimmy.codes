@@ -32,14 +32,17 @@ const { post, relatedPosts, updatedDate } = Astro.props;
 
 const { Content } = await render(post);
 
+const postBody = post.body ?? "";
 const postUrl = `${urls.site}/blog/${post.id}`;
-const minutes = readingTime(post.body ?? "");
+const minutes = readingTime(postBody);
+const wordCount = postBody.trim().split(/\s+/).filter(Boolean).length;
 const datePublished = post.data.publishDate;
 const dateModified = updatedDate ?? datePublished;
 const timeRequired = `PT${Math.max(1, Math.round(minutes))}M`;
 const description = post.data.description;
 const keywords = post.data.keywords;
 const tags = post.data.tags.map((tag) => ({ count: 1, tag }));
+const ogImage = `/og/blog/${post.id}.png`;
 const jsonLd = {
   "@id": `${postUrl}#article`,
   "@type": "BlogPosting",
@@ -48,6 +51,12 @@ const jsonLd = {
   datePublished,
   description,
   "headline": post.data.title,
+  "image": {
+    "@type": "ImageObject",
+    "height": 630,
+    "url": `${urls.site}${ogImage}`,
+    "width": 1200,
+  },
   "inLanguage": "en-US",
   "isAccessibleForFree": true,
   keywords,
@@ -55,9 +64,9 @@ const jsonLd = {
   "publisher": { "@id": `${urls.site}/#person` },
   timeRequired,
   "url": postUrl,
+  wordCount,
 };
 const heading = shortTitle(post);
-const ogImage = `/og/blog/${post.id}.png`;
 const backOptions = { title: "blog" as const, url: "/blog" };
 const article = {
   modifiedTime: dateModified,
