@@ -3,25 +3,11 @@ import type { APIRoute } from "astro";
 const AI_ROBOTS_TXT_URL =
   "https://raw.githubusercontent.com/ai-robots-txt/ai.robots.txt/main/robots.txt";
 
-const FALLBACK_AI_BOTS = [
-  "GPTBot",
-  "ChatGPT-User",
-  "OAI-SearchBot",
-  "ClaudeBot",
-  "Claude-Web",
-  "anthropic-ai",
-  "PerplexityBot",
-  "Google-Extended",
-  "Applebot-Extended",
-  "Amazonbot",
-  "CCBot",
-];
-
-async function fetchAiBots(): Promise<string[]> {
+async function fetchAiBots() {
   try {
     const response = await fetch(AI_ROBOTS_TXT_URL);
 
-    if (!response.ok) return FALLBACK_AI_BOTS;
+    if (!response.ok) return [];
 
     const text = await response.text();
     const bots = text
@@ -30,9 +16,9 @@ async function fetchAiBots(): Promise<string[]> {
       .map((line) => line.replace("User-agent:", "").trim())
       .filter(Boolean);
 
-    return bots.length > 0 ? bots : FALLBACK_AI_BOTS;
+    return bots.length > 0 ? bots : [];
   } catch {
-    return FALLBACK_AI_BOTS;
+    return [];
   }
 }
 
