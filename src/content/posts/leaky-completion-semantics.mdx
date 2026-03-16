@@ -15,36 +15,28 @@ tags: ["TypeScript"]
 
 Most bugs I see in mature codebases are not caused by bad logic.
 
-They are caused by **lying APIs**.
+They are caused by APIs that lie. Not maliciously. Quietly. Over time.
 
-Not maliciously. Quietly. Over time.
-
-This post is about a specific kind of lie: **leaky completion semantics**.
+This post is about a specific kind of lie: leaky completion semantics.
 
 > [!TLDR]
-> Leaky completion semantics occur when a function's return or throw behavior encodes hidden routing or policy decisions that callers must understand to use it safely.
-
----
+> Leaky completion semantics happen when a function's return or throw behavior encodes hidden policy decisions. Callers must understand those decisions to use the function safely.
 
 ## A small function with a hidden rule
 
 ```ts
 async function getFruit(fruit: string) {
   if (fruit === "apple") {
-    return null
+    return null;
   }
 
-  return fetch(`https://api.fruitinfo.com/${fruit}`)
+  return fetch(`https://api.fruitinfo.com/${fruit}`);
 }
 ```
 
 Nothing about this function's name or signature tells you that apples return `null`.
 
-You only learn that by:
-
-- Reading the implementation
-- Hitting it at runtime
-- Being told by someone who already knows
+You only learn that by reading the implementation, hitting it at runtime, or being told by someone who already knows.
 
 > [!NOTE]
 > `null` here is not a value. It is a sentinel encoding a routing decision.
@@ -53,15 +45,13 @@ Six months later, someone writes:
 
 ```ts
 async function getFruitController(fruit: string) {
-  const result = await getFruit(fruit)
+  const result = await getFruit(fruit);
 
-  return { data: result }
+  return { data: result };
 }
 ```
 
-Now the controller also returns `null` for apples.
-
-Every caller of `getFruitController` has inherited a rule they never opted into.
+Now the controller also returns `null` for apples. Every caller of `getFruitController` has inherited a rule they never opted into.
 
 ### "Just throw instead"
 
@@ -70,10 +60,10 @@ A common fix is to throw instead of returning `null`:
 ```ts
 async function getFruit(fruit: string) {
   if (fruit === "apple") {
-    throw new Error("Apples not supported")
+    throw new Error("Apples not supported");
   }
 
-  return fetch(`https://api.fruitinfo.com/${fruit}`)
+  return fetch(`https://api.fruitinfo.com/${fruit}`);
 }
 ```
 
@@ -83,7 +73,7 @@ But now every caller must know:
 
 ```ts
 try {
-  const fruit = await getFruit(name)
+  const fruit = await getFruit(name);
   // handle fruit
 } catch (error) {
   // is this a routing error or a real error?
@@ -91,82 +81,45 @@ try {
 }
 ```
 
-The problem is the same. The function still:
+The problem is the same. The function still decides whether work should happen, still encodes "apples are special" in its completion behavior, still forces callers to understand hidden routing rules.
 
-- Decides whether work should happen
-- Encodes "apples are special" in its completion behavior
-- Forces callers to understand hidden routing rules
-
-Throwing instead of returning `null` just moves the leak from the return channel to the error channel.
-
-The problem is not _what_ the function returns. It's _what the return means_.
-
----
+Throwing instead of returning `null` just moves the leak from the return channel to the error channel. The problem is not what the function returns. It is what the return means.
 
 ## What leaked?
 
-### Leaky Completion Semantics
+A function has leaky completion semantics when the rules that govern how it completes encode hidden routing or policy decisions. Returns, throws, short-circuits: if callers must understand those rules to use the function correctly, something leaked.
 
-A function has **leaky completion semantics** when the rules that govern how it completes (returns, throws, or short-circuits) encode hidden routing or policy decisions that callers must understand to use the function correctly.
+When those rules are not obvious from the function's name or signature, the function's internal logic becomes part of its external API. That is the leak.
 
-When those rules are not obvious from the function's name or signature, the function's internal logic becomes part of its external API.
-
-That is the leak.
-
-> [!NOTE]
-> This is a specific form of what Joel Spolsky famously described as a leaky abstraction.
->
-> The difference here is scope. Rather than leaking performance or system mechanics, these functions leak policy decisions through how they complete. The abstraction fails not because it cannot hide complexity, but because it hides meaning.
+Joel Spolsky described [leaky abstractions](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/) in terms of performance and system mechanics bleeding through. This is a narrower version of the same idea. Here, the abstraction leaks policy decisions through how it completes. It fails not because it cannot hide complexity, but because it hides meaning.
 
 ### Completion semantics
 
-Completion semantics are the rules that determine how and when a function completes:
+Completion semantics are the rules that determine how and when a function completes: what it returns, what it throws, which inputs short-circuit execution, and which special cases exist.
 
-- What it returns
-- What it throws
-- Which inputs short-circuit execution
-- Which special cases exist
+In the example above, the rule is: apples are special and do not behave like other fruits. That rule lives inside `getFruit`, but it affects every caller downstream.
 
-In the example above, the rule is:
-
-> Apples are special and do not behave like other fruits.
-
-That rule lives inside `getFruit`, but it affects every caller downstream.
-
----
-
-## Single Responsibility, but sharper
+## Single responsibility, but sharper
 
 This is often framed as a Single Responsibility Principle violation, but that framing is too soft.
 
-What is really happening is this:
+What is really happening: the function is both deciding whether work should happen and doing the work.
 
-> The function is both deciding whether work should happen and doing the work.
-
-`getFruit` claims to fetch fruit data.
-It also secretly decides which inputs are allowed to proceed.
-
-Those are two different semantic roles.
-
-A function can fetch.
-A function can route.
-A function should not quietly do both unless routing is the thing it claims to do.
-
----
+`getFruit` claims to fetch fruit data. It also secretly decides which inputs are allowed to proceed. Those are two different semantic roles. A function should not quietly do both unless routing is the thing it claims to do.
 
 ## Put the decision where it belongs
 
 ```ts
 async function getFruitController(fruit: string) {
   if (fruit === "apple") {
-    return null
+    return null;
   }
 
-  return getFruit(fruit)
+  return getFruit(fruit);
 }
 
 async function getFruit(fruit: string) {
-  return fetch(`https://api.fruitinfo.com/${fruit}`)
+  return fetch(`https://api.fruitinfo.com/${fruit}`);
 }
 ```
 
@@ -175,10 +128,9 @@ Now the semantics are honest:
 - `getFruit` fetches
 - `getFruitController` decides when fetching makes sense
 
-Callers of the controller do not need to know anything about apples.
-The function owns the decision.
+Callers of the controller do not need to know anything about apples. The function owns the decision.
 
----
+This does not mean "hoist every conditional to the caller." The goal is not to remove policy from functions. It is to make sure the function that owns a policy is the one named for it. If apple-routing is a real domain concern, give it a home: a guard function, a middleware layer, a named check. The problem is not that policy exists. It is that policy hides inside a function whose name promises something else.
 
 ## When this is not a problem
 
@@ -186,82 +138,40 @@ Not all conditional behavior is leaky.
 
 ```ts
 function parsePositiveNumber(value: unknown): number {
-  const num = Number(value)
+  const num = Number(value);
 
   if (!Number.isFinite(num) || num <= 0) {
-    throw new Error("must be positive number")
+    throw new Error("must be positive number");
   }
 
-  return num
+  return num;
 }
 ```
 
-This is fine.
+This is fine. The name encodes the constraint. Failure is intrinsic to parsing. The completion semantics are obvious without reading the implementation.
 
-Why?
-
-Because:
-
-- The name encodes the constraint
-- Failure is intrinsic to parsing
-- The completion semantics are obvious without reading the implementation
-
-This is validation, not routing.
-
-Leaky completion semantics are about **policy decisions**, not domain truths.
-
----
+This is validation, not routing. Leaky completion semantics are about policy decisions, not domain truths.
 
 ## The real test
 
-Ask yourself:
+Three questions to ask:
 
-**Do callers need to understand internal rules to handle the result correctly?**
+Do callers need to understand internal rules to handle the result correctly? If yes, something leaked.
 
-If yes, something leaked.
+Does the function do work, or decide whether work should happen? If it quietly does both, the boundary is wrong.
 
-**Does the function do work, or decide whether work should happen?**
-
-If it does both, be explicit and name it accordingly.
-
-**Would this behavior surprise someone who only read the function name?**
-
-Surprise is a design smell.
-
----
+Would this behavior surprise someone who only read the function name? I still get this wrong sometimes. The tell is when I find myself checking conditions before calling a function, or when a code review reveals a special return value I did not know about. The surprise is the design smell.
 
 ## Everything is an API
 
-Internal functions are APIs.
+Internal functions are APIs. They just have worse documentation, fewer reviews, and more tribal knowledge.
 
-They just have worse documentation, fewer reviews, and more tribal knowledge.
-
-You would not ship a public API that returns special values for undocumented reasons.
-
-You would not tell customers “just know not to send apples.”
-
-Do not do that to your future self or your teammates.
-
----
+You would not ship a public API that returns special values for undocumented reasons. You would not tell customers "just know not to send apples." Do not do that to your future self or your teammates.
 
 ## Keep routing explicit
 
-- Functions that fetch should fetch
-- Functions that calculate should calculate
-- Functions that parse should parse
-- Functions that route should route and be named accordingly
+Functions that fetch should fetch. Functions that route should route and be named accordingly. When you mix these, the completion logic leaks. And leaks spread.
 
-When you mix these responsibilities, the completion logic leaks.
+If you find yourself checking conditions before calling a function, question the boundary. If a function returns special values to signal a "wrong path," question the routing. If callers need internal rules to use it safely, the abstraction leaked.
 
-And leaks spread.
-
----
-
-If you find yourself checking conditions before calling a function, question the boundary.
-
-If a function returns special values to signal a “wrong path,” question the routing.
-
-If callers need internal rules to use it safely, the abstraction leaked.
-
-Everything is an API.  
-Even code you're “just supposed to know.”
+Everything is an API. Even code you are "just supposed to know."
