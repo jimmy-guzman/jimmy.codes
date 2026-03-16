@@ -44,14 +44,14 @@ You only learn that by reading the implementation, hitting it at runtime, or bei
 Six months later, someone writes:
 
 ```ts
-async function getFruitController(fruit: string) {
+async function getFruitData(fruit: string) {
   const result = await getFruit(fruit);
 
   return { data: result };
 }
 ```
 
-Now the controller also returns `null` for apples. Every caller of `getFruitController` has inherited a rule they never opted into.
+Now `getFruitData` also returns `null` for apples. Every caller of `getFruitData` has inherited a rule they never opted into.
 
 ### "Just throw instead"
 
@@ -110,7 +110,7 @@ What is really happening: the function is both deciding whether work should happ
 ## Put the decision where it belongs
 
 ```ts
-async function getFruitController(fruit: string) {
+async function getFruitData(fruit: string) {
   if (fruit === "apple") {
     return null;
   }
@@ -126,9 +126,9 @@ async function getFruit(fruit: string) {
 Now the semantics are honest:
 
 - `getFruit` fetches
-- `getFruitController` decides when fetching makes sense
+- `getFruitData` decides when fetching makes sense
 
-Callers of the controller do not need to know anything about apples. The function owns the decision.
+Callers of `getFruitData` do not need to know anything about apples. The function owns the decision.
 
 This does not mean "hoist every conditional to the caller." The goal is not to remove policy from functions. It is to make sure the function that owns a policy is the one named for it. If apple-routing is a real domain concern, give it a home: a guard function, a middleware layer, a named check. The problem is not that policy exists. It is that policy hides inside a function whose name promises something else.
 
