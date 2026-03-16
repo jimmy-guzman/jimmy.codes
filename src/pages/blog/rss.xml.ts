@@ -6,9 +6,8 @@ import { pages } from "@/configs/pages";
 
 export async function GET(context: { site: string }) {
   const blog = await getCollection("posts");
-  const latestTimestamp = Math.max(
-    ...blog.map(({ data: { publishDate } }) => publishDate.getTime()),
-  );
+  const publishDates = blog.map(({ data }) => data.publishDate.getTime());
+  const latestTimestamp = blog.length ? Math.max(...publishDates) : Date.now();
   const lastBuildDate = new Date(latestTimestamp).toUTCString();
 
   return rss({
