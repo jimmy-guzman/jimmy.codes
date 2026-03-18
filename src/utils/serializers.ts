@@ -41,12 +41,12 @@ export function toUsesMarkdown() {
 
   const intro = `What I use to build software, from the tools on my desk to the technologies I play with.
 
-- **Editor** — [VS Code](https://code.visualstudio.com/) or [IntelliJ IDEA](https://www.jetbrains.com/idea/), trying [Zed](https://zed.dev/)
-- **Terminal** — [Ghostty](https://ghostty.org/) with [Starship](https://starship.rs/)
-- **AI Coding Agent** — [OpenCode](https://opencode.ai/)
-- **Laptop** — MacBook Pro 16" M4 Max, 128GB RAM, 4TB SSD
-- **Keyboard** — HHKB Professional HYBRID Type-S
-- **Mouse** — Logitech MX Master 3S`;
+- **Editor** - [VS Code](https://code.visualstudio.com/) or [IntelliJ IDEA](https://www.jetbrains.com/idea/), trying [Zed](https://zed.dev/) and [Cursor](https://cursor.com/)
+- **Terminal** - [Ghostty](https://ghostty.org/) with [Starship](https://starship.rs/)
+- **AI Coding Agent** - [OpenCode](https://opencode.ai/)
+- **Laptop** - MacBook Pro 16" M4 Max, 128GB RAM, 4TB SSD
+- **Keyboard** - HHKB Professional HYBRID Type-S
+- **Mouse** - Logitech MX Master 3S`;
 
   const techSections = [
     { items: techLanguages, title: titles.languages },
