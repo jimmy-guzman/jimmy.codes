@@ -2,6 +2,7 @@
   "ignorePaths": ["pnpm-lock.yaml", ".gitignore", ".vscode"],
   "version": "0.2",
   "words": [
+    "agentic",
     "Amazonbot",
     "Apachekafka",
     "Applebot",
