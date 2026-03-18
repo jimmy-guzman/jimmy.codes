@@ -82,12 +82,6 @@ export const techFullStack = sortByUsage([
     usage: "daily",
   },
   {
-    icon: "icon-[logos--nuxt-icon]",
-    link: "https://nuxt.com/",
-    title: "Nuxt",
-    usage: "love",
-  },
-  {
     icon: "icon-[simple-icons--astro]",
     link: "https://astro.build/",
     title: "Astro",
@@ -103,6 +97,18 @@ export const techFullStack = sortByUsage([
     icon: placeholderIcon,
     link: "https://better-auth.com/",
     title: "Better Auth",
+    usage: "love",
+  },
+  {
+    icon: "icon-[devicon--trpc]",
+    link: "https://trpc.io/",
+    title: "tTRPC",
+    usage: "love",
+  },
+  {
+    icon: "icon-[logos--nuxt-icon]",
+    link: "https://nuxt.com/",
+    title: "Nuxt",
     usage: "love",
   },
 ] satisfies Tech[]);
