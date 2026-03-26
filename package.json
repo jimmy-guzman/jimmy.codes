@@ -36,7 +36,7 @@
     "@astrojs/mdx": "5.0.1",
     "@astrojs/rss": "4.0.17",
     "@astrojs/sitemap": "3.7.1",
-    "@astrojs/vercel": "10.0.1",
+    "@astrojs/vercel": "10.0.2",
     "@biomejs/biome": "2.4.7",
     "@commitlint/cli": "20.5.0",
     "@commitlint/config-conventional": "20.5.0",
