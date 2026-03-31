@@ -1,0 +1,118 @@
+---
+interface Props {
+  description: string;
+  title: string;
+  url: string;
+}
+
+const { description, title, url } = Astro.props;
+
+const cleanUrl = url.replace(/\.html$/u, "");
+const quoted = `"${description}"`;
+const shareBody = encodeURIComponent(`${title}\n\n${quoted}\n\n`);
+const shareBodyWithUrl = encodeURIComponent(
+  `${title}\n\n${quoted}\n\n${cleanUrl}`,
+);
+const encodedUrl = encodeURIComponent(cleanUrl);
+const encodedTitle = encodeURIComponent(title);
+
+const platforms = [
+  {
+    href: `https://x.com/intent/tweet?text=${shareBody}&url=${encodedUrl}`,
+    icon: "icon-[simple-icons--x]",
+    label: "X",
+  },
+  {
+    href: `https://bsky.app/intent/compose?text=${shareBodyWithUrl}`,
+    icon: "icon-[simple-icons--bluesky]",
+    label: "Bluesky",
+  },
+  {
+    href: `https://s2f.kytta.dev/?text=${shareBodyWithUrl}`,
+    icon: "icon-[simple-icons--mastodon]",
+    label: "Mastodon",
+  },
+  {
+    href: `https://linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+    icon: "icon-[simple-icons--linkedin]",
+    label: "LinkedIn",
+  },
+  {
+    href: `https://news.ycombinator.com/submitlink?u=${encodedUrl}&t=${encodedTitle}`,
+    icon: "icon-[simple-icons--ycombinator]",
+    label: "Hacker News",
+  },
+  {
+    href: `https://reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`,
+    icon: "icon-[simple-icons--reddit]",
+    label: "Reddit",
+  },
+] as const;
+---
+
+<div
+  class="flex shrink-0 items-center"
+  data-blog-share-root
+  data-share-url={cleanUrl}
+  data-share-title={title}
+  data-share-description={description}
+>
+  <button
+    type="button"
+    class="btn gap-2 text-muted btn-ghost btn-sm"
+    data-share-open
+    onclick="document.getElementById('share-dialog').showModal()"
+  >
+    <span class="icon-[lucide--share-2] h-4 w-4" aria-hidden="true"></span>
+    Share
+  </button>
+</div>
+
+<!-- TODO: fixed id risks duplicate IDs if multiple BlogShare instances render on one page -->
+<dialog
+  id="share-dialog"
+  class="modal modal-bottom sm:modal-middle"
+  aria-labelledby="share-dialog-title"
+>
+  <div class="modal-box w-fit border border-base-300 bg-base-100 p-4 shadow-sm">
+    <h3
+      id="share-dialog-title"
+      class="text-xs font-medium tracking-wider text-muted uppercase"
+    >
+      Share
+    </h3>
+    <div class="mt-3 flex items-center gap-2">
+      {
+        platforms.map(({ href, icon, label }) => (
+          <a
+            href={href}
+            rel="noopener noreferrer"
+            target="_blank"
+            class="btn btn-square text-base-content/40 btn-ghost btn-sm hover:text-base-content"
+          >
+            <span class:list={[icon, "size-5"]} aria-hidden="true" />
+            <span class="sr-only">{label}</span>
+          </a>
+        ))
+      }
+    </div>
+    <div class="modal-action">
+      <form method="dialog">
+        <button type="submit" class="btn text-muted btn-ghost btn-xs">
+          close
+        </button>
+      </form>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button type="submit" aria-label="Close share dialog">close</button>
+  </form>
+</dialog>
+
+<script>
+  import { initBlogShare } from "./blog-share.client";
+
+  const root = document.querySelector<HTMLElement>("[data-blog-share-root]");
+
+  if (root != null) initBlogShare(root);
+</script>

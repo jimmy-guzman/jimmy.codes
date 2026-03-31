@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import BackLink from "@/components/BackLink.astro";
+import BlogShare from "@/components/BlogShare.astro";
 import LastModified from "@/components/LastModified.astro";
 import MetaLine from "@/components/MetaLine.astro";
 import Tags from "@/components/Tags.astro";
@@ -18,6 +19,11 @@ interface Props {
   filePath?: string;
   relatedPosts: { slug: string; title: string }[];
   slug: string;
+  share: {
+    description: string;
+    title: string;
+    url: string;
+  };
 }
 
 const {
@@ -28,6 +34,7 @@ const {
   filePath,
   tags,
   relatedPosts,
+  share,
   slug,
 } = Astro.props;
 
@@ -40,10 +47,11 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
 ---
 
-<section>
+<section class="flex items-center justify-between">
   <p class="text-sm text-muted">
     <MetaLine publishDate={publishDate} minutes={minutes} />
   </p>
+  <BlogShare {...share} />
 </section>
 
 <div class="divider" aria-hidden="true" role="presentation"></div>
@@ -90,13 +98,10 @@ const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
   )
 }
 
-<section class="mt-8" aria-labelledby="discuss-heading">
-  <h2 id="discuss-heading" class="text-sm text-muted">Let's Discuss</h2>
-  <p class="text-sm">
-    Questions or feedback?
-    <a href={`${urls.email}?subject=${emailSubject}`}>Send me an email</a>.
-  </p>
-</section>
+<p class="mt-8 text-sm text-muted">
+  Questions or feedback?
+  <a href={`${urls.email}?subject=${emailSubject}`}>Send me an email</a>.
+</p>
 
 <a
   href="#"

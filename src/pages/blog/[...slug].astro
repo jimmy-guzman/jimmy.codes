@@ -32,6 +32,7 @@ const { post, relatedPosts, updatedDate } = Astro.props;
 
 const { Content } = await render(post);
 
+const postTitle = post.data.title;
 const postBody = post.body ?? "";
 const postUrl = `${urls.site}/blog/${post.id}`;
 const minutes = readingTime(postBody);
@@ -50,7 +51,7 @@ const jsonLd = {
   dateModified,
   datePublished,
   description,
-  "headline": post.data.title,
+  "headline": postTitle,
   "image": {
     "@type": "ImageObject",
     "height": 630,
@@ -94,6 +95,11 @@ const article = {
       minutes={minutes}
       filePath={post.filePath}
       relatedPosts={relatedPosts}
+      share={{
+        description,
+        title: postTitle,
+        url: postUrl,
+      }}
       slug={post.id}
     >
       <Content />
