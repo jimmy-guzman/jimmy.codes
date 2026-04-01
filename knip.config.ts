@@ -7,6 +7,5 @@ export default {
     "gitzy",
     "@commitlint/cli",
     "markdownlint",
-    "sharp", // used for overriding the version of sharp used in devDependencies for image processing in docs
   ],
 } satisfies KnipConfig;

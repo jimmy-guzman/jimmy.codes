@@ -37,3 +37,6 @@ playwright-report
 
 # vitest
 coverage/
+
+# specstory
+.specstory
