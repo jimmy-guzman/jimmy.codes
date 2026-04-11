@@ -16,7 +16,7 @@
         "@commitlint/types": "20.5.0",
         "@iconify-json/devicon": "1.2.62",
         "@iconify-json/logos": "1.2.11",
-        "@iconify-json/lucide": "1.2.101",
+        "@iconify-json/lucide": "1.2.102",
         "@iconify-json/simple-icons": "1.2.76",
         "@iconify-json/skill-icons": "1.2.4",
         "@iconify/tailwind4": "1.2.3",
@@ -284,7 +284,7 @@
 
     "@iconify-json/logos": ["@iconify-json/logos@1.2.11", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-fOo4pGEatuyuCFNL+cwquYMa2Im0oJHRHV7lt/Qqs5Ode/lPImHCQcfTtPzZj7qYMPb/h8YHN3TG54uEowrjNQ=="],
 
-    "@iconify-json/lucide": ["@iconify-json/lucide@1.2.101", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-JUN7uuSLRG3GK/9c5b8cK9e7sL6EAWDaASIwBOd0zUeKS0ACcokJubo2RMQHyVUVpd8mYkrR3Zd2mkH9ghhw1Q=="],
+    "@iconify-json/lucide": ["@iconify-json/lucide@1.2.102", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-Dm3EEqu5NrmzyDMB2U1+8yroEj2/dB9V4KlH0m/szwwF/ofSf0cPaGTZqkd1aExXjCor+vU53ttRMCGuXf+/cg=="],
 
     "@iconify-json/simple-icons": ["@iconify-json/simple-icons@1.2.76", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-lLRlA8yaf+1L5VCPRvR9lynoSklsddKHEylchmZJKdj/q2xVQ1ZAEJ8SCQlv9cbgtMefnlyM98U+8Si2aoFZPA=="],
 
