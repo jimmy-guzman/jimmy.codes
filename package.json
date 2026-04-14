@@ -37,7 +37,7 @@
     "@astrojs/rss": "4.0.18",
     "@astrojs/sitemap": "3.7.2",
     "@astrojs/vercel": "10.0.3",
-    "@biomejs/biome": "2.4.10",
+    "@biomejs/biome": "2.4.12",
     "@commitlint/cli": "20.5.0",
     "@commitlint/config-conventional": "20.5.0",
     "@commitlint/types": "20.5.0",
