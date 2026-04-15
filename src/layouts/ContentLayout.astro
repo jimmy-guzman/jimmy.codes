@@ -79,26 +79,19 @@ const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
 
 <section class="mt-8"><Tags tags={tags} /></section>
 
-{
-  relatedPosts.length > 0 && (
-    <aside class="mt-8" aria-labelledby="related-heading">
-      <h2 id="related-heading" class="text-sm text-muted">
-        Related Posts
-      </h2>
-      <ul>
-        {relatedPosts.map((post) => (
-          <li>
-            <a class="text-sm" href={`/blog/${post.slug}`}>
-              {post.title}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </aside>
-  )
-}
+<aside class="mt-8" aria-label="Related posts">
+  <ul>
+    {
+      relatedPosts.map((post) => (
+        <li>
+          <a href={`/blog/${post.slug}`}>{post.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</aside>
 
-<p class="mt-8 text-sm text-muted">
+<p class="mt-8 text-muted">
   Questions or feedback?
   <a href={`${urls.email}?subject=${emailSubject}`}>Send me an email</a>.
 </p>
