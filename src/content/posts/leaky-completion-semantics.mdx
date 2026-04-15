@@ -1,0 +1,165 @@
+---
+title: Leaky Completion Semantics
+publishDate: 2026-04-15
+description: "When a function's return or throw behavior encodes hidden policy decisions, callers inherit rules they never opted into."
+keywords:
+  [
+    "leaky abstractions",
+    "function design",
+    "API design",
+    "TypeScript",
+    "best practices",
+  ]
+tags: ["TypeScript"]
+---
+
+Most bugs I see in mature codebases aren't caused by bad logic.
+
+They're caused by APIs that lie. Not maliciously. Quietly. Over time.
+
+This post is about a specific kind of lie: leaky completion semantics.
+
+> [!TLDR]
+> Leaky completion semantics happen when a function's return or throw behavior encodes hidden policy decisions. Callers must understand those decisions to use the function safely.
+
+## A small function with a hidden rule
+
+```ts
+async function getOrder(orderId: string) {
+  const order = await db.orders.findById(orderId);
+
+  if (order?.deletedAt) {
+    return null;
+  }
+
+  return order;
+}
+```
+
+Nothing about this function's name or signature tells you that soft-deleted orders return `null`.
+
+You only learn that by reading the implementation, hitting it at runtime, or being told by someone who already knows.
+
+> [!NOTE]
+> `null` here is not a value. It is a sentinel encoding a routing decision.
+
+Six months later, someone writes:
+
+```ts
+async function getOrderSummary(orderId: string) {
+  const order = await getOrder(orderId);
+
+  return { data: order };
+}
+```
+
+Now `getOrderSummary` also returns `null` for soft-deleted orders. Every caller of `getOrderSummary` has inherited a rule they never opted into. Callers can't tell "this order doesn't exist" from "this order was deleted." The `null` means both.
+
+### "Just throw instead"
+
+A common fix is to throw instead of returning `null`:
+
+```ts
+async function getOrder(orderId: string) {
+  const order = await db.orders.findById(orderId);
+
+  if (order?.deletedAt) {
+    throw new Error("Order has been deleted");
+  }
+
+  return order;
+}
+```
+
+But now every caller must know:
+
+```ts
+try {
+  const order = await getOrder(id);
+  // handle order
+} catch (error) {
+  // is this a soft-delete error or a database error?
+  // should I show a 404? a 410? retry?
+}
+```
+
+The function still decides whether work should happen and still encodes "soft-deleted orders are special" in its completion behavior. Throwing instead of returning `null` just moves the leak from the return channel to the error channel.
+
+The problem is not what the function returns. It is what the return means.
+
+TypeScript makes this worse. A `null` return at least shows up in the type signature: callers see `Order | null` and know something conditional is happening. A thrown error is invisible to `tsc`. The throw refactor removes the one signal callers had. The leak goes underground.
+
+## What leaked?
+
+A function has leaky completion semantics when the rules that govern how it completes (what it returns, what it throws, which inputs short-circuit execution) encode hidden policy decisions.
+
+Joel Spolsky described [leaky abstractions](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/) in terms of performance and system mechanics bleeding through. This is a narrower version of the same idea. Here, the abstraction leaks policy through how it completes. It can hide complexity fine. What it hides is meaning.
+
+Most people frame this as a Single Responsibility Principle violation. That framing isn't wrong, but it doesn't quite name the shape of the problem. SRP says the function does too much. Leaky completion semantics says something more specific: the function's contract promises one thing, and its completion behavior encodes another.
+
+The function is both deciding whether work should happen and doing the work. `getOrder` claims to fetch an order. It also secretly decides which orders are allowed to be returned. A function shouldn't quietly do both unless routing is what the name promises.
+
+## Put the decision where it belongs
+
+```ts
+async function getVisibleOrder(orderId: string) {
+  const order = await getOrder(orderId);
+
+  if (order?.deletedAt) {
+    return null;
+  }
+
+  return order;
+}
+
+async function getOrder(orderId: string) {
+  return db.orders.findById(orderId);
+}
+```
+
+Now the semantics are honest:
+
+- `getOrder` fetches
+- `getVisibleOrder` decides which orders callers should see
+
+Yes, `getVisibleOrder` still returns `null` for soft-deleted orders. The difference is ownership. Its name tells you filtering is its job, so a conditional return is part of its contract, not a hidden side effect. Callers of `getVisibleOrder` don't need to know anything about `deletedAt`. The function owns the decision. Callers can assume that whatever comes back has already passed through visibility rules.
+
+Where to draw this boundary is a real decision. It depends on the domain model and on how many callers need filtered vs. unfiltered access. The point isn't that `getVisibleOrder` is always the right shape. It's that wherever the filtering lives, the function that owns it should be the one named for it.
+
+If soft-delete filtering is a real domain concern, give it a home: a guard function, a middleware layer. The problem isn't that policy exists. It's that policy hides inside a function whose name promises something else.
+
+## When this is not a problem
+
+Not all conditional behavior is leaky.
+
+```ts
+function parsePositiveNumber(value: unknown): number {
+  const num = Number(value);
+
+  if (!Number.isFinite(num) || num <= 0) {
+    throw new Error("must be positive number");
+  }
+
+  return num;
+}
+```
+
+This is fine. The name encodes the constraint, and failure is intrinsic to parsing. You don't need to read the implementation to know that non-positive inputs will throw.
+
+This is validation, not routing. Leaky completion semantics are about policy decisions, not domain truths.
+
+## The real test
+
+**Do callers need to understand internal rules to handle the result correctly?** If yes, something leaked.
+
+**Does the function do work, or decide whether work should happen?** If it quietly does both, the boundary is wrong.
+
+**Would this behavior surprise someone who only read the function name?** The tell is when you check conditions before calling a function, or when a code review reveals a special return value you didn't know about. The surprise is the design smell.
+
+## Keep routing explicit
+
+Functions that fetch should fetch. Functions that route should route and be named for it. When you mix these, the completion logic leaks. And leaks spread.
+
+If you find yourself checking conditions before calling a function, question the boundary. If a function returns special values to signal a "wrong path," question the routing. The moment callers need internal rules to use it safely, the abstraction leaked.
+
+You wouldn't ship a public API that returns special values for undocumented reasons. You wouldn't tell customers "just know that deleted orders come back as null." Internal functions deserve the same honesty. Even the ones you're "just supposed to know."
