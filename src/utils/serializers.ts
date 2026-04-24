@@ -18,22 +18,22 @@ import { readingTime, sortByPublishDate } from "@/utils/content";
 import { getAllTags, slugifyTag } from "@/utils/tags";
 
 export function toRawMarkdown(post: CollectionEntry<"posts">) {
-  const data: Record<string, unknown> = {};
+  const frontmatter = stringify(
+    Object.fromEntries(
+      Object.entries(post.data).map(([k, v]) => [
+        k,
+        v instanceof Date ? v.toISOString().split("T")[0] : v,
+      ]),
+    ),
+  ).trimEnd();
 
-  for (const [key, value] of Object.entries(post.data)) {
-    data[key] =
-      value instanceof Date ? value.toISOString().split("T")[0] : value;
-  }
-
-  const frontmatter = stringify(data).trimEnd();
-
-  return `---\n${frontmatter}\n---\n\n${post.body}`;
+  return `---\n${frontmatter}\n---\n\n${post.body ?? ""}`;
 }
 
 export function toRawPageMarkdown(page: CollectionEntry<"pages">) {
   const frontmatter = stringify(page.data).trimEnd();
 
-  return `---\n${frontmatter}\n---\n\n${page.body}`;
+  return `---\n${frontmatter}\n---\n\n${page.body ?? ""}`;
 }
 
 export function toUsesMarkdown() {
@@ -77,7 +77,7 @@ export function toUsesMarkdown() {
 
 export function toBlogIndexMarkdown(posts: CollectionEntry<"posts">[]) {
   const frontmatter = stringify(pages.blog).trimEnd();
-  const sorted = [...posts].sort(sortByPublishDate);
+  const sorted = posts.toSorted(sortByPublishDate);
 
   const rows = sorted
     .map((post) => {
@@ -107,12 +107,12 @@ export function toTagsMarkdown(posts: CollectionEntry<"posts">[]) {
 
 export function toLlmsTxtMarkdown(posts: CollectionEntry<"posts">[]) {
   const base = urls.site;
-  const sorted = [...posts].sort(sortByPublishDate);
+  const sorted = posts.toSorted(sortByPublishDate);
 
   const postRows = sorted
     .map(
-      (post) =>
-        `- [${post.data.title}](${base}/blog/${post.id}.md): ${post.data.description}`,
+      ({ data, id }) =>
+        `- [${data.title}](${base}/blog/${id}.md): ${data.description}`,
     )
     .join("\n");
 
