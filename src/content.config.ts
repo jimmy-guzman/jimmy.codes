@@ -32,6 +32,7 @@ const tags = z.enum([
   "TIL",
   "Tooling",
   "TypeScript",
+  "AI",
 ]);
 
 const posts = defineCollection({

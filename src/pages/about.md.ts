@@ -6,7 +6,7 @@ import { toRawPageMarkdown } from "@/utils/serializers";
 export const GET: APIRoute = async () => {
   const page = await getEntry("pages", "about");
 
-  if (!page) throw new Error("Missing content: pages/about.md");
+  if (!page) return new Response("Not found", { status: 404 });
 
   return new Response(toRawPageMarkdown(page), {
     headers: { "Content-Type": "text/markdown; charset=utf-8" },
