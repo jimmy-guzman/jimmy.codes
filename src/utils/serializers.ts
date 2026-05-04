@@ -84,7 +84,7 @@ export function toBlogIndexMarkdown(posts: CollectionEntry<"posts">[]) {
       const date = post.data.publishDate.toISOString().split("T")[0];
       const minutes = readingTime(post.body ?? "");
 
-      return `- [${post.data.title}](/blog/${post.id}) — ${date} · ${minutes} min read`;
+      return `- [${post.data.title}](${urls.site}/blog/${post.id}.md) — ${date} · ${minutes} min read`;
     })
     .join("\n");
 
@@ -98,7 +98,7 @@ export function toTagsMarkdown(posts: CollectionEntry<"posts">[]) {
   const rows = tags
     .map(
       ({ tag, count }) =>
-        `- [${tag}](/blog/tags/${slugifyTag(tag)}) — ${count} ${count === 1 ? "post" : "posts"}`,
+        `- [${tag}](${urls.site}/blog/tags/${slugifyTag(tag)}.md) — ${count} ${count === 1 ? "post" : "posts"}`,
     )
     .join("\n");
 

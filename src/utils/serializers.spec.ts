@@ -288,7 +288,9 @@ describe("toBlogIndexMarkdown", () => {
     const posts = [makePost("my-post", "My Post", new Date("2024-01-01"))];
     const result = toBlogIndexMarkdown(posts);
 
-    expect(result).toContain("- [My Post](/blog/my-post)");
+    expect(result).toContain(
+      "- [My Post](https://jimmy.codes/blog/my-post.md)",
+    );
   });
 
   it("should sort posts newest first", () => {
@@ -345,8 +347,12 @@ describe("toTagsMarkdown", () => {
     const posts = [makePost(["TypeScript", "React"])];
     const result = toTagsMarkdown(posts);
 
-    expect(result).toContain("- [TypeScript](/blog/tags/typescript)");
-    expect(result).toContain("- [React](/blog/tags/react)");
+    expect(result).toContain(
+      "- [TypeScript](https://jimmy.codes/blog/tags/typescript.md)",
+    );
+    expect(result).toContain(
+      "- [React](https://jimmy.codes/blog/tags/react.md)",
+    );
   });
 
   it("should show singular 'post' for a tag with one post", () => {
