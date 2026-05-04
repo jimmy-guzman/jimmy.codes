@@ -3,7 +3,12 @@ import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 import { transformerColorizedBrackets } from "@shikijs/colorized-brackets";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig, envField, fontProviders } from "astro/config";
+import {
+  defineConfig,
+  envField,
+  fontProviders,
+  svgoOptimizer,
+} from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import favicons from "astro-favicons";
 import expressiveCodeTwoSlash from "expressive-code-twoslash";
@@ -30,7 +35,7 @@ export default defineConfig({
   },
   experimental: {
     clientPrerender: true,
-    svgo: true,
+    svgOptimizer: svgoOptimizer(),
   },
   fonts:
     process.env.TEST === "true"
