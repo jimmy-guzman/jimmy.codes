@@ -161,6 +161,9 @@ curl -H "Accept: text/markdown" -L https://example.com/posts/your-slug
 
 ## Step 2: extend Markdown endpoints to other pages
 
+> [!TIP]
+> Use full absolute URLs in any Markdown served to agents. Relative paths lose their context the moment an agent reads the page on its own. If an agent encounters `/posts/my-post.md`, it has no way to know which site that path belongs to or how to get there.
+
 Same pattern as Step 1 for anything else worth exposing. A `.md.ts` route, a serializer, a Markdown response.
 
 If your page content lives in hardcoded config or directly in `.astro` files, move it into a content collection first. Components and the Markdown serializer then read from one place. This post assumes a `pages` collection already exists; if not, the [Astro content collections docs](https://docs.astro.build/en/guides/content-collections/) cover setup.
@@ -320,4 +323,4 @@ Only `vercel.json` is Vercel-specific. If you deploy elsewhere, check whether th
 
 This post is itself available [as Markdown](/blog/making-astro-site-agent-friendly.md), built with the pipeline above.
 
-That's it. 🤘
+That's it.
