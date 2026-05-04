@@ -90,6 +90,7 @@
     "octocat",
     "oklch",
     "Ollama",
+    "oneline",
     "ongo",
     "Pageview",
     "pandoc",
@@ -136,6 +137,8 @@
     "vitest",
     "wagoid",
     "waivable",
+    "worktree",
+    "worktrees",
     "xelatex",
     "xpress",
     "ycombinator"
