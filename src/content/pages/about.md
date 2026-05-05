@@ -13,6 +13,9 @@ keywords:
   - technical strategy
   - target
   - ameriprise
+  - ai engineering
+  - multi-agent systems
+  - overclock accelerator
 ---
 
 I'm Jimmy Guzman Moreno, a staff+ engineer with 10+ years of experience in frontend, backend, and distributed systems. I have a passion for the craft of creating software, blending hands-on coding with technical strategy. I focus on mentorship, developer experience, and building architecture that lasts.
@@ -27,7 +30,7 @@ I'm Jimmy Guzman Moreno, a staff+ engineer with 10+ years of experience in front
 
 ## My story
 
-I'm currently a Lead Engineer at Target, where I design scalable supply chain services and improve developer workflows. Before that, I was a Senior Lead Engineer at Ameriprise, leading the guest access platform, building an enterprise React component library, and implementing Nx pipelines that only deploy affected projects.
+I'm currently a Lead Engineer at Target, where I design scalable supply chain services and improve developer workflows. I'm also an AI Engineering Fellow at Overclock Accelerator, where I'm building multi-agent systems and deepening my expertise in applied AI engineering. Before that, I was a Senior Lead Engineer at Ameriprise, leading the guest access platform, building an enterprise React component library, and implementing Nx pipelines that only deploy affected projects.
 
 My path into engineering wasn't traditional. I started in a call center, studied during breaks using [Team Treehouse](https://teamtreehouse.com/), [freeCodeCamp](https://www.freecodecamp.org), and [Watch and Code](https://watchandcode.com), and worked through _Clean Code_ and _You Don't Know JS Yet_. After months of self-learning, I became a teaching assistant at a coding bootcamp, which led to my first engineering role.
 

@@ -21,13 +21,23 @@ Staff-level engineer focused on full-stack architecture, distributed systems, an
 ## Technical skills
 
 - **Frontend:** React, Next.js, Astro, React Router
-- **Languages:** TypeScript, JavaScript, Java, Kotlin, Groovy
+- **Languages:** TypeScript, JavaScript, Python, Java, Kotlin, Groovy
 - **Backend and APIs:** Node.js (Express, Fastify), Bun (Hono), GraphQL, REST, Kafka, PostgreSQL, MongoDB, Redis, Prisma, Drizzle
+- **AI engineering:** LangChain, Agno, OpenAI API, multi-agent systems, ReACT, prompt engineering, RAG
 - **Platform engineering:** Vite, Turborepo, NX, webpack, Rollup, GitHub Actions, Jenkins, Docker, Infrastructure as Code
 - **Testing and observability:** Vitest, Playwright, Jest, Cypress, Testing Library, Mock Service Worker, OpenTelemetry, Grafana
 - **Developer experience:** Monorepo architecture, build optimization, static analysis, performance engineering, feature flagging
 
 ## Experience
+
+### AI Engineering Fellow
+
+Overclock Accelerator | Mar 2026 – Present
+
+- Taking part in an intensive training fellowship for experienced software developers and leaders on AI Engineering
+- Key focus areas: AI-Accelerated Software Engineering, Prompt and Context Engineering, AI Application Development, Workflows, and Multi-Agent Orchestration
+- Building products with LLM APIs (OpenAI, Anthropic, Gemini) along with agentic development frameworks like LangChain and Agno
+- Delivering a capstone multi-agent application as final project
 
 ### Lead Engineer, Supply Chain Technology
 
