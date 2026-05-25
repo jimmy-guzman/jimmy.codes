@@ -412,7 +412,25 @@ export const techAI = sortByUsage([
     icon: "icon-[simple-icons--langchain]",
     link: "https://langchain.com/",
     title: "LangChain",
+    usage: "daily",
+  },
+  {
+    icon: placeholderIcon,
+    link: "https://agno.com/",
+    title: "Agno",
     usage: "learning",
+  },
+  {
+    icon: "icon-[simple-icons--openrouter]",
+    link: "https://openrouter.ai/",
+    title: "OpenRouter",
+    usage: "daily",
+  },
+  {
+    icon: "icon-[simple-icons--vercel]",
+    link: "https://sdk.vercel.ai/",
+    title: "Vercel AI SDK",
+    usage: "daily",
   },
   {
     icon: "icon-[simple-icons--openai]",
