@@ -1,7 +1,7 @@
 ---
 title: Ten weeks at the Overclock Accelerator
 shortTitle: Overclock Accelerator fellowship
-publishDate: 2026-05-26
+publishDate: 2026-05-28
 description: A personal recap of my AI engineering fellowship at the Overclock Accelerator. What the ten weeks covered, what I built, and how it changed the way I think about building with LLMs.
 keywords:
   - ai engineering
@@ -15,37 +15,33 @@ keywords:
 tags: ["AI"]
 ---
 
-For a while now, I'd been building with LLMs the way you ride a bike with no hands. Fine until you have to steer.
+Earlier this year I joined the [Overclock Accelerator](https://www.overclockaccelerator.com/aie/program) as an AI Engineering Fellow. Ten weeks, weekly builds, one capstone.
 
-I wasn't on the sidelines. I'd been letting agents write code, building apps with LLMs inside, reading the field. Most days I felt fluent enough.
+I came in with miles on the clock already. Letting agents write code, putting models inside apps, reading the field. Fluent enough most days. No structure underneath any of it.
 
-But fluent isn't the same as deliberate. There's a gap between using these tools and engineering with them on purpose. I wanted to close it.
-
-So I joined the [Overclock Accelerator](https://www.overclockaccelerator.com/aie/program) as an AI Engineering Fellow.
-
-## What Overclock actually is
+## What Overclock is
 
 Overclock calls itself an accelerator, not a class. There were no lectures. Every week was built around shipping something. Concepts, a live demo, then a build.
 
-The mental model that stuck from day one was the "Fickle Wizard." An LLM is a wizard. You hand it inputs and it hands back either magic or chaos. It's fickle because it's probabilistic. The program is about reining that in, so the results land on the magic side far more often than not.
+The mental model that stuck from day one was the "Fickle Wizard." An LLM is a wizard. You hand it inputs and it hands back either magic or chaos. It's fickle because it's probabilistic. The program is about reining that in, so the magic side wins more often than the chaos side.
 
 The curriculum was a stack. Each week added a layer:
 
 - Using AI to write code faster
-- Building AI into real applications
+- Building AI into applications
 - Extending what models can do with tools
 - Handing control to agents
 - Coordinating whole teams of agents
 
 You start by writing code faster. You end by building systems that reason and act.
 
-I came in with miles on the clock already. Weeks one through five were less new ground than they were structure. The program took what I'd been doing by feel and gave it shape and vocabulary. The new territory started at week six.
+Weeks one through five were less new ground than they were vocabulary. The program took what I'd been doing by feel and gave it a shape I could point at. The new territory started at week six.
 
 ## When the model writes the code
 
 Week one was the fast lane. Describe what you want, let the model build it, move fast.
 
-It's genuinely fun. It's also a trap if you stop there.
+It's fun. It's also a trap if you stop there.
 
 Week two was the correction. Using AI to ship production software is a real engineering craft, not a prompt and a prayer. Speed is easy. The last thirty percent is the work.
 
@@ -59,19 +55,19 @@ An AI app is a stack. On top, the user's inputs. In the middle, the application 
 
 Every piece of text in that stack becomes tokens, and tokens cost money. You learn to budget like it's real, because it is.
 
-Then prompt and context engineering. Tiny wording changes swing outputs wildly.
+Then prompt and context engineering. Tiny wording changes swing the outputs.
 
 "Explain gravity to a 1st grader."
 
 "Explain gravity to a 10th grader."
 
-One word apart. Completely different answers.
+One word apart. Different answers.
 
 The techniques to control it are the obvious ones once you see them named: few-shot examples, role prompting, chain of thought, giving the model an explicit "out" when it doesn't know.
 
 Context engineering is the harder half. What files, memory, and data you feed the model, and how you keep all of it inside the context window. Two patterns kept coming up. Chunk what won't fit, fan out parallel calls, synthesize. And have the model write notes about the user that you re-import next session, because it forgets.
 
-For the sprint I added experimental AI to [gitzy](https://github.com/jimmy-guzman/gitzy), my commit-message CLI. The most fun was peeling back to the cheapest model that still produced messages I'd ship. I cut the AI in the end. The v7 I shipped is built for AI coding agents to use, not to call them.
+For the sprint I added experimental AI to [gitzy](https://github.com/jimmy-guzman/gitzy), my commit-message CLI. The most fun was peeling back against evals to the cheapest model that still produced messages I'd ship. I cut the AI in the end. The new version I shipped is built for AI coding agents to use, not to call them.
 
 ## When the model needs help
 
@@ -79,7 +75,7 @@ Week five was where the program gave a name to something I had been hand-rolling
 
 A raw LLM can't tell you the current price of gold. It has no live data, and it will do the math wrong with total confidence. The infamous "how many R's in strawberry" question is the same problem in a different costume. Without a tool, the model is guessing.
 
-The fix is tool calling. The model stops being the thing that answers and becomes an interpreter and a router. It reads your messy request, picks the right tool, and lets real, deterministic code do the work it's good at.
+The fix is tool calling. Instead of answering, the model interprets and routes. It reads your messy request, picks the right tool, and lets real, deterministic code do the work it's good at.
 
 Under the hood it's a loop:
 
@@ -89,7 +85,7 @@ The model never executes anything. It picks and formats. Your code does the runn
 
 Then MCP, the [Model Context Protocol](https://modelcontextprotocol.io). Tool calling pulled out into a shared standard, so a tool you build once can be used everywhere.
 
-This was the week things clicked. With tool calling named, I finally understood what Opencode was actually doing under the hood. I went and read its source to confirm.
+This was the week things clicked. With tool calling named, I understood what Opencode was doing under the hood. I read its source to confirm.
 
 At work I tried an MCP server on a Nextra docs site. It worked, but I dropped it for the lighter approach I [wrote about for Astro](/blog/making-astro-site-agent-friendly), ported to Nextra. Same result, no server.
 
@@ -103,27 +99,27 @@ That loop has a name: **ReACT**, for reason, act, observe, repeat.
 
 ![Flowchart: the ReACT loop cycles through Reason, Act, and Observe until done, then sends a reply](@/assets/images/overclock-react-loop.png)
 
-Every agentic framework codifies the same shape.
+Every framework I've used wraps that loop the same way.
 
-A lot of what I had been building already counted. Tool calling is the agentic superpower. What I'd been hand-rolling was an agent, just without the name. Frameworks like [LangChain](https://langchain.com) and [Agno](https://agno.com) collapse the plumbing into a single Agent abstraction. You still write each tool. The wiring just stops being the work.
+A lot of what I had been building already counted. Tool calling is the agentic superpower. I'd been hand-rolling an agent the whole time, no one had given it the name. Frameworks like [LangChain](https://langchain.com) and [Agno](https://agno.com) collapse the plumbing into a single Agent abstraction. You still write each tool. The wiring stops being the work.
 
-Coordinators that delegate to specialists, each with their own tools, are genuinely powerful. The chaos compounds fast too. Agents start talking in loops, state drifts, traceability gets hard. Which made the final week land harder.
+Coordinators that delegate to specialists, each with their own tools, are powerful. The chaos compounds fast too. Agents start talking in loops, state drifts, traceability gets hard. Week eight hit harder because of that.
 
-My capstone started accidentally here. The week six and seven sprints lined up too cleanly with something I'd been wanting to build, so I started building it instead. A chat playground with one twist: users could spin up their own agents, give them tools, stack sub-agents under them. By the end of week seven I was just building forward. That project became comal.dev.
+My capstone started accidentally here. The week six and seven sprints lined up too cleanly with something I'd been wanting to build, so I started building it instead. A chat playground with one twist: users could spin up their own agents, give them tools, stack sub-agents under them. By the end of week seven I was building forward. That project became comal.dev.
 
 ## When it gets real
 
-Week eight was a cold shower, in the best way.
+Week eight was a cold shower.
 
-The topic was hardening. Treating AI apps as real systems with real failure modes across security, cost, and performance. Prompt injection that leaks your system prompt. Users who paste a hundred thousand tokens to run up your bill. Agents whose memory gets quietly poisoned over time, one innocuous email at a time.
+The topic was hardening. Treating AI apps as production systems, with the failure modes that follow across security, cost, and performance. Prompt injection that leaks your system prompt. Users who paste a hundred thousand tokens to run up your bill. Agents whose memory gets poisoned over time, one innocuous email at a time.
 
-The fix is almost never "tell the model to behave." It's non-LLM gates around the model. Input limits and classifiers that screen requests before they reach the LLM. Human approval on any memory write. Tool-call scopes narrow enough that even a hijacked prompt can't reach the wrong row.
+The fixes sit outside the model. Input limits and classifiers that screen requests before they reach the LLM. Human approval on any memory write. Tool-call scopes narrow enough that even a hijacked prompt can't reach the wrong row.
 
 The program had a name for the next rung up: **deep agents**. Long-lived, plan-and-execute systems like [Claude Code](https://claude.com/claude-code) or Manus that can spin up their own subagents on the fly. Powerful, and a much bigger surface to harden.
 
-One line that stuck, from Andrej Karpathy: "we are in the decade of agents, not the year of agents." A working demo isn't a finished feature. The bar is whether it holds up against users who actively try to break it.
+One line that stuck, from Andrej Karpathy: "we are in the decade of agents, not the year of agents." A working demo isn't a finished feature. The bar is whether it holds up against users trying to break it.
 
-This is where I tried to break my own capstone. It worked, in the good way. I found enough cracks to rebuild on top of an existing platform instead of holding everything together myself. A lot of my career has been spent on hardening. The work was mapping what I already knew onto the AI-shaped version of it.
+This is where I tried to break my own capstone. I found enough cracks to rebuild on top of an existing platform instead of holding everything together myself.
 
 ## What I built
 
@@ -133,15 +129,13 @@ The parts that make agents feel like a product instead of a demo: evals, sub-age
 
 Halfway through building it, I realized I had reinvented min-maxing a Demonology Warlock. Pick a model. Slot your tools. Summon your sub-agents. Read the parses.
 
-The platform underneath is deliberately [boring](https://www.jimmy.codes/uses). Next.js, Drizzle on Postgres, Better Auth, Effect, the Vercel AI SDK on top of OpenRouter so the model picker spans frontier and low-cost models, each tagged with a relative cost label. The week eight lessons live in the seams: approval gates on tools, sandboxed eval runs, hourly spend caps.
-
-A proper breakdown deserves its own post. That one is coming.
+The platform underneath is [boring](https://www.jimmy.codes/uses) on purpose. Next.js, Drizzle on Postgres, Better Auth, Effect, the Vercel AI SDK on top of OpenRouter so the model picker spans frontier and low-cost models, each tagged with a relative cost label. I wired the week eight lessons into the seams: approval gates on tools, sandboxed eval runs, hourly spend caps.
 
 ---
 
-Agents were the real new ground. I came in dabbling, I left architecting.
+Agents were the new ground. I came in dabbling, I left architecting.
 
-The Fickle Wizard doesn't get less fickle. You just get better at building the rails around it.
+The Fickle Wizard doesn't get less fickle. You get better at building the rails around it.
 
 Next up: I'm building a curriculum and teaching how to build with AI to high school students.
 
