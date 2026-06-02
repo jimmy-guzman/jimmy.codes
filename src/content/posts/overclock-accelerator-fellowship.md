@@ -1,7 +1,7 @@
 ---
 title: Ten weeks at the Overclock Accelerator
 shortTitle: Overclock Accelerator fellowship
-publishDate: 2026-06-01
+publishDate: 2026-06-02
 description: A personal recap of my AI engineering fellowship at the Overclock Accelerator. What the ten weeks covered, what I built, and how it changed the way I think about building with LLMs.
 keywords:
   - ai engineering
@@ -17,7 +17,7 @@ tags: ["AI"]
 
 Earlier this year I joined the [Overclock Accelerator](https://www.overclockaccelerator.com/aie/program) as an AI Engineering Fellow. Ten weeks, weekly builds, one capstone.
 
-I came in with miles on the clock already. Letting agents write code, putting models inside apps, reading the field. Fluent enough most days. No structure underneath any of it.
+I came in running on instinct. Letting agents write code, putting models inside apps, reading the field. It worked most days. All feel, no structure underneath it.
 
 ## What Overclock is
 
@@ -82,7 +82,23 @@ The fix is tool calling. Instead of answering, the model interprets and routes. 
 
 Under the hood it's a loop:
 
-![Sequence diagram: user sends a message to the app, which loops between the LLM picking tools and the app running them, before the LLM writes the final reply](@/assets/images/overclock-agent-loop.png)
+```mermaid
+sequenceDiagram
+  actor User
+  participant App
+  participant LLM
+  participant Tool
+  User->>App: sends message
+  App->>LLM: relays message
+  loop until done
+    LLM-->>App: picks a tool, says how to call it
+    App->>Tool: runs the tool
+    Tool-->>App: returns result
+    App->>LLM: passes result back
+  end
+  LLM-->>App: writes reply
+  App-->>User: delivers reply
+```
 
 The model never executes anything. It picks and formats. Your code does the running.
 
@@ -100,7 +116,13 @@ The definition that stuck with me, from Harrison Chase at LangChain: an agent is
 
 That loop has a name: **ReACT**, for reason, act, observe, repeat.
 
-![Flowchart: the ReACT loop cycles through Reason, Act, and Observe until done, then sends a reply](@/assets/images/overclock-react-loop.png)
+```mermaid
+flowchart LR
+  Reason[Reason] --> Act[Act]
+  Act --> Observe[Observe]
+  Observe -->|done| Reply[Reply]
+  Observe -->|not done| Reason
+```
 
 Every framework I've used wraps that loop the same way.
 
