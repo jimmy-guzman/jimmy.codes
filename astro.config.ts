@@ -12,6 +12,7 @@ import {
 } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import favicons from "astro-favicons";
+import mermaid from "astro-mermaid";
 import expressiveCodeTwoSlash from "expressive-code-twoslash";
 import { h } from "hastscript";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -61,6 +62,7 @@ export default defineConfig({
         ],
 
   integrations: [
+    mermaid({ autoTheme: true }),
     expressiveCode({
       plugins: [expressiveCodeTwoSlash()],
       shiki: { transformers: [transformerColorizedBrackets()] },

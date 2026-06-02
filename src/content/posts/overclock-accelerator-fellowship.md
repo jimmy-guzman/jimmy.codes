@@ -134,6 +134,8 @@ Halfway through building it, I realized I had reinvented min-maxing a Demonology
 
 The platform underneath is [boring](https://www.jimmy.codes/uses) on purpose. Next.js, Drizzle on Postgres, Better Auth, Effect, the Vercel AI SDK on top of OpenRouter so the model picker spans frontier and low-cost models, each tagged with a relative cost label. I wired the week eight lessons into the seams: approval gates on tools, sandboxed eval runs, hourly spend caps.
 
+I went deeper on how it's built in [its own post](/blog/how-i-built-an-ai-agent-playground).
+
 ---
 
 Agents were the new ground. I came in dabbling, I left architecting.
