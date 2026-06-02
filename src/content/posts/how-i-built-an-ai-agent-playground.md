@@ -17,7 +17,9 @@ tags: ["AI", "Next.js", "TypeScript", "Backend"]
 
 I built [comal.dev](https://comal.dev) as my capstone for the [Overclock Accelerator](/blog/overclock-accelerator-fellowship). It's an open source playground for composing your own AI agents from a shared toolbox. Pick a model, write a system prompt, attach some tools, start chatting.
 
-A comal is the flat griddle in a Mexican kitchen. This one cooks up agents not tortillas.
+A comal is the flat griddle in a Mexican kitchen. This one cooks up agents, not tortillas.
+
+Here's the idea the whole thing is built on: once tool calling is the primitive, the interesting systems are just tools wired to the right targets. Comal is that pushed about as far as I could take it.
 
 First, what it's like to use. Then how it works underneath.
 
@@ -76,7 +78,7 @@ Under it, an agent is three rows in a database: the model, the system prompt, an
 
 Because an agent is only that data, you can export one as a self-contained JSON file: model, prompt, tools, and any sub-agents inlined all the way down, plus its evals.
 
-The tools are fixed at build time. You don't write new ones from the UI. You compose the ones that exist: web search, GitHub reads, memory, a pile of TMDB and Wikidata lookups. Pick a model per conversation without touching the agent. Tag every model with a relative cost label so you can reach for a cheap one on purpose.
+The tools are fixed at build time. You don't write new ones from the UI. You compose the ones that exist: web search, GitHub reads, memory, a pile of TMDB and Wikidata lookups. Pick a model per conversation without touching the agent. Every model carries a relative cost label, so the price trade-off is in front of you when you pick.
 
 Then the twist that makes it a playground: sub-agents. Any agent you own can become a tool for another agent. A coordinator delegates to specialists, each with their own model and tools.
 
@@ -143,7 +145,7 @@ flowchart TB
   Projector --> UIMsgs[UIMessage timeline]
 ```
 
-The trouble buys three features I'd otherwise build by hand.
+Storing nothing finished sounds like overhead. It buys three features I'd otherwise build by hand.
 
 - **Execution traces.** Every conversation already has a step-by-step record. Timing, tool inputs and outputs, token counts. There's nothing to log separately, the trace is the log.
 - **Cost.** Each turn is priced once when it finishes and written into the same log as microdollars. Nothing recomputes, so a later price change never rewrites what an old turn cost. The cost dashboard reads straight off that one column: spend by model and by conversation, a daily trend, the average per turn, and what a full eval suite run cost, over a 30, 90, or all-time window.
@@ -188,8 +190,8 @@ Week eight of the fellowship was a cold shower about treating these as productio
 The fixes all live outside the model.
 
 - **Approval gates.** Mark a tool as needing approval and it pauses mid-stream for a one-click approve or deny. Sub-agent tools skip the gate so delegation doesn't stall.
-- **Spend budgets.** Runaway usage stops at $5 an hour signed in, $1 an hour anonymous, on a sliding window, with request rate limits on top. The checks fail open: if the rate limiter is unreachable, a chat goes through rather than the limiter taking the whole app down with it.
-- **Memory that can't break out.** Those injected facts go in inside a `<memory>` block, framed as context, not instructions. Before they go in, the closing tag gets stripped, so a saved fact can't end the block early and smuggle in commands. The whole defense is one blunt line: `content.replaceAll("</memory>", "")`.
+- **Spend budgets.** Runaway usage stops at $5 an hour signed in, $1 an hour anonymous, on a sliding window, with request rate limits on top. Anonymous traffic runs on my own key, so it's free to try for now, and that tighter cap is what keeps it that way. The checks fail open: if the rate limiter is unreachable, a chat goes through rather than the limiter taking the whole app down with it.
+- **Memory that can't break out.** Those injected facts go in inside a `<memory>` block, framed as context, not instructions. The framing does most of the work. Before a fact goes in, its closing tag gets stripped too, so it can't end the block early and smuggle in commands. That last guard is one narrow line, `content.replaceAll("</memory>", "")`, and it only catches the exact tag, nothing fancier.
 - **Bring your own keys, encrypted.** Per-user API keys are AES-256-GCM encrypted at rest. A tool that needs a key you haven't set is hidden from the model entirely, so the agent never tries to use something it can't authenticate.
 
 None of this is clever. It's the unglamorous layer that decides whether a demo survives contact with real users.
@@ -200,7 +202,7 @@ You build agents by talking to an agent. Comal, the system agent every account s
 
 "Build me an agent that summarizes GitHub issues." "Write an eval for it." "It regressed, what changed?" "Revert it." The same tool-calling loop that powers any agent here, pointed at the agents themselves.
 
-It's the same move I kept finding all fellowship: once tool calling is the primitive, the interesting systems are tools wired to the right targets.
+It's the same move from the top of this post, turned on the system itself: tool calling as the primitive, with the agent-management tools just pointed at your other agents.
 
 ## Boring on purpose
 
