@@ -1,3 +1,4 @@
+import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
@@ -114,41 +115,43 @@ export default defineConfig({
         }),
   ],
   markdown: {
-    gfm: true,
-    rehypePlugins: [
-      [rehypeExternalLinks, { rel: "noopener", target: "_blank" }],
-      rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: "wrap",
-          content: [
-            h("span", {
-              "aria-hidden": "true",
-              class:
-                "icon-[lucide--link] absolute left-0 top-1/2 -translate-y-1/2 " +
-                "opacity-0 group-hover:opacity-100 transition-opacity duration-150 " +
-                "text-muted h-[1em] w-[1em] max-h-4 max-w-4",
-            }),
-          ],
-          properties: {
-            className: "group relative block pl-5 -ml-5",
-            tabindex: "-1",
+    processor: unified({
+      gfm: true,
+      rehypePlugins: [
+        [rehypeExternalLinks, { rel: "noopener", target: "_blank" }],
+        rehypeSlug,
+        [
+          rehypeAutolinkHeadings,
+          {
+            behavior: "wrap",
+            content: [
+              h("span", {
+                "aria-hidden": "true",
+                class:
+                  "icon-[lucide--link] absolute left-0 top-1/2 -translate-y-1/2 " +
+                  "opacity-0 group-hover:opacity-100 transition-opacity duration-150 " +
+                  "text-muted h-[1em] w-[1em] max-h-4 max-w-4",
+              }),
+            ],
+            properties: {
+              className: "group relative block pl-5 -ml-5",
+              tabindex: "-1",
+            },
           },
-        },
-      ],
-      rehypeUnwrapImages,
-      [
-        rehypeCallouts,
-        {
-          props: {
-            containerProps: { class: "my-5 callout" },
-            titleProps: { class: "callout-title items-center!" },
+        ],
+        rehypeUnwrapImages,
+        [
+          rehypeCallouts,
+          {
+            props: {
+              containerProps: { class: "my-5 callout" },
+              titleProps: { class: "callout-title items-center!" },
+            },
+            theme: "obsidian",
           },
-          theme: "obsidian",
-        },
+        ],
       ],
-    ],
+    }),
   },
   prefetch: true,
   site:
