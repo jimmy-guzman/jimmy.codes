@@ -1,7 +1,7 @@
 ---
 title: Ten weeks at the Overclock Accelerator
 shortTitle: Overclock Accelerator fellowship
-publishDate: 2026-06-02
+publishDate: 2026-06-03
 description: A personal recap of my AI engineering fellowship at the Overclock Accelerator. What the ten weeks covered, what I built, and how it changed the way I think about building with LLMs.
 keywords:
   - ai engineering
