@@ -45,7 +45,7 @@ Like a turn? Save it as an eval in one click. Run the suite. Watch the score tre
   <source src="/videos/comal-lap.mp4" type="video/mp4" />
 </video>
 
-That's the product. The interesting parts are underneath.
+That's the product. The engineering is underneath.
 
 ## What happens when you hit send
 
@@ -88,7 +88,7 @@ Because an agent is only that data, you can export one as a self-contained JSON 
 
 The tools are fixed at build time. You don't write new ones from the UI. You compose the ones that exist: web search, GitHub reads, memory, a pile of TMDB and Wikidata lookups. Pick a model per conversation without touching the agent. Every model carries a relative cost label, so the price trade-off is in front of you when you pick.
 
-Then the twist that makes it a playground: sub-agents. Any agent you own can become a tool for another agent. A coordinator delegates to specialists, each with their own model and tools.
+Then the twist that makes it a playground: sub-agents. Any agent you own can become a tool for another agent. A coordinator delegates to specialists, each with their own model and tools. Comal itself runs on this same machinery, its tools just pointed at your other agents instead of the outside world.
 
 ```mermaid
 flowchart TB
@@ -111,13 +111,6 @@ One function, `loadAgent`, is the single place this happens. It reads the agent,
 
 Recursion needs limits, so delegation tops out at three tiers: root, child, grandchild. The step budget tightens as you go down, and the grandchild gets no sub-agents of its own. Without that, a coordinator delegating to a coordinator runs up a bill fast and is impossible to trace.
 
-```mermaid
-flowchart LR
-  Root["Root agent<br/>up to 8 steps"] --> Child["Child<br/>up to 4 steps"]
-  Child --> Grand["Grandchild<br/>up to 2 steps"]
-  Grand --> Stop(["no further sub-agents"])
-```
-
 Agents calling agents you own also means you can draw a cycle: A calls B, B calls A. The fix is the part I'd point a reviewer at. Every write to an agent runs in a transaction that first locks every agent you own, not only the one being edited:
 
 ```ts
@@ -132,7 +125,11 @@ return db.transaction(async (tx) => {
 });
 ```
 
-Locking only the target agent isn't enough. Two tabs editing two different agents could each pass a cycle check against a graph that doesn't include the other's pending edit, then commit a loop between them. Locking the whole set means the cycle check and the **write** see the same graph. The `orderBy(agent.id)` is the other half: a deterministic lock order, so two of these transactions can't deadlock by grabbing the same rows in opposite orders.
+Locking only the target agent isn't enough. Two tabs editing two different agents could each pass a cycle check against a graph that doesn't include the other's pending edit, then commit a loop between them. Locking the whole set means the cycle check and the **write** see the same graph.
+
+> [!TIP]
+> **Why `orderBy(agent.id)`**
+> Deterministic lock order. Two transactions that grabbed these rows in opposite orders would deadlock, so sorting by id makes every transaction grab them the same way.
 
 ## The chat log is the only source of truth
 
@@ -157,8 +154,6 @@ Storing nothing finished sounds like overhead. It buys three features I'd otherw
 - **Cost.** Each turn is priced once when it finishes and written into the same log as microdollars. Nothing recomputes, so a later price change never rewrites what an old turn cost. The cost dashboard reads straight off that one column: spend by model and by conversation, a daily trend, the average per turn, and what a full eval suite run cost, over a 30, 90, or all-time window.
 - **Sub-agent transcripts.** A sub-agent's inner stream writes into the same log, tagged with the parent tool call. On reload it projects into a collapsible transcript, so you can open up a delegation and see what the specialist did.
 
-That last one hid a bug I still think about. The sub-agent tool is an async generator that yields its progress, then yields a final `done` payload. My first version `return`ed that final payload instead of yielding it. The AI SDK consumes the generator with `for await`, which throws away the return value, so the parent model got back empty text and acted like the specialist had said nothing. Yield the last payload, don't return it.
-
 ![comal.dev cost dashboard: spend by model and by conversation with a daily trend](@/assets/images/comal-cost-dashboard.png)
 
 One append-only log, three things I didn't have to invent.
@@ -167,7 +162,13 @@ One append-only log, three things I didn't have to invent.
 
 A playground for agents is useless if you can't tell whether a change made the agent better or worse. So evals are first-class. Attach test cases to an agent and score how it responds.
 
-There are five scorers. Three are plain string matching: `contains`, `exact`, and `levenshtein` for edit distance. The fourth, `llm-judge`, asks a model whether the answer is semantically right. The fifth is the one I care about most: `tool-call` grades behavior, not text. It reads the tool-call events out of the run's trace and checks them against an assertion, must-call, must-not-call, must-call-with-these-args. That's how you catch an agent that returned the right-looking answer by guessing instead of by calling the tool you gave it.
+There are five scorers.
+
+- `contains`, `exact`, and `levenshtein` (edit distance): plain string matching against the answer text.
+- `llm-judge`: asks a model whether the answer is semantically right.
+- `tool-call`: grades behavior, not text. It reads the tool-call events out of the run's trace and checks them against an assertion, must-call, must-not-call, must-call-with-these-args.
+
+`tool-call` is the one I care about most. It's how you catch an agent that returned the right-looking answer by guessing instead of by calling the tool you gave it.
 
 Two decisions made evals trustworthy.
 
@@ -181,7 +182,7 @@ A per-version trend chart plots the score against each config snapshot and flags
 
 ## Memory the agents share
 
-Attach three tools, save, search, delete, and an agent can remember things about you. The detail that makes it interesting: the pool is account-wide, not per-agent. A fact your research agent saved is visible to your writing agent. There's a `/memories` page listing everything with a badge for which agent saved each one, and a per-user cap so it can't grow without bound.
+Attach three tools, save, search, delete, and an agent can remember things about you. The pool is account-wide, not per-agent. A fact your research agent saved is visible to your writing agent. There's a `/memories` page listing everything with a badge for which agent saved each one, and a per-user cap so it can't grow without bound.
 
 ![The /memories page in comal.dev: the account-wide memory pool with a source-agent badge on each saved fact](@/assets/images/comal-memories.png)
 
@@ -189,37 +190,50 @@ Search is the part I tuned. When an agent has the search tool attached, I don't 
 
 Each fact is a 1536-dimension `text-embedding-3-small` vector in Postgres, with an HNSW index for cosine search.
 
-The match threshold sits at 0.4, well below the usual 0.75. That embedding model scores lower than you'd expect: a recall query that should clearly match landed at 0.61.
+> [!NOTE]
+> **Threshold tuning**
+> `text-embedding-3-small` scores lower than the usual 0.75 floor suggests, so a query that should clearly match landed at 0.61. The threshold sits at 0.4.
 
 ## Hardening in the seams
 
 Week eight of the fellowship was a cold shower about treating these as production systems. Prompt injection, runaway bills, poisoned memory. Getting an agent to do the thing was never the hard part. The hard part is everyone who shows up wanting it to do something else.
 
-The fixes all live outside the model.
+The fixes all live outside the model. The biggest concrete threat is prompt injection through memory: a poisoned fact that turns into an instruction the next time any agent reads it. The bullets run in that order, most serious first.
 
-- **Approval gates.** Mark a tool as needing approval and it pauses mid-stream for a one-click approve or deny. Sub-agent tools skip the gate so delegation doesn't stall.
-- **Spend budgets.** Runaway usage stops at $5 an hour signed in, $1 an hour anonymous, on a sliding window, with request rate limits on top. Anonymous traffic runs on my own key, so it's free to try for now, and that tighter cap is what keeps it that way. The checks fail open: if the rate limiter is unreachable, a chat goes through rather than the limiter taking the whole app down with it.
 - **Memory that can't break out.** Those injected facts go in inside a `<memory>` block, framed as context, not instructions. The framing does most of the work. Before a fact goes in, its closing tag gets stripped too, so it can't end the block early and smuggle in commands. That last guard is one narrow line, `content.replaceAll("</memory>", "")`, and it only catches the exact tag, nothing fancier.
+- **Spend budgets.** Runaway usage stops at $5 an hour signed in, $1 an hour anonymous, on a sliding window, with request rate limits on top. Anonymous traffic runs on my own key, so it's free to try for now, and that tighter cap is what keeps it that way. The checks fail open: if the rate limiter is unreachable, a chat goes through rather than the limiter taking the whole app down with it.
 - **Bring your own keys, encrypted.** Per-user API keys are AES-256-GCM encrypted at rest. A tool that needs a key you haven't set is hidden from the model entirely, so the agent never tries to use something it can't authenticate.
+- **Approval gates.** Mark a tool as needing approval and it pauses mid-stream for a one-click approve or deny. Sub-agent tools skip the gate so delegation doesn't stall.
 
-None of this is clever. It's the unglamorous layer that decides whether a demo survives contact with real users.
+None of this is clever. It's what stops a hostile user from hijacking an agent or running up your bill.
 
-## Comal builds your agents
+## Boring on purpose
+
+The stack underneath is dull by design. [Next.js 16](https://nextjs.org/), [React 19](https://react.dev/), [Drizzle](https://orm.drizzle.team/) on [Neon](https://neon.tech/) Postgres, [Better Auth](https://better-auth.com/). An [Effect](https://effect.website/) service layer where every write goes through one atomic path. The [Vercel AI SDK](https://sdk.vercel.ai/) on top of [OpenRouter](https://openrouter.ai/), so the model picker spans frontier and low-cost models behind one interface. That's deliberate: keep the surprising part in the agents, not the infrastructure.
+
+## An agent that builds agents
 
 You build agents by talking to an agent. Comal, the system agent every account starts with, holds the agent-management tools: create, update, diff versions, revert, run evals, read traces. So Comal builds and iterates on your other agents through chat.
 
 "Build me an agent that summarizes GitHub issues." "Write an eval for it." "It regressed, what changed?" "Revert it." The same tool-calling loop that powers any agent here, pointed at the agents themselves.
 
-It's the same move from the top of this post, turned on the system itself: tool calling as the primitive, with the agent-management tools just pointed at your other agents.
+```mermaid
+flowchart LR
+  User([User chat]) --> Comal["Comal<br/>system agent"]
+  Comal -->|tool call| Create["create_agent"]
+  Comal -->|tool call| Update["update_agent"]
+  Comal -->|tool call| Eval["run_evals"]
+  Comal -->|tool call| Trace["read_traces"]
+  Create --> Agents[("Your agents<br/>model + prompt + tools")]
+  Update --> Agents
+  Eval --> Agents
+  Trace --> Agents
+```
 
-## Boring on purpose
-
-The stack underneath is dull by design. [Next.js 16](https://nextjs.org/), [React 19](https://react.dev/), [Drizzle](https://orm.drizzle.team/) on [Neon](https://neon.tech/) Postgres, [Better Auth](https://better-auth.com/). An [Effect](https://effect.website/) service layer where every write goes through a single atomic path. The [Vercel AI SDK](https://sdk.vercel.ai/) on top of [OpenRouter](https://openrouter.ai/), so the model picker spans frontier and low-cost models behind one interface.
-
-Boring infrastructure is the point. It keeps the surprising part where it belongs, in the agents, not in the plumbing.
+That's the whole idea, turned on itself. Tool calling is the primitive. Comal is just one more agent, its tools wired to the most interesting target there is: your other agents.
 
 ## Play with it
 
 [comal.dev](https://comal.dev) is live and [open source](https://github.com/jimmy-guzman/comal.dev). Start anonymous, sign in with GitHub if you want your agents to follow you.
 
-It's alpha, and it's open. Build an agent, try to break it, open an issue or a PR.
+The tool registry is fixed at build time, so the most useful thing you can do is add the tool you wish was there and open a PR. Or stay in the playground: build a coordinator that delegates to two specialists, then write a `tool-call` eval that catches it guessing instead of calling the tool. It's alpha, so break it and file an issue.
