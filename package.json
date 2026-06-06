@@ -59,7 +59,7 @@
     "@total-typescript/ts-reset": "0.6.1",
     "@types/bun": "1.3.14",
     "@types/node": "25.9.1",
-    "@types/react": "19.2.16",
+    "@types/react": "19.2.17",
     "@vercel/og": "0.11.1",
     "@vitest/coverage-v8": "4.1.8",
     "astro": "6.4.2",
