@@ -41,30 +41,32 @@ const { mobilePrimary = [], mobileDropdown = [] } = Object.groupBy(
 
       <ThemeController />
 
-      <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
-          <span class="sr-only">More</span>
-          <span class="icon-[lucide--menu] h-5 w-5" aria-hidden="true"></span>
-        </div>
-        <ul
-          tabindex="0"
-          class="dropdown-content menu z-1 w-34 rounded-box border border-base-200 bg-base-100 text-sm shadow"
-        >
-          {
-            mobileDropdown.map((link) => (
-              <li>
-                <a href={link.href} {...ext(link)}>
-                  <span
-                    class:list={[link.icon, "h-4 w-4"]}
-                    aria-hidden="true"
-                  />
-                  {link.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+      <button
+        type="button"
+        class="btn btn-ghost btn-sm"
+        popovertarget="nav-more"
+        style="anchor-name:--nav-more"
+      >
+        <span class="sr-only">More</span>
+        <span class="icon-[lucide--menu] h-5 w-5" aria-hidden="true"></span>
+      </button>
+      <ul
+        popover
+        id="nav-more"
+        class="menu dropdown dropdown-end w-34 rounded-box border border-base-200 bg-base-100 text-sm shadow"
+        style="position-anchor:--nav-more"
+      >
+        {
+          mobileDropdown.map((link) => (
+            <li>
+              <a href={link.href} {...ext(link)}>
+                <span class:list={[link.icon, "h-4 w-4"]} aria-hidden="true" />
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
 
     <div class="hidden items-center gap-1 md:flex">
