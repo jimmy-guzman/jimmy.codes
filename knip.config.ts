@@ -8,4 +8,7 @@ export default {
     "@commitlint/cli",
     "markdownlint",
   ],
+  paths: {
+    "@/*": ["./src/*"],
+  },
 } satisfies KnipConfig;

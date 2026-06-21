@@ -8,13 +8,24 @@ test.describe("Primary journeys", () => {
       "Hi, I'm Jimmy",
     );
 
-    await page.getByRole("link", { exact: true, name: "About" }).click();
+    // The nav renders each link twice (a `md:hidden` mobile cluster + the desktop
+    // cluster), so target the desktop link with `.last()` to avoid a strict-mode
+    // match on the briefly-exposed mobile link. `force: true` skips the stability
+    // wait, which the MPA view transition defeats by freezing the old-page
+    // snapshot over the (interactive) new DOM.
+    await page
+      .getByRole("link", { exact: true, name: "About" })
+      .last()
+      .click({ force: true });
     await expect(page).toHaveURL("/about");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
       "About Me",
     );
 
-    await page.getByRole("link", { exact: true, name: "Blog" }).click();
+    await page
+      .getByRole("link", { exact: true, name: "Blog" })
+      .last()
+      .click({ force: true });
     await expect(page).toHaveURL("/blog");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Blog");
   });
