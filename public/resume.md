@@ -23,7 +23,7 @@ Staff-level engineer focused on full-stack architecture, distributed systems, an
 - **Frontend:** React, Next.js, Astro, React Router
 - **Languages:** TypeScript, JavaScript, Python, Java, Kotlin, Groovy
 - **Backend and APIs:** Node.js (Express, Fastify), Bun (Hono), GraphQL, REST, Kafka, PostgreSQL, MongoDB, Redis, Prisma, Drizzle
-- **AI engineering:** LangChain, Agno, OpenAI API, multi-agent systems, ReACT, prompt engineering, RAG
+- **AI engineering:** LangChain, Agno, OpenAI API, Claude Code, opencode, multi-agent systems, ReACT, prompt engineering, RAG
 - **Platform engineering:** Vite, Turborepo, NX, webpack, Rollup, GitHub Actions, Jenkins, Docker, Infrastructure as Code
 - **Testing and observability:** Vitest, Playwright, Jest, Cypress, Testing Library, Mock Service Worker, OpenTelemetry, Grafana
 - **Developer experience:** Monorepo architecture, build optimization, static analysis, performance engineering, feature flagging
@@ -59,6 +59,7 @@ Target | Jan 2021 – Present
 - Re-architected frontend build and testing toolchain, introducing modern bundling, testing, and static analysis infrastructure that sped up feedback loops and reduced CI friction
 - Built a centralized engineering knowledge system capturing architectural decisions, design artifacts, and technical investigations, improving institutional memory and onboarding
 - Established component-driven development as the default frontend architecture using Storybook, codifying reusable UI patterns and cutting time to market
+- Spearheaded agentic development practices using Claude Code and opencode, establishing prompting patterns, guardrails, and reusable workflows that accelerated everyday engineering tasks across the team
 
 #### System architecture and delivery
 
@@ -76,6 +77,8 @@ Target | Jan 2021 – Present
 - Led full-stack engineering team supporting multiple applications, APIs, and databases critical to supply chain operations
 - Led a from-scratch rebuild of an agentic AI platform application in one week, selecting the tech stack, enabling safe prompt engineering patterns, and coaching the team through SSR/SSG design decisions
 - Mentored engineers across teams, resulting in multiple promotions to Senior and Lead roles
+- Mentored engineers on agentic development with Claude Code and opencode, pairing on real workflows to raise AI fluency and developer velocity across the team
+- Served as security champion for a supply chain UI portfolio, driving cross-team initiatives including GitHub cloud migration, OpenTelemetry adoption, and software composition analysis (SCA) vulnerability reduction
 - Led technical interviews and contributed to evaluation frameworks as Talent Captain
 - Partnered with UX to establish a scalable design system across supply chain applications
 - Partnered with leadership to transition team from Scrum to Kanban, improving delivery flow and predictability
