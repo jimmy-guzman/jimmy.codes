@@ -52,7 +52,7 @@
     "@iconify-json/simple-icons": "1.2.86",
     "@iconify-json/skill-icons": "1.2.4",
     "@iconify/tailwind4": "1.2.3",
-    "@playwright/test": "1.61.0",
+    "@playwright/test": "1.61.1",
     "@shikijs/colorized-brackets": "4.2.0",
     "@tailwindcss/typography": "0.5.20",
     "@tailwindcss/vite": "4.3.1",
