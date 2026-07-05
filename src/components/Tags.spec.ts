@@ -18,9 +18,9 @@ describe("Tags", () => {
       props: { tags },
     });
 
-    expect(html).toContain("> TypeScript </a>");
-    expect(html).toContain("> React </a>");
-    expect(html).toContain("> Testing </a>");
+    expect(html).toContain(">TypeScript</a>");
+    expect(html).toContain(">React</a>");
+    expect(html).toContain(">Testing</a>");
   });
 
   it("should preserve the order of tags as provided", async () => {
@@ -35,9 +35,9 @@ describe("Tags", () => {
       props: { tags },
     });
 
-    const zebraIndex = html.indexOf("> Zebra </a>");
-    const appleIndex = html.indexOf("> Apple </a>");
-    const mangoIndex = html.indexOf("> Mango </a>");
+    const zebraIndex = html.indexOf(">Zebra</a>");
+    const appleIndex = html.indexOf(">Apple</a>");
+    const mangoIndex = html.indexOf(">Mango</a>");
 
     expect(zebraIndex).toBeGreaterThan(-1);
     expect(appleIndex).toBeGreaterThan(zebraIndex);
@@ -185,8 +185,8 @@ describe("Tags", () => {
 
     // Assuming slugifyTag converts these appropriately
     expect(html).toContain('href="/blog/tags/');
-    expect(html).toContain("> C++ </a>");
-    expect(html).toContain("> Node.js </a>");
+    expect(html).toContain(">C++</a>");
+    expect(html).toContain(">Node.js</a>");
   });
 
   it("should show all tags when count is less than guessMaxVisible", async () => {
@@ -201,9 +201,9 @@ describe("Tags", () => {
       props: { tags },
     });
 
-    expect(html).toContain("> TypeScript </a>");
-    expect(html).toContain("> React </a>");
-    expect(html).toContain("> Testing </a>");
+    expect(html).toContain(">TypeScript</a>");
+    expect(html).toContain(">React</a>");
+    expect(html).toContain(">Testing</a>");
     expect(html).not.toContain("more");
   });
 
@@ -225,12 +225,12 @@ describe("Tags", () => {
       props: { tags },
     });
 
-    expect(html).toContain("> LongTagOne </a>");
-    expect(html).toContain("> LongTagTwo </a>");
-    expect(html).toContain("> LongTagThree </a>");
-    expect(html).not.toContain("> LongTagFour </a>");
-    expect(html).not.toContain("> LongTagFive </a>");
-    expect(html).not.toContain("> LongTagSix </a>");
+    expect(html).toContain(">LongTagOne</a>");
+    expect(html).toContain(">LongTagTwo</a>");
+    expect(html).toContain(">LongTagThree</a>");
+    expect(html).not.toContain(">LongTagFour</a>");
+    expect(html).not.toContain(">LongTagFive</a>");
+    expect(html).not.toContain(">LongTagSix</a>");
     expect(html).toContain("+3 more");
   });
 
