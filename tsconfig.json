@@ -4,7 +4,12 @@
     "jsxImportSource": "react",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": [
+      "vite-plugin-pwa/client",
+      "vite-plugin-pwa/info",
+      "vite-plugin-pwa/pwa-assets"
+    ]
   },
   "exclude": ["dist", "coverage"],
   "extends": "astro/tsconfigs/strict",

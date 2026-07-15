@@ -14,7 +14,7 @@ const { mobilePrimary = [], mobileDropdown = [] } = Object.groupBy(
 
 <nav class="navbar">
   <div class="flex-1">
-    <a href="/" class="btn gap-2 text-base btn-ghost btn-sm lg:btn-md">
+    <a href="/" class="btn gap-2 btn-ghost text-base btn-sm lg:btn-md">
       <span
         class="icon-[lucide--terminal] h-4 w-4 md:h-5 md:w-5"
         aria-hidden="true"></span>
@@ -74,7 +74,7 @@ const { mobilePrimary = [], mobileDropdown = [] } = Object.groupBy(
         desktop.map((link) => (
           <a
             href={link.href}
-            class="btn font-normal btn-ghost btn-sm lg:btn-md"
+            class="btn btn-ghost font-normal btn-sm lg:btn-md"
             {...ext(link)}
           >
             <span class:list={["sr-only", { "lg:not-sr-only": link.primary }]}>
