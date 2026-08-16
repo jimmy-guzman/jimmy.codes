@@ -47,7 +47,7 @@
     "@commitlint/config-conventional": "21.2.0",
     "@commitlint/types": "21.2.0",
     "@iconify-json/devicon": "1.2.62",
-    "@iconify-json/logos": "1.2.11",
+    "@iconify-json/logos": "1.2.13",
     "@iconify-json/lucide": "1.2.121",
     "@iconify-json/simple-icons": "1.2.92",
     "@iconify-json/skill-icons": "1.2.4",
