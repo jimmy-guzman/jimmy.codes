@@ -22,7 +22,7 @@
         "@iconify-json/devicon": "1.2.62",
         "@iconify-json/logos": "1.2.11",
         "@iconify-json/lucide": "1.2.121",
-        "@iconify-json/simple-icons": "1.2.92",
+        "@iconify-json/simple-icons": "1.2.94",
         "@iconify-json/skill-icons": "1.2.4",
         "@iconify/tailwind4": "1.2.3",
         "@playwright/test": "1.62.1",
@@ -518,7 +518,7 @@
 
     "@iconify-json/lucide": ["@iconify-json/lucide@1.2.121", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-zSoQQSmsyFaeTpSwURHJ9PIrsDcGFpDNhGlpiTrs+Ua4uFeH5UsE26L4OEBLrgLWoSK0UO+JhsO8yehSw0403g=="],
 
-    "@iconify-json/simple-icons": ["@iconify-json/simple-icons@1.2.92", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-hR0ozxR97t1dzWw+esoxFijZ15gagt7EIgF3CNifu2yICXhS7gnun4Y+j+odJQtNSl7wvqMdoLbViIShwe/fdw=="],
+    "@iconify-json/simple-icons": ["@iconify-json/simple-icons@1.2.94", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-l8UWzVxKaqZd9ABsE/M/9p6NyGkQnmCnOoZyhQmjlXCtY5PuL2rcWxOFk2l9pk7ux3ERMPkTLE4jl6kQpTkwxA=="],
 
     "@iconify-json/skill-icons": ["@iconify-json/skill-icons@1.2.4", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-S6iRKHGlGCb/zfx3Isv1TBe5PunbDE5FEwJcaXji60+yRZMrcFFtYEI1xivKqaGKXyVZ508yjGDItsehQdJmSg=="],
 
