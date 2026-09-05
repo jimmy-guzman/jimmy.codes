@@ -65,7 +65,7 @@
     "@vite-pwa/astro": "1.2.0",
     "@vitest/coverage-v8": "4.1.10",
     "astro": "7.1.6",
-    "astro-expressive-code": "0.44.1",
+    "astro-expressive-code": "0.44.2",
     "daisyui": "5.7.14",
     "expressive-code-twoslash": "0.6.1",
     "gitzy": "7.2.2",
