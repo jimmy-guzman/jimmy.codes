@@ -47,35 +47,35 @@ const pageDescription = `All blog posts tagged with "${originalTag}"`;
     <Tags tags={allTags} active={slug} />
 
     <section class="not-prose">
-      {
-        posts.length > 0 ? (
-          <ul class="flex flex-col gap-y-4">
-            {posts.map((post) => (
-              <li class="space-y-0.5">
-                <a
-                  href={`/blog/${post.id}`}
-                  class="link link-hover"
-                  rel="bookmark"
-                  data-astro-prefetch
-                >
-                  {shortTitle(post)}
-                </a>
-                <MetaLine
-                  class="block text-sm text-muted"
-                  publishDate={post.data.publishDate}
-                  minutes={readingTime(post.body ?? "")}
-                />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p class="text-muted">No posts found for this tag.</p>
-        )
-      }
+      {posts.length > 0 ? (
+        <ul class="flex flex-col gap-y-4">
+          {posts.map((post) => (
+            <li class="space-y-0.5">
+              <a
+                href={`/blog/${post.id}`}
+                class="link link-hover"
+                rel="bookmark"
+                data-astro-prefetch
+              >
+                {shortTitle(post)}
+              </a>
+              <MetaLine
+                class="block text-sm text-muted"
+                publishDate={post.data.publishDate}
+                minutes={readingTime(post.body ?? "")}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-muted">No posts found for this tag.</p>
+      )}
     </section>
 
     <section class="mt-8">
-      <p><BackLink url="/blog" title="blog" /></p>
+      <p>
+        <BackLink url="/blog" title="blog" />
+      </p>
     </section>
   </PageLayout>
 </BaseLayout>

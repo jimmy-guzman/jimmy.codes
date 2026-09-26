@@ -15,26 +15,24 @@ const GITHUB_URL = filePath
 
 <span class="inline-flex items-center gap-1">
   Last updated on
-  {
-    GITHUB_URL ? (
-      <a
-        href={GITHUB_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="link link-hover"
-        title="View source and history on GitHub"
-      >
-        <time datetime={updatedDate.toISOString()}>
-          {prettyDate(updatedDate)}
-        </time>
-      </a>
-    ) : (
-      <time
-        datetime={updatedDate.toISOString()}
-        title={`Last updated on ${prettyDate(updatedDate)}`}
-      >
+  {GITHUB_URL ? (
+    <a
+      href={GITHUB_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="link link-hover"
+      title="View source and history on GitHub"
+    >
+      <time datetime={updatedDate.toISOString()}>
         {prettyDate(updatedDate)}
       </time>
-    )
-  }
+    </a>
+  ) : (
+    <time
+      datetime={updatedDate.toISOString()}
+      title={`Last updated on ${prettyDate(updatedDate)}`}
+    >
+      {prettyDate(updatedDate)}
+    </time>
+  )}
 </span>

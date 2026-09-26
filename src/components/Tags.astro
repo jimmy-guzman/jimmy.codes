@@ -17,37 +17,33 @@ const hasMoreTags = tags.length > visible;
   class="not-prose mb-safe-or-8 flex flex-wrap justify-center gap-2"
   aria-label="Filter posts by tag"
 >
-  {
-    visibleTags.map(({ tag }) => {
-      const tagSlug = slugifyTag(tag);
-      const isActive = tagSlug === active;
+  {visibleTags.map(({ tag }) => {
+    const tagSlug = slugifyTag(tag);
+    const isActive = tagSlug === active;
 
-      return (
-        <a
-          href={`/blog/tags/${tagSlug}`}
-          aria-label={isActive ? `Current: ${tag}` : `Filter by ${tag}`}
-          aria-current={isActive ? "page" : undefined}
-          data-astro-prefetch
-          class:list={[
-            "badge transition-colors duration-150 ease-in-out",
-            "focus-visible:ring-1 focus-visible:ring-base-content focus-visible:outline-none",
-            isActive ? "badge-neutral" : "hover:badge-soft",
-          ]}
-        >
-          {tag}
-        </a>
-      );
-    })
-  }
-  {
-    hasMoreTags && (
+    return (
       <a
-        href="/blog/tags"
-        class="badge badge-outline transition-colors duration-150 ease-in-out hover:badge-soft focus-visible:ring-1 focus-visible:ring-base-content focus-visible:outline-none"
+        href={`/blog/tags/${tagSlug}`}
+        aria-label={isActive ? `Current: ${tag}` : `Filter by ${tag}`}
+        aria-current={isActive ? "page" : undefined}
         data-astro-prefetch
+        class:list={[
+          "badge transition-colors duration-150 ease-in-out",
+          "focus-visible:ring-1 focus-visible:ring-base-content focus-visible:outline-none",
+          isActive ? "badge-neutral" : "hover:badge-soft",
+        ]}
       >
-        +{tags.length - visible} more
+        {tag}
       </a>
-    )
-  }
+    );
+  })}
+  {hasMoreTags && (
+    <a
+      href="/blog/tags"
+      class="badge badge-outline transition-colors duration-150 ease-in-out hover:badge-soft focus-visible:ring-1 focus-visible:ring-base-content focus-visible:outline-none"
+      data-astro-prefetch
+    >
+      +{tags.length - visible} more
+    </a>
+  )}
 </nav>

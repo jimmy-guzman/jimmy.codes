@@ -57,39 +57,37 @@ const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
 <div class="divider" aria-hidden="true" role="presentation"></div>
 
 <article>
-  {
-    srcImage && (
-      <figure>
-        <Image
-          src={srcImage}
-          alt={`Cover image for ${title}`}
-          class="h-auto w-full"
-          loading="eager"
-          fetchpriority="high"
-          widths={[400, 696, 1392]}
-          sizes="(max-width: 768px) 400px, (min-resolution: 2dppx) 1392px, 696px"
-          format="webp"
-        />
-        <figcaption class="text-xs text-muted">
-          Image crafted by robots
-        </figcaption>
-      </figure>
-    )
-  }
+  {srcImage && (
+    <figure>
+      <Image
+        src={srcImage}
+        alt={`Cover image for ${title}`}
+        class="h-auto w-full"
+        loading="eager"
+        fetchpriority="high"
+        widths={[400, 696, 1392]}
+        sizes="(max-width: 768px) 400px, (min-resolution: 2dppx) 1392px, 696px"
+        format="webp"
+      />
+      <figcaption class="text-xs text-muted">
+        Image crafted by robots
+      </figcaption>
+    </figure>
+  )}
   <slot />
 </article>
 
-<section class="mt-8"><Tags tags={tags} /></section>
+<section class="mt-8">
+  <Tags tags={tags} />
+</section>
 
 <aside class="mt-8" aria-label="Related posts">
   <ul>
-    {
-      relatedPosts.map((post) => (
-        <li>
-          <a href={`/blog/${post.slug}`}>{post.title}</a>
-        </li>
-      ))
-    }
+    {relatedPosts.map((post) => (
+      <li>
+        <a href={`/blog/${post.slug}`}>{post.title}</a>
+      </li>
+    ))}
   </ul>
 </aside>
 
@@ -98,6 +96,7 @@ const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
   <a href={`${urls.email}?subject=${emailSubject}`}>Send me an email</a>.
 </p>
 
+<!-- biome-ignore lint/a11y/useAnchorContent: false positive in 2.5.14, aria-label is ignored -->
 <a
   href="#page-title"
   class="btn fixed right-6 bottom-6 btn-circle btn-ghost shadow-lg"
@@ -106,14 +105,14 @@ const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
   <span class="icon-[lucide--arrow-up] h-4 w-4" aria-hidden="true"></span>
 </a>
 
-{
-  updatedDate && (
-    <section class="mt-8 flex justify-end text-sm text-muted">
-      <LastModified updatedDate={updatedDate} filePath={filePath} />
-    </section>
-  )
-}
+{updatedDate && (
+  <section class="mt-8 flex justify-end text-sm text-muted">
+    <LastModified updatedDate={updatedDate} filePath={filePath} />
+  </section>
+)}
 
 <section class="mt-8">
-  <p><BackLink url="/blog" title="blog" /></p>
+  <p>
+    <BackLink url="/blog" title="blog" />
+  </p>
 </section>

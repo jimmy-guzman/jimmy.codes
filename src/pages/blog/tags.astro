@@ -23,20 +23,18 @@ const backOptions = { title: "blog" as const, url: "/blog" };
   <PageLayout heading={pages.tags.heading} back={backOptions}>
     <section class="not-prose">
       <ul class="list">
-        {
-          tags.map(({ tag, count }) => (
-            <li class="list-row">
-              <a
-                href={`/blog/tags/${slugifyTag(tag)}`}
-                class="link link-hover list-col-grow"
-                data-astro-prefetch
-              >
-                {tag}
-              </a>
-              <span class="text-muted tabular-nums">{count}</span>
-            </li>
-          ))
-        }
+        {tags.map(({ tag, count }) => (
+          <li class="list-row">
+            <a
+              href={`/blog/tags/${slugifyTag(tag)}`}
+              class="link link-hover list-col-grow"
+              data-astro-prefetch
+            >
+              {tag}
+            </a>
+            <span class="text-muted tabular-nums">{count}</span>
+          </li>
+        ))}
       </ul>
     </section>
   </PageLayout>

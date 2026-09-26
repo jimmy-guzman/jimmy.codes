@@ -23,7 +23,9 @@ export default defineConfig({
   ],
   retries: isCI ? 2 : 0,
   testDir: "./e2e",
-  use: { baseURL, trace: "on-first-retry" },
+  // reduced motion disables MPA view transitions (see global.css), whose frozen
+  // old-page snapshot swallows clicks made right after navigation
+  use: { baseURL, reducedMotion: "reduce", trace: "on-first-retry" },
   webServer: {
     command: "astro preview",
     reuseExistingServer: isCI,

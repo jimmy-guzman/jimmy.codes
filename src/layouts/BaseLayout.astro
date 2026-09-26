@@ -94,34 +94,30 @@ const jsonLd = JSON.stringify({
 
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    {
-      pwaAssetsHead.themeColor && (
-        <meta name="theme-color" content={pwaAssetsHead.themeColor.content} />
-      )
-    }
+    {pwaAssetsHead.themeColor && (
+      <meta name="theme-color" content={pwaAssetsHead.themeColor.content} />
+    )}
 
-    {pwaAssetsHead.links.map((link) => <link {...link} />)}
+    {pwaAssetsHead.links.map((link) => (
+      <link {...link} />
+    ))}
 
     {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
 
-    {
-      alternates.map(({ type, path }) => (
-        <link rel="alternate" type={type} href={`${urls.site}${path}`} />
-      ))
-    }
+    {alternates.map(({ type, path }) => (
+      <link rel="alternate" type={type} href={`${urls.site}${path}`} />
+    ))}
 
     <meta name="generator" content={Astro.generator} />
 
-    {
-      FATHOM_SITE_ID && (
-        <script
-          is:inline
-          src="https://cdn.usefathom.com/script.js"
-          data-site={FATHOM_SITE_ID}
-          defer
-        />
-      )
-    }
+    {FATHOM_SITE_ID && (
+      <script
+        is:inline
+        src="https://cdn.usefathom.com/script.js"
+        data-site={FATHOM_SITE_ID}
+        defer
+      ></script>
+    )}
 
     <Font
       cssVariable="--font-mono"
@@ -132,8 +128,7 @@ const jsonLd = JSON.stringify({
     />
 
     <script src="/src/pwa.ts"></script>
-
-    <script type="application/ld+json" is:inline set:html={jsonLd} />
+    <script type="application/ld+json" is:inline set:html={jsonLd}></script>
   </head>
   <body
     class="flex min-h-dvh-safe flex-col justify-between px-safe-or-4"
