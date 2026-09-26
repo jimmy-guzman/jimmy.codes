@@ -23,30 +23,31 @@ const tags = getAllTags(posts);
     <Tags tags={tags} />
     <section>
       <ul class="flex flex-col gap-2 ps-0">
-        {
-          posts.map((post) => (
-            <li class="flex flex-col gap-y-2">
-              <a
-                href={`/blog/${post.id}`}
-                class="link link-hover"
-                rel="bookmark"
-                data-astro-prefetch
-              >
-                {shortTitle(post)}
-              </a>
-              <MetaLine
-                class="text-sm text-muted"
-                publishDate={post.data.publishDate}
-                minutes={readingTime(post.body ?? "")}
-              />
-            </li>
-          ))
-        }
+        {posts.map((post) => (
+          <li class="flex flex-col gap-y-2">
+            <a
+              href={`/blog/${post.id}`}
+              class="link link-hover"
+              rel="bookmark"
+              data-astro-prefetch
+            >
+              {shortTitle(post)}
+            </a>
+            <MetaLine
+              class="text-sm text-muted"
+              publishDate={post.data.publishDate}
+              minutes={readingTime(post.body ?? "")}
+            />
+          </li>
+        ))}
       </ul>
     </section>
     <section class="mt-8">
       <p class="text-center text-xs text-muted">
-        Also available via <a href="/blog/rss.xml" class="link">RSS</a>
+        Also available via{" "}
+        <a href="/blog/rss.xml" class="link">
+          RSS
+        </a>
       </p>
     </section>
   </PageLayout>

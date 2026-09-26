@@ -110,12 +110,10 @@ const { alternates = [] } = Astro.props;
 const site = Astro.site;
 ---
 
-{
-  site &&
-    alternates.map(({ type, path }) => (
-      <link rel="alternate" type={type} href={new URL(path, site).toString()} />
-    ))
-}
+{site &&
+  alternates.map(({ type, path }) => (
+    <link rel="alternate" type={type} href={new URL(path, site).toString()} />
+  ))}
 ```
 
 Pass it from the post page:

@@ -90,6 +90,9 @@ export default defineConfig({
             short_name: "JGM",
             theme_color: "#f9f9fb",
           },
+          // @astrojs/vercel >=11.0.6 sets build.server to .vercel/output/server
+          // for static output, and vite-pwa would write sw.js there instead
+          outDir: "dist",
           pwaAssets: {
             config: true,
           },

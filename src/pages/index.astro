@@ -24,10 +24,11 @@ const { Content } = await render(page);
   <PageLayout heading={page.data.heading}>
     <Content />
     <p>
-      Latest post:
-      <a href={`/blog/${latestPost.id}`} rel="bookmark" data-astro-prefetch
-        >{shortTitle(latestPost)}</a
-      >.
+      Latest post:{" "}
+      <a href={`/blog/${latestPost.id}`} rel="bookmark" data-astro-prefetch>
+        {shortTitle(latestPost)}
+      </a>
+      .
     </p>
   </PageLayout>
 </BaseLayout>
