@@ -4,6 +4,7 @@ import { FATHOM_SITE_ID } from "astro:env/client";
 
 import { pwaAssetsHead } from "virtual:pwa-assets/head";
 import { pwaInfo } from "virtual:pwa-info";
+import type { ComponentProps } from "astro/types";
 
 import Footer from "@/components/Footer.astro";
 import Nav from "@/components/Nav.astro";
@@ -14,33 +15,13 @@ import { urls } from "@/configs/urls";
 
 import "@/styles/global.css";
 
-interface Props {
-  title: string;
-  description: string;
-  keywords: readonly string[];
-  noIndex?: boolean;
+type Props = ComponentProps<typeof Seo> & {
   extraLd?: Record<string, unknown>[];
-  ogImage?: string;
-  ogType?: "website" | "article";
-  article?: {
-    publishedTime: Date;
-    modifiedTime: Date;
-    tags: readonly string[];
-  };
   alternates?: { type: string; path: string }[];
-}
+};
 
-const {
-  title,
-  description,
-  keywords,
-  noIndex,
-  extraLd = [],
-  ogImage,
-  ogType,
-  article,
-  alternates = [],
-} = Astro.props;
+const { extraLd = [], alternates = [], ...seo } = Astro.props;
+const { title, description } = seo;
 
 const canonical = Astro.url.href.replace(/\/$/, "");
 
@@ -80,15 +61,7 @@ const jsonLd = JSON.stringify({
 <!doctype html>
 <html lang="en" class="scroll-smooth motion-reduce:scroll-auto">
   <head>
-    <Seo
-      title={title}
-      description={description}
-      keywords={keywords}
-      noIndex={noIndex}
-      ogImage={ogImage}
-      ogType={ogType}
-      article={article}
-    />
+    <Seo {...seo} />
 
     <ThemeScript />
 
@@ -127,7 +100,11 @@ const jsonLd = JSON.stringify({
       ]}
     />
 
-    <script src="/src/pwa.ts"></script>
+    <script>
+      import { registerSW } from "virtual:pwa-register";
+
+      registerSW({ immediate: true });
+    </script>
     <script type="application/ld+json" is:inline set:html={jsonLd}></script>
   </head>
   <body

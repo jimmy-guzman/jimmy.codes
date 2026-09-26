@@ -10,44 +10,20 @@
       "source": "/"
     },
     {
-      "destination": "/about.md",
+      "destination": "/:page.md",
       "has": [
         { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
       ],
       "permanent": false,
-      "source": "/about"
+      "source": "/:page(about|uses|blog)"
     },
     {
-      "destination": "/uses.md",
+      "destination": "/blog/:path.md",
       "has": [
         { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
       ],
       "permanent": false,
-      "source": "/uses"
-    },
-    {
-      "destination": "/blog.md",
-      "has": [
-        { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
-      ],
-      "permanent": false,
-      "source": "/blog"
-    },
-    {
-      "destination": "/blog/tags.md",
-      "has": [
-        { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
-      ],
-      "permanent": false,
-      "source": "/blog/tags"
-    },
-    {
-      "destination": "/blog/:slug.md",
-      "has": [
-        { "key": "accept", "type": "header", "value": "(.*)text/markdown(.*)" }
-      ],
-      "permanent": false,
-      "source": "/blog/:slug((?!.*\\.md$).*)"
+      "source": "/blog/:path((?!rss\\.xml$)(?!.*\\.md$).+)"
     }
   ]
 }

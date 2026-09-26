@@ -110,9 +110,18 @@ const platforms = [
 </dialog>
 
 <script>
-  import { initBlogShare } from "./blog-share.client";
-
   const root = document.querySelector<HTMLElement>("[data-blog-share-root]");
+  const btn = root?.querySelector<HTMLButtonElement>("[data-share-open]");
+  const preferNativeShare =
+    typeof navigator.share === "function" &&
+    /android|ipad|iphone|ipod/iu.test(navigator.userAgent);
 
-  if (root != null) initBlogShare(root);
+  if (root && btn && preferNativeShare) {
+    const { shareUrl: url, shareTitle: title, shareDescription } = root.dataset;
+
+    btn.removeAttribute("onclick");
+    btn.addEventListener("click", () => {
+      void navigator.share({ text: `"${shareDescription}"`, title, url });
+    });
+  }
 </script>

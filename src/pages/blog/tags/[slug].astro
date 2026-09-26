@@ -8,8 +8,7 @@ import Tags from "@/components/Tags.astro";
 import { BASE_TITLE } from "@/configs/pages";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
-import { readingTime, sortByPublishDate } from "@/utils/content";
-import { shortTitle } from "@/utils/post";
+import { readingTime, shortTitle, sortByPublishDate } from "@/utils/content";
 import { getAllTags, slugifyTag } from "@/utils/tags";
 
 export const getStaticPaths = (async () => {

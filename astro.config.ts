@@ -14,7 +14,6 @@ import {
 import expressiveCode from "astro-expressive-code";
 import mermaid from "astro-mermaid";
 import expressiveCodeTwoSlash from "expressive-code-twoslash";
-import { h } from "hastscript";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeCallouts from "rehype-callouts";
 import rehypeExternalLinks from "rehype-external-links";
@@ -113,13 +112,18 @@ export default defineConfig({
           {
             behavior: "wrap",
             content: [
-              h("span", {
-                "aria-hidden": "true",
-                class:
-                  "icon-[lucide--link] absolute left-0 top-1/2 -translate-y-1/2 " +
-                  "opacity-0 group-hover:opacity-100 transition-opacity duration-150 " +
-                  "text-muted h-[1em] w-[1em] max-h-4 max-w-4",
-              }),
+              {
+                children: [],
+                properties: {
+                  ariaHidden: "true",
+                  className:
+                    "icon-[lucide--link] absolute left-0 top-1/2 -translate-y-1/2 " +
+                    "opacity-0 group-hover:opacity-100 transition-opacity duration-150 " +
+                    "text-muted h-[1em] w-[1em] max-h-4 max-w-4",
+                },
+                tagName: "span",
+                type: "element",
+              },
             ],
             properties: {
               className: "group relative block pl-5 -ml-5",
@@ -151,5 +155,6 @@ export default defineConfig({
   trailingSlash: "never",
   vite: {
     plugins: [tailwindcss()],
+    server: { watch: { ignored: ["**/.vercel/**", "**/coverage/**"] } },
   },
 });

@@ -43,11 +43,4 @@ export const pages = {
     keywords: ["blog", "tags", "posts"],
     title: `All Tags | ${BASE_TITLE}`,
   },
-
-  uses: {
-    description: "Tech I love, use daily, and am currently learning.",
-    heading: "Uses",
-    keywords: ["tech stack", "tools", "uses", "typescript", "react", "astro"],
-    title: `Uses | ${BASE_TITLE}`,
-  },
 } as const;

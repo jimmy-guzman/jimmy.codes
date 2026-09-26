@@ -2,8 +2,7 @@
 import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
-import { sortByPublishDate } from "@/utils/content";
-import { shortTitle } from "@/utils/post";
+import { shortTitle, sortByPublishDate } from "@/utils/content";
 
 const posts = await getCollection("posts");
 const latestPost = posts.sort(sortByPublishDate)[0];

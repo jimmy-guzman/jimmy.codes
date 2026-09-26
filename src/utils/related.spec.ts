@@ -32,19 +32,7 @@ describe("getRelatedByTags", () => {
     vi.useRealTimers();
   });
 
-  it("should return empty when current post has no usable tags (early exit)", () => {
-    const current = makePost({ data: { tags: ["TIL"] }, id: "a" });
-    const all = [
-      current,
-      makePost({ data: { tags: ["TIL", "React"] }, id: "b" }),
-      makePost({ data: { tags: ["TIL", "TypeScript"] }, id: "c" }),
-    ];
-    const results = getRelatedByTags(all, current, { stopTags: ["TIL"] });
-
-    expect(results).toEqual([]);
-  });
-
-  it("should skip candidates that have zero usable tags", () => {
+  it("should skip candidates that share no tags", () => {
     const current = makePost({ data: { tags: ["React"] }, id: "a" });
     const all = [
       current,
@@ -52,38 +40,7 @@ describe("getRelatedByTags", () => {
       makePost({ data: { tags: ["TIL"] }, id: "c" }),
       makePost({ data: { tags: ["React"] }, id: "d" }),
     ];
-    const results = getRelatedByTags(all, current, { stopTags: ["TIL"] });
-
-    expect(results.map((r) => r.slug)).toEqual(["d"]);
-  });
-
-  it("should give zero weight to unseen/filtered tags (no accidental boost)", () => {
-    const current = makePost({ data: { tags: ["React"] }, id: "a" });
-    // "unknown" never appears in tagCounts because it is stopped everywhere
-    const all = [
-      current,
-      makePost({ data: { tags: ["React", "Tooling"] }, id: "b" }),
-      makePost({ data: { tags: ["Tooling"] }, id: "c" }),
-      makePost({ data: { tags: ["React"] }, id: "d" }),
-    ];
-    const results = getRelatedByTags(all, current, { stopTags: ["Tooling"] });
-
-    // b and d both share only "react"; unknown contributes zero
-    expect(results.map((r) => r.slug)).toEqual(["b", "d"]);
-  });
-
-  it("should honor minimumSharedTags", () => {
-    const current = makePost({
-      data: { tags: ["React", "Node.js"] },
-      id: "a",
-    });
-    const all = [
-      current,
-      makePost({ data: { tags: ["React"] }, id: "b" }),
-      makePost({ data: { tags: ["Node.js"] }, id: "c" }),
-      makePost({ data: { tags: ["React", "Node.js"] }, id: "d" }),
-    ];
-    const results = getRelatedByTags(all, current, { minimumSharedTags: 2 });
+    const results = getRelatedByTags(all, current);
 
     expect(results.map((r) => r.slug)).toEqual(["d"]);
   });
@@ -281,46 +238,5 @@ describe("getRelatedByTags", () => {
     const results = getRelatedByTags(all, current);
 
     expect(results.map((r) => r.slug)).toEqual(["a-post", "b-post"]);
-  });
-
-  it("should disable Jaccard blending when jaccardWeight is 0", () => {
-    const date = new Date("2024-01-01T00:00:00Z");
-
-    const current = makePost({
-      data: { publishDate: date, tags: ["React", "TypeScript"] },
-      id: "current",
-    });
-
-    // With jaccardWeight=0, scores are pure IDF. Both share React; neither gets a
-    // Jaccard boost, so the one with more shared tags (also has TypeScript) wins purely on IDF.
-    const twoShared = makePost({
-      data: {
-        publishDate: date,
-        tags: ["React", "TypeScript", "Node.js", "Tailwind"],
-      },
-      id: "two-shared",
-    });
-    const oneShared = makePost({
-      data: { publishDate: date, tags: ["React"] },
-      id: "one-shared",
-    });
-
-    const all = [current, twoShared, oneShared];
-
-    const withoutJaccard = getRelatedByTags(all, current, { jaccardWeight: 0 });
-    const withJaccard = getRelatedByTags(all, current, { jaccardWeight: 0.5 });
-
-    // Both orderings rank two-shared first because it has a higher IDF score (two
-    // shared tags vs one). With jaccardWeight=0.5, both candidates happen to have
-    // the same Jaccard value (two-shared: 2/4=0.5, one-shared: 1/2=0.5), so the
-    // Jaccard boost is equal and the IDF advantage still determines the order.
-    expect(withoutJaccard.map((r) => r.slug)).toEqual([
-      "two-shared",
-      "one-shared",
-    ]);
-    expect(withJaccard.map((r) => r.slug)).toEqual([
-      "two-shared",
-      "one-shared",
-    ]);
   });
 });

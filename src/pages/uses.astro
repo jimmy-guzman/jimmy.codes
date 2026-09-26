@@ -1,111 +1,27 @@
 ---
 import "@/styles/icons.css";
 
-import { pages } from "@/configs/pages";
-import {
-  techAI,
-  techBackend,
-  techFrontend,
-  techFullStack,
-  techInfrastructure,
-  techLanguages,
-  techRuntimes,
-  techTooling,
-  titles,
-  usageBadge,
-} from "@/configs/tech";
+import { getEntry, render } from "astro:content";
+import { techSections, usageBadge } from "@/configs/tech";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 
-const techSections = [
-  { items: techLanguages, title: titles.languages },
-  { items: techRuntimes, title: titles.runtimes },
-  { items: techFullStack, title: titles.fullStack },
-  { items: techFrontend, title: titles.frontend },
-  { items: techTooling, title: titles.tooling },
-  { items: techBackend, title: titles.backend },
-  { items: techInfrastructure, title: titles.infrastructure },
-  { items: techAI, title: titles.ai },
-];
+const page = await getEntry("pages", "uses");
+
+if (!page) throw new Error("Missing content: pages/uses.md");
+
+const { Content } = await render(page);
 ---
 
 <BaseLayout
-  title={pages.uses.title}
-  description={pages.uses.description}
-  keywords={pages.uses.keywords}
+  title={page.data.title}
+  description={page.data.description}
+  keywords={page.data.keywords}
   alternates={[{ path: "/uses.md", type: "text/markdown" }]}
 >
-  <PageLayout heading={pages.uses.heading}>
+  <PageLayout heading={page.data.heading}>
     <article class="prose max-w-none prose-neutral dark:prose-invert">
-      <p>
-        What I use to build software, from the tools on my desk to the
-        technologies I play with.
-      </p>
-      <ul>
-        <li>
-          <strong>Editor</strong>-
-          <a href="https://zed.dev/" target="_blank" rel="noopener noreferrer">
-            Zed
-          </a>
-          ,
-          <a
-            href="https://code.visualstudio.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            VS Code
-          </a>
-          , or
-          <a
-            href="https://www.jetbrains.com/idea/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            IntelliJ IDEA
-          </a>
-        </li>
-        <li>
-          <strong>Terminal</strong>-
-          <a href="https://cmux.com/" target="_blank" rel="noopener noreferrer">
-            cmux
-          </a>
-          with
-          <a
-            href="https://starship.rs/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Starship
-          </a>
-        </li>
-        <li>
-          <strong>AI Coding Agent</strong>-
-          <a
-            href="https://opencode.ai/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            OpenCode
-          </a>
-          and
-          <a
-            href="https://claude.ai/code"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Claude Code
-          </a>
-        </li>
-        <li>
-          <strong>Laptop</strong>- MacBook Pro 16" M4 Max, 128GB RAM, 4TB SSD
-        </li>
-        <li>
-          <strong>Keyboard</strong> - HHKB Professional HYBRID Type-S
-        </li>
-        <li>
-          <strong>Mouse</strong> - Logitech MX Master 3S
-        </li>
-      </ul>
+      <Content />
     </article>
 
     <hr />

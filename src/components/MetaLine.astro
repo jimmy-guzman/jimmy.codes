@@ -10,10 +10,8 @@ interface Props {
 const { publishDate, minutes, class: className = "" } = Astro.props;
 ---
 
-<span class:list={[className, "flex items-center justify-between"]}>
-  <span class="inline-flex items-center gap-2">
-    <time datetime={publishDate.toISOString()}>{prettyDate(publishDate)}</time>
-    <span aria-hidden="true">•</span>
-    <span>{`${minutes} min read`}</span>
-  </span>
+<span class:list={[className, "flex items-center gap-2"]}>
+  <time datetime={publishDate.toISOString()}>{prettyDate(publishDate)}</time>
+  <span aria-hidden="true">•</span>
+  <span>{`${minutes} min read`}</span>
 </span>

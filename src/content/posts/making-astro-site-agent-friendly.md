@@ -37,11 +37,16 @@ Goal: every post reachable at `/posts/your-slug.md` as well as `/posts/your-slug
 
 Add `src/pages/posts/[...slug].md.ts`. Astro treats `.ts` files in `src/pages` as API routes, so the `.md` extension becomes part of the URL. Substitute `posts` below with whatever you named your content collection.
 
+The route needs Markdown to return. Two ways to get it.
+
+#### Option 1: read the source file
+
+You already wrote the Markdown, and it's sitting on disk. Serve that file.
+
 ```ts title="src/pages/posts/[...slug].md.ts"
 import { getCollection } from "astro:content";
+import { readFile } from "node:fs/promises";
 import type { APIRoute, InferGetStaticPropsType } from "astro";
-
-import { toRawMarkdown } from "@/utils/serializers";
 
 export const getStaticPaths = async () => {
   const posts = await getCollection("posts");
@@ -54,18 +59,28 @@ export const getStaticPaths = async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-export const GET: APIRoute<Props> = ({ props }) => {
-  return new Response(toRawMarkdown(props.post), {
+export const GET: APIRoute<Props> = async ({ props }) => {
+  const { filePath, id } = props.post;
+
+  if (!filePath) throw new Error(`Missing source file for ${id}`);
+
+  return new Response(await readFile(filePath, "utf8"), {
     headers: { "Content-Type": "text/markdown; charset=utf-8" },
   });
 };
 ```
 
-If your project uses `output: "server"`, add `export const prerender = true` to keep this route static. Otherwise drop `getStaticPaths` and look the post up inside `GET` using `params.slug`.
+Agents get exactly what you wrote, frontmatter included, with no extra dependency and no formatting drift.
 
-### Write the post serializer
+The `glob` loader sets `filePath` on every entry, relative to the project root. On-demand routes do not ship your source files, so keep this route static. If your project uses `output: "server"`, add `export const prerender = true`.
 
-`toRawMarkdown` rebuilds clean Markdown from the parsed frontmatter and the raw body.
+#### Option 2: serialize from parsed data
+
+Sometimes there is no file to read. Reach for a serializer when:
+
+- Your content comes from a CMS or a remote loader.
+- The route renders on demand and source files are not deployed.
+- You want to reshape frontmatter before agents see it, like dropping internal fields.
 
 Install `yaml`:
 
@@ -76,24 +91,40 @@ pnpm add yaml
 Use it for the frontmatter. Hand-concatenating YAML breaks the moment a title or description contains a colon or a quote.
 
 ```ts title="src/utils/serializers.ts"
-import type { CollectionEntry } from "astro:content";
 import { stringify } from "yaml";
 
-export function toRawMarkdown(post: CollectionEntry<"posts">) {
+export function toRawMarkdown(entry: {
+  data: Record<string, unknown>;
+  body?: string;
+}) {
   const frontmatter = stringify(
     Object.fromEntries(
-      Object.entries(post.data).map(([k, v]) => [
+      Object.entries(entry.data).map(([k, v]) => [
         k,
         v instanceof Date ? v.toISOString().split("T")[0] : v,
       ]),
     ),
   ).trimEnd();
 
-  return `---\n${frontmatter}\n---\n\n${post.body ?? ""}`;
+  return `---\n${frontmatter}\n---\n\n${entry.body ?? ""}`;
 }
 ```
 
-The `.map` formats dates as `YYYY-MM-DD` so the output matches what you wrote. The `?? ""` guards against an empty body.
+The `.map` formats dates as `YYYY-MM-DD` so the output matches what you wrote. The `?? ""` guards against an empty body. Because `entry` is loosely typed, the serializer accepts entries from any collection.
+
+Then swap the `GET` body in the route:
+
+```ts title="src/pages/posts/[...slug].md.ts"
+import { toRawMarkdown } from "@/utils/serializers";
+
+export const GET: APIRoute<Props> = ({ props }) => {
+  return new Response(toRawMarkdown(props.post), {
+    headers: { "Content-Type": "text/markdown; charset=utf-8" },
+  });
+};
+```
+
+If the route renders on demand, drop `getStaticPaths` and look the entry up inside `GET` using `params.slug`.
 
 ### Advertise the alternate URL
 
@@ -134,7 +165,7 @@ Some agents skip the `<head>` lookup and send `Accept: text/markdown` against th
 {
   "redirects": [
     {
-      "source": "/posts/:slug((?!.*\\.md$).*)",
+      "source": "/posts/:slug((?!rss\\.xml$)(?!.*\\.md$).+)",
       "has": [
         { "type": "header", "key": "accept", "value": "(.*)text/markdown(.*)" }
       ],
@@ -147,7 +178,11 @@ Some agents skip the `<head>` lookup and send `Accept: text/markdown` against th
 
 The `(?!.*\.md$)` is a negative lookahead. It excludes URLs already ending in `.md`. Without it, a request to `/posts/my-post.md` with `Accept: text/markdown` redirects to `/posts/my-post.md.md`, then `/posts/my-post.md.md.md`, and so on.
 
-Verify both paths:
+The `(?!rss\.xml$)` does the same for the feed. The pattern matches every path under `/posts`. Anything that is not a page needs excluding, or it redirects to a `.md` that does not exist.
+
+Every page the pattern matches also needs a `.md` route. If you have tag pages under `/posts`, like `/posts/tags/react`, they match too, so give them a `.md` route or exclude them.
+
+Verify all three paths:
 
 ```sh
 # Direct .md URL
@@ -155,6 +190,9 @@ curl https://example.com/posts/your-slug.md
 
 # Content negotiation on the HTML URL
 curl -H "Accept: text/markdown" -L https://example.com/posts/your-slug
+
+# Static files stay put (expect a 200, not a redirect)
+curl -I -H "Accept: text/markdown" https://example.com/posts/rss.xml
 ```
 
 ## Step 2: extend Markdown endpoints to other pages
@@ -162,44 +200,36 @@ curl -H "Accept: text/markdown" -L https://example.com/posts/your-slug
 > [!TIP]
 > Use full absolute URLs in any Markdown served to agents. Relative paths lose their context the moment an agent reads the page on its own. If an agent encounters `/posts/my-post.md`, it has no way to know which site that path belongs to or how to get there.
 
-Same pattern as Step 1 for anything else worth exposing. A `.md.ts` route, a serializer, a Markdown response.
+Same pattern as Step 1 for anything else worth exposing. A `.md.ts` route, a Markdown response.
 
-If your page content lives in hardcoded config or directly in `.astro` files, move it into a content collection first. Components and the Markdown serializer then read from one place. This post assumes a `pages` collection already exists; if not, the [Astro content collections docs](https://docs.astro.build/en/guides/content-collections/) cover setup.
+If your page content lives in hardcoded config or directly in `.astro` files, move it into a content collection first. Components and the Markdown endpoint then read from one place. Otherwise the two copies drift. This post assumes a `pages` collection already exists; if not, the [Astro content collections docs](https://docs.astro.build/en/guides/content-collections/) cover setup.
 
 For a single page like `/about`, create `src/pages/about.md.ts`:
 
 ```ts title="src/pages/about.md.ts"
-import { getEntry } from "astro:content";
+import { readFile } from "node:fs/promises";
 import type { APIRoute } from "astro";
 
-import { toRawPageMarkdown } from "@/utils/serializers";
-
 export const GET: APIRoute = async () => {
-  const page = await getEntry("pages", "about");
+  const source = await readFile("src/content/pages/about.md", "utf8");
 
-  if (!page) return new Response("Not found", { status: 404 });
-
-  return new Response(toRawPageMarkdown(page), {
+  return new Response(source, {
     headers: { "Content-Type": "text/markdown; charset=utf-8" },
   });
 };
 ```
 
-`toRawPageMarkdown` mirrors `toRawMarkdown` from Step 1, typed against the pages collection.
+You know the path up front, so there is nothing to look up.
 
-Add one redirect per route to `vercel.json`:
+If you went with Option 2, look the page up with `getEntry("pages", "about")`, return a 404 when it is missing, and pass it to `toRawMarkdown`. The same serializer handles both collections.
+
+The posts index works the same way. Add `src/pages/posts.md.ts` and return the list as Markdown.
+
+Then extend `vercel.json`. One rule for the home page, one named group for the rest:
 
 ```json title="vercel.json"
 {
   "redirects": [
-    {
-      "source": "/posts/:slug((?!.*\\.md$).*)",
-      "has": [
-        { "type": "header", "key": "accept", "value": "(.*)text/markdown(.*)" }
-      ],
-      "destination": "/posts/:slug.md",
-      "permanent": false
-    },
     {
       "source": "/",
       "has": [
@@ -209,26 +239,29 @@ Add one redirect per route to `vercel.json`:
       "permanent": false
     },
     {
-      "source": "/about",
+      "source": "/:page(about|posts)",
       "has": [
         { "type": "header", "key": "accept", "value": "(.*)text/markdown(.*)" }
       ],
-      "destination": "/about.md",
+      "destination": "/:page.md",
       "permanent": false
     },
     {
-      "source": "/posts",
+      "source": "/posts/:slug((?!rss\\.xml$)(?!.*\\.md$).+)",
       "has": [
         { "type": "header", "key": "accept", "value": "(.*)text/markdown(.*)" }
       ],
-      "destination": "/posts.md",
+      "destination": "/posts/:slug.md",
       "permanent": false
     }
   ]
 }
 ```
 
-Same shape every time. Match the `Accept` header. Redirect to `.md`. One per route.
+When you add a page, add its name to the group.
+
+> [!WARNING]
+> Resist collapsing these into a catch-all like `/:path*`. It also matches `/llms.txt`, `/robots.txt`, `/favicon.svg`, and any PDF. Every agent that sends `Accept: text/markdown` gets redirected to a `.md` URL that does not exist. List only the pages that have Markdown.
 
 ## Step 3: add /llms.txt
 
@@ -305,7 +338,7 @@ ${postRows}
 
 Two things worth noting. `site` comes from the API route, so the base URL stays in `astro.config.ts` rather than duplicated here. `toSorted` returns a new array, so the serializer does not reorder the collection as a side effect.
 
-[This site's `/llms.txt`](/llms.txt) is generated by exactly this code.
+For a live example, see [this site's `/llms.txt`](/llms.txt).
 
 ## What you get
 
