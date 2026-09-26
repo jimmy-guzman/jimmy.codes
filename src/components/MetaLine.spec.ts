@@ -39,6 +39,6 @@ describe("MetaLine", () => {
       },
     });
 
-    expect(html).toContain('class="mt-2 flex items-center justify-between"');
+    expect(html).toContain('class="mt-2 flex items-center gap-2"');
   });
 });

@@ -3,207 +3,34 @@ import { describe, expect, it } from "vitest";
 import {
   toBlogIndexMarkdown,
   toLlmsTxtMarkdown,
-  toRawMarkdown,
-  toRawPageMarkdown,
+  toTagMarkdown,
   toTagsMarkdown,
   toUsesMarkdown,
 } from "./serializers";
 
-describe("toRawMarkdown", () => {
-  it("should wrap content in frontmatter delimiters", () => {
-    const result = toRawMarkdown({
-      body: "Body text",
-      data: {
-        description: "Test description",
-        keywords: ["test"],
-        publishDate: new Date("2024-01-01"),
-        tags: ["TypeScript"],
-        title: "Hello",
-      },
-    } as CollectionEntry<"posts">);
-
-    expect(result).toMatch(/^---\n/);
-    expect(result).toContain("\n---\n\nBody text");
-  });
-
-  it("should output string values as-is", () => {
-    const result = toRawMarkdown({
-      body: "",
-      data: {
-        description: "Test description",
-        keywords: ["test"],
-        publishDate: new Date("2024-01-01"),
-        tags: ["TypeScript"],
-        title: "My Post",
-      },
-    } as CollectionEntry<"posts">);
-
-    expect(result).toContain("title: My Post");
-  });
-
-  it("should format Date values as YYYY-MM-DD", () => {
-    const result = toRawMarkdown({
-      body: "",
-      data: {
-        description: "Test description",
-        keywords: ["test"],
-        publishDate: new Date("2024-03-15T12:00:00Z"),
-        tags: ["TypeScript"],
-        title: "Test",
-      },
-    } as CollectionEntry<"posts">);
-
-    expect(result).toContain("publishDate: 2024-03-15");
-    expect(result).not.toContain("T12:00");
-  });
-
-  it("should serialize array values as block style YAML", () => {
-    const result = toRawMarkdown({
-      body: "",
-      data: {
-        description: "Test description",
-        keywords: ["a", "b"],
-        publishDate: new Date("2024-01-01"),
-        tags: ["TypeScript"],
-        title: "Test",
-      },
-    } as CollectionEntry<"posts">);
-
-    expect(result).toContain("keywords:\n  - a\n  - b");
-  });
-
-  it("should handle multiple frontmatter fields", () => {
-    const result = toRawMarkdown({
-      body: "",
-      data: {
-        description: "Test description",
-        keywords: ["x"],
-        publishDate: new Date("2024-01-01"),
-        tags: ["TypeScript"],
-        title: "Post",
-      },
-    } as CollectionEntry<"posts">);
-
-    expect(result).toContain("title: Post");
-    expect(result).toContain("tags:\n  - TypeScript");
-  });
-
-  it("should handle an empty body", () => {
-    const result = toRawMarkdown({
-      body: "",
-      data: {
-        description: "Test description",
-        keywords: ["test"],
-        publishDate: new Date("2024-01-01"),
-        tags: ["TypeScript"],
-        title: "No Body",
-      },
-    } as CollectionEntry<"posts">);
-
-    expect(result).toContain("title: No Body");
-    expect(result).toMatch(/^---\n[\s\S]*---\n\n$/);
-  });
-
-  it("should properly serialize strings with special YAML characters", () => {
-    const titleWithQuotes =
-      'Auto Apply "Suggest Canonical Classes" in Tailwind (VS Code)';
-    const descriptionWithColon =
-      "Schema-driven REST APIs in TypeScript: typed errors, explicit dependencies.";
-
-    const result = toRawMarkdown({
-      body: "",
-      data: {
-        description: descriptionWithColon,
-        keywords: ["test"],
-        publishDate: new Date("2024-01-01"),
-        tags: ["TypeScript"],
-        title: titleWithQuotes,
-      },
-    } as CollectionEntry<"posts">);
-
-    // description contains a colon so must be quoted by the YAML library
-    expect(result).toMatch(/description: ".+"/);
-    // title contains double quotes — library escapes them; value must be present
-    expect(result).toContain("title:");
-    expect(result).toContain("Suggest Canonical Classes");
-  });
-
-  it("should omit optional fields when not provided", () => {
-    const result = toRawMarkdown({
-      body: "",
-      data: {
-        description: "Test description",
-        keywords: ["test"],
-        publishDate: new Date("2024-01-01"),
-        tags: ["TypeScript"],
-        title: "No Optionals",
-      },
-    } as CollectionEntry<"posts">);
-
-    expect(result).not.toContain("shortTitle:");
-    expect(result).not.toContain("updatedDate:");
-    expect(result).not.toContain("undefined");
-  });
-});
-
-describe("toRawPageMarkdown", () => {
-  it("should wrap content in frontmatter delimiters", () => {
-    const result = toRawPageMarkdown({
-      body: "Page body text",
-      data: {
-        description: "A page description",
-        heading: "My Heading",
-        keywords: ["test"],
-        title: "My Page",
-      },
-    } as CollectionEntry<"pages">);
-
-    expect(result).toMatch(/^---\n/);
-    expect(result).toContain("\n---\n\nPage body text");
-  });
-
-  it("should include all frontmatter fields", () => {
-    const result = toRawPageMarkdown({
-      body: "",
-      data: {
-        description: "A page description",
-        heading: "My Heading",
-        keywords: ["one", "two"],
-        title: "My Page Title",
-      },
-    } as CollectionEntry<"pages">);
-
-    expect(result).toContain("title: My Page Title");
-    expect(result).toContain("heading: My Heading");
-    expect(result).toContain("description: A page description");
-    expect(result).toContain("keywords:\n  - one\n  - two");
-  });
-
-  it("should handle an empty body", () => {
-    const result = toRawPageMarkdown({
-      body: "",
-      data: {
-        description: "desc",
-        heading: "H",
-        keywords: ["kw"],
-        title: "T",
-      },
-    } as CollectionEntry<"pages">);
-
-    expect(result).toMatch(/^---\n[\s\S]*---\n\n$/);
-  });
-});
-
 describe("toUsesMarkdown", () => {
+  const source = `---
+title: Uses
+heading: Uses
+description: Tools
+keywords:
+  - uses
+---
+
+- **Editor** - Zed
+- **Terminal** - cmux
+- **Laptop** - MacBook Pro
+`;
+
   it("should wrap content in frontmatter delimiters", () => {
-    const result = toUsesMarkdown();
+    const result = toUsesMarkdown(source);
 
     expect(result).toMatch(/^---\n/);
     expect(result).toContain("\n---\n\n");
   });
 
-  it("should include frontmatter from pages.uses", () => {
-    const result = toUsesMarkdown();
+  it("should keep the source frontmatter", () => {
+    const result = toUsesMarkdown(source);
 
     expect(result).toContain("title:");
     expect(result).toContain("heading: Uses");
@@ -212,7 +39,7 @@ describe("toUsesMarkdown", () => {
   });
 
   it("should contain section headings for each tech category", () => {
-    const result = toUsesMarkdown();
+    const result = toUsesMarkdown(source);
 
     expect(result).toContain("## Languages");
     expect(result).toContain("## Runtimes");
@@ -225,14 +52,14 @@ describe("toUsesMarkdown", () => {
   });
 
   it("should render tables with a Technology and Usage column", () => {
-    const result = toUsesMarkdown();
+    const result = toUsesMarkdown(source);
 
     expect(result).toContain("| Technology | Usage |");
     expect(result).toContain("|---|---|");
   });
 
   it("should include the hardware intro section", () => {
-    const result = toUsesMarkdown();
+    const result = toUsesMarkdown(source);
 
     expect(result).toContain("**Editor**");
     expect(result).toContain("**Terminal**");
@@ -240,7 +67,7 @@ describe("toUsesMarkdown", () => {
   });
 
   it("should render each tech item as a markdown table row with a link", () => {
-    const result = toUsesMarkdown();
+    const result = toUsesMarkdown(source);
 
     // Every data row should follow the | [Title](url) | Label | pattern
     const dataRows = result
@@ -310,6 +137,36 @@ describe("toBlogIndexMarkdown", () => {
     const result = toBlogIndexMarkdown(posts);
 
     expect(result).toContain("2024-03-15");
+  });
+});
+
+describe("toTagMarkdown", () => {
+  const makePost = (
+    id: string,
+    tags: CollectionEntry<"posts">["data"]["tags"],
+  ) =>
+    ({
+      body: "",
+      data: {
+        description: "desc",
+        keywords: ["kw"],
+        publishDate: new Date("2024-01-01"),
+        tags,
+        title: id,
+      },
+      id,
+    }) as CollectionEntry<"posts">;
+
+  it("should list only the posts with the given tag", () => {
+    const result = toTagMarkdown("Next.js", [
+      makePost("tagged", ["Next.js", "React"]),
+      makePost("untagged", ["React"]),
+    ]);
+
+    expect(result).toContain('title: Posts tagged "Next.js" | ');
+    expect(result).toContain('# Posts tagged "Next.js"');
+    expect(result).toContain("(https://jimmy.codes/blog/tagged.md)");
+    expect(result).not.toContain("untagged");
   });
 });
 

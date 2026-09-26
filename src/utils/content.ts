@@ -1,7 +1,5 @@
 import { execSync } from "node:child_process";
 
-import getReadingTime from "reading-time";
-
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
   day: "numeric",
   month: "short",
@@ -40,6 +38,8 @@ export const cleanMarkdownForReadingTime = (markdown: string) => {
     .replaceAll(TWOSLASH_DIRECTIVE_REGEX, "");
 };
 
+const WORDS_PER_MINUTE = 200;
+
 /**
  * Estimate reading time for a given text.
  *
@@ -50,9 +50,11 @@ export const cleanMarkdownForReadingTime = (markdown: string) => {
 export const readingTime = (text: string) => {
   if (!text) return 0;
 
-  const { minutes } = getReadingTime(cleanMarkdownForReadingTime(text));
+  const words = cleanMarkdownForReadingTime(text)
+    .split(/\s+/)
+    .filter(Boolean).length;
 
-  return Math.max(1, Math.round(minutes));
+  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
 };
 
 /**
@@ -91,10 +93,15 @@ export const lastModified = (filePath: string) => {
     const gitCommand = `git log -1 --pretty="format:%cI" "${filePath}"`;
     const result = execSync(gitCommand).toString().trim();
     const date = new Date(result);
-    const isDateValid = date instanceof Date && !Number.isNaN(date.getTime());
 
-    return isDateValid ? date : undefined;
+    return Number.isNaN(date.getTime()) ? undefined : date;
   } catch {
     return undefined;
   }
+};
+
+export const shortTitle = (post: {
+  data: { shortTitle?: string; title: string };
+}) => {
+  return post.data.shortTitle ?? post.data.title;
 };

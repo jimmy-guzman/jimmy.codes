@@ -18,9 +18,9 @@ runs:
       uses: actions/cache@v6
       with:
         path: ~/.bun/install/cache
-        key: ${{ runner.os }}-${{ matrix.bun }}-bun-${{ hashFiles('**/bun.lockb') }}
+        key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
         restore-keys: |
-          ${{ runner.os }}-${{ matrix.bun }}-bun-
+          ${{ runner.os }}-bun-
 
     - name: 📦 Install deps
       run: bun install

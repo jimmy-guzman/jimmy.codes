@@ -37,24 +37,15 @@
   });
 
   document.addEventListener("DOMContentLoaded", () => {
-    const themeToggles = document.querySelectorAll(".theme-controller");
-
     setToggleStates(currentTheme);
 
-    themeToggles.forEach((toggle) => {
+    document.querySelectorAll(".theme-controller").forEach((toggle) => {
       toggle.addEventListener("change", () => {
-        const newTheme = toggle.checked ? "light" : "dark";
+        currentTheme = toggle.checked ? "light" : "dark";
 
-        currentTheme = newTheme;
-
-        document.documentElement.dataset.theme = newTheme;
-        localStorage.setItem("theme", newTheme);
-
-        themeToggles.forEach((otherToggle) => {
-          if (otherToggle !== toggle) {
-            otherToggle.checked = newTheme === "light";
-          }
-        });
+        localStorage.setItem("theme", currentTheme);
+        applyTheme(document, currentTheme);
+        setToggleStates(currentTheme);
       });
     });
   });

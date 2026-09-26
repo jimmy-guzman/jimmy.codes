@@ -34,64 +34,37 @@ export const getAllTags = (posts: { data: { tags?: string[] } }[]) => {
     .map(([tag, count]) => ({ count, tag }));
 };
 
-interface Options {
-  avgCharsPerLine?: number;
-  maxLines?: number;
-  overflowBadgeWidth?: number;
-  paddingPerTag?: number;
-}
-
-const DEFAULT_OPTIONS = {
-  avgCharsPerLine: 34,
-  maxLines: 2,
-  overflowBadgeWidth: 11,
-  paddingPerTag: 3,
-} satisfies Required<Options>;
+const AVG_CHARS_PER_LINE = 34;
+const MAX_LINES = 2;
+const OVERFLOW_BADGE_WIDTH = 11;
+const PADDING_PER_TAG = 3;
 
 /**
  * Estimate the maximum number of visible tags by simulating row wrapping.
  *
  * Tags are placed left-to-right onto rows. When a tag would overflow the
  * current row, it starts a new row. Once the number of rows exceeds
- * `maxLines`, the tag that caused the overflow (and everything after) is
+ * `MAX_LINES`, the tag that caused the overflow (and everything after) is
  * hidden. This mirrors how a `flex-wrap` layout actually behaves.
  *
  * When truncation occurs a "+N more" overflow badge is rendered after the
  * visible tags. The simulation reserves space for it on the last line —
  * if it wouldn't fit, tags are removed one-by-one until it does. The
  * returned count is always in the range [0, tags.length] and never
- * exceeds the `maxLines` constraint.
+ * exceeds the `MAX_LINES` constraint.
  *
  * @param tags Array of tags with their counts
  *
- * @param options Optional settings for the estimation
- *
- * @param options.avgCharsPerLine Average characters that fit per row (default: 34)
- *
- * @param options.maxLines Maximum number of lines before truncating (default: 2)
- *
- * @param options.paddingPerTag Horizontal padding/gap overhead per tag in chars (default: 3)
- *
- * @param options.overflowBadgeWidth Width in chars of the "+N more" overflow badge (default: 11)
- *
  * @returns Estimated maximum number of visible tags
  */
-export const guessMaxVisible = (
-  tags: { count: number; tag: string }[],
-  options?: Options,
-) => {
-  const { avgCharsPerLine, maxLines, paddingPerTag, overflowBadgeWidth } = {
-    ...DEFAULT_OPTIONS,
-    ...options,
-  };
-
+export const guessMaxVisible = (tags: { count: number; tag: string }[]) => {
   let lineChars = 0;
   let prevLineChars = 0;
   let lines = 1;
 
   const visibleCount = tags.findIndex(({ tag }) => {
-    const tagWidth = tag.length + paddingPerTag;
-    const wraps = lineChars + tagWidth > avgCharsPerLine;
+    const tagWidth = tag.length + PADDING_PER_TAG;
+    const wraps = lineChars + tagWidth > AVG_CHARS_PER_LINE;
 
     if (wraps) {
       lines++;
@@ -101,7 +74,7 @@ export const guessMaxVisible = (
       lineChars += tagWidth;
     }
 
-    return lines > maxLines;
+    return lines > MAX_LINES;
   });
 
   const truncated = visibleCount !== -1;
@@ -109,8 +82,9 @@ export const guessMaxVisible = (
 
   if (count < tags.length) {
     const lastLineChars =
-      truncated && lines > maxLines ? prevLineChars : lineChars;
-    const badgeOverflows = lastLineChars + overflowBadgeWidth > avgCharsPerLine;
+      truncated && lines > MAX_LINES ? prevLineChars : lineChars;
+    const badgeOverflows =
+      lastLineChars + OVERFLOW_BADGE_WIDTH > AVG_CHARS_PER_LINE;
 
     if (badgeOverflows) {
       // Re-simulate with fewer tags until the overflow badge fits on the last line.
@@ -118,14 +92,14 @@ export const guessMaxVisible = (
       for (let n = count - 1; n >= 0; n--) {
         let lc = 0;
         for (let i = 0; i < n; i++) {
-          const w = tags[i].tag.length + paddingPerTag;
-          if (lc + w > avgCharsPerLine) {
+          const w = tags[i].tag.length + PADDING_PER_TAG;
+          if (lc + w > AVG_CHARS_PER_LINE) {
             lc = w;
           } else {
             lc += w;
           }
         }
-        if (lc + overflowBadgeWidth <= avgCharsPerLine) {
+        if (lc + OVERFLOW_BADGE_WIDTH <= AVG_CHARS_PER_LINE) {
           return n;
         }
       }
