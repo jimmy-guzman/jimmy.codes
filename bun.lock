@@ -22,7 +22,7 @@
         "@emnapi/runtime": "1.11.3",
         "@iconify-json/devicon": "1.2.68",
         "@iconify-json/logos": "1.2.14",
-        "@iconify-json/lucide": "1.2.137",
+        "@iconify-json/lucide": "1.2.142",
         "@iconify-json/simple-icons": "1.2.97",
         "@iconify-json/skill-icons": "1.2.4",
         "@iconify/tailwind4": "1.2.3",
@@ -527,7 +527,7 @@
 
     "@iconify-json/logos": ["@iconify-json/logos@1.2.14", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-O36DicXkgAMT6NAsH7MTWlOql8NktHz9fBCItTjz6L/9gyRXw4vQj6qTeVgww5UZWiVugUV1MhVFA/g9HWIkBw=="],
 
-    "@iconify-json/lucide": ["@iconify-json/lucide@1.2.137", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-uKz1+tFbv1RFX/mJQNksdnyKJijNfRGSNnxfiyKtr+dLNfA3ERph+IgpXClKGOlV/5GsZwLv2jgJXQ/bjF/JAg=="],
+    "@iconify-json/lucide": ["@iconify-json/lucide@1.2.142", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-vEGX5X52/l77jRMcmxXk3PiEebldDUs8WFdM8X3Evq1S9p5F+o0VZhx8sqaQsmFEB9Ukp5ND5Q/0g2kQ/LF+rQ=="],
 
     "@iconify-json/simple-icons": ["@iconify-json/simple-icons@1.2.97", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-Z6PmM6jvWVU7rmLzqbxCLJA7SeqCnK6lMHXtjyzHPLZebwuoojBEcHHycppahDzEeN9xujRkrV5J8QpOhMyNrg=="],
 
