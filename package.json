@@ -58,7 +58,7 @@
     "@tailwindcss/typography": "0.5.20",
     "@tailwindcss/vite": "4.3.3",
     "@total-typescript/ts-reset": "0.6.1",
-    "@types/bun": "1.4.3",
+    "@types/bun": "1.4.4",
     "@types/node": "26.6.5",
     "@types/react": "19.3.0",
     "@vercel/og": "1.0.1",
@@ -88,7 +88,7 @@
     "vitest": "5.0.5",
     "yaml": "3.0.0-2"
   },
-  "packageManager": "bun@1.4.3",
+  "packageManager": "bun@1.4.4",
   "trustedDependencies": [
     "@tailwindcss/oxide",
     "esbuild",
