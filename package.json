@@ -66,7 +66,7 @@
     "@vite-pwa/astro": "1.2.0",
     "@vitest/coverage-v8": "5.0.5",
     "astro": "7.4.1",
-    "astro-expressive-code": "0.44.2",
+    "astro-expressive-code": "0.44.3",
     "daisyui": "5.7.50",
     "expressive-code-twoslash": "0.6.1",
     "knip": "6.42.1",
