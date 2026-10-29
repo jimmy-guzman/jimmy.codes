@@ -40,7 +40,7 @@ const hasMoreTags = tags.length > visible;
   {hasMoreTags && (
     <a
       href="/blog/tags"
-      class="badge badge-outline transition-colors duration-150 ease-in-out hover:badge-soft focus-visible:ring-1 focus-visible:ring-base-content focus-visible:outline-none"
+      class="badge badge-outline hover:badge-soft focus-visible:ring-base-content transition-colors duration-150 ease-in-out focus-visible:ring-1 focus-visible:outline-none"
       data-astro-prefetch
     >
       +{tags.length - visible} more

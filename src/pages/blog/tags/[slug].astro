@@ -59,7 +59,7 @@ const pageDescription = `All blog posts tagged with "${originalTag}"`;
                 {shortTitle(post)}
               </a>
               <MetaLine
-                class="block text-sm text-muted"
+                class="text-muted block text-sm"
                 publishDate={post.data.publishDate}
                 minutes={readingTime(post.body ?? "")}
               />

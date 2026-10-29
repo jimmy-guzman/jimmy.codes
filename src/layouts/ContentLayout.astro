@@ -48,7 +48,7 @@ const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
 ---
 
 <section class="flex items-center justify-between">
-  <p class="text-sm text-muted">
+  <p class="text-muted text-sm">
     <MetaLine publishDate={publishDate} minutes={minutes} />
   </p>
   <BlogShare {...share} />
@@ -69,7 +69,7 @@ const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
         sizes="(max-width: 768px) 400px, (min-resolution: 2dppx) 1392px, 696px"
         format="webp"
       />
-      <figcaption class="text-xs text-muted">
+      <figcaption class="text-muted text-xs">
         Image crafted by robots
       </figcaption>
     </figure>
@@ -91,7 +91,7 @@ const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
   </ul>
 </aside>
 
-<p class="mt-8 text-muted">
+<p class="text-muted mt-8">
   Questions or feedback?
   <a href={`${urls.email}?subject=${emailSubject}`}>Send me an email</a>.
 </p>
@@ -99,14 +99,14 @@ const srcImage = images[`/src/assets/images/posts/${slug}.png`]?.default;
 <!-- biome-ignore lint/a11y/useAnchorContent: false positive in 2.5.14, aria-label is ignored -->
 <a
   href="#page-title"
-  class="btn fixed right-6 bottom-6 btn-circle btn-ghost shadow-lg"
+  class="btn btn-circle btn-ghost fixed right-6 bottom-6 shadow-lg"
   aria-label="Back to top"
 >
   <span class="icon-[lucide--arrow-up] h-4 w-4" aria-hidden="true"></span>
 </a>
 
 {updatedDate && (
-  <section class="mt-8 flex justify-end text-sm text-muted">
+  <section class="text-muted mt-8 flex justify-end text-sm">
     <LastModified updatedDate={updatedDate} filePath={filePath} />
   </section>
 )}
