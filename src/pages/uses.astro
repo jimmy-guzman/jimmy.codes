@@ -20,7 +20,7 @@ const { Content } = await render(page);
   alternates={[{ path: "/uses.md", type: "text/markdown" }]}
 >
   <PageLayout heading={page.data.heading}>
-    <article class="prose max-w-none prose-neutral dark:prose-invert">
+    <article class="prose prose-neutral dark:prose-invert max-w-none">
       <Content />
     </article>
 
@@ -29,7 +29,7 @@ const { Content } = await render(page);
     <section class="not-prose">
       <div class="mt-6 mb-6 flex flex-wrap justify-end gap-4">
         {Object.entries(usageBadge).map(([, { label, dot }]) => (
-          <span class="flex items-center gap-1.5 text-xs text-muted">
+          <span class="text-muted flex items-center gap-1.5 text-xs">
             <span
               class:list={["inline-block h-2 w-2 shrink-0 rounded-full", dot]}
             />
@@ -40,7 +40,7 @@ const { Content } = await render(page);
       <div class="grid gap-10 sm:grid-cols-3" id="technologies">
         {techSections.map(({ title, items }) => (
           <div class="space-y-3" id={title.toLowerCase().replace(/\s+/g, "-")}>
-            <h2 class="text-sm font-medium tracking-wider text-muted uppercase">
+            <h2 class="text-muted text-sm font-medium tracking-wider uppercase">
               {title}
             </h2>
             <ul class="not-prose space-y-2">

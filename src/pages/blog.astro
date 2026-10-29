@@ -33,7 +33,7 @@ const tags = getAllTags(posts);
               {shortTitle(post)}
             </a>
             <MetaLine
-              class="text-sm text-muted"
+              class="text-muted text-sm"
               publishDate={post.data.publishDate}
               minutes={readingTime(post.body ?? "")}
             />
@@ -42,11 +42,9 @@ const tags = getAllTags(posts);
       </ul>
     </section>
     <section class="mt-8">
-      <p class="text-center text-xs text-muted">
+      <p class="text-muted text-center text-xs">
         Also available via{" "}
-        <a href="/blog/rss.xml" class="link">
-          RSS
-        </a>
+        <a href="/blog/rss.xml" class="link"> RSS </a>
       </p>
     </section>
   </PageLayout>

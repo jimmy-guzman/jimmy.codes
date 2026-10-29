@@ -59,7 +59,7 @@ const platforms = [
 >
   <button
     type="button"
-    class="btn gap-2 btn-ghost text-muted btn-sm"
+    class="btn btn-ghost text-muted btn-sm gap-2"
     data-share-open
     onclick="document.getElementById('share-dialog').showModal()"
   >
@@ -74,10 +74,10 @@ const platforms = [
   class="not-prose modal modal-bottom sm:modal-middle"
   aria-labelledby="share-dialog-title"
 >
-  <div class="modal-box w-fit border border-base-300 bg-base-100 shadow-sm">
+  <div class="modal-box border-base-300 bg-base-100 w-fit border shadow-sm">
     <h3
       id="share-dialog-title"
-      class="text-xs font-medium tracking-wider text-muted uppercase"
+      class="text-muted text-xs font-medium tracking-wider uppercase"
     >
       Share
     </h3>
@@ -103,9 +103,7 @@ const platforms = [
     </div>
   </div>
   <form method="dialog" class="modal-backdrop">
-    <button type="submit" aria-label="Close share dialog">
-      close
-    </button>
+    <button type="submit" aria-label="Close share dialog">close</button>
   </form>
 </dialog>
 

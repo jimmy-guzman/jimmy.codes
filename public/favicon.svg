@@ -10,19 +10,19 @@
 >
   <title>Jimmy Guzman Moreno</title>
   <style>
-  :root {
-    color-scheme: light dark;
-  }
-
-  .terminal-stroke {
-    stroke: #1a1a1a;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .terminal-stroke {
-      stroke: #e5e5e5;
+    :root {
+      color-scheme: light dark;
     }
-  }
+
+    .terminal-stroke {
+      stroke: #1a1a1a;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .terminal-stroke {
+        stroke: #e5e5e5;
+      }
+    }
   </style>
   <path class="terminal-stroke" d="M3 6 L9 12 L3 18" fill="none" />
   <line class="terminal-stroke" x1="12" y1="18" x2="18" y2="18" />
