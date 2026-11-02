@@ -6,9 +6,9 @@
       "@/*": ["./src/*"]
     },
     "types": [
-      "vite-plugin-pwa/client",
-      "vite-plugin-pwa/info",
-      "vite-plugin-pwa/pwa-assets"
+      "@unplugin-pwa/core/client",
+      "@unplugin-pwa/core/info",
+      "@unplugin-pwa/core/pwa-assets"
     ]
   },
   "exclude": ["dist", "coverage"],

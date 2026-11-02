@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 import { transformerColorizedBrackets } from "@shikijs/colorized-brackets";
 import tailwindcss from "@tailwindcss/vite";
-import AstroPWA from "@vite-pwa/astro";
+import { AstroPWAIntegration } from "@vite-pwa/astro";
 import {
   defineConfig,
   envField,
@@ -81,7 +81,10 @@ export default defineConfig({
     // Disable PWA assets generation during knip analysis
     process.env.KNIP === "true"
       ? undefined
-      : AstroPWA({
+      : AstroPWAIntegration({
+          generateSW: {
+            navigateFallback: "/404",
+          },
           manifest: {
             background_color: "#f9f9fb",
             display: "standalone",
@@ -96,9 +99,6 @@ export default defineConfig({
             config: true,
           },
           registerType: "autoUpdate",
-          workbox: {
-            navigateFallback: "/404",
-          },
         }),
   ],
   markdown: {
