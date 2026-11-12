@@ -17,7 +17,7 @@
         "@commitlint/types": "21.2.3",
         "@emnapi/runtime": "1.11.3",
         "@expressive-code/core": "0.44.3",
-        "@iconify-json/devicon": "1.2.76",
+        "@iconify-json/devicon": "1.2.80",
         "@iconify-json/logos": "1.2.18",
         "@iconify-json/lucide": "1.2.150",
         "@iconify-json/simple-icons": "1.2.101",
@@ -299,7 +299,7 @@
 
     "@humanwhocodes/retry": ["@humanwhocodes/retry@0.4.3", "", {}, "sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ=="],
 
-    "@iconify-json/devicon": ["@iconify-json/devicon@1.2.76", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-vMVO5yoYnj2c3ldCtx+LH1K09GeoJUFYfSghzuXuBAu9GfSpgUL/HD9rNzOIBWDyqKI+gUc48GMujBnM8J+rBQ=="],
+    "@iconify-json/devicon": ["@iconify-json/devicon@1.2.80", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-DKcF2wiHDU/nmxgijUOvTXJAf4yhhVwUE8bPUav8o+Njws89FU/InnqyxjJyzuiler+vuNCCJqFfZ8WaG/WbnQ=="],
 
     "@iconify-json/logos": ["@iconify-json/logos@1.2.18", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-Qehd7RmUbYM4LSXNHFqulgvmdmqldOxQ3VDbCmzos5IGlo40+cChVdX7GnG9VODBU0H3+Bb8npYOkplooJZvtQ=="],
 
