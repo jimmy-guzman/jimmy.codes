@@ -63,7 +63,7 @@
     "@vite-pwa/assets-generator": "2.0.0",
     "@vite-pwa/astro": "2.0.0",
     "@vitest/coverage-v8": "5.0.5",
-    "astro": "7.4.5",
+    "astro": "7.4.7",
     "astro-expressive-code": "0.44.3",
     "astro-mermaid": "2.2.0",
     "daisyui": "5.7.50",
