@@ -44,7 +44,7 @@
     "@commitlint/types": "21.2.3",
     "@emnapi/runtime": "1.11.3",
     "@expressive-code/core": "0.44.4",
-    "@iconify-json/devicon": "1.2.84",
+    "@iconify-json/devicon": "1.2.85",
     "@iconify-json/logos": "1.2.21",
     "@iconify-json/lucide": "1.2.159",
     "@iconify-json/simple-icons": "1.2.104",
