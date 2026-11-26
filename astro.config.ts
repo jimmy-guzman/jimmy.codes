@@ -12,13 +12,13 @@ import {
   svgoOptimizer,
 } from "astro/config";
 import expressiveCode from "astro-expressive-code";
-import mermaid from "astro-mermaid";
 import expressiveCodeTwoSlash from "expressive-code-twoslash";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeCallouts from "rehype-callouts";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeSlug from "rehype-slug";
 import rehypeUnwrapImages from "rehype-unwrap-images";
+import { remarkPele } from "./src/utils/remark-pele";
 
 const vercelUrl = process.env.VERCEL_URL;
 const vercelEnv = process.env.VERCEL_ENV;
@@ -61,7 +61,6 @@ export default defineConfig({
         ],
 
   integrations: [
-    mermaid({ autoTheme: true }),
     expressiveCode({
       plugins: [expressiveCodeTwoSlash()],
       shiki: { transformers: [transformerColorizedBrackets()] },
@@ -143,6 +142,7 @@ export default defineConfig({
           },
         ],
       ],
+      remarkPlugins: [remarkPele],
     }),
   },
   prefetch: true,
