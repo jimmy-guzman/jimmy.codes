@@ -198,3 +198,16 @@ h2,
 h3 {
   font-weight: 500;
 }
+
+.pele {
+  --pele-bg: var(--color-base-100);
+  --pele-fg: var(--color-base-content);
+  --pele-muted: var(--color-muted);
+  --pele-line: var(--color-base-content);
+  --pele-surface: var(--color-base-200);
+  --pele-surface-alt: var(--color-base-300);
+  --pele-border: var(--color-neutral);
+  --pele-accent: var(--color-primary);
+  --pele-font: var(--font-mono);
+  --pele-radius: var(--radius-field);
+}
