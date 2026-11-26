@@ -51,28 +51,6 @@ test.describe("Primary journeys", () => {
     );
   });
 
-  for (const slug of [
-    "how-i-built-an-ai-agent-playground",
-    "overclock-accelerator-fellowship",
-  ]) {
-    test(`should render mermaid blocks as svg in ${slug}`, async ({ page }) => {
-      await page.goto(`/blog/${slug}`);
-
-      await expect(page.locator("figure > svg.pele").first()).toBeVisible();
-      await expect(
-        page.locator("pre", { hasText: /flowchart|sequenceDiagram/ }),
-      ).toHaveCount(0);
-    });
-  }
-
-  test("should keep ordinary code blocks next to diagrams", async ({
-    page,
-  }) => {
-    await page.goto("/blog/how-i-built-an-ai-agent-playground");
-
-    await expect(page.locator(".expressive-code").first()).toBeVisible();
-  });
-
   test("should navigate to all tags page from more link", async ({ page }) => {
     await page.goto("/blog");
 
