@@ -19,7 +19,7 @@
         "@expressive-code/core": "0.44.4",
         "@iconify-json/devicon": "1.2.84",
         "@iconify-json/logos": "1.2.21",
-        "@iconify-json/lucide": "1.2.159",
+        "@iconify-json/lucide": "1.2.161",
         "@iconify-json/simple-icons": "1.2.104",
         "@iconify-json/skill-icons": "1.2.4",
         "@iconify/tailwind4": "1.2.3",
@@ -299,7 +299,7 @@
 
     "@iconify-json/logos": ["@iconify-json/logos@1.2.21", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-iGTg0qaVfEvrmz7Cml9zDlv8S5wSOjn9Jg4MoTml9o/GKpMDbeF/tgtbPfR7/0UhzMnBfmmiKeyG6hlR3KpaaA=="],
 
-    "@iconify-json/lucide": ["@iconify-json/lucide@1.2.159", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-rE8dHb2LRSR2Vl6L6LspAJ83uPNKOIbEE8BLLo/ObQT8xHIEE3zmwIpO9LcZPjTsEnICSxWPFJcJ0Q38nxuZPw=="],
+    "@iconify-json/lucide": ["@iconify-json/lucide@1.2.161", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-vqnIm6PfUnSnfD1boZSS74iJbYOL+ckFczHNIGFKUQTIynz7E4RH8szrehBPjGIUe1SioCaXsRNgnamDeSAmDg=="],
 
     "@iconify-json/simple-icons": ["@iconify-json/simple-icons@1.2.104", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-WBozLa9oBsb6XuY+lnH7maIiYmabee0k276PvVVw+34oGAXNRnfJeilEOB4iQs2wFNU/8M/vQFVy66SHGJaDRw=="],
 
