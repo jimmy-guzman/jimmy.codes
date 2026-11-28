@@ -66,7 +66,7 @@
     "@vitest/coverage-v8": "5.1.2",
     "astro": "7.4.13",
     "astro-expressive-code": "0.44.4",
-    "daisyui": "5.8.2",
+    "daisyui": "5.8.3",
     "expressive-code": "0.44.4",
     "expressive-code-twoslash": "0.6.1",
     "knip": "6.48.0",
