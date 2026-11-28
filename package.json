@@ -57,7 +57,7 @@
     "@total-typescript/ts-reset": "0.6.1",
     "@types/bun": "1.4.5",
     "@types/mdast": "4.0.4",
-    "@types/node": "26.6.10",
+    "@types/node": "26.6.11",
     "@types/react": "19.3.3",
     "@unplugin-pwa/core": "0.0.8",
     "@vercel/og": "1.0.1",
