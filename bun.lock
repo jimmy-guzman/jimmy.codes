@@ -32,7 +32,7 @@
         "@types/mdast": "4.0.4",
         "@types/node": "26.6.10",
         "@types/react": "19.3.3",
-        "@unplugin-pwa/core": "0.0.8",
+        "@unplugin-pwa/core": "0.0.9",
         "@vercel/og": "1.0.1",
         "@vite-pwa/assets-generator": "2.0.0",
         "@vite-pwa/astro": "2.0.4",
@@ -629,7 +629,7 @@
 
     "@ungap/structured-clone": ["@ungap/structured-clone@1.4.0", "", {}, "sha512-1mEZtMKPM09vDmQt5y7YvmN2+DFTP7Tg0EWXdic8/C6VRnpb33e4ghisCIE3WZjsE2N8mf+QV1Zqh7ZFYLWInQ=="],
 
-    "@unplugin-pwa/core": ["@unplugin-pwa/core@0.0.8", "", { "dependencies": { "@vite-pwa/workbox-build": "^8.0.15", "@vite-pwa/workbox-window": "^8.0.15", "hookable": "^6.1.2" }, "peerDependencies": { "@vite-pwa/assets-generator": "^1.0.0 || ^2.0.0", "rolldown": "^1.0.0-0", "vite": "^3.1.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0" }, "optionalPeers": ["@vite-pwa/assets-generator", "rolldown", "vite"] }, "sha512-2DTx1YE4VYMZ+Vz7idpFD3tgD7rp5T/Yw6KfwitkF0wkVGhgapPmNx+nysWx7N1tOCztOl11incecCASjqFsPA=="],
+    "@unplugin-pwa/core": ["@unplugin-pwa/core@0.0.9", "", { "dependencies": { "@vite-pwa/workbox-build": "^8.0.15", "@vite-pwa/workbox-window": "^8.0.15", "hookable": "^6.1.2" }, "peerDependencies": { "@vite-pwa/assets-generator": "^1.0.0 || ^2.0.0", "rolldown": "^1.0.0-0", "vite": "^3.1.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0" }, "optionalPeers": ["@vite-pwa/assets-generator", "rolldown", "vite"] }, "sha512-iQasmoKbfZxDSGPgLY43JYcaVIl7Hyl7KrimFBxVBpLTtz2uOzYFRCywKCB4S28Pudz46wo4OoihyPntC5PKqQ=="],
 
     "@unplugin-pwa/inspector": ["@unplugin-pwa/inspector@0.0.8", "", {}, "sha512-jCBGYa0W5j/5ayO/wjfIGBN1HSP9/LNQtwvpGG1D9+ucfCZYWRHs6xWPVp5TpAsO+fwKI4N+fh0npvUylZBUJg=="],
 
@@ -1839,7 +1839,11 @@
 
     "@typescript-eslint/typescript-estree/minimatch": ["minimatch@10.2.6", "", { "dependencies": { "brace-expansion": "^5.0.8" } }, "sha512-vpLQEs+VLCr1nU0BXS07maYoFwlDAH0gngQuuttxIwutDFEMHq2blX+8vpgxDdK3J1PwjCJiep77OitTZ4Ll1A=="],
 
+    "@unplugin-pwa/vite/@unplugin-pwa/core": ["@unplugin-pwa/core@0.0.8", "", { "dependencies": { "@vite-pwa/workbox-build": "^8.0.15", "@vite-pwa/workbox-window": "^8.0.15", "hookable": "^6.1.2" }, "peerDependencies": { "@vite-pwa/assets-generator": "^1.0.0 || ^2.0.0", "rolldown": "^1.0.0-0", "vite": "^3.1.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0" }, "optionalPeers": ["@vite-pwa/assets-generator", "rolldown", "vite"] }, "sha512-2DTx1YE4VYMZ+Vz7idpFD3tgD7rp5T/Yw6KfwitkF0wkVGhgapPmNx+nysWx7N1tOCztOl11incecCASjqFsPA=="],
+
     "@vercel/nft/estree-walker": ["estree-walker@2.0.2", "", {}, "sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w=="],
+
+    "@vite-pwa/astro/@unplugin-pwa/core": ["@unplugin-pwa/core@0.0.8", "", { "dependencies": { "@vite-pwa/workbox-build": "^8.0.15", "@vite-pwa/workbox-window": "^8.0.15", "hookable": "^6.1.2" }, "peerDependencies": { "@vite-pwa/assets-generator": "^1.0.0 || ^2.0.0", "rolldown": "^1.0.0-0", "vite": "^3.1.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0" }, "optionalPeers": ["@vite-pwa/assets-generator", "rolldown", "vite"] }, "sha512-2DTx1YE4VYMZ+Vz7idpFD3tgD7rp5T/Yw6KfwitkF0wkVGhgapPmNx+nysWx7N1tOCztOl11incecCASjqFsPA=="],
 
     "@vscode/emmet-helper/jsonc-parser": ["jsonc-parser@2.3.1", "", {}, "sha512-H8jvkz1O50L3dMZCsLqiuB2tA7muqbSg1AtGEkN0leAqGjsUzDJir3Zwr02BhqdcITPg3ei3mZ+HjMocAknhhg=="],
 

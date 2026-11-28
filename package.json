@@ -59,7 +59,7 @@
     "@types/mdast": "4.0.4",
     "@types/node": "26.6.10",
     "@types/react": "19.3.3",
-    "@unplugin-pwa/core": "0.0.8",
+    "@unplugin-pwa/core": "0.0.9",
     "@vercel/og": "1.0.1",
     "@vite-pwa/assets-generator": "2.0.0",
     "@vite-pwa/astro": "2.0.4",
